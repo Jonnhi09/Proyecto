@@ -1,6 +1,7 @@
 # base-proyectos
 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c42353620eed40daaf4102f82214411e)](https://www.codacy.com/app/hectorateci/base-proyectos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=PDSW-ECI/base-proyectos&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3a968b35790d4a0aa22b46c354dcc184)](https://www.codacy.com/app/Blackphantom96/Proyecto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Proyecto-PDSW/Proyecto&amp;utm_campaign=Badge_Grade)
 
-[![CircleCI](https://circleci.com/gh/PDSW-ECI/base-proyectos.svg?style=svg)](https://circleci.com/gh/PDSW-ECI/base-proyectos)
+[![CircleCI](https://circleci.com/gh/Proyecto-PDSW/Proyecto.svg?style=svg)](https://circleci.com/gh/Proyecto-PDSW/Proyecto)
+
