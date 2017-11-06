@@ -5,6 +5,8 @@
  */
 package com.projectKepler.services.entities;
 
+import java.util.List;
+
 /**
  *
  * @author danielagonzalez
@@ -12,6 +14,7 @@ package com.projectKepler.services.entities;
 public class ConsejeroAcademico {
     private String nombre;
     private int codigo;
+    private List<Estudiante> estudiantes;
 
     public ConsejeroAcademico(String nombre, int codigo) {
         this.nombre = nombre;
@@ -33,4 +36,14 @@ public class ConsejeroAcademico {
     public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
+
+    public List<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(List<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }
+    
+    
 }

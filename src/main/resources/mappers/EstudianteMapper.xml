@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.projectKepler.persistence.mybatis.mappers.CoordinadorMapper">
+    <select parameterType="map" id="loadAllEstudiantes" resultMap="EstudianteResult"> 
+        select
+
+            codigo as Estudiante_codigo,
+            nombre as Estudiante_nombre,
+            programa as Estudiante_programa,
+            doblePrograma as Estudiante_doblePrograma,
+            numeroPlanEstudio as Estudiante_numeroPlanEstudio, 
+            numeroMatriculas as Estudiante_numeroMatriculas,
+            correo as Estudiante_correo,
+            ConsejeroAcademico_codigo as Estudiante_ConsejeroAcademico_codigo,
+            Acudiente_correo as Estudiante_Acudiente_correo,
+            CoordinadorCancelaciones_codigo as Estudiante_CoordinadorCancelaciones_codigo,
+
+            s.numero as Solicitud_numero,
+            s.justificacion as Solicitud_justificacion,
+            s.impacto as Solicitud_impacto,
+            s.proyeccion as Solicitud_proyeccion,
+            s.comentarios as Solicitud_comentarios,
+            s.estado as Solicitud_estado,
+            s. acuseRecibo as Solicitud_acuseRecibo,
+            s.Asignatura_Cancelar as Solicitud_Asignatura_Cancelar,
+            s.avalConsejero as Solicitud_avalConsejero, 
+            s.Estudiante_codigo as Solicitud_Estudiante_codigo,
+        
+            a.nemonico as Asignatura_nemonico,
+            a.nombre as Asignatura_nombre,
+            a.programa as Asignatura_programa,
+            a.cancelada as Asignatura_cancelada,
+            a.perdida as Asignatura_perdida
+        
+            ac.nombre as Acudiente_nombre,
+            ac.correo as Acudiente_correo
+        
+        FROM  Estudiante left join Solicitud as s on s.Estudiante_codigo=codigo left join Asignatura as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo 
+    </select>
+    
+    <resultMap type='Estudiante' id='EstudianteResult' >
+        <id property='codigo' column='codigo'/> 
+        <result property='nombre' column='nombre'/>
+        <result property='numeroPlanEstudio' column='numeroPlanEstudio'/>
+        <result property='numeroMatriculas' column='numeroMatriculas'/>
+        <result property='correo' column='correo'/>
+        <association property="acudiente" javaType="Acudiente" columnPrefix="Acudiente_" resultMap="AcudienteResult" />
+        <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/> 
+    </resultMap>
+    
+    <resultMap type='Solicitud' id='SolicitudResult' >
+        <id property='numero' column='numero'/> 
+        <result property='justificacion' column='justificacion'/>
+        <result property='impacto' column='impacto'/>
+        <result property='proyeccion' column='proyeccion'/>
+        <result property='comentariosConsejero' column='comentarios'/>
+        <result property='estado' column='estado'/>
+        <result property='acuseRecibo' column='AcuseRecibo'/>
+        <association property="asignatura" javaType="Asignatura" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+        <result property='avalConsejero' column='avalConsejero'/>
+    </resultMap>
+    
+    <resultMap type='Asignatura' id='AsignaturaResult' >
+        <id property='nemonico' column='nemonico'/> 
+        <result property='nombre' column='nombre'/>
+        <result property='programa' column='programa'/>
+        <result property='numCancelaciones' column='cancelada'/>
+        <result property='numPerdidas' column='perdida'/>
+    </resultMap>
+    
+    <resultMap type='Acudiente' id='AcudienteResult' >
+        <id property='correo' column='correo'/> 
+        <result property='nombre' column='nombre'/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/> 
+    </resultMap>
+</mapper>

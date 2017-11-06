@@ -9,17 +9,12 @@ import java.util.List;
 
 /**
  *
- * @author danielagonzalez
+ * @author diana
  */
-public class CoordinadorCancelaciones {
+public class Acudiente {
     private String nombre;
-    private int codigo;
+    private String correo;
     private List<Estudiante> estudiantes;
-
-    public CoordinadorCancelaciones(String nombre, int codigo) {
-        this.nombre = nombre;
-        this.codigo = codigo;
-    }
     
     public String getNombre() {
         return nombre;
@@ -29,14 +24,14 @@ public class CoordinadorCancelaciones {
         this.nombre = nombre;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
-    
+
     public List<Estudiante> getEstudiantes() {
         return estudiantes;
     }
@@ -44,4 +39,6 @@ public class CoordinadorCancelaciones {
     public void setEstudiantes(List<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
+    
+    
 }

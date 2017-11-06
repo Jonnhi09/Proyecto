@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    
     <settings>
         <setting name="logImpl" value="LOG4J"/>        
     </settings>
@@ -13,16 +12,17 @@
         <typeAlias type='com.projectKepler.services.entities.CoordinadorCancelaciones' alias='CoordinadorCancelaciones'/>
         <typeAlias type='com.projectKepler.services.entities.Acudiente' alias='Acudiente'/>
         <typeAlias type='com.projectKepler.services.entities.Estudiante' alias='Estudiante'/>
-    </typeAliases>
-                         
+    </typeAliases>             
+    
+    
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver" />
-                <property name="url" value="jdbc:mysql://desarrollo.is.escuelaing.edu.co:3306/bdprueba" />
-                <property name="username" value="bdprueba" />
-                <property name="password" value="bdprueba" />
+                <property name="driver" value="org.h2.Driver" />
+                <property name="url" value="jdbc:h2:file:./target/db/testdb;MODE=MYSQL" />
+                <property name="username" value="anonymous" />
+                <property name="password" value="anonymous" />
             </dataSource>
         </environment>
     </environments>
@@ -31,9 +31,17 @@
         <mapper resource="mappers/ConsejeroMapper.xml"></mapper>       
         <mapper resource="mappers/CoordinadorMapper.xml"></mapper>     
         <mapper resource="mappers/Acudiente.xml"></mapper>     
-        <mapper resource="mappers/Estudiante.xml"></mapper>     
-
+        <mapper resource="mappers/Estudiante.xml"></mapper> 
     </mappers> 
         
-        
-</configuration>
+</configuration><?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<root>
+    
+</root>
