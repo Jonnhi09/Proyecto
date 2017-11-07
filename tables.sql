@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-11-06 20:56:11.718
+-- Last modification date: 2017-11-07 21:43:39.679
 
 -- tables
 -- Table: Acudiente
@@ -15,7 +15,6 @@ CREATE TABLE Asignatura (
     nombre varchar(100)  NULL,
     programa varchar(100)  NULL,
     cancelada int  NULL,
-    perdida int  NULL,
     CONSTRAINT Asignatura_pk PRIMARY KEY (nemonico)
 );
 
@@ -38,8 +37,6 @@ CREATE TABLE Estudiante (
     codigo int  NOT NULL,
     nombre varchar(100)  NULL,
     programa varchar(10000)  NOT NULL,
-    doblePrograma varchar(10000)  NULL,
-    numeroPlanEstudio int  NULL,
     numeroMatriculas int  NULL,
     correo varchar(50)  NOT NULL,
     ConsejeroAcademico_codigo int  NOT NULL,
@@ -99,6 +96,8 @@ ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Estudiante
     NOT DEFERRABLE 
 ;
 
+-- End of file.
+
 --Poblar Consejero academico 
 INSERT INTO ConsejeroAcademico VALUES ('Claudia',231831);
 INSERT INTO ConsejeroAcademico VALUES ('Camilo',313131);
@@ -107,9 +106,9 @@ INSERT INTO ConsejeroAcademico VALUES ('Camilo',313131);
 INSERT INTO CoordinadorCancelaciones VALUES (428131,'Laura');
 
 -- Poblar Asignatura
-INSERT INTO Asignatura VALUES ('PRON', 'Procesos de Negocio', 'Ingenieria de sistemas', 0, 0);
-INSERT INTO Asignatura VALUES ('POOB', 'Programacion Orientada a Objetos', 'Ingenieria de sistemas', 1, 0);
-INSERT INTO Asignatura VALUES ('ARQC', 'Arquitectura del computador', 'Ingenieria de sistemas', 0, 1);
+INSERT INTO Asignatura VALUES ('PRON', 'Procesos de Negocio', 'Ingenieria de sistemas', 0);
+INSERT INTO Asignatura VALUES ('POOB', 'Programacion Orientada a Objetos', 'Ingenieria de sistemas', 1);
+INSERT INTO Asignatura VALUES ('ARQC', 'Arquitectura del computador', 'Ingenieria de sistemas', 0);
 
 -- Poblar Acudiente 
 INSERT INTO Acudiente VALUES ('Yolanda','yolanda@gmail.com');
@@ -175,7 +174,7 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "estado":"C"
         }
     ]
-}', null, 13, 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131); 
+}', 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131); 
 INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
     "programa": "ing. sistemas",
     "vertion": 13,        
@@ -235,7 +234,7 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
             "estado":"C"
         }
     ]
-}', null, 13, 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131);
+}', 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131);
 INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
     "programa": "ing. sistemas",
     "vertion": 13,        
@@ -295,7 +294,7 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
             "estado":"C"
         }
     ]
-}', null, 13, 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131);
+}', 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131);
 
 -- Poblar Solicitud--
 INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las otras materias','Se necesitaria un semestre adicional','PRON,FRED,SOPC,FGPR,ESTI y una electiva',
@@ -303,8 +302,4 @@ INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las
 INSERT INTO Solicitud VALUES (2,'Tengo muy bajita la nota y no me quiero arriesgar a perderla','Necesitaria dos semestres adicionales','POOB,ARQC,PDIS,PRON,ACFI',
                             'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,'POOB',true,173183);
 INSERT INTO Solicitud VALUES (3,'No le entiendo al profesor','Necesitarian dos semestres adicionales','ARQC,PDIS,ACFI,PRON,POOB',
-                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'ARQC',true,173183);      
-
-
-
--- End of file.
+                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'ARQC',true,173183); 

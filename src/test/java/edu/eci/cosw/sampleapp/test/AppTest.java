@@ -7,6 +7,7 @@ import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.ConsejeroAcademico;
 import com.projectKepler.services.entities.Estudiante;
 import java.util.List;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 
@@ -21,17 +22,15 @@ public class AppTest {
     }
     
     @Test
-    public void sampleTest() {
+    public void consultarProgramaTest (){
         String programa="";
         try{
             programa=servicios.consultarProgramaById(173183);
         }catch (ExcepcionServiciosCancelaciones e){
             
         }
-        System.out.println(programa);
-        
+        assertEquals(programa,"{ \"programa\": \"ing. sistemas\", \"vertion\": 13, \"courses\": [ { \"nombre\": \"PREM\", \"creditos\": 4, \"PreRec\": \"\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"A\" }, { \"nombre\": \"CALD\", \"creditos\": 4, \"preReq\": \"PREM\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"A\" }, { \"nombre\": \"CIED\", \"creditos\": 4, \"preReq\": \"CALD\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"V\" }, { \"nombre\": \"FFIS\", \"creditos\": 4, \"preReq\": \"\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"A\" }, { \"nombre\": \"FIMF\", \"creditos\": 4, \"preReq\": \"FFIS\", \"coReq\": \"CALD\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"A\" }, { \"nombre\": \"FIEM\", \"creditos\": 4, \"preReq\": \"FIMF\", \"coReq\": \"CIED\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"C\" } ] }");        
         
     }
-
 } 
 

@@ -16,13 +16,11 @@ import static javax.ws.rs.client.Entity.json;
 public class Estudiante {
     private int codigo;
     private String nombre;
-    private int numeroPlanEstudio;
     private int numeroMatriculas;
     private String correo;
     private Acudiente acudiente;
     private List<Solicitud> solicitudes;
-    private String programa;
-    private String doblePrograma;
+    private String planDeEstudios;
 
     public List<Solicitud> getSolicitudes() {
         return solicitudes;
@@ -48,12 +46,12 @@ public class Estudiante {
         this.nombre = nombre;
     }
 
-    public int getNumeroPlanEstudio() {
-        return numeroPlanEstudio;
+    public String getplanDeEstudios() {
+        return planDeEstudios;
     }
 
-    public void setNumeroPlanEstudio(int numeroPlanEstudio) {
-        this.numeroPlanEstudio = numeroPlanEstudio;
+    public void setplanDeEstudios(String planDeEstudios) {
+        this.planDeEstudios = planDeEstudios;
     }
 
     public int getNumeroMatriculas() {
@@ -78,23 +76,6 @@ public class Estudiante {
 
     public void setAcudiente(Acudiente acudiente) {
         this.acudiente = acudiente;
-    }
-
-    public String getPrograma() {
-        return programa;
-    }
-
-    public void setPrograma(String programa) {
-        this.programa = programa;
-    }
-
-    public String getDoblePrograma() {
-        return doblePrograma;
-    }
-
-    public void setDoblePrograma(String doblePrograma) {
-        this.doblePrograma = doblePrograma;
-    }
-    
+    }    
     
 }

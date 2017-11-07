@@ -13,6 +13,7 @@ import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.entities.Acudiente;
+import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.ConsejeroAcademico;
 import com.projectKepler.services.entities.CoordinadorCancelaciones;
 import com.projectKepler.services.entities.Estudiante;
@@ -38,22 +39,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public List<ConsejeroAcademico> consultarConsejerosAcademicos() throws ExcepcionServiciosCancelaciones{
-        List<ConsejeroAcademico> consejero=null;
-        
-        return consejero;
-    }
-    
-    @Transactional
-    @Override
-    public CoordinadorCancelaciones consultarCoordinador() throws ExcepcionServiciosCancelaciones{
-        CoordinadorCancelaciones coordinadorC=null;
-        
-        return coordinadorC;
-    }
-    
-    @Transactional
-    @Override
     public String consultarProgramaById(int codigo) throws ExcepcionServiciosCancelaciones {
         String programa="";
         try{
@@ -62,6 +47,21 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return programa;
+        
+    }
+
+    @Override
+    public List<Asignatura> consultarAsignaturasByIdEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones {
+        return null;
+    }
+
+    @Override
+    public String consultarImpactoByEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones {
+        return null;
+    }
+
+    @Override
+    public void actualizarJustificacionById(int id, String justificacion) throws ExcepcionServiciosCancelaciones {
         
     }
 

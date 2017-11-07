@@ -15,7 +15,6 @@ public class Asignatura {
     private String nombre;
     private String programa;
     private int numCancelaciones;
-    private int numPerdidas;
     
     public String getNemonico() {
         return nemonico;
@@ -47,14 +46,6 @@ public class Asignatura {
 
     public void setNumCancelaciones(int numCancelaciones) {
         this.numCancelaciones = numCancelaciones;
-    }
-
-    public int getNumPerdidas() {
-        return numPerdidas;
-    }
-
-    public void setNumPerdidas(int numPerdidas) {
-        this.numPerdidas = numPerdidas;
     }
     
 }

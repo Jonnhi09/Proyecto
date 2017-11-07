@@ -6,6 +6,7 @@
 package com.projectKepler.services;
 
 import com.projectKepler.services.entities.Acudiente;
+import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.ConsejeroAcademico;
 import com.projectKepler.services.entities.CoordinadorCancelaciones;
 import com.projectKepler.services.entities.Estudiante;
@@ -17,8 +18,9 @@ import java.util.List;
  */
 public interface ServiciosCancelaciones {
     
-    public abstract CoordinadorCancelaciones consultarCoordinador() throws ExcepcionServiciosCancelaciones;
-    public abstract List<ConsejeroAcademico> consultarConsejerosAcademicos() throws ExcepcionServiciosCancelaciones;
-    public abstract String consultarProgramaById(int codigo) throws ExcepcionServiciosCancelaciones;
+    public  String consultarProgramaById(int codigo) throws ExcepcionServiciosCancelaciones;
+    public  List<Asignatura> consultarAsignaturasByIdEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
+    public  String consultarImpactoByEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
+    public void actualizarJustificacionById(int id, String justificacion) throws ExcepcionServiciosCancelaciones;
     
 }
