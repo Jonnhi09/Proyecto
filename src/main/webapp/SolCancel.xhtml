@@ -1,16 +1,60 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <style type="text/css">
+        .column1{width: 20%;height:auto}
+        .column2{text-align: center;}
+    </style>
+    <h:head>
+        <title>Solicitud de Cancelación</title>
+    </h:head>
+    <h:body>
+        <h:form style="margin: 2% 10%" >
+            <h:panelGrid columns="1">
+                <p:outputLabel value="Estudiante: #{solCancelBean.estudiante}" style=" font-size:x-large"/>
+                <br/>
+                <p:outputLabel value="Solicitud de cancelación" style=" font-size:x-large"/>
+                <br/>
+            </h:panelGrid>
+            <h:panelGrid columnClasses="column1" columns="2" style="width: 100%">
+                <p:outputLabel for="materias" value="Asignatura a cancelar" style=" font-size:x-large"/>
+                <p:selectOneMenu id="materias" value="#{solCancelBean.materiaSeleccionada}" style="width:125px">
+                    <f:selectItem itemLabel="Asignatura" itemValue="" />
+                    <f:selectItems value="#{solCancelBean.materia}" />
+                    <p:ajax update="matselec"/>
+                </p:selectOneMenu>
+            </h:panelGrid>
+            <br/>
+            <br/>
+            <h:panelGrid columns="1" columnClasses="column2" style="width: 100%">
+                <p:outputLabel id="matselec" value="Curso seleccionado: #{solCancelBean.materiaSeleccionada}" style=" font-size:x-large"/>
+                <p:commandButton value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis"/>
+            </h:panelGrid>
+            <br/>
+            <br/>
+            <h:panelGroup id="panelAnalisis">
+                <h:panelGroup  rendered="#{solCancelBean.panelVisibility}">
+                    <p:tabView>
+                        <p:tab title="Impacto">
+                            <p:outputLabel value="Este es el impacto de #{solCancelBean.materiaSeleccionada}"/>
+                        </p:tab>
+                        <p:tab title="Proyección">
+                            <p:outputLabel value="Esta es la proyección de #{solCancelBean.materiaSeleccionada}" />
+                        </p:tab>
+                    </p:tabView>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <h:panelGrid columns="2" columnClasses="column2,column2" style="width: 100%">
+                        <p:commandButton value="Anular operación" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis"/>
+                        <p:commandButton value="Proceder con solicitud" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis"/>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGroup>
+            
+        </h:form>
+    </h:body>
 </html>
