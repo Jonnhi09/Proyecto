@@ -17,6 +17,8 @@
             e.numeroPlanEstudio as Estudiante_numeroPlanEstudio, 
             e.numeroMatriculas as Estudiante_numeroMatriculas,
             e.correo as Estudiante_correo,
+            e.programa as Estudiante_programa,
+            e.doblePrograma as Estudiante_doblePrograma,
             e.ConsejeroAcademico_codigo as Estudiante_ConsejeroAcademico_codigo,
             e.Acudiente_correo as Estudiante_Acudiente_correo,
             e.CoordinadorCancelaciones_codigo as Estudiante_CoordinadorCancelaciones_codigo
@@ -36,7 +38,36 @@
         <result property='numeroPlanEstudio' column='numeroPlanEstudio'/>
         <result property='numeroMatriculas' column='numeroMatriculas'/>
         <result property='correo' column='correo'/>
+        <result property='programa' column='programa'/>
+        <result property='doblePrograma' column='doblePrograma'/>
         <association property="acudiente" javaType="Acudiente" columnPrefix="Acudiente_" resultMap="AcudienteResult" />
         <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/> 
+    </resultMap>
+    
+    <resultMap type='Solicitud' id='SolicitudResult' >
+        <id property='numero' column='numero'/> 
+        <result property='justificacion' column='justificacion'/>
+        <result property='impacto' column='impacto'/>
+        <result property='proyeccion' column='proyeccion'/>
+        <result property='comentariosConsejero' column='comentarios'/>
+        <result property='estado' column='estado'/>
+        <result property='acuseRecibo' column='AcuseRecibo'/>
+        <result property='avalConsejero' column='avalConsejero'/>
+        <association property="asignatura" javaType="Asignatura" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+        
+    </resultMap>
+    
+    <resultMap type='Asignatura' id='AsignaturaResult' >
+        <id property='nemonico' column='nemonico'/> 
+        <result property='nombre' column='nombre'/>
+        <result property='programa' column='programa'/>
+        <result property='numCancelaciones' column='cancelada'/>
+        <result property='numPerdidas' column='perdida'/>
+    </resultMap>
+    
+    <resultMap type='Acudiente' id='AcudienteResult' >
+        <id property='correo' column='correo'/> 
+        <result property='nombre' column='nombre'/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/> 
     </resultMap>
 </mapper>

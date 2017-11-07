@@ -8,6 +8,7 @@ package com.projectKepler.persistence.mybatis;
 import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
+import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
 import java.util.List;
 import javax.persistence.PersistenceException;
@@ -22,7 +23,7 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     private EstudianteMapper estudiante;
     
     @Override
-    public List<Estudiante> loadAll() throws PersistenceException {
+    public List<Estudiante> loadAllEstudiantes() throws PersistenceException {
         List<Estudiante> allEstudiantes=null;
         try{
             allEstudiantes=estudiante.loadAllEstudiantes();
@@ -33,7 +34,7 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     @Override
-    public void load() throws PersistenceException {
+    public void loadCoordinador() throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -51,5 +52,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     public void update(int codigo) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public String loadPrograma (int codigoEstudiante) throws PersistenceException {
+        String programa="";
+        try{
+            programa=estudiante.loadPrograma(codigoEstudiante);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
+        }
+        return programa;
+    }
+
     
 }

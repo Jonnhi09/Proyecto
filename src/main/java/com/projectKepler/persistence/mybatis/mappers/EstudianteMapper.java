@@ -5,8 +5,10 @@
  */
 package com.projectKepler.persistence.mybatis.mappers;
 
+import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /**
  *
@@ -14,4 +16,5 @@ import java.util.List;
  */
 public interface EstudianteMapper {
     public List<Estudiante> loadAllEstudiantes();
+    public String loadPrograma(@Param("codigo") int codigo);
 }

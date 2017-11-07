@@ -23,12 +23,13 @@ import org.mybatis.guice.datasource.helper.JdbcHelper;
  *
  * @author danielagonzalez
  */
-public class ServicioCancelacionesFactory {
+public class ServiciosCancelacionesFactory {
     
-    private static ServicioCancelacionesFactory instance = new ServicioCancelacionesFactory();
+    private static ServiciosCancelacionesFactory instance = new ServiciosCancelacionesFactory();
     private static Injector injector;
+    private static Injector testInjector;
     
-    public ServicioCancelacionesFactory (){
+    public ServiciosCancelacionesFactory (){
         injector = createInjector(new XMLMyBatisModule() {
             
             @Override
@@ -42,13 +43,31 @@ public class ServicioCancelacionesFactory {
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
             }
         });
+        
+        testInjector = createInjector(new XMLMyBatisModule() {
+            
+            @Override
+            protected void initialize() {
+                install(JdbcHelper.MySQL);             
+                setClassPathResource("mybatis-config-h2.xml");
+                bind(ServiciosCancelaciones.class).to(ServiciosCancelacionesImpl.class);
+                bind(ConsejeroAcademicoDAO.class).to(ConsejeroAcademicoDAOMyBatis.class);                
+                bind(CoordinadorCancelacionesDAO.class).to(CoordinadorCancelacionesDAOMyBatis.class);
+                bind(AcudienteDAO.class).to(AcudienteDAOMyBatis.class);
+                bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
+            }
+        });
     }
     
     public ServiciosCancelaciones getServiciosCancelaciones(){
         return injector.getInstance(ServiciosCancelaciones.class);
     }
     
-    public static ServicioCancelacionesFactory getInstance(){
+    public static ServiciosCancelacionesFactory getInstance(){
         return instance;
+    }
+    
+    public ServiciosCancelaciones getTestingServiciosCancelaciones() {
+        return testInjector.getInstance(ServiciosCancelaciones.class);
     }
 }

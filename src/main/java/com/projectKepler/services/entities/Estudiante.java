@@ -6,6 +6,7 @@
 package com.projectKepler.services.entities;
 
 import java.util.List;
+import static javax.ws.rs.client.Entity.json;
 
 
 /**
@@ -20,6 +21,8 @@ public class Estudiante {
     private String correo;
     private Acudiente acudiente;
     private List<Solicitud> solicitudes;
+    private String programa;
+    private String doblePrograma;
 
     public List<Solicitud> getSolicitudes() {
         return solicitudes;
@@ -75,6 +78,22 @@ public class Estudiante {
 
     public void setAcudiente(Acudiente acudiente) {
         this.acudiente = acudiente;
+    }
+
+    public String getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(String programa) {
+        this.programa = programa;
+    }
+
+    public String getDoblePrograma() {
+        return doblePrograma;
+    }
+
+    public void setDoblePrograma(String doblePrograma) {
+        this.doblePrograma = doblePrograma;
     }
     
     

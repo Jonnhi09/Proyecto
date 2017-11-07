@@ -5,6 +5,7 @@
  */
 package com.projectKepler.persistence;
 
+import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
 import java.util.List;
 import javax.persistence.PersistenceException;
@@ -14,9 +15,10 @@ import javax.persistence.PersistenceException;
  * @author diana
  */
 public interface EstudianteDAO {
-    public List<Estudiante> loadAll() throws PersistenceException;
-    public void load() throws PersistenceException;
+    public List<Estudiante> loadAllEstudiantes() throws PersistenceException;
+    public void loadCoordinador() throws PersistenceException;
     public void loadById(int codigo) throws PersistenceException;
     public void save() throws PersistenceException;
     public void update(int codigo) throws PersistenceException;
+    public String loadPrograma(int codigoEstudiante) throws PersistenceException;
 }

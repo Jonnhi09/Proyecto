@@ -13,6 +13,8 @@
         <typeAlias type='com.projectKepler.services.entities.CoordinadorCancelaciones' alias='CoordinadorCancelaciones'/>
         <typeAlias type='com.projectKepler.services.entities.Acudiente' alias='Acudiente'/>
         <typeAlias type='com.projectKepler.services.entities.Estudiante' alias='Estudiante'/>
+        <typeAlias type='com.projectKepler.services.entities.Asignatura' alias='Asignatura'/>
+        <typeAlias type='com.projectKepler.services.entities.Solicitud' alias='Solicitud'/>
     </typeAliases>
                          
     <environments default="development">
@@ -29,9 +31,9 @@
         
     <mappers>
         <mapper resource="mappers/ConsejeroMapper.xml"></mapper>       
-        <mapper resource="mappers/CoordinadorMapper.xml"></mapper>     
-        <mapper resource="mappers/Acudiente.xml"></mapper>     
-        <mapper resource="mappers/Estudiante.xml"></mapper>     
+        <mapper resource="mappers/CoordinadorMapper.xml"></mapper>   
+        <mapper resource="mappers/AcudienteMapper.xml"></mapper>     
+        <mapper resource="mappers/EstudianteMapper.xml"></mapper>    
 
     </mappers> 
         
