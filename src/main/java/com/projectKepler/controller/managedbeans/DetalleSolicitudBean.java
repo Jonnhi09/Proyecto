@@ -7,6 +7,8 @@ package com.projectKepler.controller.managedbeans;
 
 
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -19,6 +21,20 @@ import javax.faces.bean.SessionScoped;
 public class DetalleSolicitudBean{
 
     public DetalleSolicitudBean() {
+        listaSol=new ArrayList<>();
+        List<String> listainfo;
+        for(int j=0;j<5;j++){
+            listainfo = new ArrayList<>();
+            listainfo.add((new Date()).toString());
+            listainfo.add("1"+String.valueOf(j));
+            listainfo.add("nombre"+String.valueOf(j));
+            if(j%2==0){
+                listainfo.add("Pendiente");
+            }else{
+                listainfo.add("Tramitada");
+            }
+            this.listaSol.add(listainfo);
+        }
         this.fecha = new Date();
         this.profesor = "Hector cadavid";
         this.codigo = 2103110;
@@ -29,6 +45,7 @@ public class DetalleSolicitudBean{
     public String profesor;
     public int codigo;
     public String estudiante;
+    public List<List<String>> listaSol;
 
     public String getEstudiante() {
         return estudiante;
@@ -63,5 +80,15 @@ public class DetalleSolicitudBean{
     public void setFecha(Date fecha) {
         this.fecha = new Date();
     }
+
+    public List<List<String>> getListaSol() {
+        return listaSol;
+    }
+
+    public void setListaSol(List<List<String>> listaSol) {
+        this.listaSol = listaSol;
+    }
+
+    
     
 }
