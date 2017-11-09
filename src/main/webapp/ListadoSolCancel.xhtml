@@ -21,39 +21,29 @@ and open the template in the editor.
         <title>Solicitud De Cancelacion De Aconsejados</title>
     </h:head>
     <h:body>
-        <h:form>
-            <h:panelGrid columns="1" columnClasses="column2" style="width: 100%">
-                    <h:outputLabel for="profesor" value="Profesor: #{detalleSolicitud.profesor}" style=" font-size:x-large"/>
-                    <h:outputLabel for="title" value="Solicitudes De Cancelacion De Aconsejados" style=" font-size:x-large"/>
+        <h:form style="margin: 2% 10%">
+            <h:panelGrid columns="1" style="width: 100%;text-align: center">
+                    <h:outputLabel value="Profesor: #{detalleSolicitud.profesor}" style=" font-size:x-large"/>
+                    <h:outputLabel value="Solicitudes De Cancelacion De Aconsejados" style=" font-size:x-large"/>
             </h:panelGrid>
             <p:scrollPanel mode="native" style="width:100%;height:40%">
-                <p:dataTable var="i" value="#{detalleSolicitud.listaSol}">
+                <p:dataTable var="i" value="#{detalleSolicitud.listaSol}" style="text-align: center">
                     <p:column headerText="Fecha solicitud">
-                        <center>
-                            <p:outputLabel value="#{i.get(0)}" />
-                        </center>
+                        <p:outputLabel value="#{i.get(0)}" />
                     </p:column>
                     <p:column headerText="Código solicitante">
-                        <center>
-                            <p:outputLabel value="#{i.get(1)}" />
-                        </center>
+                        <p:outputLabel value="#{i.get(1)}" />
                     </p:column>
                     <p:column headerText="Nombre solicitante">
-                        <center>
-                            <p:outputLabel value="#{i.get(2)}" />
-                        </center>
+                        <p:outputLabel value="#{i.get(2)}" />
                     </p:column>
                     <p:column headerText="Estado">
-                        <center>
                             <p:outputLabel value="#{i.get(3)}" />
-                        </center>
                     </p:column>
                     <p:column headerText="Acción">
-                        <center>
-                            <p:commandButton value="Tramitar" rendered="#{i.get(3) == 'Pendiente'}" />
-                            <p:commandButton value="Consultar" rendered="#{i.get(3) == 'Tramitada'}" />
-                        </center>
-                     
+                            <p:commandButton value="Tramitar" rendered="#{i.get(3) == 'Pendiente'}" action="#{detalleSolicitud.accionVista()}"/>
+                            <p:commandButton value="Consultar" rendered="#{i.get(3) == 'Tramitada'}" action="#{detalleSolicitud.accionVista()}"/>
+
                     </p:column>
                 </p:dataTable>
                  

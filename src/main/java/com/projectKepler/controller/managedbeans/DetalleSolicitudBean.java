@@ -89,6 +89,8 @@ public class DetalleSolicitudBean{
         this.listaSol = listaSol;
     }
 
-    
+    public String accionVista(){
+        return "DetalleSolicitud.xhtml";
+    }
     
 }
