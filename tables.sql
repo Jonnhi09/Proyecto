@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-11-07 21:43:39.679
+-- Last modification date: 2017-11-09 16:08:38.891
 
 -- tables
 -- Table: Acudiente
@@ -36,13 +36,29 @@ CREATE TABLE CoordinadorCancelaciones (
 CREATE TABLE Estudiante (
     codigo int  NOT NULL,
     nombre varchar(100)  NULL,
-    programa varchar(10000)  NOT NULL,
+    planDeEstudios varchar(10000)  NOT NULL,
     numeroMatriculas int  NULL,
-    correo varchar(50)  NOT NULL,
+    correo varchar(50)  NULL,
     ConsejeroAcademico_codigo int  NOT NULL,
     Acudiente_correo varchar(50)  NOT NULL,
     CoordinadorCancelaciones_codigo int  NOT NULL,
+    programaAcademico varchar(100)  NOT NULL,
+    CONSTRAINT correo UNIQUE (correo) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT Estudiante_pk PRIMARY KEY (codigo)
+);
+
+-- Table: PlanDeEstudios
+CREATE TABLE PlanDeEstudios (
+    id int  NOT NULL,
+    ProgramaAcademico varchar(40)  NOT NULL,
+    contenido varchar(10000)  NOT NULL,
+    CONSTRAINT PlanDeEstudios_pk PRIMARY KEY (id,ProgramaAcademico)
+);
+
+-- Table: ProgramaAcademico
+CREATE TABLE ProgramaAcademico (
+    nombre varchar(100)  NOT NULL,
+    CONSTRAINT ProgramaAcademico_pk PRIMARY KEY (nombre)
 );
 
 -- Table: Solicitud
@@ -66,6 +82,7 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_Acudiente
     FOREIGN KEY (Acudiente_correo)
     REFERENCES Acudiente (correo)  
     NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Estudiante_ConsejeroAcademico (table: Estudiante)
@@ -73,6 +90,7 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_ConsejeroAcademico
     FOREIGN KEY (ConsejeroAcademico_codigo)
     REFERENCES ConsejeroAcademico (codigo)  
     NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Estudiante_CoordinadorCancelaciones (table: Estudiante)
@@ -80,6 +98,23 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_CoordinadorCancelaciones
     FOREIGN KEY (CoordinadorCancelaciones_codigo)
     REFERENCES CoordinadorCancelaciones (codigo)  
     NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: Estudiante_ProgramaAcademico_Principal (table: Estudiante)
+ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_ProgramaAcademico_Principal
+    FOREIGN KEY (programaAcademico)
+    REFERENCES ProgramaAcademico (nombre)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: PlanDeEstudios_ProgramaAcademico (table: PlanDeEstudios)
+ALTER TABLE PlanDeEstudios ADD CONSTRAINT PlanDeEstudios_ProgramaAcademico
+    FOREIGN KEY (ProgramaAcademico)
+    REFERENCES ProgramaAcademico (nombre)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Solicitud_Asignatura (table: Solicitud)
@@ -87,6 +122,7 @@ ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Asignatura
     FOREIGN KEY (Asignatura_Cancelar)
     REFERENCES Asignatura (nemonico)  
     NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Solicitud_Estudiante (table: Solicitud)
@@ -94,9 +130,8 @@ ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Estudiante
     FOREIGN KEY (Estudiante_codigo)
     REFERENCES Estudiante (codigo)  
     NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
 ;
-
--- End of file.
 
 --Poblar Consejero academico 
 INSERT INTO ConsejeroAcademico VALUES ('Claudia',231831);
@@ -117,7 +152,7 @@ INSERT INTO Acudiente VALUES ('Maria','maria@gmail.com');
 -- Poblar Estudiante 
 INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
     "programa": "ing. sistemas",
-    "vertion": 13,        
+    "version": 13,        
     "courses": [
         {
             "nombre": "PREM",
@@ -125,8 +160,8 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "PreRec": "",
             "coReq": "",
             "historialNotas": [],
-            "tercios": [],
-            "estado":"A"
+            "tercios": [21],
+            "estado":"V"
         },
         {
             "nombre": "CALD",
@@ -135,7 +170,7 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "CIED",
@@ -144,7 +179,7 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"V"
+            "estado":"P"
         },
         {
             "nombre": "FFIS",
@@ -152,8 +187,8 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "preReq": "",
             "coReq": "",
             "historialNotas": [],
-            "tercios": [],
-            "estado":"A"
+            "tercios": [41],
+            "estado":"V"
         },
         {
             "nombre": "FIMF",
@@ -162,7 +197,7 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "coReq": "CALD",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "FIEM",
@@ -171,21 +206,21 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"C"
+            "estado":"P"
         }
     ]
-}', 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131); 
+}', 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131,'Ingenieria de sistemas'); 
 INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
     "programa": "ing. sistemas",
-    "vertion": 13,        
+    "version": 13,        
     "courses": [
         {
             "nombre": "PREM",
             "creditos": 4,
             "PreRec": "",
             "coReq": "",
-            "historialNotas": [],
-            "tercios": [],
+            "historialNotas": [35],
+            "tercios": [21, 46, 40],
             "estado":"A"
         },
         {
@@ -194,8 +229,8 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
             "preReq": "PREM",
             "coReq": "",
             "historialNotas": [],
-            "tercios": [],
-            "estado":"A"
+            "tercios": [34],
+            "estado":"V"
         },
         {
             "nombre": "CIED",
@@ -204,15 +239,15 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"V"
+            "estado":"P"
         },
         {
             "nombre": "FFIS",
             "creditos": 4,
             "preReq": "",
             "coReq": "",
-            "historialNotas": [],
-            "tercios": [],
+            "historialNotas": [50],
+            "tercios": [50,50,50],
             "estado":"A"
         },
         {
@@ -221,8 +256,8 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
             "preReq": "FFIS",
             "coReq": "CALD",
             "historialNotas": [],
-            "tercios": [],
-            "estado":"A"
+            "tercios": [20],
+            "estado":"V"
         },
         {
             "nombre": "FIEM",
@@ -231,21 +266,21 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"C"
+            "estado":"P"
         }
     ]
-}', 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131);
+}', 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131,'Ingenieria de sistemas');
 INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
     "programa": "ing. sistemas",
-    "vertion": 13,        
+    "version": 13,        
     "courses": [
         {
             "nombre": "PREM",
             "creditos": 4,
             "PreRec": "",
             "coReq": "",
-            "historialNotas": [],
-            "tercios": [],
+            "historialNotas": [30],
+            "tercios": [30,30,30],
             "estado":"A"
         },
         {
@@ -253,9 +288,9 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
             "creditos": 4,
             "preReq": "PREM",
             "coReq": "",
-            "historialNotas": [],
-            "tercios": [],
-            "estado":"A"
+            "historialNotas": [-1],
+            "tercios": [15],
+            "estado":"V"
         },
         {
             "nombre": "CIED",
@@ -264,15 +299,15 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"V"
+            "estado":"P"
         },
         {
             "nombre": "FFIS",
             "creditos": 4,
             "preReq": "",
             "coReq": "",
-            "historialNotas": [],
-            "tercios": [],
+            "historialNotas": [35],
+            "tercios": [35,45,30],
             "estado":"A"
         },
         {
@@ -281,8 +316,8 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
             "preReq": "FFIS",
             "coReq": "CALD",
             "historialNotas": [],
-            "tercios": [],
-            "estado":"A"
+            "tercios": [45],
+            "estado":"V"
         },
         {
             "nombre": "FIEM",
@@ -291,10 +326,10 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"C"
+            "estado":"P"
         }
     ]
-}', 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131);
+}', 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131,'Ingenieria de sistemas');
 
 -- Poblar Solicitud--
 INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las otras materias','Se necesitaria un semestre adicional','PRON,FRED,SOPC,FGPR,ESTI y una electiva',
@@ -302,4 +337,130 @@ INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las
 INSERT INTO Solicitud VALUES (2,'Tengo muy bajita la nota y no me quiero arriesgar a perderla','Necesitaria dos semestres adicionales','POOB,ARQC,PDIS,PRON,ACFI',
                             'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,'POOB',true,173183);
 INSERT INTO Solicitud VALUES (3,'No le entiendo al profesor','Necesitarian dos semestres adicionales','ARQC,PDIS,ACFI,PRON,POOB',
-                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'ARQC',true,173183); 
+                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'ARQC',true,173183);  
+-- Poblar ProgramaAcademico --
+INSERT INTO ProgramaAcademico VALUES ('Ingenieria de sistemas');
+
+-- Poblar PlanDeEstudios
+INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
+    "programa": "ing. sistemas",
+    "version": 13,        
+    "courses": [
+        {
+            "nombre": "PREM",
+            "creditos": 4,
+            "PreRec": "",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "CALD",
+            "creditos": 4,
+            "preReq": "PREM",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "CIED",
+            "creditos": 4,
+            "preReq": "CALD",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"V"
+        },
+        {
+            "nombre": "FFIS",
+            "creditos": 4,
+            "preReq": "",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "FIMF",
+            "creditos": 4,
+            "preReq": "FFIS",
+            "coReq": "CALD",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "FIEM",
+            "creditos": 4,
+            "preReq": "FIMF",
+            "coReq": "CIED",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"C"
+        }
+    ]
+}');
+
+INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
+    "programa": "ing. sistemas",
+    "version": 13,        
+    "courses": [
+        {
+            "nombre": "PREM",
+            "creditos": 4,
+            "PreRec": "",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "CALD",
+            "creditos": 4,
+            "preReq": "PREM",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "CIED",
+            "creditos": 4,
+            "preReq": "CALD",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"V"
+        },
+        {
+            "nombre": "FFIS",
+            "creditos": 4,
+            "preReq": "",
+            "coReq": "",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "FIMF",
+            "creditos": 4,
+            "preReq": "FFIS",
+            "coReq": "CALD",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"A"
+        },
+        {
+            "nombre": "FIEM",
+            "creditos": 4,
+            "preReq": "FIMF",
+            "coReq": "CIED",
+            "historialNotas": [],
+            "tercios": [],
+            "estado":"C"
+        }
+    ]
+}');
+-- End of file.
