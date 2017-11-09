@@ -96,5 +96,10 @@
         <result property='nombre' column='nombre'/>
     </resultMap>
     
+    <resultMap type='ProgramaAcademico' id='ProgramaResult'>
+        <id property='nombre' column='nombre'/>
+        <collection property='planesDeEstudio' ofType='PlanDeEstudio' columnPrefix="PlanDeEstudio_" resultMap="PlanDeEstudioResult"/>
+    </resultMap>
+    
     
 </mapper>

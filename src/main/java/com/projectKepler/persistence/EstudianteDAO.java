@@ -15,10 +15,10 @@ import javax.persistence.PersistenceException;
  * @author diana
  */
 public interface EstudianteDAO {
+    
     public List<Estudiante> loadAllEstudiantes() throws PersistenceException;
-    public void loadCoordinador() throws PersistenceException;
-    public void loadById(int codigo) throws PersistenceException;
-    public void save() throws PersistenceException;
-    public void update(int codigo) throws PersistenceException;
+    public void loadCoursesById(int codigo) throws PersistenceException;
+    public void consultImpactById(int codigo) throws PersistenceException;
+    public void updateJustification(int codigo) throws PersistenceException;
     public String loadPrograma(int codigoEstudiante) throws PersistenceException;
 }

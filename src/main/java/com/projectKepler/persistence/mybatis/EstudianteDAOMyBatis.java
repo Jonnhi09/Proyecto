@@ -34,26 +34,6 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     @Override
-    public void loadCoordinador() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void loadById(int codigo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void save() throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void update(int codigo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String loadPrograma (int codigoEstudiante) throws PersistenceException {
         String programa="";
         try{
@@ -62,6 +42,21 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
         }
         return programa;
+    }
+
+    @Override
+    public void loadCoursesById(int codigo) throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void consultImpactById(int codigo) throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateJustification(int codigo) throws PersistenceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
