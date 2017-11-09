@@ -17,7 +17,7 @@ import java.util.List;
  * @author danielagonzalez
  */
 public interface ServiciosCancelaciones {
-    
+    public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones;
     public  String consultarProgramaById(int codigo) throws ExcepcionServiciosCancelaciones;
     public  List<Asignatura> consultarAsignaturasByIdEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
     public  String consultarImpactoByEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;

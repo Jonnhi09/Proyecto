@@ -26,9 +26,8 @@ public class ProgramaAcademico {
     public List<PlanDeEstudio> getPlanDeEstudio() {
         return planesDeEstudio;
     }
-
-    public void setPlanDeEstudio(List<PlanDeEstudio> planDeEstudio) {
-        this.planesDeEstudio = planDeEstudio;
+    public void setPlanDeEstudio(List<PlanDeEstudio> planesDeEstudio) {
+        this.planesDeEstudio = planesDeEstudio;
     }
     
     

@@ -14,6 +14,8 @@
         <typeAlias type='com.projectKepler.services.entities.Estudiante' alias='Estudiante'/>
         <typeAlias type='com.projectKepler.services.entities.Asignatura' alias='Asignatura'/>
         <typeAlias type='com.projectKepler.services.entities.Solicitud' alias='Solicitud'/>
+        <typeAlias type='com.projectKepler.services.entities.ProgramaAcademico' alias='ProgramaAcademico'/>
+        <typeAlias type='com.projectKepler.services.entities.PlanDeEstudio' alias='PlanDeEstudio'/>
     </typeAliases>             
     
     
@@ -29,10 +31,7 @@
         </environment>
     </environments>
         
-    <mappers>
-        <mapper resource="mappers/ConsejeroMapper.xml"></mapper>       
-        <mapper resource="mappers/CoordinadorMapper.xml"></mapper>     
-        <mapper resource="mappers/AcudienteMapper.xml"></mapper>     
+    <mappers>   
         <mapper resource="mappers/EstudianteMapper.xml"></mapper> 
     </mappers> 
         
