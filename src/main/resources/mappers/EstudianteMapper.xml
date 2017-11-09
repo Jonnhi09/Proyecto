@@ -100,13 +100,13 @@
     
     <resultMap type='ProgramaAcademico' id='ProgramaResult'>
         <id property='nombre' column='nombre'/>
-        <collection property='planesDeEstudio' ofType='PlanDeEstudio' columnPrefix="PlanDeEstudio_" resultMap="PlanDeEstudioResult"/>
+        <collection property='planesDeEstudio' ofType='PlanDeEstudios' columnPrefix="PlanDeEstudio_" resultMap="PlanDeEstudioResult"/>
     </resultMap>
     
-    <resulMap type='PlanDeEstudio' id='PlanDeEstudioResult'>
+    <resultMap type='PlanDeEstudios' id='PlanDeEstudioResult'>
         <id property='id' column='id'/>
         <result property='contenido' column='contenido'/>
-    </resulMap>
+    </resultMap>
     
     
 </mapper>

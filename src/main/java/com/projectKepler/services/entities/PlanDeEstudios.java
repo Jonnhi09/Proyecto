@@ -9,7 +9,7 @@ package com.projectKepler.services.entities;
  *
  * @author 2108310
  */
-public class PlanDeEstudio {
+public class PlanDeEstudios {
     private int id;
     private String contenido;
 

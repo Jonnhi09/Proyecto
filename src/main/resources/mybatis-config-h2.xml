@@ -15,7 +15,7 @@
         <typeAlias type='com.projectKepler.services.entities.Asignatura' alias='Asignatura'/>
         <typeAlias type='com.projectKepler.services.entities.Solicitud' alias='Solicitud'/>
         <typeAlias type='com.projectKepler.services.entities.ProgramaAcademico' alias='ProgramaAcademico'/>
-        <typeAlias type='com.projectKepler.services.entities.PlanDeEstudio' alias='PlanDeEstudio'/>
+        <typeAlias type='com.projectKepler.services.entities.PlanDeEstudios' alias='PlanDeEstudios'/>
     </typeAliases>             
     
     
