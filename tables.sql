@@ -43,7 +43,6 @@ CREATE TABLE Estudiante (
     Acudiente_correo varchar(50)  NOT NULL,
     CoordinadorCancelaciones_codigo int  NOT NULL,
     programaAcademico varchar(100)  NOT NULL,
-    CONSTRAINT correo UNIQUE (correo) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT Estudiante_pk PRIMARY KEY (codigo)
 );
 
@@ -82,7 +81,6 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_Acudiente
     FOREIGN KEY (Acudiente_correo)
     REFERENCES Acudiente (correo)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Estudiante_ConsejeroAcademico (table: Estudiante)
@@ -90,7 +88,6 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_ConsejeroAcademico
     FOREIGN KEY (ConsejeroAcademico_codigo)
     REFERENCES ConsejeroAcademico (codigo)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Estudiante_CoordinadorCancelaciones (table: Estudiante)
@@ -98,7 +95,6 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_CoordinadorCancelaciones
     FOREIGN KEY (CoordinadorCancelaciones_codigo)
     REFERENCES CoordinadorCancelaciones (codigo)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Estudiante_ProgramaAcademico_Principal (table: Estudiante)
@@ -106,7 +102,6 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_ProgramaAcademico_Principal
     FOREIGN KEY (programaAcademico)
     REFERENCES ProgramaAcademico (nombre)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: PlanDeEstudios_ProgramaAcademico (table: PlanDeEstudios)
@@ -114,7 +109,6 @@ ALTER TABLE PlanDeEstudios ADD CONSTRAINT PlanDeEstudios_ProgramaAcademico
     FOREIGN KEY (ProgramaAcademico)
     REFERENCES ProgramaAcademico (nombre)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Solicitud_Asignatura (table: Solicitud)
@@ -122,7 +116,6 @@ ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Asignatura
     FOREIGN KEY (Asignatura_Cancelar)
     REFERENCES Asignatura (nemonico)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
 
 -- Reference: Solicitud_Estudiante (table: Solicitud)
@@ -130,8 +123,11 @@ ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Estudiante
     FOREIGN KEY (Estudiante_codigo)
     REFERENCES Estudiante (codigo)  
     NOT DEFERRABLE 
-    INITIALLY IMMEDIATE
 ;
+
+
+-- Poblar ProgramaAcademico --
+INSERT INTO ProgramaAcademico VALUES ('Ingenieria de sistemas');
 
 --Poblar Consejero academico 
 INSERT INTO ConsejeroAcademico VALUES ('Claudia',231831);
@@ -338,8 +334,6 @@ INSERT INTO Solicitud VALUES (2,'Tengo muy bajita la nota y no me quiero arriesg
                             'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,'POOB',true,173183);
 INSERT INTO Solicitud VALUES (3,'No le entiendo al profesor','Necesitarian dos semestres adicionales','ARQC,PDIS,ACFI,PRON,POOB',
                             'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'ARQC',true,173183);  
--- Poblar ProgramaAcademico --
-INSERT INTO ProgramaAcademico VALUES ('Ingenieria de sistemas');
 
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{

@@ -41,6 +41,8 @@
             co.nombre as Coodinador_nombre,
             co.codigo as Coodinador_codigo
         
+            
+        
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo ;
     </select>
     
@@ -95,6 +97,12 @@
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>
     </resultMap>
+    
+    <resulMap type='PlanDeEstudio' id='PlanDeEstudioResult'>
+        <id property='id' column='id'/>
+        <result property='contenido' column='contenido'/>
+    </resulMap>
+    
     
     
 </mapper>

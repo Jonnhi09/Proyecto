@@ -6,9 +6,6 @@
 package com.projectKepler.services.impl;
 
 import com.google.inject.Inject;
-import com.projectKepler.persistence.AcudienteDAO;
-import com.projectKepler.persistence.ConsejeroAcademicoDAO;
-import com.projectKepler.persistence.CoordinadorCancelacionesDAO;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
@@ -63,6 +60,11 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public void actualizarJustificacionById(int id, String justificacion) throws ExcepcionServiciosCancelaciones {
         
+    }
+
+    @Override
+    public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

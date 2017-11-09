@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class ProgramaAcademico {
     private String nombre;
-    private List<PlanDeEstudio> planDeEstudio;
+    private List<PlanDeEstudio> planesDeEstudio;
 
     public String getNombre() {
         return nombre;
@@ -24,11 +24,11 @@ public class ProgramaAcademico {
     }
 
     public List<PlanDeEstudio> getPlanDeEstudio() {
-        return planDeEstudio;
+        return planesDeEstudio;
     }
 
-    public void setPlanDeEstudio(List<PlanDeEstudio> planDeEstudio) {
-        this.planDeEstudio = planDeEstudio;
+    public void setPlanDeEstudio(List<PlanDeEstudio> planesDeEstudio) {
+        this.planesDeEstudio = planesDeEstudio;
     }
     
     
