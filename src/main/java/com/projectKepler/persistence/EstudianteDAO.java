@@ -17,8 +17,8 @@ import javax.persistence.PersistenceException;
 public interface EstudianteDAO {
     
     public List<Estudiante> loadAllEstudiantes() throws PersistenceException;
-    public void loadCoursesById(int codigo) throws PersistenceException;
-    public void consultImpactById(int codigo) throws PersistenceException;
+    public String loadPlanDeEstudio(int codigoEstudiante) throws PersistenceException;
+    public List<Asignatura> loadCoursesById(int codigo) throws PersistenceException;
+    public String consultImpactById(int codigo, String nemonico) throws PersistenceException;
     public void updateJustification(int codigo) throws PersistenceException;
-    public String loadPrograma(int codigoEstudiante) throws PersistenceException;
 }

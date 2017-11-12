@@ -46,9 +46,9 @@
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo ;
     </select>
     
-    <select parameterType="map" id="loadPrograma" resultType="String"> 
+    <select parameterType="map" id="loadPlanDeEstudio" resultType="String"> 
         select
-            programa
+            planDeEstudios
         FROM  Estudiante
         WHERE codigo=#{codigo};
     </select>

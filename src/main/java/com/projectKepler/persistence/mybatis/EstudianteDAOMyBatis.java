@@ -34,10 +34,10 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     @Override
-    public String loadPrograma (int codigoEstudiante) throws PersistenceException {
+    public String loadPlanDeEstudio (int codigoEstudiante) throws PersistenceException {
         String programa="";
         try{
-            programa=estudiante.loadPrograma(codigoEstudiante);
+            programa=estudiante.loadPlanDeEstudio(codigoEstudiante);
         }catch (Exception e){
             throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
         }
@@ -45,12 +45,12 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     @Override
-    public void loadCoursesById(int codigo) throws PersistenceException {
+    public List<Asignatura> loadCoursesById(int codigo) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void consultImpactById(int codigo) throws PersistenceException {
+    public String consultImpactById(int codigo, String nemonico) throws PersistenceException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

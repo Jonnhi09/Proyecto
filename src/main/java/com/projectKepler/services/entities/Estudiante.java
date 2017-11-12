@@ -6,7 +6,6 @@
 package com.projectKepler.services.entities;
 
 import java.util.List;
-import static javax.ws.rs.client.Entity.json;
 
 
 /**

@@ -15,6 +15,10 @@ import org.apache.ibatis.annotations.Param;
  * @author diana
  */
 public interface EstudianteMapper {
+    
     public List<Estudiante> loadAllEstudiantes();
-    public String loadPrograma(@Param("codigo") int codigo);
+    public String loadPlanDeEstudio(@Param("codigo") int codigo);
+    public List<Asignatura> loadCoursesById(@Param("codigo") int codigo);
+    public String consultImpactById (@Param("codigo") int codigo, @Param("nem") String nemonico);
+    public void updateJustification (@Param("codigo") int codigo);
 }
