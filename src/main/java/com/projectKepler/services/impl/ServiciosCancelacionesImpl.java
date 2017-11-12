@@ -78,13 +78,26 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return asignaturas;
     }
+    
+    @Transactional
+    @Override
+    public String obtenerImpactoByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones{
+        Gson g = new Gson();
+        Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
+        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
+        return impacto;
+    }
 
     @Transactional
     @Override
     public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
-        Gson g = new Gson();
-        Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
-        return algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
+        String impacto="";
+        try{
+            impacto=estudiante.consultImpactById(codigoEstudiante, nemonicoAsignatura);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return impacto;
     }
 
     @Transactional

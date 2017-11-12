@@ -1,10 +1,10 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-11-09 16:08:38.891
+-- Last modification date: 2017-11-12 19:23:00.094
 
 -- tables
 -- Table: Acudiente
 CREATE TABLE Acudiente (
-    nombre varchar(20)  NULL,
+    nombre varchar(20)  NOT NULL,
     correo varchar(50)  NOT NULL,
     CONSTRAINT Acudiente_pk PRIMARY KEY (correo)
 );
@@ -12,15 +12,15 @@ CREATE TABLE Acudiente (
 -- Table: Asignatura
 CREATE TABLE Asignatura (
     nemonico varchar(4)  NOT NULL,
-    nombre varchar(100)  NULL,
-    programa varchar(100)  NULL,
-    cancelada int  NULL,
+    nombre varchar(100)  NOT NULL,
+    programa varchar(100)  NOT NULL,
+    cancelada int  NOT NULL,
     CONSTRAINT Asignatura_pk PRIMARY KEY (nemonico)
 );
 
 -- Table: ConsejeroAcademico
 CREATE TABLE ConsejeroAcademico (
-    nombre varchar(20)  NULL,
+    nombre varchar(20)  NOT NULL,
     codigo int  NOT NULL,
     CONSTRAINT ConsejeroAcademico_pk PRIMARY KEY (codigo)
 );
@@ -28,21 +28,22 @@ CREATE TABLE ConsejeroAcademico (
 -- Table: CoordinadorCancelaciones
 CREATE TABLE CoordinadorCancelaciones (
     codigo int  NOT NULL,
-    nombre varchar(20)  NULL,
+    nombre varchar(20)  NOT NULL,
     CONSTRAINT CoordinadorCancelaciones_pk PRIMARY KEY (codigo)
 );
 
 -- Table: Estudiante
 CREATE TABLE Estudiante (
     codigo int  NOT NULL,
-    nombre varchar(100)  NULL,
+    nombre varchar(100)  NOT NULL,
     planDeEstudios varchar(10000)  NOT NULL,
     numeroMatriculas int  NULL,
-    correo varchar(50)  NULL,
+    correo varchar(50)  NOT NULL,
     ConsejeroAcademico_codigo int  NOT NULL,
     Acudiente_correo varchar(50)  NOT NULL,
     CoordinadorCancelaciones_codigo int  NOT NULL,
     programaAcademico varchar(100)  NOT NULL,
+    CONSTRAINT correo UNIQUE (correo),
     CONSTRAINT Estudiante_pk PRIMARY KEY (codigo)
 );
 
@@ -64,14 +65,15 @@ CREATE TABLE ProgramaAcademico (
 CREATE TABLE Solicitud (
     numero int  NOT NULL,
     justificacion varchar(200)  NOT NULL,
-    impacto varchar(200)  NULL,
-    proyeccion varchar(200)  NULL,
+    impacto varchar(200)  NOT NULL,
+    proyeccion varchar(200)  NOT NULL,
     comentarios varchar(200)  NULL,
     estado varchar(30)  NULL,
     acuseRecibo boolean  NULL,
     Asignatura_Cancelar varchar(4)  NOT NULL,
     avalConsejero boolean  NULL,
     Estudiante_codigo int  NOT NULL,
+    necesitaAcuseRecibo boolean  NULL,
     CONSTRAINT Solicitud_pk PRIMARY KEY (numero)
 );
 
@@ -137,9 +139,9 @@ INSERT INTO ConsejeroAcademico VALUES ('Camilo',313131);
 INSERT INTO CoordinadorCancelaciones VALUES (428131,'Laura');
 
 -- Poblar Asignatura
-INSERT INTO Asignatura VALUES ('PRON', 'Procesos de Negocio', 'Ingenieria de sistemas', 0);
-INSERT INTO Asignatura VALUES ('POOB', 'Programacion Orientada a Objetos', 'Ingenieria de sistemas', 1);
-INSERT INTO Asignatura VALUES ('ARQC', 'Arquitectura del computador', 'Ingenieria de sistemas', 0);
+INSERT INTO Asignatura VALUES ('CALD', 'Calculo Diferencial', 'Ingenieria de sistemas', 0);
+INSERT INTO Asignatura VALUES ('FFIS', 'Fundamentos de Fisica', 'Ingenieria de sistemas', 1);
+INSERT INTO Asignatura VALUES ('PREM', 'Precalculo', 'Ingenieria de sistemas', 0);
 
 -- Poblar Acudiente 
 INSERT INTO Acudiente VALUES ('Yolanda','yolanda@gmail.com');
@@ -328,12 +330,12 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
 }', 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131,'Ingenieria de sistemas');
 
 -- Poblar Solicitud--
-INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las otras materias','Se necesitaria un semestre adicional','PRON,FRED,SOPC,FGPR,ESTI y una electiva',
-                            'Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Aceptada',null,'PRON',true,79328);
-INSERT INTO Solicitud VALUES (2,'Tengo muy bajita la nota y no me quiero arriesgar a perderla','Necesitaria dos semestres adicionales','POOB,ARQC,PDIS,PRON,ACFI',
-                            'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,'POOB',true,173183);
+INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las otras materias','Si cancela FFIS le quedan: 20 creditos por ver.','FFIS,CALD,ALLI,LCAL y una electiva',
+                            'Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Aceptada',null,'FFIS',true,79328,false);
+INSERT INTO Solicitud VALUES (2,'Tengo muy bajita la nota y no me quiero arriesgar a perderla','Si cancela CALD le quedan: 16 creditos por ver.','CALD,PIMB,ALLI,FIMF, ENG4',
+                            'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,'CALD',true,173183,true);
 INSERT INTO Solicitud VALUES (3,'No le entiendo al profesor','Necesitarian dos semestres adicionales','ARQC,PDIS,ACFI,PRON,POOB',
-                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'ARQC',true,173183);  
+                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'PREM',true,173183,true);  
 
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{

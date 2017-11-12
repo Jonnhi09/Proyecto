@@ -51,7 +51,13 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
 
     @Override
     public String consultImpactById(int codigo, String nemonico) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String impacto="";
+        try{
+            impacto=estudiante.consultImpactById(codigo, nemonico);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar el impacto de cancelar la asignatura "+nemonico+" del estudiante :"+codigo,e);
+        }
+        return impacto;
     }
 
     @Override

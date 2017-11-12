@@ -41,6 +41,15 @@ public interface ServiciosCancelaciones {
     public List<Course> consultarAsignaturasByIdEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
     
     /**
+     * Obtener el impacto de una cancelacion calculado por el algoritmo a partir del identificador del estudiante y de la asignatura
+     * @param codigoEstudiante es el identificador del estudiante
+     * @param nemonicoAsignatura identificador de la asignatura
+     * @return Impacto calculado por el algoritmo.
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con el identificador del estudiante, o si se presenta otro problema en las capas inferiores.
+     */
+    public String obtenerImpactoByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
+    
+    /**
      * Consulta el impacto que genera la cancelacion de una asignatura a partir del identificador del estudiante y de la asignatura
      * @param codigoEstudiante identificador del estudiante
      * @param nemonicoAsignatura identificador de la asignatura

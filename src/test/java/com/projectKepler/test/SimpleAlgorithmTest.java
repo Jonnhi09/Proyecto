@@ -32,7 +32,7 @@ public class SimpleAlgorithmTest {
 
     private Algorithm a = new SimpleAlgorithm();
     private ServiciosCancelaciones sc= ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
-
+    
     @Test
     public void TestCE1() throws ExcepcionServiciosCancelaciones {
         Assert.assertEquals("no esta contando bien los creditos por ver",sc.consultarImpactoByEstudianteAsignatura(79328, "FFIS") , "Si cancela FFIS le quedan: 20 creditos por ver.");
@@ -42,5 +42,5 @@ public class SimpleAlgorithmTest {
     public void TestCE2() throws ExcepcionServiciosCancelaciones {
         Assert.assertEquals("no esta contando bien los creditos por ver",sc.consultarImpactoByEstudianteAsignatura(173183, "CALD") , "Si cancela CALD le quedan: 16 creditos por ver.");
     }
-
+   
 }
