@@ -10,6 +10,7 @@ import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
 import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
 import javax.persistence.PersistenceException;
 
@@ -60,13 +61,7 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         return impacto;
     }
 
-    @Override
-    public void updateJustification(int codigo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     
-
     @Override
     public String loadSyllabusProgramaById(int codigoEstudiante) throws PersistenceException {
         String programa="";
@@ -77,6 +72,35 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return programa;
     }
+    @Override
+    public Estudiante loadEstudianteById(int codigo) throws PersistenceException {
+        Estudiante student=null;
+        try{
+            student=estudiante.loadEstudianteById(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar el estudiante con codigo:"+codigo,e);
+        }
+        return student;
+    }
 
+    @Override
+    public void updateJustification(int codigo, String materia, String justificacion, int numero,boolean acuse, String impacto, String proyeccion) throws PersistenceException {
+        try{
+            estudiante.updateJustification(codigo, justificacion, materia, numero, acuse, impacto,proyeccion);
+        }catch (Exception e){
+            throw new PersistenceException("Error al registrar la solicitud numero:"+numero,e);
+        }
+    }
+
+    @Override
+    public List<Solicitud> loadSolicitudes() throws PersistenceException {
+        List<Solicitud> solicitudes=null;
     
+        try{
+            solicitudes=estudiante.loadSolicitudes();
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar las solicitudes",e);
+        }
+        return solicitudes;
+    }
 }

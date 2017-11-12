@@ -21,6 +21,8 @@ public class ServiciosCancelacionesTest {
         String programa="";
         try{
             programa=servicios.consultarPlanDeEstudioByIdEstudiante(173183);
+            servicios.actualizarJustificacionById(2121465, "mis notas en primer y segundo tercio son muy bajas y no he aprendido lo suficiente", "CALD");
+            
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }

@@ -87,6 +87,15 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
         return impacto;
     }
+    
+    @Transactional
+    @Override
+    public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones{
+        Gson g = new Gson();
+        Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
+        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[1];
+        return impacto;
+    }
 
     @Transactional
     @Override
@@ -99,12 +108,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return impacto;
     }
-
-    @Transactional
-    @Override
-    public void actualizarJustificacionById(int id, String justificacion) throws ExcepcionServiciosCancelaciones {
-        
-    }    
 
     @Override
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones {
@@ -125,6 +128,30 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         
         return planesDeEstudio;
     }
-    
+    @Transactional
+    @Override
+    public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones {
+        Syllabus planE=obtenerSyllabusEstudiante(id).get(0);
+        Estudiante student=estudiante.loadEstudianteById(id);
+        boolean acuse=false;
+        for (Course c:planE.getCourses()){
+            if(c.getNombre()==materia){
+                for (int i:c.getHistorialNotas()){
+                    if(i==-1){
+                        acuse=true;
+                    }
+                }
+            }
+        }
+        if (student.getNumeroMatriculas()<3){
+            acuse=true;
+        }
+        int numero=estudiante.loadSolicitudes().size()+1;
+        String impacto=obtenerImpactoByEstudiante(id, materia);
+        String proyeccion=obtenerProyeccionByEstudiante(id, materia);
+        estudiante.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
+        student=estudiante.loadEstudianteById(id);
+        
+    }    
 }
 

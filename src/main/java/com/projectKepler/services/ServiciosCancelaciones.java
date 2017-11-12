@@ -64,7 +64,7 @@ public interface ServiciosCancelaciones {
      * @param justificacion es la justificacion de una cancelacion
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
-    public void actualizarJustificacionById(int id, String justificacion) throws ExcepcionServiciosCancelaciones;
+    public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones;
     
     /**
      *
@@ -72,4 +72,14 @@ public interface ServiciosCancelaciones {
      * @return
      */
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
+
+    /**
+     * Obtener el impacto de una cancelacion calculado por el algoritmo a partir del identificador del estudiante y de la asignatura
+     * @param codigoEstudiante es el identificador del estudiante
+     * @param nemonicoAsignatura identificador de la asignatura
+     * @return Impacto calculado por el algoritmo.
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con el identificador del estudiante, o si se presenta otro problema en las capas inferiores.
+     */
+    public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
+    
 }

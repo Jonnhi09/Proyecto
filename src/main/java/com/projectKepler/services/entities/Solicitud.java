@@ -19,6 +19,7 @@ public class Solicitud {
     private boolean acuseRecibo;
     private boolean avalConsejero;
     private Asignatura asignatura;
+    private boolean necesitaAcuseRecibo;
 
     public int getNumero() {
         return numero;
@@ -91,6 +92,15 @@ public class Solicitud {
     public void setAsignatura(Asignatura asignatura) {
         this.asignatura = asignatura;
     }
+
+    public boolean isNecesitaAcuseRecibo() {
+        return necesitaAcuseRecibo;
+    }
+
+    public void setNecesitaAcuseRecibo(boolean necesitaAcuseRecibo) {
+        this.necesitaAcuseRecibo = necesitaAcuseRecibo;
+    }
+    
     
     
 }
