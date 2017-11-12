@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.graphRectificator;
 
+import com.projectKepler.services.entities.Syllabus;
 import java.util.*;
 
 /**
@@ -13,5 +14,5 @@ import java.util.*;
  */
 public interface GraphRectificator {
     //TODO: put the java DOC
-    public boolean verify(HashMap<String,ArrayList<String>> graph,HashMap<String,ArrayList<String>> graph2);
+    public HashMap<String,ArrayList<String>> verify(Syllabus plan1,Syllabus plan2);
 }

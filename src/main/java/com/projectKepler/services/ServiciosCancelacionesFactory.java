@@ -9,6 +9,10 @@ import com.google.inject.Injector;
 import static com.google.inject.Guice.createInjector;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.EstudianteDAOMyBatis;
+import com.projectKepler.services.algorithm.Algorithm;
+import com.projectKepler.services.algorithm.impl.SimpleAlgorithm;
+import com.projectKepler.services.graphRectificator.GraphRectificator;
+import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import com.projectKepler.services.impl.ServiciosCancelacionesImpl;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
@@ -32,6 +36,8 @@ public class ServiciosCancelacionesFactory {
                 setClassPathResource("mybatis-config.xml");
                 bind(ServiciosCancelaciones.class).to(ServiciosCancelacionesImpl.class);
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
+                bind(Algorithm.class).to(SimpleAlgorithm.class);
+                bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
         });
         
@@ -43,6 +49,8 @@ public class ServiciosCancelacionesFactory {
                 setClassPathResource("mybatis-config-h2.xml");
                 bind(ServiciosCancelaciones.class).to(ServiciosCancelacionesImpl.class);
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
+                bind(Algorithm.class).to(SimpleAlgorithm.class);
+                bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
         });
     }

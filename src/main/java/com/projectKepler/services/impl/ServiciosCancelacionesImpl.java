@@ -5,12 +5,16 @@
  */
 package com.projectKepler.services.impl;
 
+import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
+import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.Syllabus;
+import com.projectKepler.services.graphRectificator.GraphRectificator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +27,12 @@ import javax.transaction.Transactional;
  */
 public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
 
+    
+    @Inject 
+    private Algorithm algo ;
+    
+    @Inject 
+    private GraphRectificator gRec;
     
     @Inject
     private EstudianteDAO estudiante;
@@ -55,7 +65,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Transactional
     @Override
     public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
-        return null;
+        Gson g = new Gson();
+        Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
+        return algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
     }
 
     @Transactional

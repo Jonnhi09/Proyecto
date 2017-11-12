@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.eci.cosw.sampleapp.test;
+package com.projectKepler.test;
 
 import com.google.gson.Gson;
 import com.projectKepler.services.entities.Course;
@@ -35,24 +35,6 @@ import org.junit.Test;
 public class GraphRectificatorTest {
 
     private GraphRectificator gRec = new GraphRectificatorImpl();
-
-    private HashMap<String, ArrayList<String>> makeGraph(Syllabus s) {
-        HashMap<String, ArrayList<String>> graph = new HashMap<>();
-        for (Course c : s.getCourses()) {
-            graph.put(c.getNombre(), new ArrayList());
-        }
-        for (Course c : s.getCourses()) {
-            if (graph.containsKey(c.getPreReq())) {
-                graph.get(c.getNombre()).add(c.getPreReq());
-            }
-            if (graph.containsKey(c.getCoReq())) {
-                graph.get(c.getNombre()).add(c.getCoReq());
-            }
-        }
-        System.out.println(Arrays.asList(graph));
-
-        return graph;
-    }
 
     @Test
     public void TestC1() {
@@ -106,10 +88,9 @@ public class GraphRectificatorTest {
 "        }\n" +
 "    ]\n" +
 "}", Syllabus.class);
-        HashMap<String,ArrayList<String>> a,b;
-        a= makeGraph(s);
-        b=makeGraph(s2);
-        Assert.assertTrue(gRec.verify(a,b));
+        HashMap<String,ArrayList<String>> a;
+        a= gRec.verify(s, s2);
+        Assert.assertFalse(a==null);
         
     }
     
@@ -166,7 +147,7 @@ public class GraphRectificatorTest {
 "        }\n" +
 "    ]\n" +
 "}", Syllabus.class);
-        Assert.assertFalse(gRec.verify(makeGraph(s),makeGraph(s2)));
+        Assert.assertTrue(null==gRec.verify(s, s2));
         
     }
 }

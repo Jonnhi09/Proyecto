@@ -7,12 +7,9 @@
 package com.projectKepler.services.algorithm.impl;
 
 import com.google.gson.Gson;
-import com.google.inject.Inject;
 import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.Course;
 import com.projectKepler.services.entities.Syllabus;
-import com.projectKepler.services.graphRectificator.GraphRectificator;
-import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import java.util.*;
 
 /**
@@ -21,26 +18,20 @@ import java.util.*;
  */
 public class AdavancedAlgorithm implements Algorithm {
 
-    //@Inject
-    private GraphRectificator gRec = new GraphRectificatorImpl();
     private int sem;
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;
 
     @Override
-    public String[] getImpact(String course, String json,String verify) {
+    public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
         proyection = new ArrayList<>();
-        for (int i = 0; i<60 ; i++)
+        for (int i = 0; i < 60; i++) {
             proyection.add(new ArrayList<String>());
-        Gson g = new Gson();
-        syllabus = g.fromJson(json, Syllabus.class);
-        sem = syllabus.getCreditsSemester();
-        HashMap<String, ArrayList<String>> graph = makeGraph(syllabus);
-        if (gRec.verify(graph,makeGraph(g.fromJson(verify, Syllabus.class)))) {
-            return new String[]{Integer.toString(solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits(), 0)), "JAJAJAJ"};
         }
-        //TODO: make an Exception if the graph have a cycle
-        return new String[]{"NO", "Funciona"};
+        Gson g = new Gson();
+        syllabus = planS;
+        sem = syllabus.getCreditsSemester();
+        return new String[]{Integer.toString(solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits(), 0)), "JAJAJAJ"};
     }
 
     private int solveYears(HashMap<String, ArrayList<String>> graph, int total, int semester) {
@@ -60,24 +51,6 @@ public class AdavancedAlgorithm implements Algorithm {
             return mini;
         }
 
-    }
-
-    private HashMap<String, ArrayList<String>> makeGraph(Syllabus s) {
-        HashMap<String, ArrayList<String>> graph = new HashMap<>();
-        for (Course c : s.getCourses()) {
-            graph.put(c.getNombre(), new ArrayList());
-        }
-        for (Course c : s.getCourses()) {
-            if (graph.containsKey(c.getPreReq())) {
-                graph.get(c.getNombre()).add(c.getPreReq());
-            }
-            if (graph.containsKey(c.getCoReq())) {
-                graph.get(c.getNombre()).add(c.getCoReq());
-            }
-        }
-        System.out.println(Arrays.asList(graph));
-
-        return graph;
     }
 
     private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String course) {
@@ -113,9 +86,9 @@ public class AdavancedAlgorithm implements Algorithm {
     private ArrayList<ArrayList<String>> getAllConfigs(ArrayList<String> matOk) {
         int total = (int) Math.pow(2d, Double.valueOf(matOk.size()));
         ArrayList<ArrayList<String>> res = new ArrayList<>();
-        for (int i = 1; i <total; i++) {
-            ArrayList<String> temp =new ArrayList<>();
-            String code = Integer.toBinaryString(total | total-i).substring(1);
+        for (int i = 1; i < total; i++) {
+            ArrayList<String> temp = new ArrayList<>();
+            String code = Integer.toBinaryString(total | total - i).substring(1);
             for (int j = 0; j < matOk.size(); j++) {
                 if (code.charAt(j) == '1') {
                     temp.add(matOk.get(j));
@@ -125,7 +98,7 @@ public class AdavancedAlgorithm implements Algorithm {
                 res.add(temp);
                 //FIXME: se puede redu el numero de iteraciones. recordar que se esta haciendo al revez
             }
-                
+
         }
         System.err.println(res);
         return res;
@@ -133,14 +106,16 @@ public class AdavancedAlgorithm implements Algorithm {
 
     private HashMap<String, ArrayList<String>> diff(HashMap<String, ArrayList<String>> graph, ArrayList<String> string) {
         HashMap<String, ArrayList<String>> res = (HashMap<String, ArrayList<String>>) graph.clone();
-        for(String s:string)
+        for (String s : string) {
             res.remove(s);
-        
-        for (String s : res.keySet()) {
-            for(String p : string)
-                res.get(s).remove(p);
         }
-            
+
+        for (String s : res.keySet()) {
+            for (String p : string) {
+                res.get(s).remove(p);
+            }
+        }
+
         return res;
     }
 

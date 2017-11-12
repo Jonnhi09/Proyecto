@@ -16,5 +16,5 @@ import java.util.HashMap;
  */
 public interface Algorithm {
     //TODO: put the javaDoc
-    public String[] getImpact(String course,String json,String verify);
+    public String[] getImpact(String course,HashMap<String,ArrayList<String>> graph, Syllabus planS);
 }
