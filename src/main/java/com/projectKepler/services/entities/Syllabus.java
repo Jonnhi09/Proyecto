@@ -11,25 +11,28 @@ package com.projectKepler.services.entities;
  */
 public class Syllabus {
     private String programa;
-    private int version;
+    private int version,totalCredits, creditsSemester;
     private Course[] courses;
 
-    public Syllabus(String programa, int version, Course[] courses) {
+    public Syllabus(String programa, int version, int totalCredits, int creditsSemester, Course[] courses) {
         this.programa = programa;
         this.version = version;
+        this.totalCredits = totalCredits;
+        this.creditsSemester = creditsSemester;
         this.courses = courses;
+    }
+
+    public int getTotalCredits() {
+        return totalCredits;
+    }
+
+    public int getCreditsSemester() {
+        return creditsSemester;
     }
 
     public Course[] getCourses() {
         return courses;
     }
 
-    public String getPrograma() {
-        return programa;
-    }
-
-    public int getVersion() {
-        return version;
-    }
     
 }

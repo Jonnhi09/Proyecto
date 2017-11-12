@@ -6,11 +6,12 @@
 package com.projectKepler.services.algorithm.impl;
 
 import com.google.gson.Gson;
+import com.google.inject.Inject;
 import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.*;
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.Charset;
+import com.projectKepler.services.graphRectificator.GraphRectificator;
+import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
+import com.sun.corba.se.impl.orbutil.graph.GraphImpl;
 import java.util.*;
 
 /**
@@ -18,26 +19,46 @@ import java.util.*;
  * @author blackphantom
  */
 public class SimpleAlgorithm implements Algorithm {
-    private HashMap<String,ArrayList<String>> graph = new HashMap<>();
-    public String getImpact(String course,String url) throws IOException {
-        InputStream is = new URL(url).openStream();
+
+    //@Inject
+    private GraphRectificator gRec = new GraphRectificatorImpl();
+
+    private HashMap<String, ArrayList<String>> graph = new HashMap<>();
+
+    @Override
+    public String[] getImpact(String course, String json, String verify) {
         Gson g = new Gson();
-        BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-        Syllabus s = g.fromJson(rd, Syllabus.class);
-        for(Course c : s.getCourses())
-            graph.put(c.getNombre(), new ArrayList());
-        for(Course c: s.getCourses()){
-            if(graph.get(c.getPreReq())!=null && !graph.get(c.getPreReq()).equals("")){
-                graph.get(c.getPreReq()).add(c.getNombre());
+
+        Syllabus s = g.fromJson(json, Syllabus.class);
+        Syllabus s2 = g.fromJson(verify, Syllabus.class);
+        if (gRec.verify(makeGraph(s), makeGraph(s2))) {
+            int pendientes = 0;
+            for (Course c : s.getCourses()) {
+                if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().contains(course)) {
+                    pendientes += c.getCreditos();
+                }
             }
-            if(graph.get(c.getCoReq())!=null && !graph.get(c.getCoReq()).equals("")){
-                graph.get(c.getCoReq()).add(c.getNombre());
-            }
+            return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(pendientes) + " creditos por ver.", ""};
         }
-        int pendientes=0;
-        for(Course c: s.getCourses()) if(c.getEstado()=='P')
-            pendientes+=c.getCreditos();
-        return "Si cancela " + course + " le quedan: " +Integer.toString(pendientes)+" creditos por ver."; 
+        //TODO: make a exception if the graph have cycles or the graph is not the same.
+        return null;
     }
 
+    private HashMap<String, ArrayList<String>> makeGraph(Syllabus s) {
+        HashMap<String, ArrayList<String>> graph = new HashMap<>();
+        for (Course c : s.getCourses()) {
+            graph.put(c.getNombre(), new ArrayList());
+        }
+        for (Course c : s.getCourses()) {
+            if (graph.containsKey(c.getPreReq())) {
+                graph.get(c.getNombre()).add(c.getPreReq());
+            }
+            if (graph.containsKey(c.getCoReq())) {
+                graph.get(c.getNombre()).add(c.getCoReq());
+            }
+        }
+        System.out.println(Arrays.asList(graph));
+
+        return graph;
+    }
 }
