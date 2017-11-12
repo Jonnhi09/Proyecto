@@ -21,4 +21,5 @@ public interface EstudianteMapper {
     public List<Asignatura> loadCoursesById(@Param("codigo") int codigo);
     public String consultImpactById (@Param("codigo") int codigo, @Param("nem") String nemonico);
     public void updateJustification (@Param("codigo") int codigo);
+    public String loadSyllabusPrograma(@Param("codigo")int cogigo);
 }

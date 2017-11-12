@@ -18,6 +18,7 @@ public interface EstudianteDAO {
     
     public List<Estudiante> loadAllEstudiantes() throws PersistenceException;
     public String loadPlanDeEstudio(int codigoEstudiante) throws PersistenceException;
+    public String loadSyllabusProgramaById(int codigoEstudiante) throws PersistenceException;
     public List<Asignatura> loadCoursesById(int codigo) throws PersistenceException;
     public String consultImpactById(int codigo, String nemonico) throws PersistenceException;
     public void updateJustification(int codigo) throws PersistenceException;

@@ -6,7 +6,9 @@
 package com.projectKepler.services;
 
 import com.projectKepler.services.entities.Asignatura;
+import com.projectKepler.services.entities.Course;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.Syllabus;
 import java.util.List;
 
 /**
@@ -36,7 +38,7 @@ public interface ServiciosCancelaciones {
      * @return Lista de asignaturas de un estudiante
      * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
-    public List<Asignatura> consultarAsignaturasByIdEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
+    public List<Course> consultarAsignaturasByIdEstudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta el impacto que genera la cancelacion de una asignatura a partir del identificador del estudiante y de la asignatura
@@ -55,4 +57,10 @@ public interface ServiciosCancelaciones {
      */
     public void actualizarJustificacionById(int id, String justificacion) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     *
+     * @param codigo
+     * @return
+     */
+    public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
 }

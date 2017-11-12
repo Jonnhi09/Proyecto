@@ -17,6 +17,7 @@ public class Course {
     private int[] historialNotas;
     private int[] tercios;
     private char estado;
+    
 
     public Course(String nombre, int creditos, String preReq, String coReq, int[] historialNotas, int[] tercios, char estado) {
         this.nombre = nombre;

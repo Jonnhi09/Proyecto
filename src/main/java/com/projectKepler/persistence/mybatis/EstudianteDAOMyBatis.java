@@ -60,4 +60,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     
+
+    @Override
+    public String loadSyllabusProgramaById(int codigoEstudiante) throws PersistenceException {
+        String programa="";
+        try{
+            programa=estudiante.loadSyllabusPrograma(codigoEstudiante);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
+        }
+        return programa;
+    }
+
+    
 }
