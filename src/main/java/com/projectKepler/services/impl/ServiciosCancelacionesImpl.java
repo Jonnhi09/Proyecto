@@ -165,6 +165,28 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         estudiante.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
         student=estudiante.loadEstudianteById(id);
         
-    }    
+    }   
+    
+    @Transactional
+    @Override
+    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones{
+        try{
+            estudiante.updateCredits(creditos, programa);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    @Transactional
+    @Override
+    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones{
+        int credits=0;
+        try{
+            credits=estudiante.consultCredits(programa);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return credits;
+    }
 }
 

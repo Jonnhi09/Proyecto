@@ -108,11 +108,30 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     public String consultProyectionById(int codigo, String nemonico) throws PersistenceException {
         String proyeccion="";
         try{
-            proyeccion
-                    =estudiante.consultProyectionById(codigo, nemonico);
+            proyeccion=estudiante.consultProyectionById(codigo, nemonico);
         }catch (Exception e){
             throw new PersistenceException("Error al consultar el impacto de cancelar la asignatura "+nemonico+" del estudiante :"+codigo,e);
         }
         return proyeccion;
+    }
+    
+    @Override
+    public void updateCredits(int creditos, String programa) throws PersistenceException{
+        try{
+            estudiante.updateCredits(creditos, programa);
+        }catch (Exception e){
+            throw new PersistenceException("Error al actualizar los creditos maximos del programa :"+programa,e);
+        }
+    }
+    
+    @Override
+    public int consultCredits(String programa) throws PersistenceException{
+        int credits=0;
+        try{
+            credits=estudiante.consultCredits(programa);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar el numero de creditos maximos del programa :"+programa,e);
+        }
+        return credits;
     }
 }

@@ -92,4 +92,19 @@ public interface ServiciosCancelaciones {
      */
     public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Actualiza el numero maximo de creditos que se pueden ver por semestre.
+     * @param creditos numero de creditos maximos
+     * @param programa nombre del programa al que se le van a modificar el numero de creditos
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un programa con ese nombre, o si se presenta otro problema en las capas inferiores.
+     */
+    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta el numero maximo de creditos que se pueden ver por semestre de un programa
+     * @param programa nombre del programa
+     * @return numero de creditos maximos de un programa
+     * @throws ExcepcionServiciosCancelaciones Si NO existe el programa, o si se presenta otro problema en las capas inferiores.
+     */
+    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones;
 }

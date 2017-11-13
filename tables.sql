@@ -1,5 +1,5 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-11-12 19:23:00.094
+-- Last modification date: 2017-11-13 19:26:56.843
 
 -- tables
 -- Table: Acudiente
@@ -20,8 +20,10 @@ CREATE TABLE Asignatura (
 
 -- Table: ConsejeroAcademico
 CREATE TABLE ConsejeroAcademico (
-    nombre varchar(20)  NOT NULL,
     codigo int  NOT NULL,
+    nombre varchar(20)  NOT NULL,
+    correo varchar(50)  NOT NULL,
+    CONSTRAINT correoConsejero UNIQUE (correo),
     CONSTRAINT ConsejeroAcademico_pk PRIMARY KEY (codigo)
 );
 
@@ -29,6 +31,8 @@ CREATE TABLE ConsejeroAcademico (
 CREATE TABLE CoordinadorCancelaciones (
     codigo int  NOT NULL,
     nombre varchar(20)  NOT NULL,
+    correo varchar(50)  NOT NULL,
+    CONSTRAINT correoCoordinador UNIQUE (correo),
     CONSTRAINT CoordinadorCancelaciones_pk PRIMARY KEY (codigo)
 );
 
@@ -58,6 +62,7 @@ CREATE TABLE PlanDeEstudios (
 -- Table: ProgramaAcademico
 CREATE TABLE ProgramaAcademico (
     nombre varchar(100)  NOT NULL,
+    creditosMaximos int  NOT NULL,
     CONSTRAINT ProgramaAcademico_pk PRIMARY KEY (nombre)
 );
 
@@ -129,14 +134,14 @@ ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Estudiante
 
 
 -- Poblar ProgramaAcademico --
-INSERT INTO ProgramaAcademico VALUES ('Ingenieria de sistemas');
+INSERT INTO ProgramaAcademico VALUES ('Ingenieria de sistemas',18);
 
 --Poblar Consejero academico 
-INSERT INTO ConsejeroAcademico VALUES ('Claudia',231831);
-INSERT INTO ConsejeroAcademico VALUES ('Camilo',313131);
+INSERT INTO ConsejeroAcademico VALUES (231831,'Claudia','claudia@escuelaing.edu.co');
+INSERT INTO ConsejeroAcademico VALUES (313131,'Camilo','camilo@escuelaing.edu.co');
 
 -- Poblar Coordinador de Cancelaciones
-INSERT INTO CoordinadorCancelaciones VALUES (428131,'Laura');
+INSERT INTO CoordinadorCancelaciones VALUES (428131,'Laura','laura@escuelaing.edu.co');
 
 -- Poblar Asignatura
 INSERT INTO Asignatura VALUES ('CALD', 'Calculo Diferencial', 'Ingenieria de sistemas', 0);
