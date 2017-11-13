@@ -72,6 +72,7 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return programa;
     }
+    
     @Override
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException {
         Estudiante student=null;
@@ -133,5 +134,16 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al consultar el numero de creditos maximos del programa :"+programa,e);
         }
         return credits;
+    }
+    
+    @Override
+    public Estudiante consultStudentByEmail(String correo) throws PersistenceException{
+        Estudiante student=null;
+        try{
+            student=estudiante.consultStudentByEmail(correo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar el estudiante con el correo :"+correo,e);
+        }
+        return student;
     }
 }

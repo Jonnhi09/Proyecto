@@ -28,4 +28,5 @@ public interface EstudianteMapper {
     public String consultProyectionById (@Param("codigo") int codigo, @Param("nem") String nemonico);
     public void updateCredits(@Param("creditos") int creditos, @Param("programa") String programa);
     public int consultCredits(@Param("programa") String programa);
+    public Estudiante consultStudentByEmail(@Param("correo") String correo);
 }

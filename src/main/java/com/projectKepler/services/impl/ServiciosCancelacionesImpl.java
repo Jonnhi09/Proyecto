@@ -42,7 +42,13 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Transactional
     @Override
     public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Estudiante> estudiantes=null;
+        try{
+            estudiantes=estudiante.loadAllEstudiantes();
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return estudiantes;
     }
     
     
@@ -187,6 +193,18 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return credits;
+    }
+    
+    @Transactional
+    @Override
+    public Estudiante consultarEstudianteByCorreo(String correo) throws ExcepcionServiciosCancelaciones{
+        Estudiante student=null;
+        try{
+            student=estudiante.consultStudentByEmail(correo);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return student;
     }
 }
 

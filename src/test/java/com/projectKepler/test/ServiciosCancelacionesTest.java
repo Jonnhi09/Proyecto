@@ -4,6 +4,7 @@ import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelacionesFactory;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.entities.Course;
+import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +90,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test
-    public void actualizarYConsultarCreditosPrograma(){
+    public void actualizarYConsultarCreditosProgramaTest(){
         int creditos=0;
         try{
             servicios.actualizarNumeroMaximoDeCreditos(22, "Ingenieria de sistemas");
@@ -98,6 +99,17 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         assertEquals(creditos,22);
+    }
+    
+    @Test
+    public void consultarEstudiantePorCorreoTest(){
+        Estudiante estudiante=null;
+        try{
+            estudiante=servicios.consultarEstudianteByCorreo("pepito.perez@mail.escuelaing.edu.co");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(estudiante.getCorreo(),"pepito.perez@mail.escuelaing.edu.co");
     }
 } 
 

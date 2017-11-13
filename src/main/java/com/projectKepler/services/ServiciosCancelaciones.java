@@ -107,4 +107,12 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe el programa, o si se presenta otro problema en las capas inferiores.
      */
     public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta un estudiante dado su correo
+     * @param correo es el correo del estudiante
+     * @return Un estudiante de acuerdo a su correo
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese correo, o si se presenta otro problema en las capas inferiores.
+     */
+    public Estudiante consultarEstudianteByCorreo(String correo) throws ExcepcionServiciosCancelaciones;
 }
