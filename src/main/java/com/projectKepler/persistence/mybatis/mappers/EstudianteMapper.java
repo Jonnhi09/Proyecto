@@ -25,4 +25,5 @@ public interface EstudianteMapper {
     public String loadSyllabusPrograma(@Param("codigo")int codigo);
     public Estudiante loadEstudianteById(@Param("codigo") int codigo);
     public List<Solicitud> loadSolicitudes();
+    public String consultProyectionById (@Param("codigo") int codigo, @Param("nem") String nemonico);
 }

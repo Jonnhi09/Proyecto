@@ -123,6 +123,12 @@
         WHERE s.Estudiante_codigo=#{codigo} AND s.Asignatura_Cancelar=#{nem}
     </select>
     
+    <select parameterType="map" id="consultProyectionById" resultType="String">
+        select s.proyeccion
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_Cancelar
+        WHERE s.Estudiante_codigo=#{codigo} AND s.Asignatura_Cancelar=#{nem}
+    </select>
+    
     <resultMap type='Estudiante' id='EstudianteResult' >
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>

@@ -59,27 +59,37 @@ public interface ServiciosCancelaciones {
     public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
     /**
-     * Modificar la justificacion de una solicitud de cancelacion a partir del identificador de la solicitud
-     * @param id identificador de la solicitud
+     * Modificar la justificacion de una solicitud de cancelacion a partir del codigo y la materia que va a cancelar el estudiante
+     * @param id id es el codigo del estudiante que va a cancelar
      * @param justificacion es la justificacion de una cancelacion
+     * @param materia es el nemonico de la asignatura a cancelar
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
     public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones;
     
     /**
-     *
-     * @param codigo
-     * @return
+     *Obtiene el plan de estudios especifico del estudiante y el plan de estudios de programa academico al que pertenece el estudiante
+     * @param codigo identificador del estudiante que realiza la solicitud
+     * @return en la primera posicion esta el plan de estudios especifico del estudiante y en la segunda posicion esta el plan de estudios del programa academico
      */
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
 
     /**
-     * Obtener el impacto de una cancelacion calculado por el algoritmo a partir del identificador del estudiante y de la asignatura
+     * Obtener la proyeccion de una cancelacion calculado por el algoritmo a partir del identificador del estudiante y de la asignatura
      * @param codigoEstudiante es el identificador del estudiante
      * @param nemonicoAsignatura identificador de la asignatura
-     * @return Impacto calculado por el algoritmo.
+     * @return Proyeccion calculado por el algoritmo.
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con el identificador del estudiante, o si se presenta otro problema en las capas inferiores.
      */
     public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta la proyeccion que genera la cancelacion de una asignatura a partir del identificador del estudiante y de la asignatura
+     * @param codigoEstudiante identificador del estudiante
+     * @param nemonicoAsignatura identificador de la asignatura
+     * @return Proyeccion de cancelar una asignatura
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese identificador o no tiene esa asignatura, o si se presenta otro problema en las capas inferiores.
+     */
+    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
 }

@@ -3,6 +3,10 @@ package com.projectKepler.test;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelacionesFactory;
 import com.projectKepler.services.ServiciosCancelaciones;
+import com.projectKepler.services.entities.Course;
+import com.projectKepler.services.entities.Syllabus;
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 
@@ -28,5 +32,62 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(programa,"{ \"programa\": \"ing. sistemas\", \"version\": 13, \"courses\": [ { \"nombre\": \"PREM\", \"creditos\": 4, \"PreRec\": \"\", \"coReq\": \"\", \"historialNotas\": [35], \"tercios\": [21, 46, 40], \"estado\":\"A\" }, { \"nombre\": \"CALD\", \"creditos\": 4, \"preReq\": \"PREM\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [34], \"estado\":\"V\" }, { \"nombre\": \"CIED\", \"creditos\": 4, \"preReq\": \"CALD\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"P\" }, { \"nombre\": \"FFIS\", \"creditos\": 4, \"preReq\": \"\", \"coReq\": \"\", \"historialNotas\": [50], \"tercios\": [50,50,50], \"estado\":\"A\" }, { \"nombre\": \"FIMF\", \"creditos\": 4, \"preReq\": \"FFIS\", \"coReq\": \"CALD\", \"historialNotas\": [], \"tercios\": [20], \"estado\":\"V\" }, { \"nombre\": \"FIEM\", \"creditos\": 4, \"preReq\": \"FIMF\", \"coReq\": \"CIED\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"P\" } ] }");
     }
+    
+   @Test 
+   public void consultarAsignaturaByIdEstudianteTest(){
+       List<String> asignaturas=new ArrayList<String>();
+       List<Course> resultado=null;
+       try{
+           resultado=servicios.consultarAsignaturasByIdEstudiante(2121465);
+       }catch(ExcepcionServiciosCancelaciones e){
+           e.getMessage();
+       }
+       asignaturas.add("CALD");
+       asignaturas.add("FIMF");
+       assertEquals(asignaturas.size(),resultado.size());
+       for (int i=0; i<asignaturas.size();i++){
+           assertEquals(asignaturas.get(i),resultado.get(i).getNombre());
+       }
+       
+   }
+   
+   @Test 
+   public void consultarImpactoByEstudianteTest(){
+       String resultado="";
+       try{
+           resultado=servicios.consultarImpactoByEstudianteAsignatura(79328,"FFIS");
+       }catch(ExcepcionServiciosCancelaciones e){
+           e.getMessage();
+       }
+       assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver.");
+   }
+   
+   @Test 
+   public void consultarProyeccionByEstudianteTest(){
+       String resultado="";
+       try{
+           resultado=servicios.consultarProyeccionByEstudianteAsignatura(79328,"FFIS");
+       }catch(ExcepcionServiciosCancelaciones e){
+           e.getMessage();
+       }
+       assertEquals(resultado,"FFIS,CALD,ALLI,LCAL y una electiva");
+   }
+   
+   @Test 
+   public void obtenerSyllabusEstudianteTest(){
+       List<Syllabus> resultado= null;
+       try{
+           resultado=servicios.obtenerSyllabusEstudiante(79328);
+       }catch(ExcepcionServiciosCancelaciones e){
+           e.getMessage();
+       }
+       assertEquals(resultado.get(0).getCourses().length,6);
+       assertEquals(resultado.get(0).getCourses()[0].getTercios()[0],21);
+       for (Course c:resultado.get(1).getCourses()){
+           assertEquals(c.getEstado(),'P');
+       }
+   }
+   
+   
 } 
 

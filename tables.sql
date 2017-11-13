@@ -349,7 +349,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "CALD",
@@ -358,7 +358,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "CIED",
@@ -367,7 +367,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"V"
+            "estado":"P"
         },
         {
             "nombre": "FFIS",
@@ -376,7 +376,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "FIMF",
@@ -385,7 +385,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
             "coReq": "CALD",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "FIEM",
@@ -394,7 +394,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"C"
+            "estado":"P"
         }
     ]
 }');
@@ -410,7 +410,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "CALD",
@@ -419,7 +419,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "CIED",
@@ -428,7 +428,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"V"
+            "estado":"P"
         },
         {
             "nombre": "FFIS",
@@ -437,7 +437,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "FIMF",
@@ -446,7 +446,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "coReq": "CALD",
             "historialNotas": [],
             "tercios": [],
-            "estado":"A"
+            "estado":"P"
         },
         {
             "nombre": "FIEM",
@@ -455,7 +455,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"C"
+            "estado":"P"
         }
     ]
 }');

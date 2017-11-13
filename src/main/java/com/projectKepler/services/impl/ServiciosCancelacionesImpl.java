@@ -108,7 +108,20 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return impacto;
     }
+    
+    @Transactional
+    @Override
+    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
+        String impacto="";
+        try{
+            impacto=estudiante.consultProyectionById(codigoEstudiante, nemonicoAsignatura);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return impacto;
+    }
 
+    @Transactional
     @Override
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones {
         List<Syllabus> planesDeEstudio= new ArrayList<Syllabus>();

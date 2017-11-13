@@ -103,4 +103,16 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return solicitudes;
     }
+
+    @Override
+    public String consultProyectionById(int codigo, String nemonico) throws PersistenceException {
+        String proyeccion="";
+        try{
+            proyeccion
+                    =estudiante.consultProyectionById(codigo, nemonico);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar el impacto de cancelar la asignatura "+nemonico+" del estudiante :"+codigo,e);
+        }
+        return proyeccion;
+    }
 }
