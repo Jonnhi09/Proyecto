@@ -19,7 +19,12 @@ public class GraphRectificatorImpl implements GraphRectificator {
     private ArrayList<String> marked;
     private ArrayList<String> stack;
     boolean noHaveCycle = true;
-
+    
+    /***
+     * 
+     * @param graph el grafo del plan de estudios
+     * @param node la materia a retirar
+     */
     public void check(HashMap<String, ArrayList<String>> graph, String node) {
         marked.add(node);
         stack.add(node);
@@ -52,7 +57,11 @@ public class GraphRectificatorImpl implements GraphRectificator {
         }
 
     }
-
+    /***
+     * 
+     * @param s el plan de estudios a convertir
+     * @return el grafo como un hashmap 
+     */
     private HashMap<String, ArrayList<String>> makeGraph(Syllabus s) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
         for (Course c : s.getCourses()) {
