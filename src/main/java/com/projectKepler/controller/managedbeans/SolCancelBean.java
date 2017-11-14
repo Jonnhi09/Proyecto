@@ -53,7 +53,6 @@ public class SolCancelBean implements Serializable{
         setUsuario(getShiroLoginBean().getUsername());
         try {
             estudiante = servicios.consultarEstudianteByCorreo(usuario+"@mail.escuelaing.edu.co");
-            System.out.println("ADADADA "+estudiante.getNombre());
             materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -82,8 +81,8 @@ public class SolCancelBean implements Serializable{
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe seleccionar una materia para realizar el análisis", null)); 
                 makePanelInvisible();
             }else{
-                impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), materiaSeleccionada);
-                proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), materiaSeleccionada);
+                impacto = servicios.obtenerImpactoByEstudiante(estudiante.getCodigo(), materiaSeleccionada);
+                proyeccion = servicios.obtenerProyeccionByEstudiante(estudiante.getCodigo(), materiaSeleccionada);
                 makePanelVisible();
             }
         } catch (ExcepcionServiciosCancelaciones ex) {

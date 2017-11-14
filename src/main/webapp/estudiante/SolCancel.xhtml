@@ -24,7 +24,7 @@
                 <p:outputLabel for="materias" value="Asignatura a cancelar" style=" font-size:x-large"/>
                 <p:selectOneMenu id="materias" value="#{solCancelBean.materiaSeleccionada}" style="width:125px">
                     <f:selectItem itemLabel="Asignatura" itemValue="Asignatura" />
-                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemValue="#{materia.nombre}"/>
+                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemValue="#{materia.nombre}" itemLabel="#{materia.nombre}"/>
                     <p:ajax update="matselec"/>
                 </p:selectOneMenu>
             </h:panelGrid>
