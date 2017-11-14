@@ -78,6 +78,7 @@
             a.cancelada as Asignatura_cancelada,
         
             pr.nombre as Programa_nombre,
+            pr.creditosMaximos as Programa_creditos,
         
             pl.id as Plan_id,
             pl.ProgramaAcademico as Plan_ProgramaAcademico,
@@ -127,6 +128,30 @@
         select s.proyeccion
         FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_Cancelar
         WHERE s.Estudiante_codigo=#{codigo} AND s.Asignatura_Cancelar=#{nem}
+    </select>
+    
+    <update parameterType="map" id="updateCredits">
+        update ProgramaAcademico set
+            creditosMaximos=#{creditos}
+        WHERE nombre=#{programa}
+    </update>
+    
+    <select parameterType="map" id="consultCredits" resultType="int">
+        select creditosMaximos
+        FROM ProgramaAcademico
+        WHERE nombre=#{programa}
+    </select>
+    
+    <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult" resultType="Estudiante">
+        select *        
+        FROM  Estudiante
+        WHERE correo=#{correo};
+    </select>
+    
+    <select parameterType="map" id="consultCourse" resultType="String" >
+        select s.Asignatura_Cancelar
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        WHERE e.codigo=#{codigo}
     </select>
     
     <resultMap type='Estudiante' id='EstudianteResult' >

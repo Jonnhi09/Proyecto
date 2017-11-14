@@ -14,6 +14,7 @@ import java.util.List;
 public class ProgramaAcademico {
     private String nombre;
     private List<PlanDeEstudios> planesDeEstudio;
+    private int creditosMaximos;
 
     public String getNombre() {
         return nombre;
@@ -30,5 +31,11 @@ public class ProgramaAcademico {
         this.planesDeEstudio = planesDeEstudio;
     }
     
-    
+    public int getCreditosMaximos() {
+        return creditosMaximos;
+    }
+
+    public void setCreditosMaximos(int creditosMaximos) {
+        this.creditosMaximos = creditosMaximos;
+    }
 }

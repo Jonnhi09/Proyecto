@@ -64,6 +64,4 @@ public class Course {
     public void setTercios(int[] tercios) {
         this.tercios = tercios;
     }
-    
-    
 }

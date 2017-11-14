@@ -92,4 +92,35 @@ public interface ServiciosCancelaciones {
      */
     public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Actualiza el numero maximo de creditos que se pueden ver por semestre.
+     * @param creditos numero de creditos maximos
+     * @param programa nombre del programa al que se le van a modificar el numero de creditos
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un programa con ese nombre, o si se presenta otro problema en las capas inferiores.
+     */
+    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta el numero maximo de creditos que se pueden ver por semestre de un programa
+     * @param programa nombre del programa
+     * @return numero de creditos maximos de un programa
+     * @throws ExcepcionServiciosCancelaciones Si NO existe el programa, o si se presenta otro problema en las capas inferiores.
+     */
+    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta un estudiante dado su correo
+     * @param correo es el correo del estudiante
+     * @return Un estudiante de acuerdo a su correo
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese correo, o si se presenta otro problema en las capas inferiores.
+     */
+    public Estudiante consultarEstudianteByCorreo(String correo) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consultar las asignaturas de un estudiante que no tienen solicitudes de cancelacion
+     * @param codigoEstudiante identificador del estudiante
+     * @return Lista de asignaturas del estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe el estudiante, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<Course> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
 }

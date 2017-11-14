@@ -72,6 +72,7 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return programa;
     }
+    
     @Override
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException {
         Estudiante student=null;
@@ -108,11 +109,52 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     public String consultProyectionById(int codigo, String nemonico) throws PersistenceException {
         String proyeccion="";
         try{
-            proyeccion
-                    =estudiante.consultProyectionById(codigo, nemonico);
+            proyeccion=estudiante.consultProyectionById(codigo, nemonico);
         }catch (Exception e){
             throw new PersistenceException("Error al consultar el impacto de cancelar la asignatura "+nemonico+" del estudiante :"+codigo,e);
         }
         return proyeccion;
+    }
+    
+    @Override
+    public void updateCredits(int creditos, String programa) throws PersistenceException{
+        try{
+            estudiante.updateCredits(creditos, programa);
+        }catch (Exception e){
+            throw new PersistenceException("Error al actualizar los creditos maximos del programa :"+programa,e);
+        }
+    }
+    
+    @Override
+    public int consultCredits(String programa) throws PersistenceException{
+        int credits=0;
+        try{
+            credits=estudiante.consultCredits(programa);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar el numero de creditos maximos del programa :"+programa,e);
+        }
+        return credits;
+    }
+    
+    @Override
+    public Estudiante consultStudentByEmail(String correo) throws PersistenceException{
+        Estudiante student=null;
+        try{
+            student=estudiante.consultStudentByEmail(correo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar el estudiante con el correo :"+correo,e);
+        }
+        return student;
+    }
+    
+    @Override
+    public List<String> consultCourse(int codigo) throws PersistenceException{
+        List<String> course=null;
+        try{
+            course=estudiante.consultCourse(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar la asiganturas que tienen solicitud de cancelacion del estudiante :"+codigo,e);
+        }
+        return course;
     }
 }

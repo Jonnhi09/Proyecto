@@ -42,7 +42,13 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Transactional
     @Override
     public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Estudiante> estudiantes=null;
+        try{
+            estudiantes=estudiante.loadAllEstudiantes();
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return estudiantes;
     }
     
     
@@ -165,6 +171,60 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         estudiante.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
         student=estudiante.loadEstudianteById(id);
         
-    }    
+    }   
+    
+    @Transactional
+    @Override
+    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones{
+        try{
+            estudiante.updateCredits(creditos, programa);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
+    @Transactional
+    @Override
+    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones{
+        int credits=0;
+        try{
+            credits=estudiante.consultCredits(programa);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return credits;
+    }
+    
+    @Transactional
+    @Override
+    public Estudiante consultarEstudianteByCorreo(String correo) throws ExcepcionServiciosCancelaciones{
+        Estudiante student=null;
+        try{
+            student=estudiante.consultStudentByEmail(correo);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return student;
+    }
+    
+    @Transactional
+    @Override
+    public List<Course> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones{
+        List<Course> asignaturas=new ArrayList<>();
+        List<String> asig=null;
+        try{
+            asig=estudiante.consultCourse(codigoEstudiante);
+            for (Course c:consultarAsignaturasByIdEstudiante(codigoEstudiante)){
+                for(String a:asig){
+                    if(!(c.getNombre().equals(a))){
+                        asignaturas.add(c);
+                    }
+                }
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return asignaturas;
+    }
 }
 

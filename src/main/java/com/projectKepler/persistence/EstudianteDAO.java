@@ -26,4 +26,9 @@ public interface EstudianteDAO {
     public void updateJustification(int codigo, String materia, String justificacion, int numero, boolean acuse, String impacto, String proyeccion) throws PersistenceException;
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException;
     public List<Solicitud> loadSolicitudes() throws PersistenceException;
+    public void updateCredits(int creditos, String programa) throws PersistenceException;
+    public int consultCredits(String programa) throws PersistenceException;
+    public Estudiante consultStudentByEmail(String correo) throws PersistenceException;
+    public List<String> consultCourse(int codigo) throws PersistenceException;
+
 }
