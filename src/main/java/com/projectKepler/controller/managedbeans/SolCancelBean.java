@@ -53,6 +53,7 @@ public class SolCancelBean implements Serializable{
         setUsuario(getShiroLoginBean().getUsername());
         try {
             estudiante = servicios.consultarEstudianteByCorreo(usuario+"@mail.escuelaing.edu.co");
+            System.out.println("ADADADA "+estudiante.getNombre());
             materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);

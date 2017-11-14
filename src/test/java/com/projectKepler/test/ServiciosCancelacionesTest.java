@@ -105,11 +105,11 @@ public class ServiciosCancelacionesTest {
     public void consultarEstudiantePorCorreoTest(){
         Estudiante estudiante=null;
         try{
-            estudiante=servicios.consultarEstudianteByCorreo("pepito.perez@mail.escuelaing.edu.co");
+            estudiante=servicios.consultarEstudianteByCorreo("diana.sanchez-m@mail.escuelaing.edu.co");
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(estudiante.getCorreo(),"pepito.perez@mail.escuelaing.edu.co");
+        assertEquals(estudiante.getCorreo(),"diana.sanchez-m@mail.escuelaing.edu.co");
     }
     
     @Test

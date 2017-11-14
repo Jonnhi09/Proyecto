@@ -213,10 +213,14 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<String> asig=null;
         try{
             asig=estudiante.consultCourse(codigoEstudiante);
-            for (Course c:consultarAsignaturasByIdEstudiante(codigoEstudiante)){
-                for(String a:asig){
-                    if(!(c.getNombre().equals(a))){
-                        asignaturas.add(c);
+            if (asig==null){
+                asignaturas=consultarAsignaturasByIdEstudiante(codigoEstudiante);
+            }else{
+                for (Course c:consultarAsignaturasByIdEstudiante(codigoEstudiante)){
+                    for(String a:asig){
+                        if(!(c.getNombre().equals(a))){
+                            asignaturas.add(c);
+                        }
                     }
                 }
             }
