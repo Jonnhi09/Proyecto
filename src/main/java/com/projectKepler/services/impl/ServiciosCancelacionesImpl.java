@@ -11,7 +11,6 @@ import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Course;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.Syllabus;
@@ -20,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
+import org.apache.ibatis.exceptions.PersistenceException;
 
 /**
  *

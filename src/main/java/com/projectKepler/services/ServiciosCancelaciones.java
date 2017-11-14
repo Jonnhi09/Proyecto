@@ -5,7 +5,6 @@
  */
 package com.projectKepler.services;
 
-import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Course;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.Syllabus;

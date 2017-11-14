@@ -7,10 +7,15 @@
     <h:head>
         <title>Solicitud de Cancelación</title>
     </h:head>
-    <h:body>
-        <h:form style="margin: 2% 10%" >
-            <h:panelGrid columns="1">
-                <p:outputLabel value="Estudiante: #{solCancelBean.estudiante}" style=" font-size:x-large"/>
+    <h:body >
+        
+        <h:form style="margin: 2% 10%" id="formSol" >
+            <h:panelGrid columns="1" style="text-align: right; width: 100%">
+                <h:outputLink value="/logout">logout</h:outputLink>
+            </h:panelGrid>
+            
+            <h:panelGrid columns="1">                
+                <p:outputLabel value="Estudiante: #{solCancelBean.estudiante.nombre}" style=" font-size:x-large"/>
                 
                 <p:outputLabel value="Solicitud de cancelación" style=" font-size:x-large"/>
                 <br/>
@@ -18,8 +23,8 @@
             <h:panelGrid columns="2" style="width: 40%">
                 <p:outputLabel for="materias" value="Asignatura a cancelar" style=" font-size:x-large"/>
                 <p:selectOneMenu id="materias" value="#{solCancelBean.materiaSeleccionada}" style="width:125px">
-                    <f:selectItem itemLabel="Asignatura" itemValue="" />
-                    <f:selectItems value="#{solCancelBean.materia}" />
+                    <f:selectItem itemLabel="Asignatura" itemValue="Asignatura" />
+                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemValue="#{materia.nombre}"/>
                     <p:ajax update="matselec"/>
                 </p:selectOneMenu>
             </h:panelGrid>
@@ -27,7 +32,8 @@
             <br/>
             <h:panelGrid columns="1" style="width: 100%;text-align: center">
                 <p:outputLabel id="matselec" value="Curso seleccionado: #{solCancelBean.materiaSeleccionada}" style=" font-size:x-large"/>
-                <p:commandButton value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis"/>
+                <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis"/>
+                <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
             </h:panelGrid>
             <br/>
             <br/>
@@ -35,10 +41,10 @@
                 <h:panelGroup  rendered="#{solCancelBean.panelVisibility}">
                     <p:tabView>
                         <p:tab title="Impacto">
-                            <p:outputLabel value="Este es el impacto de #{solCancelBean.materiaSeleccionada}"/>
+                            <p:outputLabel value="#{solCancelBean.impacto}"/>
                         </p:tab>
                         <p:tab title="Proyección">
-                            <p:outputLabel value="Esta es la proyección de #{solCancelBean.materiaSeleccionada}" />
+                            <p:outputLabel value="#{solCancelBean.proyeccion}" />
                         </p:tab>
                     </p:tabView>
                     <br/>
@@ -46,8 +52,23 @@
                     <br/>
                     <h:panelGrid columns="2" style="width: 100%;text-align: center">
                         <p:commandButton value="Anular operación" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis"/>
-                        <p:commandButton value="Proceder con solicitud" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis"/>
+                        <p:commandButton value="Proceder con solicitud" onclick="PF('dialogJustificacion').show();"/>
                     </h:panelGrid>
+                    
+                    <p:dialog header="Justificación de la solicitud de cancelación" widgetVar="dialogJustificacion" modal="true" height="300">
+                        <h:panelGrid columns="1">
+                            <p:inputTextarea id="justificacion" value="#{solCancelBean.justificacion}" rows="5" cols="60" counter="display" maxlength="150" counterTemplate="{0} characters remaining." autoResize="false"/>
+                            <h:outputText id="display" />
+                            <p:messages for="dialogMessages" autoUpdate="true" closable="true"/>
+                        </h:panelGrid>
+                        <br/>
+                        <br/>
+                        <h:panelGrid columns="2" style="width: 100%;text-align: center">
+                            <p:commandButton value="Cancelar" onclick="PF('dialogJustificacion').hide();"/>
+                            <p:commandButton value="Enviar" actionListener="#{solCancelBean.enviarSolicitud()}"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                    
                 </h:panelGroup>
             </h:panelGroup>
             

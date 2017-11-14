@@ -6,7 +6,6 @@
 package com.projectKepler.services.algorithm;
 
 import com.projectKepler.services.entities.Syllabus;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

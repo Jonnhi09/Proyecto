@@ -9,7 +9,8 @@ import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
-import javax.persistence.PersistenceException;
+import org.apache.ibatis.exceptions.PersistenceException;
+
 
 /**
  *
