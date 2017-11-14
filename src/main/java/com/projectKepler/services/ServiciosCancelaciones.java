@@ -115,4 +115,12 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese correo, o si se presenta otro problema en las capas inferiores.
      */
     public Estudiante consultarEstudianteByCorreo(String correo) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consultar las asignaturas de un estudiante que no tienen solicitudes de cancelacion
+     * @param codigoEstudiante identificador del estudiante
+     * @return Lista de asignaturas del estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe el estudiante, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<Course> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
 }

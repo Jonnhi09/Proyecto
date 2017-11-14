@@ -29,4 +29,6 @@ public interface EstudianteMapper {
     public void updateCredits(@Param("creditos") int creditos, @Param("programa") String programa);
     public int consultCredits(@Param("programa") String programa);
     public Estudiante consultStudentByEmail(@Param("correo") String correo);
+    public List<String> consultCourse(@Param("codigo") int codigo);
+    
 }

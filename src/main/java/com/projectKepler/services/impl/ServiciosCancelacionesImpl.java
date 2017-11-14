@@ -206,5 +206,25 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return student;
     }
+    
+    @Transactional
+    @Override
+    public List<Course> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones{
+        List<Course> asignaturas=new ArrayList<>();
+        List<String> asig=null;
+        try{
+            asig=estudiante.consultCourse(codigoEstudiante);
+            for (Course c:consultarAsignaturasByIdEstudiante(codigoEstudiante)){
+                for(String a:asig){
+                    if(!(c.getNombre().equals(a))){
+                        asignaturas.add(c);
+                    }
+                }
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return asignaturas;
+    }
 }
 

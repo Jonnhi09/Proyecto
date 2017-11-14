@@ -111,5 +111,16 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(estudiante.getCorreo(),"pepito.perez@mail.escuelaing.edu.co");
     }
+    
+    @Test
+    public void consultarAsignaturasSinSolicitudTest(){
+        List<Course> asig=null;
+        try{
+            asig=servicios.consultarAsignaturasSinSolicitudByIdEStudiante(79328);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(asig.get(0).getNombre(),"PREM");
+    }
 } 
 

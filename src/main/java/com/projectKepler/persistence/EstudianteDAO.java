@@ -29,4 +29,6 @@ public interface EstudianteDAO {
     public void updateCredits(int creditos, String programa) throws PersistenceException;
     public int consultCredits(String programa) throws PersistenceException;
     public Estudiante consultStudentByEmail(String correo) throws PersistenceException;
+    public List<String> consultCourse(int codigo) throws PersistenceException;
+
 }

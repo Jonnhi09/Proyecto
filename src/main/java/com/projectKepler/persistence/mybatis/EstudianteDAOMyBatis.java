@@ -146,4 +146,15 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return student;
     }
+    
+    @Override
+    public List<String> consultCourse(int codigo) throws PersistenceException{
+        List<String> course=null;
+        try{
+            course=estudiante.consultCourse(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar la asiganturas que tienen solicitud de cancelacion del estudiante :"+codigo,e);
+        }
+        return course;
+    }
 }

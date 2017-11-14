@@ -148,6 +148,12 @@
         WHERE correo=#{correo};
     </select>
     
+    <select parameterType="map" id="consultCourse" resultType="String" >
+        select s.Asignatura_Cancelar
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        WHERE e.codigo=#{codigo}
+    </select>
+    
     <resultMap type='Estudiante' id='EstudianteResult' >
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>
