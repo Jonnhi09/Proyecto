@@ -5,6 +5,7 @@ import com.projectKepler.services.ServiciosCancelacionesFactory;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,6 +122,21 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         assertEquals(asig.get(0).getNombre(),"PREM");
+    }
+    
+    @Test 
+    public void consultarProgramasAcademicosTest(){
+        List<ProgramaAcademico> programas=null;
+        try{
+            programas=servicios.consultarProgramasAcademicos();
+        }catch(ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(programas.size(),1);
+        assertEquals(programas.get(0).getNombre(),"Ingenieria de sistemas");
+        assertEquals(programas.get(0).getPlanDeEstudio().size(),2);
+        assertEquals(programas.get(0).getPlanDeEstudio().get(0).getId(),8);
+        assertEquals(programas.get(0).getPlanDeEstudio().get(1).getId(),13);
     }
 } 
 

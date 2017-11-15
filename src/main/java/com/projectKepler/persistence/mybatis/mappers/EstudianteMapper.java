@@ -7,6 +7,8 @@ package com.projectKepler.persistence.mybatis.mappers;
 
 import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.PlanDeEstudios;
+import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -30,5 +32,6 @@ public interface EstudianteMapper {
     public int consultCredits(@Param("programa") String programa);
     public Estudiante consultStudentByEmail(@Param("correo") String correo);
     public List<String> consultCourse(@Param("codigo") int codigo);
-    
+    public List<ProgramaAcademico> consultarProgramasAcademicos();
+    public PlanDeEstudios consultarPlanDeEstudios(@Param("numero") int numero, @Param("programa") String programa);
 }

@@ -14,6 +14,7 @@ import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
 import java.util.ArrayList;
@@ -225,6 +226,23 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
         return asignaturas;
+    }
+    
+    @Override
+    public List<ProgramaAcademico> consultarProgramasAcademicos() throws ExcepcionServiciosCancelaciones {
+        List<ProgramaAcademico> programas=null;
+        try{
+            programas=estudiante.consultarProgramasAcademicos();
+        }catch(Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return programas;
+    }
+
+    @Override
+    public Syllabus consultarPlanDeEstudios(String programa, int planDeEstudios) throws ExcepcionServiciosCancelaciones {
+        
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 

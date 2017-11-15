@@ -100,7 +100,6 @@ public class AdavancedAlgorithm implements Algorithm {
             }
 
         }
-        System.err.println(res);
         return res;
     }
 

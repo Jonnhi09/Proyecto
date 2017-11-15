@@ -19,6 +19,7 @@ public class CourseStudent {
     private int[] tercios;
     private char estado;
     private int numCancelaciones;
+    private String nemonico;
     
 
     public CourseStudent(String nombre, int creditos, String preReq, String coReq, int[] historialNotas, int[] tercios, char estado) {
@@ -82,4 +83,14 @@ public class CourseStudent {
     public void setNumCancelaciones(int numCancelaciones) {
         this.numCancelaciones = numCancelaciones;
     }
+
+    public String getNemonico() {
+        return nemonico;
+    }
+
+    public void setNemonico(String nemonico) {
+        this.nemonico = nemonico;
+    }
+    
+    
 }

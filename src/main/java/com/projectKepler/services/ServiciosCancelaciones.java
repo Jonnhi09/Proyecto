@@ -7,6 +7,7 @@ package com.projectKepler.services;
 
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.List;
 
@@ -113,4 +114,20 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe el estudiante, o si se presenta otro problema en las capas inferiores.
      */
     public List<CourseStudent> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consultar todos los programas academicos 
+     * @return Lista de Programas Academicos existentes en la base de datos
+     * @throws ExcepcionServiciosCancelaciones Si surge un error en capas inferiores
+     */
+    public List<ProgramaAcademico> consultarProgramasAcademicos() throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consultar las asignaturas de un plan de estudios que pertenece a un programa academico
+     * @param planDeEstudios identificador del plan de estudio
+     * @param programa es el programa academico al que pertenece el plan de estudios
+     * @return Lista de asignaturas del estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe el programa o el plan de estudios, o si se presenta otro problema en las capas inferiores.
+     */
+    public Syllabus consultarPlanDeEstudios(String programa, int planDeEstudios) throws ExcepcionServiciosCancelaciones;
 }

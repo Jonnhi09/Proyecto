@@ -111,6 +111,25 @@
         WHERE e.codigo=#{codigo}
     </select>
     
+    <select parameterType="map" id="consultarProgramasAcademicos" resultMap="ProgramaResult" >
+        select DISTINCT 
+            pr.nombre,
+            pr.creditosMaximos,
+        
+            pl.id as PlanDeEstudio_id,
+            pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
+            pl.contenido as PlanDeEstudio_contenido
+        FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
+    </select>
+    
+    <select parameterType="map" id="consultarPlanDeEstudios" resultMap="PlanDeEstudioResult" >
+        select 
+            pl.id as PlanDeEstudio_id,
+            pl.contenido as PlanDeEstudio_contenido
+        FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
+        WHERE pl.id=#{numero} AND pr.nombre=#{programa}
+    </select>
+    
     <resultMap type='Estudiante' id='EstudianteResult' >
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>

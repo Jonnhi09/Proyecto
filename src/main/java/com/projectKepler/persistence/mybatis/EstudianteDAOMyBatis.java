@@ -10,6 +10,8 @@ import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
 import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.PlanDeEstudios;
+import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -156,5 +158,27 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al consultar la asignaturas que tienen solicitud de cancelacion del estudiante :"+codigo,e);
         }
         return course;
+    }
+    
+    @Override
+    public List<ProgramaAcademico> consultarProgramasAcademicos() throws PersistenceException {
+        List<ProgramaAcademico> programas=null;
+        try{
+            programas=estudiante.consultarProgramasAcademicos();
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar los programas academicos",e);
+        }
+        return programas;
+    }
+
+    @Override
+    public PlanDeEstudios consultarPlanDeEstudios(String programa, int numero) throws PersistenceException {
+        PlanDeEstudios plan=null;
+        try{
+            plan=estudiante.consultarPlanDeEstudios(numero, programa);
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar el plan de estudios: "+numero+" del programa "+programa,e);
+        }
+        return plan;
     }
 }

@@ -75,7 +75,6 @@ public class GraphRectificatorImpl implements GraphRectificator {
                 graph.get(c.getNombre()).add(c.getCoReq());
             }
         }
-        System.out.println(Arrays.asList(graph));
 
         return graph;
     }

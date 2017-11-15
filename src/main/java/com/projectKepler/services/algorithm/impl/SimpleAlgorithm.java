@@ -22,8 +22,6 @@ public class SimpleAlgorithm implements Algorithm {
                 pendientes += c.getCreditos();
             }
         }
-        System.err.println("si esta cogiendo la cancelacion ");
-        System.out.println(course);
         return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(pendientes) + " creditos por ver.", ""};
         
     }

@@ -7,6 +7,8 @@ package com.projectKepler.persistence;
 
 import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.PlanDeEstudios;
+import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
@@ -31,5 +33,6 @@ public interface EstudianteDAO {
     public int consultCredits(String programa) throws PersistenceException;
     public Estudiante consultStudentByEmail(String correo) throws PersistenceException;
     public List<String> consultCourse(int codigo) throws PersistenceException;
-
+    public List<ProgramaAcademico> consultarProgramasAcademicos() throws PersistenceException;
+    public PlanDeEstudios consultarPlanDeEstudios(String programa, int numero) throws PersistenceException; 
 }

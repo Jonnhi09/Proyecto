@@ -51,7 +51,7 @@ CREATE TABLE Course_Estudiante (
 CREATE TABLE Estudiante (
     codigo int  NOT NULL,
     nombre varchar(100)  NOT NULL,
-    planDeEstudio varchar(10000)  NOT NULL,
+    planDeEstudios varchar(10000)  NOT NULL,
     versionPlanDeEstudio int  NOT NULL,
     numeroMatriculas int  NULL,
     correo varchar(50)  NOT NULL,
