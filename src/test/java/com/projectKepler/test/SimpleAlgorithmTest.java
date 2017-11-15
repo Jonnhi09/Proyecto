@@ -6,7 +6,6 @@ import com.projectKepler.services.ServiciosCancelacionesFactory;
 import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.algorithm.impl.SimpleAlgorithm;
 import org.junit.Assert;
-import static org.junit.Assert.fail;
 
 import org.junit.Test;
 

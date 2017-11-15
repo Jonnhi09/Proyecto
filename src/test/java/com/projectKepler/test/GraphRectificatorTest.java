@@ -6,12 +6,10 @@
 package com.projectKepler.test;
 
 import com.google.gson.Gson;
-import com.projectKepler.services.entities.Course;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
 import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Test;

@@ -12,9 +12,9 @@ package com.projectKepler.services.entities;
 public class Syllabus {
     private String programa;
     private int version,totalCredits, creditsSemester;
-    private Course[] courses;
+    private CourseStudent[] courses;
 
-    public Syllabus(String programa, int version, int totalCredits, int creditsSemester, Course[] courses) {
+    public Syllabus(String programa, int version, int totalCredits, int creditsSemester, CourseStudent[] courses) {
         this.programa = programa;
         this.version = version;
         this.totalCredits = totalCredits;
@@ -30,7 +30,7 @@ public class Syllabus {
         return creditsSemester;
     }
 
-    public Course[] getCourses() {
+    public CourseStudent[] getCourses() {
         return courses;
     }
 

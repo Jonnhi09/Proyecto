@@ -153,7 +153,7 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         try{
             course=estudiante.consultCourse(codigo);
         }catch (Exception e){
-            throw new PersistenceException("Error al consultar la asiganturas que tienen solicitud de cancelacion del estudiante :"+codigo,e);
+            throw new PersistenceException("Error al consultar la asignaturas que tienen solicitud de cancelacion del estudiante :"+codigo,e);
         }
         return course;
     }

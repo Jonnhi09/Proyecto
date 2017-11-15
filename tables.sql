@@ -1,21 +1,13 @@
 -- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2017-11-13 19:26:56.843
+-- Last modification date: 2017-11-15 03:11:38.911
 
 -- tables
 -- Table: Acudiente
 CREATE TABLE Acudiente (
     nombre varchar(20)  NOT NULL,
     correo varchar(50)  NOT NULL,
+    CONSTRAINT correoAcudiente UNIQUE (correo),
     CONSTRAINT Acudiente_pk PRIMARY KEY (correo)
-);
-
--- Table: Asignatura
-CREATE TABLE Asignatura (
-    nemonico varchar(4)  NOT NULL,
-    nombre varchar(100)  NOT NULL,
-    programa varchar(100)  NOT NULL,
-    cancelada int  NOT NULL,
-    CONSTRAINT Asignatura_pk PRIMARY KEY (nemonico)
 );
 
 -- Table: ConsejeroAcademico
@@ -36,11 +28,31 @@ CREATE TABLE CoordinadorCancelaciones (
     CONSTRAINT CoordinadorCancelaciones_pk PRIMARY KEY (codigo)
 );
 
+-- Table: Course
+CREATE TABLE Course (
+    nemonico varchar(4)  NOT NULL,
+    nombre varchar(100)  NOT NULL,
+    programa varchar(100)  NOT NULL,
+    CONSTRAINT Course_pk PRIMARY KEY (nemonico)
+);
+
+-- Table: Course_Estudiante
+CREATE TABLE Course_Estudiante (
+    Estudiante_codigo int  NOT NULL,
+    Course_nemonico varchar(4)  NOT NULL,
+    historialNotas varchar(20)  NOT NULL,
+    notasTercios varchar(20)  NOT NULL,
+    cantidadCancelaciones int  NOT NULL,
+    estado char(1)  NOT NULL,
+    CONSTRAINT Course_Estudiante_pk PRIMARY KEY (Estudiante_codigo,Course_nemonico)
+);
+
 -- Table: Estudiante
 CREATE TABLE Estudiante (
     codigo int  NOT NULL,
     nombre varchar(100)  NOT NULL,
-    planDeEstudios varchar(10000)  NOT NULL,
+    planDeEstudio varchar(10000)  NOT NULL,
+    versionPlanDeEstudio int  NOT NULL,
     numeroMatriculas int  NULL,
     correo varchar(50)  NOT NULL,
     ConsejeroAcademico_codigo int  NOT NULL,
@@ -83,6 +95,20 @@ CREATE TABLE Solicitud (
 );
 
 -- foreign keys
+-- Reference: Course_Estudiante_Course (table: Course_Estudiante)
+ALTER TABLE Course_Estudiante ADD CONSTRAINT Course_Estudiante_Course
+    FOREIGN KEY (Course_nemonico)
+    REFERENCES Course (nemonico)  
+    NOT DEFERRABLE 
+;
+
+-- Reference: Course_Estudiante_Estudiante (table: Course_Estudiante)
+ALTER TABLE Course_Estudiante ADD CONSTRAINT Course_Estudiante_Estudiante
+    FOREIGN KEY (Estudiante_codigo)
+    REFERENCES Estudiante (codigo)  
+    NOT DEFERRABLE 
+;
+
 -- Reference: Estudiante_Acudiente (table: Estudiante)
 ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_Acudiente
     FOREIGN KEY (Acudiente_correo)
@@ -121,7 +147,7 @@ ALTER TABLE PlanDeEstudios ADD CONSTRAINT PlanDeEstudios_ProgramaAcademico
 -- Reference: Solicitud_Asignatura (table: Solicitud)
 ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Asignatura
     FOREIGN KEY (Asignatura_Cancelar)
-    REFERENCES Asignatura (nemonico)  
+    REFERENCES Course (nemonico)  
     NOT DEFERRABLE 
 ;
 
@@ -143,10 +169,11 @@ INSERT INTO ConsejeroAcademico VALUES (313131,'Camilo','camilo@escuelaing.edu.co
 -- Poblar Coordinador de Cancelaciones
 INSERT INTO CoordinadorCancelaciones VALUES (428131,'Laura','laura@escuelaing.edu.co');
 
--- Poblar Asignatura
-INSERT INTO Asignatura VALUES ('CALD', 'Calculo Diferencial', 'Ingenieria de sistemas', 0);
-INSERT INTO Asignatura VALUES ('FFIS', 'Fundamentos de Fisica', 'Ingenieria de sistemas', 1);
-INSERT INTO Asignatura VALUES ('PREM', 'Precalculo', 'Ingenieria de sistemas', 0);
+-- Poblar Course
+INSERT INTO Course VALUES ('CALD','Calculo Diferencial','Ingenieria de sistemas');
+INSERT INTO Course VALUES ('FFIS','Fundamentos de Fisica','Ingenieria de sistemas');
+INSERT INTO Course VALUES ('PREM','Precalculo','Ingenieria de sistemas');
+INSERT INTO Course VALUES ('FIMF','Fisica Mecanica y Fluidos','Ingenieria de Sistemas');
 
 -- Poblar Acudiente 
 INSERT INTO Acudiente VALUES ('Yolanda','yolanda@gmail.com');
@@ -212,7 +239,7 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
             "estado":"P"
         }
     ]
-}', 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131,'Ingenieria de sistemas'); 
+}',13, 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131,'Ingenieria de sistemas'); 
 INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
     "programa": "ing. sistemas",
     "version": 13,        
@@ -272,7 +299,7 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
             "estado":"P"
         }
     ]
-}', 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131,'Ingenieria de sistemas');
+}', 13, 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131,'Ingenieria de sistemas');
 INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
     "programa": "ing. sistemas",
     "version": 13,        
@@ -332,7 +359,19 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
             "estado":"P"
         }
     ]
-}', 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131,'Ingenieria de sistemas');
+}', 13, 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131,'Ingenieria de sistemas');
+
+-- Poblar Course_Estudiante
+INSERT INTO Course_Estudiante VALUES (79328,'PREM','{}','{21}',0,'V');
+INSERT INTO Course_Estudiante VALUES (79328,'FFIS','{}','{41}',0,'V');
+INSERT INTO Course_Estudiante VALUES (173183,'PREM','{35}','{21,46,40}',0,'A');
+INSERT INTO Course_Estudiante VALUES (173183,'CALD','{}','{34}',0,'V');
+INSERT INTO Course_Estudiante VALUES (173183,'FFIS','{50}','{50,50,50}',0,'A');
+INSERT INTO Course_Estudiante VALUES (173183,'FIMF','{}','{20}',0,'V');
+INSERT INTO Course_Estudiante VALUES (2121465,'PREM','{30}','{30,30,30}',0,'A');
+INSERT INTO Course_Estudiante VALUES (2121465,'CALD','{-1}','{15}',1,'V');
+INSERT INTO Course_Estudiante VALUES (2121465,'FFIS','{35}','{35,45,30}',0,'A');
+INSERT INTO Course_Estudiante VALUES (2121465,'FIMF','{}','{45}',0,'V');
 
 -- Poblar Solicitud--
 INSERT INTO Solicitud VALUES (1,'Me consume mucho tiempo y estoy descuidando las otras materias','Si cancela FFIS le quedan: 20 creditos por ver.','FFIS,CALD,ALLI,LCAL y una electiva',

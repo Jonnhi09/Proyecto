@@ -8,7 +8,7 @@ package com.projectKepler.services.algorithm.impl;
 
 import com.google.gson.Gson;
 import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.entities.Course;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.*;
 
@@ -55,12 +55,12 @@ public class AdavancedAlgorithm implements Algorithm {
 
     private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String course) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
-        for (Course c : s.getCourses()) {
+        for (CourseStudent c : s.getCourses()) {
             if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().equals(course)) {
                 graph.put(c.getNombre(), new ArrayList());
             }
         }
-        for (Course c : s.getCourses()) {
+        for (CourseStudent c : s.getCourses()) {
             if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().equals(course)) {
                 if (graph.containsKey(c.getPreReq())) {
                     graph.get(c.getNombre()).add(c.getPreReq());
@@ -121,7 +121,7 @@ public class AdavancedAlgorithm implements Algorithm {
 
     private int sumCreds(ArrayList<String> c) {
         HashMap<String, Integer> matsCred = new HashMap<>();
-        for (Course co : syllabus.getCourses()) {
+        for (CourseStudent co : syllabus.getCourses()) {
             matsCred.put(co.getNombre(), co.getCreditos());
         }
         int res = 0;

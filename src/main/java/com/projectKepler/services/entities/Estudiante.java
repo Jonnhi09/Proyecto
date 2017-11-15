@@ -20,7 +20,10 @@ public class Estudiante {
     private Acudiente acudiente;
     private List<Solicitud> solicitudes;
     private String planDeEstudios;
-
+    private List<CourseStudent> cursos;
+    private int versionPlanDeEstudio;
+    
+    
     public List<Solicitud> getSolicitudes() {
         return solicitudes;
     }
@@ -77,4 +80,19 @@ public class Estudiante {
         this.acudiente = acudiente;
     }    
     
+    public List<CourseStudent> getCursos() {
+        return cursos;
+    }
+
+    public void setCursos(List<CourseStudent> cursos) {
+        this.cursos = cursos;
+    }
+    
+    public int getVersionPlanDeEstudio() {
+        return versionPlanDeEstudio;
+    }
+
+    public void setVersionPlanDeEstudio(int versionPlanDeEstudio) {
+        this.versionPlanDeEstudio = versionPlanDeEstudio;
+    }
 }

@@ -5,7 +5,7 @@
  */
 package com.projectKepler.services.graphRectificator.impl;
 
-import com.projectKepler.services.entities.Course;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
 import java.util.*;
@@ -64,10 +64,10 @@ public class GraphRectificatorImpl implements GraphRectificator {
      */
     private HashMap<String, ArrayList<String>> makeGraph(Syllabus s) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
-        for (Course c : s.getCourses()) {
+        for (CourseStudent c : s.getCourses()) {
             graph.put(c.getNombre(), new ArrayList());
         }
-        for (Course c : s.getCourses()) {
+        for (CourseStudent c : s.getCourses()) {
             if (graph.containsKey(c.getPreReq())) {
                 graph.get(c.getNombre()).add(c.getPreReq());
             }

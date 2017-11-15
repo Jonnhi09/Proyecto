@@ -3,7 +3,7 @@ package com.projectKepler.test;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelacionesFactory;
 import com.projectKepler.services.ServiciosCancelaciones;
-import com.projectKepler.services.entities.Course;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ public class ServiciosCancelacionesTest {
     @Test 
     public void consultarAsignaturaByIdEstudianteTest(){
         List<String> asignaturas=new ArrayList<String>();
-        List<Course> resultado=null;
+        List<CourseStudent> resultado=null;
         try{
             resultado=servicios.consultarAsignaturasByIdEstudiante(2121465);
         }catch(ExcepcionServiciosCancelaciones e){
@@ -84,7 +84,7 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(resultado.get(0).getCourses().length,6);
         assertEquals(resultado.get(0).getCourses()[0].getTercios()[0],21);
-        for (Course c:resultado.get(1).getCourses()){
+        for (CourseStudent c:resultado.get(1).getCourses()){
             assertEquals(c.getEstado(),'P');
         }
     }
@@ -114,7 +114,7 @@ public class ServiciosCancelacionesTest {
     
     @Test
     public void consultarAsignaturasSinSolicitudTest(){
-        List<Course> asig=null;
+        List<CourseStudent> asig=null;
         try{
             asig=servicios.consultarAsignaturasSinSolicitudByIdEStudiante(79328);
         }catch (ExcepcionServiciosCancelaciones e){

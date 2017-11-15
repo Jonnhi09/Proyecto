@@ -9,17 +9,19 @@ package com.projectKepler.services.entities;
  *
  * @author blackphantom
  */
-public class Course {
+public class CourseStudent {
     private String nombre;
+    private int codigoEstudiante;
     private int creditos ;
     private String preReq;
     private String coReq;
     private int[] historialNotas;
     private int[] tercios;
     private char estado;
+    private int numCancelaciones;
     
 
-    public Course(String nombre, int creditos, String preReq, String coReq, int[] historialNotas, int[] tercios, char estado) {
+    public CourseStudent(String nombre, int creditos, String preReq, String coReq, int[] historialNotas, int[] tercios, char estado) {
         this.nombre = nombre;
         this.creditos = creditos;
         this.preReq = preReq;
@@ -31,6 +33,14 @@ public class Course {
 
     public String getNombre() {
         return nombre;
+    }
+    
+    public int getCodigoEstudiante() {
+        return codigoEstudiante;
+    }
+
+    public void setCodigoEstudiante(int codigoEstudiante) {
+        this.codigoEstudiante = codigoEstudiante;
     }
 
     public int getCreditos() {
@@ -63,5 +73,13 @@ public class Course {
 
     public void setTercios(int[] tercios) {
         this.tercios = tercios;
+    }
+    
+    public int getNumCancelaciones() {
+        return numCancelaciones;
+    }
+
+    public void setNumCancelaciones(int numCancelaciones) {
+        this.numCancelaciones = numCancelaciones;
     }
 }

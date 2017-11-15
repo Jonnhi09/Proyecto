@@ -9,7 +9,7 @@ import com.projectKepler.controller.managedbeans.security.ShiroLoginBean;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelacionesFactory;
-import com.projectKepler.services.entities.Course;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import java.io.Serializable;
 import java.util.List;
@@ -39,7 +39,7 @@ public class SolCancelBean implements Serializable{
     private ShiroLoginBean shiroLoginBean;
 
     ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
-    List<Course> materias;
+    List<CourseStudent> materias;
     Estudiante estudiante;
     String materiaSeleccionada;
     boolean panelVisibility;
@@ -81,7 +81,7 @@ public class SolCancelBean implements Serializable{
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe seleccionar una materia para realizar el análisis", null)); 
                 makePanelInvisible();
             }else{
-                impacto = servicios.obtenerImpactoByEstudiante(estudiante.getCodigo(), materiaSeleccionada);
+                impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), materiaSeleccionada);
                 proyeccion = servicios.obtenerProyeccionByEstudiante(estudiante.getCodigo(), materiaSeleccionada);
                 makePanelVisible();
             }
@@ -140,11 +140,11 @@ public class SolCancelBean implements Serializable{
         this.panelVisibility = panelVisibility;
     }
 
-    public List<Course> getMaterias() {
+    public List<CourseStudent> getMaterias() {
         return materias;
     }
 
-    public void setMaterias(List<Course> materias) {
+    public void setMaterias(List<CourseStudent> materias) {
         this.materias = materias;
     }
 

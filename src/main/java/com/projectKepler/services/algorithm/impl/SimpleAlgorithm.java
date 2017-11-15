@@ -17,7 +17,7 @@ public class SimpleAlgorithm implements Algorithm {
     @Override
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph,Syllabus planS) {
         int pendientes = 0;
-        for (Course c : planS.getCourses()) {
+        for (CourseStudent c : planS.getCourses()) {
             if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().contains(course)) {
                 pendientes += c.getCreditos();
             }

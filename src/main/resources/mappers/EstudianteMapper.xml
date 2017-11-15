@@ -42,56 +42,13 @@
             co.nombre as Coodinador_nombre,
             co.codigo as Coodinador_codigo
         
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo ;
+        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Course as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo ;
     </select>
     
-    <select  parameterType="map" id="loadEstudianteById" resultMap="EstudianteResult"> 
-        select
-            c.nombre,
-            c.codigo,
-        
-            e.codigo as Estudiante_codigo,
-            e.nombre as Estudiante_nombre,
-            e.planDeEstudios as Estudiante_planDeEstudios,
-            e.numeroMatriculas as Estudiante_numeroMatriculas,
-            e.correo as Estudiante_correo,
-            e.ConsejeroAcademico_codigo as Estudiante_ConsejeroAcademico_codigo,
-            e.Acudiente_correo as Estudiante_Acudiente_correo,
-            e.CoordinadorCancelaciones_codigo as Estudiante_CoordinadorCancelaciones_codigo,
-            e.programaAcademico as Estudiante_programaAcademico,
-
-            s.numero as Solicitud_numero,
-            s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
-            s.comentarios as Solicitud_comentarios,
-            s.estado as Solicitud_estado,
-            s.acuseRecibo as Solicitud_acuseRecibo,
-            s.Asignatura_Cancelar as Solicitud_Asignatura_Cancelar,
-            s.avalConsejero as Solicitud_avalConsejero, 
-            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-            s.Estudiante_codigo as Solicitud_Estudiante_codigo,
-        
-            a.nemonico as Asignatura_nemonico,
-            a.nombre as Asignatura_nombre,
-            a.programa as Asignatura_programa,
-            a.cancelada as Asignatura_cancelada,
-        
-            pr.nombre as Programa_nombre,
-            pr.creditosMaximos as Programa_creditos,
-        
-            pl.id as Plan_id,
-            pl.ProgramaAcademico as Plan_ProgramaAcademico,
-            pl.contenido as Plan_contenido,
-        
-            ac.nombre as Acudiente_nombre,
-            ac.correo as Acudiente_correo,
-        
-            co.nombre as Coodinador_nombre,
-            co.codigo as Coodinador_codigo
-        
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo left join ProgramaAcademico as pr on pr.nombre=e.programaAcademico left join PlanDeEstudios as pl on pl.ProgramaAcademico=pr.nombre 
-        WHERE e.codigo=#{codigo};
+    <select  parameterType="map" id="loadEstudianteById" resultType="Estudiante"> 
+        select *
+        FROM  Estudiante 
+        WHERE codigo=#{codigo};
     </select>
     
     <select parameterType="map" id="loadPlanDeEstudio" resultType="String"> 
@@ -120,13 +77,13 @@
     
     <select parameterType="map" id="consultImpactById" resultType="String">
         select s.impacto
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_Cancelar
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Course as a on a.nemonico=s.Asignatura_Cancelar
         WHERE s.Estudiante_codigo=#{codigo} AND s.Asignatura_Cancelar=#{nem}
     </select>
     
     <select parameterType="map" id="consultProyectionById" resultType="String">
         select s.proyeccion
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_Cancelar
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Course as a on a.nemonico=s.Asignatura_Cancelar
         WHERE s.Estudiante_codigo=#{codigo} AND s.Asignatura_Cancelar=#{nem}
     </select>
     
@@ -142,7 +99,7 @@
         WHERE nombre=#{programa}
     </select>
     
-    <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult" resultType="Estudiante">
+    <select parameterType="map" id="consultStudentByEmail" resultType="Estudiante">
         select *        
         FROM  Estudiante
         WHERE correo=#{correo};
@@ -160,8 +117,10 @@
         <result property='numeroMatriculas' column='numeroMatriculas'/>
         <result property='correo' column='correo'/>
         <result property='programa' column='programa'/>
+        <result property="versionPlanDeEstudio" column="versionPlanDeEstudio" />
         <association property="acudiente" javaType="Acudiente" columnPrefix="Acudiente_" resultMap="AcudienteResult" />
         <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/> 
+        <collection property="cursos" ofType="CourseStudent" columnPrefix="CourseStudent_" resultMap="CourseStudentResult" />
     </resultMap>
     
     <resultMap type='Solicitud' id='SolicitudResult' >
@@ -182,7 +141,13 @@
         <id property='nemonico' column='nemonico'/> 
         <result property='nombre' column='nombre'/>
         <result property='programa' column='programa'/>
-        <result property='numCancelaciones' column='cancelada'/>
+    </resultMap>
+    
+    <resultMap type='CourseStudent' id="CourseStudentResult">
+        <id property='codigoEstudiante' column=""/>
+        <id property='nombre' column="Course_nemonico" />
+        <result property="numCancelaciones" column="cantidadCancelaciones" />
+        <result property="estado" column="estado" />
     </resultMap>
     
     <resultMap type='Acudiente' id='AcudienteResult' >
