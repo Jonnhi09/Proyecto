@@ -6,10 +6,13 @@
 package com.projectKepler.controller.managedbeans;
 
 
+import com.projectKepler.controller.managedbeans.security.ShiroLoginBean;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -19,6 +22,8 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name = "detalleSolicitud")
 @SessionScoped
 public class DetalleSolicitudBean{
+    
+    
 
     public DetalleSolicitudBean() {
         listaSol=new ArrayList<>();
@@ -36,16 +41,40 @@ public class DetalleSolicitudBean{
             this.listaSol.add(listainfo);
         }
         this.fecha = new Date();
-        this.profesor = "Hector cadavid";
+
         this.codigo = 2103110;
         this.estudiante = "Diego Borrero";
     }
     
+    @ManagedProperty(value="#{loginBean}")
+    private ShiroLoginBean shiroLoginBean;
     public Date fecha;
-    public String profesor;
+    public String usuario;
     public int codigo;
     public String estudiante;
     public List<List<String>> listaSol;
+    
+    @PostConstruct
+    private void initDate(){
+        setUsuario(getShiroLoginBean().getUsername());
+    }
+    
+    
+    public String getUsuario(){
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    
+    public ShiroLoginBean getShiroLoginBean() {
+        return shiroLoginBean;
+    }
+
+    public void setShiroLoginBean(ShiroLoginBean shiroLoginBean) {
+        this.shiroLoginBean = shiroLoginBean;
+    }
 
     public String getEstudiante() {
         return estudiante;
@@ -53,14 +82,6 @@ public class DetalleSolicitudBean{
 
     public void setEstudiante(String estudiante) {
         this.estudiante = estudiante;
-    }
-
-    public String getProfesor() {
-        return profesor;
-    }
-
-    public void setProfesor(String profesor) {
-        this.profesor = profesor;
     }
 
     public int getCodigo() {
@@ -91,6 +112,10 @@ public class DetalleSolicitudBean{
 
     public String accionVista(){
         return "DetalleSolicitud.xhtml";
+    }
+    
+    public String listadoCancelaciones(){
+        return "ListadoSolCancel.xhtml";
     }
     
 }
