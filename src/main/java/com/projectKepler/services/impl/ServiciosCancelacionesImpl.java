@@ -245,7 +245,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         PlanDeEstudios plan=null;
         try{
             plan=estudiante.consultarPlanDeEstudios(programa, planDeEstudios);
-            System.out.println(plan.getId());
         }catch (Exception e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -268,6 +267,17 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             planes.add(p.getId());
         }
         return planes;
+    }
+    
+    @Override
+    public void actualizarPlanDeEstudio(String plan) throws ExcepcionServiciosCancelaciones{
+        Gson g=new Gson();
+        Syllabus s=g.fromJson(plan, Syllabus.class);
+        if (gRec.verify(s, s)!=null){
+            estudiante.actualizarPlanDeEstudio(plan,s.getVersion(),s.getPrograma());
+        }else{
+            throw new ExcepcionServiciosCancelaciones("El grafo del plan de estudios esta mal formado");
+        }
     }
 }
 

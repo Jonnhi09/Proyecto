@@ -36,4 +36,5 @@ public interface EstudianteDAO {
     public List<ProgramaAcademico> consultarProgramasAcademicos() throws PersistenceException;
     public PlanDeEstudios consultarPlanDeEstudios(String programa, int numero) throws PersistenceException; 
     public ProgramaAcademico consultarProgramaAcademicoPorNombre(String nombre) throws PersistenceException;
+    public void actualizarPlanDeEstudio(String plan,int version,String programa) throws PersistenceException;
 }
