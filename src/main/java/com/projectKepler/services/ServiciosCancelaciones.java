@@ -140,5 +140,18 @@ public interface ServiciosCancelaciones {
      */
     public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones; 
     
+    /**
+     * Actualiza un plan de estudio de un programa
+     * @param syllabus es el objeto plan de estudio
+     * @throws ExcepcionServiciosCancelaciones Si el plan de estudio no es correcto, o si se presenta otro problema en las capas inferiores.
+     */
     public void actualizarSyllabusEstudianteTabla(Syllabus sullabus) throws ExcepcionServiciosCancelaciones;
+
+    /**
+     * Actualiza un plan de estudio de un programa
+     * @param plan es el contenido de un plan de estudio
+     * @throws ExcepcionServiciosCancelaciones Si el plan de estudio no es correcto, o si se presenta otro problema en las capas inferiores.
+     */
+    public void actualizarPlanDeEstudio(String plan) throws ExcepcionServiciosCancelaciones;
+
 }

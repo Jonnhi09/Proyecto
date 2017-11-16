@@ -278,6 +278,19 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson gson= new GsonBuilder().setPrettyPrinting().create();
         String json= gson.toJson(syllabus);
         estudiante.actualizarSyllabus(json, syllabus.getVersion(), syllabus.getPrograma());
+
+    }
+    
+    @Override
+    public void actualizarPlanDeEstudio(String plan) throws ExcepcionServiciosCancelaciones{
+        Gson g=new Gson();
+        Syllabus s=g.fromJson(plan, Syllabus.class);
+        if (gRec.verify(s, s)!=null){
+            estudiante.actualizarPlanDeEstudio(plan,s.getVersion(),s.getPrograma());
+        }else{
+            throw new ExcepcionServiciosCancelaciones("El grafo del plan de estudios esta mal formado");
+        }
+
     }
 }
 
