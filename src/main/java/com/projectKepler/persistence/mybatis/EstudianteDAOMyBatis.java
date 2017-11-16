@@ -192,4 +192,13 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return plan;
     }
+
+    @Override
+    public void actualizarSyllabus(String syllabus, int numero, String programa) throws PersistenceException {
+        try{
+            estudiante.actualizarSyllabus(syllabus, numero, programa);
+        }catch(Exception e){
+            throw new PersistenceException("Error al actualizar el plan de estudios: "+numero+" del programa "+programa,e);
+        }
+    }
 }

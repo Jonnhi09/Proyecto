@@ -42,5 +42,25 @@ public class Syllabus {
         return version;
     }
 
+    public void setPrograma(String programa) {
+        this.programa = programa;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public void setTotalCredits(int totalCredits) {
+        this.totalCredits = totalCredits;
+    }
+
+    public void setCreditsSemester(int creditsSemester) {
+        this.creditsSemester = creditsSemester;
+    }
+
+    public void setCourses(CourseStudent[] courses) {
+        this.courses = courses;
+    }
+
     
 }

@@ -121,7 +121,7 @@ public interface ServiciosCancelaciones {
      * @return Lista de Programas Academicos existentes en la base de datos
      * @throws ExcepcionServiciosCancelaciones Si surge un error en capas inferiores
      */
-    public List<ProgramaAcademico> consultarProgramasAcademicos() throws ExcepcionServiciosCancelaciones;
+    public List<ProgramaAcademico> consultarTodosProgramasAcademicos() throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consultar un plan de estudios que pertenece a un programa academico
@@ -139,4 +139,6 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones 
      */
     public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones; 
+    
+    public void actualizarSyllabusEstudianteTabla(Syllabus sullabus) throws ExcepcionServiciosCancelaciones;
 }

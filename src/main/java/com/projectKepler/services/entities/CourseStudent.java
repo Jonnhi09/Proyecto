@@ -93,6 +93,26 @@ public class CourseStudent {
     public void setNemonico(String nemonico) {
         this.nemonico = nemonico;
     }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setCreditos(int creditos) {
+        this.creditos = creditos;
+    }
+
+    public void setPreReq(String preReq) {
+        this.preReq = preReq;
+    }
+
+    public void setCoReq(String coReq) {
+        this.coReq = coReq;
+    }
+
+    public void setEstado(char estado) {
+        this.estado = estado;
+    }
     
     
 }

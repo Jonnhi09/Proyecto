@@ -6,6 +6,7 @@
 package com.projectKepler.services.impl;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
@@ -230,7 +231,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     }
     
     @Override
-    public List<ProgramaAcademico> consultarProgramasAcademicos() throws ExcepcionServiciosCancelaciones {
+    public List<ProgramaAcademico> consultarTodosProgramasAcademicos() throws ExcepcionServiciosCancelaciones {
         List<ProgramaAcademico> programas=null;
         try{
             programas=estudiante.consultarProgramasAcademicos();
@@ -245,7 +246,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         PlanDeEstudios plan=null;
         try{
             plan=estudiante.consultarPlanDeEstudios(programa, planDeEstudios);
-            System.out.println(plan.getId());
         }catch (Exception e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -268,6 +268,16 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             planes.add(p.getId());
         }
         return planes;
+    }
+
+    @Override
+    public void actualizarSyllabusEstudianteTabla(Syllabus syllabus) throws ExcepcionServiciosCancelaciones {
+        if (gRec.verify(syllabus, syllabus)==null){
+            throw new ExcepcionServiciosCancelaciones("El plan de estudios esta mal formado");
+        }
+        Gson gson= new GsonBuilder().setPrettyPrinting().create();
+        String json= gson.toJson(syllabus);
+        estudiante.actualizarSyllabus(json, syllabus.getVersion(), syllabus.getPrograma());
     }
 }
 

@@ -129,7 +129,7 @@ public class ServiciosCancelacionesTest {
     public void consultarProgramasAcademicosTest(){
         List<ProgramaAcademico> programas=null;
         try{
-            programas=servicios.consultarProgramasAcademicos();
+            programas=servicios.consultarTodosProgramasAcademicos();
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
@@ -167,6 +167,23 @@ public class ServiciosCancelacionesTest {
         }
         for (int i=0;i<resultado.size();i++){
             assertEquals(resultado.get(i),planes.get(i));
+        }
+        
+    }
+    
+    @Test
+    public void actualizarSyllabusTest(){
+        Syllabus programa=null;
+        try{
+            programa=servicios.consultarPlanDeEstudios("Ingenieria de sistemas", 13);
+            programa.getCourses()[0].setNemonico("PREC");
+            servicios.actualizarSyllabusEstudianteTabla(programa);
+            programa=servicios.consultarPlanDeEstudios("Ingenieria de sistemas", 13);
+            assertEquals(programa.getCourses()[0].getNemonico(),"PREC");
+            programa.getCourses()[0].setPreReq("CIED");
+            servicios.actualizarSyllabusEstudianteTabla(programa);
+        }catch(ExcepcionServiciosCancelaciones e){
+            assertEquals(e.getMessage(),"El plan de estudios esta mal formado");
         }
         
     }

@@ -144,6 +144,12 @@
         WHERE pr.nombre=#{programa} AND pl.id=#{numero}
     </select>
     
+    <update parameterType="map" id="actualizarSyllabus">
+        update planDeEstudios set
+            contenido=#{syllabus}
+        WHERE id=#{numero} AND ProgramaAcademico=#{programa}
+    </update>
+    
     <resultMap type='Estudiante' id='EstudianteResult' >
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>
