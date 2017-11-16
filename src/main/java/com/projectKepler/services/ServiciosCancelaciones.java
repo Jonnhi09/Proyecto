@@ -9,6 +9,7 @@ import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Syllabus;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,11 +124,19 @@ public interface ServiciosCancelaciones {
     public List<ProgramaAcademico> consultarProgramasAcademicos() throws ExcepcionServiciosCancelaciones;
     
     /**
-     * Consultar las asignaturas de un plan de estudios que pertenece a un programa academico
+     * Consultar un plan de estudios que pertenece a un programa academico
      * @param planDeEstudios identificador del plan de estudio
      * @param programa es el programa academico al que pertenece el plan de estudios
      * @return Lista de asignaturas del estudiante
      * @throws ExcepcionServiciosCancelaciones Si NO existe el programa o el plan de estudios, o si se presenta otro problema en las capas inferiores.
      */
     public Syllabus consultarPlanDeEstudios(String programa, int planDeEstudios) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     *Consulta los numeros de planes de estudio que tiene un porgrama academico a partir de su nombre
+     * @param programa es el nombre del programa academico
+     * @return retorna los id de los planes de estudio que pertenecen al programa
+     * @throws ExcepcionServiciosCancelaciones 
+     */
+    public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones; 
 }

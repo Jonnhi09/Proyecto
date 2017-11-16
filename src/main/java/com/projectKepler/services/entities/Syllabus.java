@@ -34,5 +34,13 @@ public class Syllabus {
         return courses;
     }
 
+    public String getPrograma() {
+        return programa;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
     
 }

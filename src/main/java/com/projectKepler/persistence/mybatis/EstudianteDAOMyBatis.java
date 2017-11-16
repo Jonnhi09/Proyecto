@@ -181,4 +181,15 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return plan;
     }
+
+    @Override
+    public ProgramaAcademico consultarProgramaAcademicoPorNombre(String nombre) throws PersistenceException {
+        ProgramaAcademico plan=null;
+        try{
+            plan=estudiante.consultarProgramaAcademicoPorNombre(nombre);
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar el programa "+nombre,e);
+        }
+        return plan;
+    }
 }

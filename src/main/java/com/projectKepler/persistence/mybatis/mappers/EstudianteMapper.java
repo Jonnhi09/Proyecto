@@ -34,4 +34,5 @@ public interface EstudianteMapper {
     public List<String> consultCourse(@Param("codigo") int codigo);
     public List<ProgramaAcademico> consultarProgramasAcademicos();
     public PlanDeEstudios consultarPlanDeEstudios(@Param("numero") int numero, @Param("programa") String programa);
+    public ProgramaAcademico consultarProgramaAcademicoPorNombre(@Param("nombre")String nombre);
 }

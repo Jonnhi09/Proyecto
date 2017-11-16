@@ -14,6 +14,7 @@ import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
@@ -241,8 +242,32 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
 
     @Override
     public Syllabus consultarPlanDeEstudios(String programa, int planDeEstudios) throws ExcepcionServiciosCancelaciones {
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PlanDeEstudios plan=null;
+        try{
+            plan=estudiante.consultarPlanDeEstudios(programa, planDeEstudios);
+            System.out.println(plan.getId());
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        Gson gson= new Gson();
+        Syllabus syllabus= gson.fromJson(plan.getContenido(), Syllabus.class);
+        return syllabus;
+    }
+
+    @Override
+    public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones {
+        ArrayList<Integer> planes= new ArrayList<>();
+        ProgramaAcademico programaAc = null;
+        try{
+            programaAc=estudiante.consultarProgramaAcademicoPorNombre(programa);
+            
+        }catch(Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        for (PlanDeEstudios p:programaAc.getPlanDeEstudio()){
+            planes.add(p.getId());
+        }
+        return planes;
     }
 }
 

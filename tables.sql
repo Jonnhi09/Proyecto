@@ -383,123 +383,135 @@ INSERT INTO Solicitud VALUES (3,'No le entiendo al profesor','Necesitarian dos s
 
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
-    "programa": "ing. sistemas",
+    "programa": "Ingenieria de sistemas",
     "version": 13,        
     "courses": [
         {
-            "nombre": "PREM",
+            "nombre": "Precalculo",
             "creditos": 4,
             "PreRec": "",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"PREM"
         },
         {
-            "nombre": "CALD",
+            "nombre": "Calculo Diferencial",
             "creditos": 4,
             "preReq": "PREM",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"CALD"
         },
         {
-            "nombre": "CIED",
+            "nombre":"Calculo Integral y Ecuaciones Diferenciales" ,
             "creditos": 4,
             "preReq": "CALD",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"CIED"
         },
         {
-            "nombre": "FFIS",
+            "nombre":"Fundamentos de Fisica" ,
             "creditos": 4,
             "preReq": "",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"FFIS"
         },
         {
-            "nombre": "FIMF",
+            "nombre":"Fisica Mecanica y de fluidos" ,
             "creditos": 4,
             "preReq": "FFIS",
             "coReq": "CALD",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"FIMF"
         },
         {
-            "nombre": "FIEM",
+            "nombre": "Física del Electromagnetismo" ,
             "creditos": 4,
             "preReq": "FIMF",
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"FIEM"
         }
     ]
 }');
 
 INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
-    "programa": "ing. sistemas",
+    "programa": "Ingenieria de sistemas",
     "version": 13,        
     "courses": [
         {
-            "nombre": "PREM",
+            "nombre": "Precalculo",
             "creditos": 4,
             "PreRec": "",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico": "PREM"
         },
         {
-            "nombre": "CALD",
+            "nombre": "Calculo Diferencial",
             "creditos": 4,
             "preReq": "PREM",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"CALD"
         },
         {
-            "nombre": "CIED",
+            "nombre":"Calculo Integral y Ecuaciones Diferenciales" ,
             "creditos": 4,
             "preReq": "CALD",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"CIED"
         },
         {
-            "nombre": "FFIS",
+            "nombre":"Fundamentos de Fisica",
             "creditos": 4,
             "preReq": "",
             "coReq": "",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico": "FFIS"
         },
         {
-            "nombre": "FIMF",
+            "nombre": "Fisica Mecanica y de fluidos" ,
             "creditos": 4,
             "preReq": "FFIS",
             "coReq": "CALD",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"FIMF"
         },
         {
-            "nombre": "FIEM",
+            "nombre":"Física del Electromagnetismo",
             "creditos": 4,
             "preReq": "FIMF",
             "coReq": "CIED",
             "historialNotas": [],
             "tercios": [],
-            "estado":"P"
+            "estado":"P",
+            "nemonico":"FIEM"
         }
     ]
 }');

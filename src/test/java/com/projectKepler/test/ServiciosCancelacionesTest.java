@@ -83,6 +83,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
+        
         assertEquals(resultado.get(0).getCourses().length,6);
         assertEquals(resultado.get(0).getCourses()[0].getTercios()[0],21);
         for (CourseStudent c:resultado.get(1).getCourses()){
@@ -137,6 +138,37 @@ public class ServiciosCancelacionesTest {
         assertEquals(programas.get(0).getPlanDeEstudio().size(),2);
         assertEquals(programas.get(0).getPlanDeEstudio().get(0).getId(),8);
         assertEquals(programas.get(0).getPlanDeEstudio().get(1).getId(),13);
+    }
+    
+    @Test
+    public void consultarPlanDeEstudios(){
+        Syllabus programa=null;
+        try{
+            programa=servicios.consultarPlanDeEstudios("Ingenieria de sistemas", 13);
+        }catch(ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(programa.getPrograma(),"Ingenieria de sistemas");
+        assertEquals(programa.getVersion(),13);
+        assertEquals(programa.getCourses().length,6);
+    }
+    
+    @Test
+    public void consultarPlanesDeEstudioPorProgramaTest(){
+        ArrayList<Integer> planes= new ArrayList<>();
+        ArrayList<Integer> resultado= new ArrayList<>();
+        planes.add(13);
+        planes.add(8);
+        try{
+            resultado=servicios.consultarPlanesDeEstudiosPorPrograma("Ingenieria de sistemas");
+            assertEquals(resultado.size(),2);
+        }catch(ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        for (int i=0;i<resultado.size();i++){
+            assertEquals(resultado.get(i),planes.get(i));
+        }
+        
     }
 } 
 

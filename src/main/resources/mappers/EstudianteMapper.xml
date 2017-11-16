@@ -55,7 +55,7 @@
         select
             planDeEstudios
         FROM  Estudiante
-        WHERE codigo=#{codigo};
+        WHERE codigo=#{codigo} 
     </select>
     
     <insert id="updateJustification" useGeneratedKeys="true" keyProperty="numero"> 
@@ -71,8 +71,8 @@
     <select parameterType="map" id="loadSyllabusPrograma" resultType="String">
         select DISTINCT
             pl.contenido
-        FROM Estudiante as e left join ProgramaAcademico as p on e.programaAcademico=p.nombre left join PlanDeEstudios as pl on pl.ProgramaAcademico=p.nombre
-        WHERE e.codigo=#{codigo}
+        FROM Estudiante as e left join PlanDeEstudios as pl on pl.ProgramaAcademico=e.programaAcademico
+        WHERE e.codigo=#{codigo} AND e.versionPlanDeEstudio=pl.id
     </select>
     
     <select parameterType="map" id="consultImpactById" resultType="String">
@@ -122,12 +122,26 @@
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
     </select>
     
-    <select parameterType="map" id="consultarPlanDeEstudios" resultMap="PlanDeEstudioResult" >
-        select 
+    <select parameterType="map" id="consultarProgramaAcademicoPorNombre" resultMap="ProgramaResult" >
+        select DISTINCT 
+            pr.nombre,
+            pr.creditosMaximos,
+        
             pl.id as PlanDeEstudio_id,
+            pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
             pl.contenido as PlanDeEstudio_contenido
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
-        WHERE pl.id=#{numero} AND pr.nombre=#{programa}
+        WHERE pr.nombre=#{nombre}
+    </select>
+    
+    <select parameterType="map" id="consultarPlanDeEstudios" resultMap="PlanDeEstudioResult" >
+        
+        select DISTINCT
+            pl.id,
+            pl.ProgramaAcademico,
+            pl.contenido 
+        FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pl.ProgramaAcademico=pr.nombre
+        WHERE pr.nombre=#{programa} AND pl.id=#{numero}
     </select>
     
     <resultMap type='Estudiante' id='EstudianteResult' >
