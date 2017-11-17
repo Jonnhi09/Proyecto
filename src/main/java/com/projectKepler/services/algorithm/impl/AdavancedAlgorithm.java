@@ -56,17 +56,17 @@ public class AdavancedAlgorithm implements Algorithm {
     private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String course) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().equals(course)) {
-                graph.put(c.getNombre(), new ArrayList());
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || c.getCoReq().equals(course)) {
+                graph.put(c.getNemonico(), new ArrayList());
             }
         }
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().equals(course)) {
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || c.getCoReq().equals(course)) {
                 if (graph.containsKey(c.getPreReq())) {
-                    graph.get(c.getNombre()).add(c.getPreReq());
+                    graph.get(c.getNemonico()).add(c.getPreReq());
                 }
                 if (graph.containsKey(c.getCoReq())) {
-                    graph.get(c.getNombre()).add(c.getCoReq());
+                    graph.get(c.getNemonico()).add(c.getCoReq());
                 }
             }
         }

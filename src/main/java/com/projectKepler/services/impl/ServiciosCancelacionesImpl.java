@@ -104,10 +104,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            impacto=estudiante.consultImpactById(codigoEstudiante, nemonicoAsignatura);
-            if (impacto==null){
+            //impacto=estudiante.consultImpactById(codigoEstudiante, nemonicoAsignatura);
+            //if (impacto==null){
                 impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
-            }
+            //}
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }

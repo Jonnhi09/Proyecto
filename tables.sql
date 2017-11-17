@@ -185,55 +185,61 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '{
     "version": 13,        
     "courses": [
         {
-            "nombre": "PREM",
+            "nombre": "preca" ,
+ 	    "nemonico": "PREM",
             "creditos": 4,
-            "PreRec": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [21],
             "estado":"V"
         },
         {
-            "nombre": "CALD",
+            "nombre": "calculo 1" ,
+ 	    "nemonico": "CALD",
             "creditos": 4,
-            "preReq": "PREM",
-            "coReq": "",
+            "preReq": ["PREM"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
         },
         {
-            "nombre": "CIED",
+            "nombre": "calculo 2" ,
+ 	    "nemonico": "CIED",
             "creditos": 4,
-            "preReq": "CALD",
-            "coReq": "",
+            "preReq": ["CALD"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
         },
         {
-            "nombre": "FFIS",
+            "nombre": "fundamentos fisica" ,
+ 	    "nemonico": "FFIS",
             "creditos": 4,
-            "preReq": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [41],
             "estado":"V"
         },
         {
-            "nombre": "FIMF",
+            "nombre": "fisica 1" ,
+ 	    "nemonico": "FIMF",
             "creditos": 4,
-            "preReq": "FFIS",
-            "coReq": "CALD",
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
         },
         {
-            "nombre": "FIEM",
+            "nombre": "fisica 2" ,
+ 	    "nemonico": "FIEM",
             "creditos": 4,
-            "preReq": "FIMF",
-            "coReq": "CIED",
+            "preReq": ["FIMF"],
+            "coReq": ["CIED"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
@@ -245,55 +251,61 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '{
     "version": 13,        
     "courses": [
         {
-            "nombre": "PREM",
+            "nombre": "preca" ,
+ 	    "nemonico": "PREM",
             "creditos": 4,
-            "PreRec": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [35],
             "tercios": [21, 46, 40],
             "estado":"A"
         },
         {
-            "nombre": "CALD",
+            "nombre": "calculo 1" ,
+ 	    "nemonico": "CALD",,
             "creditos": 4,
-            "preReq": "PREM",
-            "coReq": "",
+            "preReq": ["PREM"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [34],
             "estado":"V"
         },
         {
-            "nombre": "CIED",
+            "nombre": "calculo 2" ,
+ 	    "nemonico": "CIED",,
             "creditos": 4,
-            "preReq": "CALD",
-            "coReq": "",
+            "preReq": ["CALD"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
         },
         {
-            "nombre": "FFIS",
+            "nombre": "fundamentos fisica" ,
+ 	    "nemonico": "FFIS",
             "creditos": 4,
-            "preReq": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [50],
             "tercios": [50,50,50],
             "estado":"A"
         },
         {
-            "nombre": "FIMF",
+            "nombre": "fisica 1" ,
+ 	    "nemonico": "FIMF",
             "creditos": 4,
-            "preReq": "FFIS",
-            "coReq": "CALD",
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [20],
             "estado":"V"
         },
         {
-            "nombre": "FIEM",
+            "nombre": "fisica 2" ,
+ 	    "nemonico": "FIEM",
             "creditos": 4,
-            "preReq": "FIMF",
-            "coReq": "CIED",
+            "preReq": ["FIMF"],
+            "coReq": ["CIED"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
@@ -305,55 +317,61 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '{
     "version": 13,        
     "courses": [
         {
-            "nombre": "PREM",
+            "nombre": "preca" ,
+ 	    "nemonico": "PREM",
             "creditos": 4,
-            "PreRec": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [30],
             "tercios": [30,30,30],
             "estado":"A"
         },
         {
-            "nombre": "CALD",
+            "nombre": "calculo 1" ,
+ 	    "nemonico": "CALD",,
             "creditos": 4,
-            "preReq": "PREM",
-            "coReq": "",
+            "preReq": ["PREM"],
+            "coReq": [],
             "historialNotas": [-1],
             "tercios": [15],
             "estado":"V"
         },
         {
-            "nombre": "CIED",
+            "nombre": "calculo 2" ,
+ 	    "nemonico": "CIED",,
             "creditos": 4,
-            "preReq": "CALD",
-            "coReq": "",
+            "preReq": ["CALD"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
         },
         {
-            "nombre": "FFIS",
+            "nombre": "fundamentos fisica" ,
+ 	    "nemonico": "FFIS",
             "creditos": 4,
-            "preReq": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [35],
             "tercios": [35,45,30],
             "estado":"A"
         },
         {
-            "nombre": "FIMF",
+            "nombre": "fisica 1" ,
+ 	    "nemonico": "FIMF",
             "creditos": 4,
-            "preReq": "FFIS",
-            "coReq": "CALD",
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [45],
             "estado":"V"
         },
         {
-            "nombre": "FIEM",
+            "nombre": "fisica 2" ,
+ 	    "nemonico": "FIEM",
             "creditos": 4,
-            "preReq": "FIMF",
-            "coReq": "CIED",
+            "preReq": ["FIMF"],
+            "coReq": ["CIED"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P"
@@ -381,70 +399,77 @@ INSERT INTO Solicitud VALUES (2,'Tengo muy bajita la nota y no me quiero arriesg
 INSERT INTO Solicitud VALUES (3,'No le entiendo al profesor','Necesitarian dos semestres adicionales','ARQC,PDIS,ACFI,PRON,POOB',
                             'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'PREM',true,173183,true);  
 
+
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
     "programa": "Ingenieria de sistemas",
     "version": 13,        
     "courses": [
         {
-            "nombre": "Precalculo",
+
             "creditos": 4,
-            "PreRec": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"PREM"
+            "nombre": "fisica 2" ,
+ 	    "nemonico":"FIEM"
         },
         {
-            "nombre": "Calculo Diferencial",
+
             "creditos": 4,
-            "preReq": "PREM",
-            "coReq": "",
+            "preReq": ["PREM"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"CALD"
+            "nombre": "calculo 1" ,
+ 	    "nemonico":"CALD"
         },
         {
-            "nombre":"Calculo Integral y Ecuaciones Diferenciales" ,
+
             "creditos": 4,
-            "preReq": "CALD",
-            "coReq": "",
+            "preReq": ["CALD"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"CIED"
+            "nombre": "calculo 2" ,
+ 	    "nemonico":"CIED"
         },
         {
-            "nombre":"Fundamentos de Fisica" ,
+
             "creditos": 4,
-            "preReq": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"FFIS"
+            "nombre": "fundamentos fisica" ,
+ 	    "nemonico":"FFIS"
         },
         {
-            "nombre":"Fisica Mecanica y de fluidos" ,
+
             "creditos": 4,
-            "preReq": "FFIS",
-            "coReq": "CALD",
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"FIMF"
+            "nombre": "fisica 1" ,
+ 	    "nemonico":"FIMF"
         },
         {
-            "nombre": "Física del Electromagnetismo" ,
+
             "creditos": 4,
-            "preReq": "FIMF",
-            "coReq": "CIED",
+            "preReq": ["FIMF"],
+            "coReq": ["CIED"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"FIEM"
+            "nombre": "fisica 2" ,
+ 	    "nemonico":"FIEM"
         }
     ]
 }');
@@ -454,64 +479,70 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
     "version": 13,        
     "courses": [
         {
-            "nombre": "Precalculo",
+
             "creditos": 4,
-            "PreRec": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico": "PREM"
+            "nombre": "preca" ,
+ 	    "nemonico": "PREM"
         },
         {
-            "nombre": "Calculo Diferencial",
+
             "creditos": 4,
-            "preReq": "PREM",
-            "coReq": "",
+            "preReq": ["PREM"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"CALD"
+            "nombre": "calculo 1" ,
+ 	    "nemonico":"CALD"
         },
         {
-            "nombre":"Calculo Integral y Ecuaciones Diferenciales" ,
+
             "creditos": 4,
-            "preReq": "CALD",
-            "coReq": "",
+            "preReq": ["CALD"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"CIED"
+            "nombre": "calculo 2" ,
+ 	    "nemonico":"CIED"
         },
         {
-            "nombre":"Fundamentos de Fisica",
+
             "creditos": 4,
-            "preReq": "",
-            "coReq": "",
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico": "FFIS"
+            "nombre": "fundamentos fisica" ,
+ 	    "nemonico": "FFIS"
         },
         {
-            "nombre": "Fisica Mecanica y de fluidos" ,
+
             "creditos": 4,
-            "preReq": "FFIS",
-            "coReq": "CALD",
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"FIMF"
+            "nombre": "fisica 1" ,
+ 	    "nemonico":"FIMF"
         },
         {
-            "nombre":"Física del Electromagnetismo",
+
             "creditos": 4,
-            "preReq": "FIMF",
-            "coReq": "CIED",
+            "preReq": ["FIMF"],
+            "coReq": ["CIED"],
             "historialNotas": [],
             "tercios": [],
             "estado":"P",
-            "nemonico":"FIEM"
+            "nombre": "fisica 2" ,
+ 	    "nemonico":"FIEM"
         }
     ]
 }');

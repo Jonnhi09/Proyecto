@@ -43,7 +43,7 @@ public class GraphRectificatorTest {
 "    \"vertion\": 13,        \n" +
 "    \"courses\": [\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nemonico\": \"PREM\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preRec\": \"\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -52,7 +52,7 @@ public class GraphRectificatorTest {
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nemonico\": \"CALD\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preReq\": \"PREM\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -67,7 +67,7 @@ public class GraphRectificatorTest {
 "    \"vertion\": 13,        \n" +
 "    \"courses\": [\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nemonico\": \"PREM\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preRec\": \"\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -76,7 +76,7 @@ public class GraphRectificatorTest {
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nemonico\": \"CALD\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preReq\": \"PREM\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -102,7 +102,7 @@ public class GraphRectificatorTest {
 "    \"vertion\": 13,        \n" +
 "    \"courses\": [\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nemonico\": \"PREM\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preReq\": \"CALD\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -111,7 +111,7 @@ public class GraphRectificatorTest {
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nemonico\": \"CALD\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preReq\": \"PREM\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -126,7 +126,7 @@ public class GraphRectificatorTest {
 "    \"vertion\": 13,        \n" +
 "    \"courses\": [\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nemonico\": \"PREM\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preRec\": \"\",\n" +
 "            \"coReq\": \"\",\n" +
@@ -135,7 +135,7 @@ public class GraphRectificatorTest {
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nemonico\": \"CALD\",\n" +
 "            \"creditos\": 4,\n" +
 "            \"preReq\": \"PREM\",\n" +
 "            \"coReq\": \"\",\n" +

@@ -14,15 +14,27 @@ import java.util.*;
  * @author blackphantom
  */
 public class SimpleAlgorithm implements Algorithm {
+
     @Override
-    public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph,Syllabus planS) {
+    public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+        return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(credits(course, planS)) + " de "+Integer.toString(planS.getTotalCredits()), ""};
+
+    }
+
+    public String[] getImpact(String[] courses, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+        int x=0;
+        for(String s: courses)
+            x+=credits(s, planS);
+        return new String[]{"Si cancela " + Arrays.toString(courses) + " le quedan: " + Integer.toString(x) + " de "+Integer.toString(planS.getTotalCredits()), ""};
+    }
+
+    public int credits(String course,Syllabus planS) {
         int pendientes = 0;
         for (CourseStudent c : planS.getCourses()) {
-            if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().contains(course)) {
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || c.getCoReq().contains(course)) {
                 pendientes += c.getCreditos();
             }
         }
-        return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(pendientes) + " creditos por ver.", ""};
-        
+        return pendientes;
     }
 }
