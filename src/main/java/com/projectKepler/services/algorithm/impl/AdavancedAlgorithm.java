@@ -30,7 +30,6 @@ public class AdavancedAlgorithm implements Algorithm {
         }
         Gson g = new Gson();
         syllabus = planS;
-        sem = syllabus.getCreditsSemester();
         return new String[]{Integer.toString(solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits(), 0)), "JAJAJAJ"};
     }
 

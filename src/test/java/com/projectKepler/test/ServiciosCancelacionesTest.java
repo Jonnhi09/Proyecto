@@ -49,7 +49,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver.");
+        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver de 24.");
     }
 
     @Test 
@@ -141,18 +141,12 @@ public class ServiciosCancelacionesTest {
     
     @Test
     public void consultarPlanesDeEstudioPorProgramaTest(){
-        ArrayList<Integer> planes= new ArrayList<>();
         ArrayList<Integer> resultado= new ArrayList<>();
-        planes.add(13);
-        planes.add(8);
         try{
             resultado=servicios.consultarPlanesDeEstudiosPorPrograma("Ingenieria de sistemas");
             assertEquals(resultado.size(),2);
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
-        }
-        for (int i=0;i<resultado.size();i++){
-            assertEquals(resultado.get(i),planes.get(i));
         }
         
     }

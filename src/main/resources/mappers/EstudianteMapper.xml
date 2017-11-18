@@ -115,7 +115,8 @@
         
             pl.id as PlanDeEstudio_id,
             pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
-            pl.contenido as PlanDeEstudio_contenido
+            pl.contenido as PlanDeEstudio_contenido,
+            pl.totalCreditos as PlanDeEstudio_totalCreditos
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
     </select>
     
@@ -125,7 +126,8 @@
         
             pl.id as PlanDeEstudio_id,
             pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
-            pl.contenido as PlanDeEstudio_contenido
+            pl.contenido as PlanDeEstudio_contenido,
+            pl.totalCreditos as PlanDeEstudio_totalCreditos
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
         WHERE pr.nombre=#{nombre}
     </select>
@@ -135,7 +137,8 @@
         select DISTINCT
             pl.id,
             pl.ProgramaAcademico,
-            pl.contenido 
+            pl.contenido,
+            pl.totalCreditos
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pl.ProgramaAcademico=pr.nombre
         WHERE pr.nombre=#{programa} AND pl.id=#{numero}
     </select>
@@ -216,6 +219,7 @@
     <resultMap type='PlanDeEstudios' id='PlanDeEstudioResult'>
         <id property='id' column='id'/>
         <result property='contenido' column='contenido'/>
+        <result property='totalCreditos' column='totalCreditos'/>
     </resultMap>
     
     
