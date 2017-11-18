@@ -21,13 +21,15 @@ import org.apache.ibatis.exceptions.PersistenceException;
 public interface EstudianteDAO {
     
     public List<Estudiante> loadAllEstudiantes() throws PersistenceException;
-    public String loadPlanDeEstudio(int codigoEstudiante) throws PersistenceException;
+    public String loadAsignaturas(int codigoEstudiante) throws PersistenceException;
     public String loadSyllabusProgramaById(int codigoEstudiante) throws PersistenceException;
     public List<Asignatura> loadCoursesById(int codigo) throws PersistenceException;
     public String consultImpactById(int codigo, String nemonico) throws PersistenceException;
     public String consultProyectionById(int codigo, String nemonico) throws PersistenceException;
     public void updateJustification(int codigo, String materia, String justificacion, int numero, boolean acuse, String impacto, String proyeccion) throws PersistenceException;
+    public String loadEstudianteProgramaById(int codigo) throws PersistenceException;
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException;
+    public int loadEstudianteVersionById(int codigo) throws PersistenceException;
     public List<Solicitud> loadSolicitudes() throws PersistenceException;
     public void updateCredits(int creditos) throws PersistenceException;
     public int consultCredits() throws PersistenceException;

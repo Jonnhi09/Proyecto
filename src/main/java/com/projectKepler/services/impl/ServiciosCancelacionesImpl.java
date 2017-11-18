@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.impl;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
@@ -18,6 +19,7 @@ import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -58,12 +60,39 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public String consultarPlanDeEstudioByIdEstudiante(int codigo) throws ExcepcionServiciosCancelaciones {
         String programa="";
+        List<CourseStudent> asignaturas=null;
         try{
-            programa=estudiante.loadPlanDeEstudio(codigo);
+            programa=estudiante.loadAsignaturas(codigo);
+            Gson g = new Gson();
+            Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
+            asignaturas=g.fromJson(programa, materias);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
-        return programa;
+        CourseStudent[] materiasPlan=consultarPlanDeEstudios(estudiante.loadEstudianteProgramaById(codigo),estudiante.loadEstudianteVersionById(codigo)).getCourses();
+        ArrayList<String> materiasEnEstudiante=new ArrayList<>();
+        for (CourseStudent c:asignaturas){
+            materiasEnEstudiante.add(c.getNemonico());
+        }
+        for (int j=0;j<materiasPlan.length;j++){
+            for (int i=0;i<asignaturas.size();i++){
+                if (materiasPlan[j].getNemonico().equals(asignaturas.get(i).getNemonico())){
+                    asignaturas.get(i).setCoReq(materiasPlan[j].getCoReq());
+                    asignaturas.get(i).setPreReq(materiasPlan[j].getPreReq());
+                    asignaturas.get(i).setCreditos(materiasPlan[j].getCreditos());
+                }else{
+                    if ( !(materiasEnEstudiante.contains(materiasPlan[j].getNemonico())) ){
+                        asignaturas.add(materiasPlan[j]);
+                        materiasEnEstudiante.add(materiasPlan[j].getNemonico());
+                    }
+                }  
+            }  
+        }
+        CourseStudent[] asignaturasSyllabus = new CourseStudent[asignaturas.size()];
+        asignaturas.toArray(asignaturasSyllabus);
+        Gson p = new GsonBuilder().setPrettyPrinting().create();
+        String update= p.toJson(new Syllabus(estudiante.loadEstudianteProgramaById(codigo),estudiante.loadEstudianteVersionById(codigo),estudiante.consultarPlanDeEstudios(estudiante.loadEstudianteProgramaById(codigo), estudiante.loadEstudianteVersionById(codigo)).getTotalCreditos(),asignaturasSyllabus));
+        return update;
         
     }
 
@@ -132,7 +161,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         String programa="";
         String syllabusEstudiante="";
         try{
-            syllabusEstudiante=estudiante.loadPlanDeEstudio(codigo);
+            syllabusEstudiante=consultarPlanDeEstudioByIdEstudiante(codigo);
             programa=estudiante.loadSyllabusProgramaById(codigo);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);

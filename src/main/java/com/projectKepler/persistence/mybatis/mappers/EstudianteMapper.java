@@ -20,11 +20,13 @@ import org.apache.ibatis.annotations.Param;
 public interface EstudianteMapper {
     
     public List<Estudiante> loadAllEstudiantes();
-    public String loadPlanDeEstudio(@Param("codigo") int codigo);
+    public String loadMaterias(@Param("codigo") int codigo);
     public List<Asignatura> loadCoursesById(@Param("codigo") int codigo);
     public String consultImpactById (@Param("codigo") int codigo, @Param("nem") String nemonico);
     public void updateJustification (@Param("codigo") int codigo, @Param("justificacion") String justificacion,@Param("materia") String materia, @Param("numero")int numero, @Param("acuse") boolean acuse, @Param("impacto") String impacto, @Param("proyeccion")String proyeccion);
     public String loadSyllabusPrograma(@Param("codigo")int codigo);
+    public String loadProgramaPorEstudiante(@Param("codigo") int codigo);
+    public int loadVersionPorEstudiante(@Param("codigo") int codigo);
     public Estudiante loadEstudianteById(@Param("codigo") int codigo);
     public List<Solicitud> loadSolicitudes();
     public String consultProyectionById (@Param("codigo") int codigo, @Param("nem") String nemonico);

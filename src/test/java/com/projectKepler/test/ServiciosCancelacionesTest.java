@@ -49,7 +49,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver de 24.");
+        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver de 28.");
     }
 
     @Test 
@@ -72,7 +72,7 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         
-        assertEquals(resultado.get(0).getCourses().length,6);
+        assertEquals(resultado.get(0).getCourses().length,7);
         assertEquals(resultado.get(0).getCourses()[0].getTercios()[0],21);
         for (CourseStudent c:resultado.get(1).getCourses()){
             assertEquals(c.getEstado(),'P');
@@ -136,7 +136,7 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(programa.getPrograma(),"Ingenieria de sistemas");
         assertEquals(programa.getVersion(),13);
-        assertEquals(programa.getCourses().length,6);
+        assertEquals(programa.getCourses().length,7);
     }
     
     @Test

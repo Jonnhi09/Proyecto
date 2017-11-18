@@ -14,7 +14,7 @@ public class Syllabus {
     private int version,totalCredits;
     private CourseStudent[] courses;
 
-    public Syllabus(String programa, int version, int totalCredits, int creditsSemester, CourseStudent[] courses) {
+    public Syllabus(String programa, int version, int totalCredits, CourseStudent[] courses) {
         this.programa = programa;
         this.version = version;
         this.totalCredits = totalCredits;

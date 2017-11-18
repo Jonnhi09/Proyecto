@@ -45,15 +45,27 @@
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Course as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo ;
     </select>
     
-    <select  parameterType="map" id="loadEstudianteById" resultType="Estudiante"> 
-        select *
-        FROM  Estudiante 
+    <select  parameterType="map" id="loadProgramaPorEstudiante" resultType="String"> 
+        select programaAcademico
+        FROM  Estudiante
         WHERE codigo=#{codigo};
     </select>
     
-    <select parameterType="map" id="loadPlanDeEstudio" resultType="String"> 
+    <select  parameterType="map" id="loadEstudianteById" resultType="String"> 
+        select *
+        FROM  Estudiante
+        WHERE codigo=#{codigo};
+    </select>
+    
+    <select  parameterType="map" id="loadVersionPorEstudiante" resultType="int"> 
+        select versionplandeestudio
+        FROM  Estudiante
+        WHERE codigo=#{codigo}
+    </select>
+    
+    <select parameterType="map" id="loadMaterias" resultType="String"> 
         select
-            planDeEstudios
+            asignaturas
         FROM  Estudiante
         WHERE codigo=#{codigo} 
     </select>
@@ -157,10 +169,11 @@
         <result property='numeroMatriculas' column='numeroMatriculas'/>
         <result property='correo' column='correo'/>
         <result property='programa' column='programa'/>
-        <result property="versionPlanDeEstudio" column="versionPlanDeEstudio" />
-        <association property="acudiente" javaType="Acudiente" columnPrefix="Acudiente_" resultMap="AcudienteResult" />
-        <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/> 
-        <collection property="cursos" ofType="CourseStudent" columnPrefix="CourseStudent_" resultMap="CourseStudentResult" />
+        <result property='versionPlanDeEstudio' column='versionPlanDeEstudio' />
+        <result property='asignaturas' column='asignaturas'/>
+        <association property='acudiente' javaType='Acudiente' columnPrefix='Acudiente_' resultMap='AcudienteResult' />
+        <collection property='solicitudes' ofType='Solicitud' columnPrefix='Solicitud_' resultMap='SolicitudResult'/> 
+        <collection property='cursos' ofType='CourseStudent' columnPrefix='CourseStudent_' resultMap='CourseStudentResult' />
     </resultMap>
     
     <resultMap type='Solicitud' id='SolicitudResult' >

@@ -37,10 +37,10 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     @Override
-    public String loadPlanDeEstudio (int codigoEstudiante) throws PersistenceException {
+    public String loadAsignaturas (int codigoEstudiante) throws PersistenceException {
         String programa="";
         try{
-            programa=estudiante.loadPlanDeEstudio(codigoEstudiante);
+            programa=estudiante.loadMaterias(codigoEstudiante);
         }catch (Exception e){
             throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
         }
@@ -76,6 +76,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
+    public String loadEstudianteProgramaById(int codigo) throws PersistenceException {
+        String student=null;
+        try{
+            student=estudiante.loadProgramaPorEstudiante(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar el estudiante con codigo:"+codigo,e);
+        }
+        return student;
+    }
+    
+    @Override
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException {
         Estudiante student=null;
         try{
@@ -84,6 +95,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al cargar el estudiante con codigo:"+codigo,e);
         }
         return student;
+    }
+    
+    @Override
+    public int loadEstudianteVersionById(int codigo) throws PersistenceException {
+        int version=0;
+        try{
+            version=estudiante.loadVersionPorEstudiante(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar version",e);
+        }
+        return version;
     }
 
     @Override
