@@ -92,7 +92,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
-        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[1];
+        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
         return impacto;
     }
 
@@ -105,7 +105,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             impacto=estudiante.consultImpactById(codigoEstudiante, nemonicoAsignatura);
             if (impacto==null){
-                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
+                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
