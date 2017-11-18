@@ -38,15 +38,15 @@ public class SolCancelBean implements Serializable{
     @ManagedProperty(value="#{loginBean}")
     private ShiroLoginBean shiroLoginBean;
 
-    ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
-    List<CourseStudent> materias;
-    Estudiante estudiante;
-    String materiaSeleccionada;
-    boolean panelVisibility;
-    String justificacion;
-    String impacto;
-    String proyeccion;
-    String usuario;
+    private ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
+    private List<CourseStudent> materias;
+    private Estudiante estudiante;
+    private String materiaSeleccionada;
+    private boolean panelVisibility;
+    private String justificacion;
+    private String impacto;
+    private String proyeccion;
+    private String usuario;
     
     @PostConstruct
     private void init(){

@@ -25,17 +25,17 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class AjusteParametros {
     
-    int creditosSemestre;
-    int creditosSemestreActuales;
-    String programaSeleccionado;
-    int planDeEstudiosSeleccionado;
-    List<?> planesDeEstudios;
-    List<?> programas;
-    String planDeEstudiosJson;
-    boolean renderTable;
-    boolean planDisabled;
-    Syllabus syllabus;
-    ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
+    private int creditosSemestre;
+    private int creditosSemestreActuales;
+    private String programaSeleccionado;
+    private int planDeEstudiosSeleccionado;
+    private List<?> planesDeEstudios;
+    private List<?> programas;
+    private String planDeEstudiosJson;
+    private boolean renderTable;
+    private boolean planDisabled;
+    private Syllabus syllabus;
+    private ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
     
     
 

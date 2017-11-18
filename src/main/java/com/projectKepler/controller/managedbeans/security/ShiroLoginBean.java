@@ -28,10 +28,6 @@ public class ShiroLoginBean implements Serializable {
     private String password;
     private Boolean rememberMe;
 
-    public ShiroLoginBean() {
-        
-    }
-
     public Subject getSubject() {
         return SecurityUtils.getSubject();
     }
@@ -49,15 +45,14 @@ public class ShiroLoginBean implements Serializable {
 
             if (subject.hasRole("consejero")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("consejero/ListadoSolCancel.xhtml");
-            }
-            else if(subject.hasRole("coordinador")){
+            }else if(subject.hasRole("coordinador")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("coordinador/ListadoSolCancel.xhtml");
-            }
-            else if(subject.hasRole("estudiante")){
+            }else if(subject.hasRole("estudiante")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("estudiante/SolCancel.xhtml");
-            }
-            else if(subject.hasRole("admin")){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("admin/AjusteParametros.xhtml");
+            }else if(subject.hasRole("admin")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("superadmin/AjusteParametros.xhtml");
+            }else if(subject.hasRole("adminprograma")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("adminPrograma/AjusteParametros.xhtml");
             }
         }
         catch (UnknownAccountException ex) {
