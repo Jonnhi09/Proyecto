@@ -69,10 +69,10 @@ public class GraphRectificatorImpl implements GraphRectificator {
         }
         for (CourseStudent c : s.getCourses()) {
             if (graph.containsKey(c.getPreReq())) {
-                graph.get(c.getNombre()).add(c.getPreReq());
+                //graph.get(c.getNombre()).add(c.getPreReq());
             }
             if (graph.containsKey(c.getCoReq())) {
-                graph.get(c.getNombre()).add(c.getCoReq());
+                //graph.get(c.getNombre()).add(c.getCoReq());
             }
         }
 

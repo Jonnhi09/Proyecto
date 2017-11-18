@@ -33,7 +33,7 @@ import org.junit.Test;
 public class GraphRectificatorTest {
 
     private GraphRectificator gRec = new GraphRectificatorImpl();
-
+    /*
     @Test
     public void TestC1() {
         Gson g = new Gson();
@@ -147,5 +147,6 @@ public class GraphRectificatorTest {
 "}", Syllabus.class);
         Assert.assertTrue(null==gRec.verify(s, s2));
         
-    }
+    }*/
 }
+

@@ -119,21 +119,21 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
-    public void updateCredits(int creditos, String programa) throws PersistenceException{
+    public void updateCredits(int creditos) throws PersistenceException{
         try{
-            estudiante.updateCredits(creditos, programa);
+            estudiante.updateCredits(creditos);
         }catch (Exception e){
-            throw new PersistenceException("Error al actualizar los creditos maximos del programa :"+programa,e);
+            throw new PersistenceException("Error al actualizar los creditos maximos",e);
         }
     }
     
     @Override
-    public int consultCredits(String programa) throws PersistenceException{
+    public int consultCredits() throws PersistenceException{
         int credits=0;
         try{
-            credits=estudiante.consultCredits(programa);
+            credits=estudiante.consultCredits();
         }catch (Exception e){
-            throw new PersistenceException("Error al consultar el numero de creditos maximos del programa :"+programa,e);
+            throw new PersistenceException("Error al consultar el numero de creditos maximos",e);
         }
         return credits;
     }
@@ -191,22 +191,5 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al consultar el programa "+nombre,e);
         }
         return plan;
-    }
-
-    @Override
-    public void actualizarSyllabus(String syllabus, int numero, String programa) throws PersistenceException {
-        try{
-            estudiante.updateSyllabus(syllabus, numero, programa);
-        }catch(Exception e){
-            throw new PersistenceException("Error al actualizar el plan de estudios: "+numero+" del programa "+programa,e);
-        }
-    }
-    @Override
-    public void actualizarPlanDeEstudio(String plan,int version,String programa) throws PersistenceException{
-        try{
-            estudiante.updateSyllabus(plan,version,programa);
-        }catch (Exception e){
-            throw new PersistenceException("Error al actualizar el plan de estudio",e);
-        }
     }
 }

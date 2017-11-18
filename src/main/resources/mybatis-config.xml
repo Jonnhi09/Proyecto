@@ -18,6 +18,7 @@
         <typeAlias type='com.projectKepler.services.entities.Solicitud' alias='Solicitud'/>
         <typeAlias type='com.projectKepler.services.entities.ProgramaAcademico' alias='ProgramaAcademico'/>
         <typeAlias type='com.projectKepler.services.entities.PlanDeEstudios' alias='PlanDeEstudios'/>
+        <typeAlias type='com.projectKepler.services.entities.Universidad' alias='Universidad'/>
     </typeAliases>
                          
     <environments default="development">

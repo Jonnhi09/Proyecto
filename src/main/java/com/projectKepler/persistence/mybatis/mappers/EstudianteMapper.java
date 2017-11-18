@@ -28,12 +28,12 @@ public interface EstudianteMapper {
     public Estudiante loadEstudianteById(@Param("codigo") int codigo);
     public List<Solicitud> loadSolicitudes();
     public String consultProyectionById (@Param("codigo") int codigo, @Param("nem") String nemonico);
-    public void updateCredits(@Param("creditos") int creditos, @Param("programa") String programa);
-    public int consultCredits(@Param("programa") String programa);
+    public void updateCredits(@Param("creditos") int creditos);
+    public int consultCredits();
     public Estudiante consultStudentByEmail(@Param("correo") String correo);
     public List<String> consultCourse(@Param("codigo") int codigo);
     public List<ProgramaAcademico> consultarProgramasAcademicos();
     public PlanDeEstudios consultarPlanDeEstudios(@Param("numero") int numero, @Param("programa") String programa);
     public ProgramaAcademico consultarProgramaAcademicoPorNombre(@Param("nombre")String nombre);
-    public void updateSyllabus(@Param("plan") String plan,@Param("version") int version,@Param("programa") String programa);
+    
 }

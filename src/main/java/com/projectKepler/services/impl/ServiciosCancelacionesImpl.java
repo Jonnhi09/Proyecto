@@ -13,7 +13,6 @@ import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
@@ -174,9 +173,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones{
+    public void actualizarNumeroMaximoDeCreditos(int creditos) throws ExcepcionServiciosCancelaciones{
         try{
-            estudiante.updateCredits(creditos, programa);
+            estudiante.updateCredits(creditos);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -184,10 +183,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones{
+    public int consultarNumeroMaximoDeCreditos() throws ExcepcionServiciosCancelaciones{
         int credits=0;
         try{
-            credits=estudiante.consultCredits(programa);
+            credits=estudiante.consultCredits();
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -269,28 +268,4 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return planes;
     }
-
-    @Override
-    public void actualizarSyllabusEstudianteTabla(Syllabus syllabus) throws ExcepcionServiciosCancelaciones {
-        if (gRec.verify(syllabus, syllabus)==null){
-            throw new ExcepcionServiciosCancelaciones("El plan de estudios esta mal formado");
-        }
-        Gson gson= new GsonBuilder().setPrettyPrinting().create();
-        String json= gson.toJson(syllabus);
-        estudiante.actualizarSyllabus(json, syllabus.getVersion(), syllabus.getPrograma());
-
-    }
-    
-    @Override
-    public void actualizarPlanDeEstudio(String plan) throws ExcepcionServiciosCancelaciones{
-        Gson g=new Gson();
-        Syllabus s=g.fromJson(plan, Syllabus.class);
-        if (gRec.verify(s, s)!=null){
-            estudiante.actualizarPlanDeEstudio(plan,s.getVersion(),s.getPrograma());
-        }else{
-            throw new ExcepcionServiciosCancelaciones("El grafo del plan de estudios esta mal formado");
-        }
-
-    }
 }
-

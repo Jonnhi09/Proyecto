@@ -18,9 +18,10 @@ public class SimpleAlgorithm implements Algorithm {
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph,Syllabus planS) {
         int pendientes = 0;
         for (CourseStudent c : planS.getCourses()) {
+            /*
             if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().contains(course)) {
                 pendientes += c.getCreditos();
-            }
+            }*/
         }
         return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(pendientes) + " creditos por ver.", ""};
         
