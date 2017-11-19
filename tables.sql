@@ -149,6 +149,7 @@ ALTER TABLE ProgramaAcademico ADD CONSTRAINT programasAcademicos
     NOT DEFERRABLE 
 ;
 
+-- Poblar --
 -- Poblar Universidad --
 INSERT INTO Universidad VALUES (18,'Escuela Colombiana de Ingeniería Julio Garavito');
 
