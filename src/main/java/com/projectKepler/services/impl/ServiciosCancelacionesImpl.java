@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.impl;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
@@ -13,12 +14,13 @@ import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.algorithm.Algorithm;
 import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -59,12 +61,39 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public String consultarPlanDeEstudioByIdEstudiante(int codigo) throws ExcepcionServiciosCancelaciones {
         String programa="";
+        List<CourseStudent> asignaturas=null;
         try{
-            programa=estudiante.loadPlanDeEstudio(codigo);
+            programa=estudiante.loadAsignaturas(codigo);
+            Gson g = new Gson();
+            Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
+            asignaturas=g.fromJson(programa, materias);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
-        return programa;
+        CourseStudent[] materiasPlan=consultarPlanDeEstudios(estudiante.loadEstudianteProgramaById(codigo),estudiante.loadEstudianteVersionById(codigo)).getCourses();
+        ArrayList<String> materiasEnEstudiante=new ArrayList<>();
+        for (CourseStudent c:asignaturas){
+            materiasEnEstudiante.add(c.getNemonico());
+        }
+        for (int j=0;j<materiasPlan.length;j++){
+            for (int i=0;i<asignaturas.size();i++){
+                if (materiasPlan[j].getNemonico().equals(asignaturas.get(i).getNemonico())){
+                    asignaturas.get(i).setCoReq(materiasPlan[j].getCoReq());
+                    asignaturas.get(i).setPreReq(materiasPlan[j].getPreReq());
+                    asignaturas.get(i).setCreditos(materiasPlan[j].getCreditos());
+                }else{
+                    if ( !(materiasEnEstudiante.contains(materiasPlan[j].getNemonico())) ){
+                        asignaturas.add(materiasPlan[j]);
+                        materiasEnEstudiante.add(materiasPlan[j].getNemonico());
+                    }
+                }  
+            }  
+        }
+        CourseStudent[] asignaturasSyllabus = new CourseStudent[asignaturas.size()];
+        asignaturas.toArray(asignaturasSyllabus);
+        Gson p = new GsonBuilder().setPrettyPrinting().create();
+        String update= p.toJson(new Syllabus(estudiante.loadEstudianteProgramaById(codigo),estudiante.loadEstudianteVersionById(codigo),estudiante.consultarPlanDeEstudios(estudiante.loadEstudianteProgramaById(codigo), estudiante.loadEstudianteVersionById(codigo)).getTotalCreditos(),asignaturasSyllabus));
+        return update;
         
     }
 
@@ -93,7 +122,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
-        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[1];
+        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
         return impacto;
     }
 
@@ -106,7 +135,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             impacto=estudiante.consultImpactById(codigoEstudiante, nemonicoAsignatura);
             if (impacto==null){
-                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s, s), s)[0];
+                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
@@ -133,7 +162,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         String programa="";
         String syllabusEstudiante="";
         try{
-            syllabusEstudiante=estudiante.loadPlanDeEstudio(codigo);
+            syllabusEstudiante=consultarPlanDeEstudioByIdEstudiante(codigo);
             programa=estudiante.loadSyllabusProgramaById(codigo);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
@@ -174,9 +203,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones{
+    public void actualizarNumeroMaximoDeCreditos(int creditos) throws ExcepcionServiciosCancelaciones{
         try{
-            estudiante.updateCredits(creditos, programa);
+            estudiante.updateCredits(creditos);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -184,10 +213,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones{
+    public int consultarNumeroMaximoDeCreditos() throws ExcepcionServiciosCancelaciones{
         int credits=0;
         try{
-            credits=estudiante.consultCredits(programa);
+            credits=estudiante.consultCredits();
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -269,28 +298,14 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return planes;
     }
-
-    @Override
-    public void actualizarSyllabusEstudianteTabla(Syllabus syllabus) throws ExcepcionServiciosCancelaciones {
-        if (gRec.verify(syllabus, syllabus)==null){
-            throw new ExcepcionServiciosCancelaciones("El plan de estudios esta mal formado");
-        }
-        Gson gson= new GsonBuilder().setPrettyPrinting().create();
-        String json= gson.toJson(syllabus);
-        estudiante.actualizarSyllabus(json, syllabus.getVersion(), syllabus.getPrograma());
-
-    }
     
     @Override
-    public void actualizarPlanDeEstudio(String plan) throws ExcepcionServiciosCancelaciones{
-        Gson g=new Gson();
-        Syllabus s=g.fromJson(plan, Syllabus.class);
-        if (gRec.verify(s, s)!=null){
-            estudiante.actualizarPlanDeEstudio(plan,s.getVersion(),s.getPrograma());
-        }else{
-            throw new ExcepcionServiciosCancelaciones("El grafo del plan de estudios esta mal formado");
+    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes;
+        solicitudes=estudiante.consultRequest(consejero);
+        if (solicitudes==null){
+            throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
         }
-
+        return solicitudes;
     }
 }
-

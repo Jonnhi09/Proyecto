@@ -19,5 +19,5 @@ public interface GraphRectificator {
      * @param plan2 el plan de estudios del programa 
      * @return si el grafo no tiene ciclos y concuerda con el plan de estudios del programa retorna el grafo.
      */
-    public HashMap<String,ArrayList<String>> verify(Syllabus plan1,Syllabus plan2);
+    public HashMap<String,ArrayList<String>> verify(Syllabus plan1);
 }

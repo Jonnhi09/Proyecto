@@ -19,9 +19,10 @@ public class Estudiante {
     private String correo;
     private Acudiente acudiente;
     private List<Solicitud> solicitudes;
-    private String planDeEstudios;
+    private String asignaturas;
     private List<CourseStudent> cursos;
     private int versionPlanDeEstudio;
+    private String programa;
     
     
     public List<Solicitud> getSolicitudes() {
@@ -46,14 +47,6 @@ public class Estudiante {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getplanDeEstudios() {
-        return planDeEstudios;
-    }
-
-    public void setplanDeEstudios(String planDeEstudios) {
-        this.planDeEstudios = planDeEstudios;
     }
 
     public int getNumeroMatriculas() {
@@ -95,4 +88,22 @@ public class Estudiante {
     public void setVersionPlanDeEstudio(int versionPlanDeEstudio) {
         this.versionPlanDeEstudio = versionPlanDeEstudio;
     }
+
+    public String getAsignaturas() {
+        return asignaturas;
+    }
+
+    public void setAsignaturas(String asignaturas) {
+        this.asignaturas = asignaturas;
+    }
+
+    public String getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(String programa) {
+        this.programa = programa;
+    }
+    
+    
 }

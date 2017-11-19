@@ -8,6 +8,7 @@ package com.projectKepler.services;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,7 @@ public interface ServiciosCancelaciones {
      * @param programa nombre del programa al que se le van a modificar el numero de creditos
      * @throws ExcepcionServiciosCancelaciones Si NO existe un programa con ese nombre, o si se presenta otro problema en las capas inferiores.
      */
-    public void actualizarNumeroMaximoDeCreditos(int creditos, String programa) throws ExcepcionServiciosCancelaciones;
+    public void actualizarNumeroMaximoDeCreditos(int creditos) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta el numero maximo de creditos que se pueden ver por semestre de un programa
@@ -98,7 +99,7 @@ public interface ServiciosCancelaciones {
      * @return numero de creditos maximos de un programa
      * @throws ExcepcionServiciosCancelaciones Si NO existe el programa, o si se presenta otro problema en las capas inferiores.
      */
-    public int consultarNumeroMaximoDeCreditos(String programa) throws ExcepcionServiciosCancelaciones;
+    public int consultarNumeroMaximoDeCreditos() throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta un estudiante dado su correo
@@ -141,17 +142,11 @@ public interface ServiciosCancelaciones {
     public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones; 
     
     /**
-     * Actualiza un plan de estudio de un programa
-     * @param syllabus es el objeto plan de estudio
-     * @throws ExcepcionServiciosCancelaciones Si el plan de estudio no es correcto, o si se presenta otro problema en las capas inferiores.
+     * Consultar las solicitudes de cancelaciones a partir de un consejero
+     * @param consejero es el correo del consejero 
+     * @return Lista de solicitudes de cancelaciones
+     * @throws ExcepcionServiciosCancelaciones Si NO existen solicitudes, o se se presenta otro problema en las capas inferiores.
      */
-    public void actualizarSyllabusEstudianteTabla(Syllabus sullabus) throws ExcepcionServiciosCancelaciones;
-
-    /**
-     * Actualiza un plan de estudio de un programa
-     * @param plan es el contenido de un plan de estudio
-     * @throws ExcepcionServiciosCancelaciones Si el plan de estudio no es correcto, o si se presenta otro problema en las capas inferiores.
-     */
-    public void actualizarPlanDeEstudio(String plan) throws ExcepcionServiciosCancelaciones;
-
+    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones;
+    
 }

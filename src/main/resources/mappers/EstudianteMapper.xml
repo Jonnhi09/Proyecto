@@ -45,15 +45,27 @@
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Course as a on a.nemonico=s.Asignatura_Cancelar left join Acudiente as ac on ac.correo=Acudiente_correo left join CoordinadorCancelaciones as co on co.codigo=e.CoordinadorCancelaciones_codigo left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo ;
     </select>
     
-    <select  parameterType="map" id="loadEstudianteById" resultType="Estudiante"> 
-        select *
-        FROM  Estudiante 
+    <select  parameterType="map" id="loadProgramaPorEstudiante" resultType="String"> 
+        select programaAcademico
+        FROM  Estudiante
         WHERE codigo=#{codigo};
     </select>
     
-    <select parameterType="map" id="loadPlanDeEstudio" resultType="String"> 
+    <select  parameterType="map" id="loadEstudianteById" resultType="String"> 
+        select *
+        FROM  Estudiante
+        WHERE codigo=#{codigo};
+    </select>
+    
+    <select  parameterType="map" id="loadVersionPorEstudiante" resultType="int"> 
+        select versionplandeestudio
+        FROM  Estudiante
+        WHERE codigo=#{codigo}
+    </select>
+    
+    <select parameterType="map" id="loadMaterias" resultType="String"> 
         select
-            planDeEstudios
+            asignaturas
         FROM  Estudiante
         WHERE codigo=#{codigo} 
     </select>
@@ -88,15 +100,13 @@
     </select>
     
     <update parameterType="map" id="updateCredits">
-        update ProgramaAcademico set
-            creditosMaximos=#{creditos}
-        WHERE nombre=#{programa}
+        update Universidad set
+            totalCredits=#{creditos}
     </update>
     
     <select parameterType="map" id="consultCredits" resultType="int">
-        select creditosMaximos
-        FROM ProgramaAcademico
-        WHERE nombre=#{programa}
+        select totalCredits
+        FROM Universidad
     </select>
     
     <select parameterType="map" id="consultStudentByEmail" resultType="Estudiante">
@@ -114,22 +124,22 @@
     <select parameterType="map" id="consultarProgramasAcademicos" resultMap="ProgramaResult" >
         select DISTINCT 
             pr.nombre,
-            pr.creditosMaximos,
         
             pl.id as PlanDeEstudio_id,
             pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
-            pl.contenido as PlanDeEstudio_contenido
+            pl.contenido as PlanDeEstudio_contenido,
+            pl.totalCreditos as PlanDeEstudio_totalCreditos
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
     </select>
     
     <select parameterType="map" id="consultarProgramaAcademicoPorNombre" resultMap="ProgramaResult" >
         select DISTINCT 
             pr.nombre,
-            pr.creditosMaximos,
         
             pl.id as PlanDeEstudio_id,
             pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
-            pl.contenido as PlanDeEstudio_contenido
+            pl.contenido as PlanDeEstudio_contenido,
+            pl.totalCreditos as PlanDeEstudio_totalCreditos
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
         WHERE pr.nombre=#{nombre}
     </select>
@@ -139,18 +149,36 @@
         select DISTINCT
             pl.id,
             pl.ProgramaAcademico,
-            pl.contenido 
+            pl.contenido,
+            pl.totalCreditos
         FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pl.ProgramaAcademico=pr.nombre
         WHERE pr.nombre=#{programa} AND pl.id=#{numero}
     </select>
     
-    
-
     <update parameterType="map" id="updateSyllabus" >
         update PlanDeEstudios set
             contenido=#{plan}
         WHERE id=#{version} AND ProgramaAcademico=#{programa}
     </update>
+    
+    <select parameterType="map" id="consultRequest" resultType="Solicitud">
+        select 
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.Asignatura_Cancelar,
+            s.avalConsejero,
+            s.Estudiante_codigo,
+            s.necesitaacuserecibo
+        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        WHERE c.correo=#{correo}
+        ORDER BY s.estado DESC,s.fecha;
+    </select>
     
     <resultMap type='Estudiante' id='EstudianteResult' >
         <id property='codigo' column='codigo'/> 
@@ -158,14 +186,16 @@
         <result property='numeroMatriculas' column='numeroMatriculas'/>
         <result property='correo' column='correo'/>
         <result property='programa' column='programa'/>
-        <result property="versionPlanDeEstudio" column="versionPlanDeEstudio" />
-        <association property="acudiente" javaType="Acudiente" columnPrefix="Acudiente_" resultMap="AcudienteResult" />
-        <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/> 
-        <collection property="cursos" ofType="CourseStudent" columnPrefix="CourseStudent_" resultMap="CourseStudentResult" />
+        <result property='versionPlanDeEstudio' column='versionPlanDeEstudio' />
+        <result property='asignaturas' column='asignaturas'/>
+        <association property='acudiente' javaType='Acudiente' columnPrefix='Acudiente_' resultMap='AcudienteResult' />
+        <collection property='solicitudes' ofType='Solicitud' columnPrefix='Solicitud_' resultMap='SolicitudResult'/> 
+        <collection property='cursos' ofType='CourseStudent' columnPrefix='CourseStudent_' resultMap='CourseStudentResult' />
     </resultMap>
     
     <resultMap type='Solicitud' id='SolicitudResult' >
         <id property='numero' column='numero'/> 
+        <id property='fecha' column='fecha' />
         <result property='justificacion' column='justificacion'/>
         <result property='impacto' column='impacto'/>
         <result property='proyeccion' column='proyeccion'/>
@@ -206,6 +236,12 @@
         <result property='nombre' column='nombre'/>
     </resultMap>
     
+    <resultMap type='Universidad' id='UniversidadResult'>
+        <id property='nombre' column='nombre'/>
+        <result property='totalCredits' column='totalCredits'/>
+        <collection property="programas" ofType="ProgramaAcademico" columnPrefix="ProgramaAcademico_" resultMap="ProgramaResult"/>
+    </resultMap>
+    
     <resultMap type='ProgramaAcademico' id='ProgramaResult'>
         <id property='nombre' column='nombre'/>
         <collection property='planesDeEstudio' ofType='PlanDeEstudios' columnPrefix="PlanDeEstudio_" resultMap="PlanDeEstudioResult"/>
@@ -214,7 +250,9 @@
     <resultMap type='PlanDeEstudios' id='PlanDeEstudioResult'>
         <id property='id' column='id'/>
         <result property='contenido' column='contenido'/>
+        <result property='totalCreditos' column='totalCreditos'/>
     </resultMap>
+    
     
     
 </mapper>

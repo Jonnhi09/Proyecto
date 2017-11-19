@@ -55,10 +55,10 @@ public class AjusteParametros {
     }
     
     public void seleccionPrograma(){
-        if(!"Programa".equals(programaSeleccionado)){
+       if(!"Programa".equals(programaSeleccionado)){
             try {
                 planesDeEstudios=servicios.consultarPlanesDeEstudiosPorPrograma(programaSeleccionado);
-                creditosSemestreActuales = servicios.consultarNumeroMaximoDeCreditos(programaSeleccionado);
+                creditosSemestreActuales = servicios.consultarNumeroMaximoDeCreditos();
                 setPlanDisabled(false);
             } catch (ExcepcionServiciosCancelaciones ex) {
                 Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,7 +89,7 @@ public class AjusteParametros {
     
     public void guardarCreditos(){
         try {
-            servicios.actualizarNumeroMaximoDeCreditos(creditosSemestre, programaSeleccionado);
+            servicios.actualizarNumeroMaximoDeCreditos(creditosSemestre);
             FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se han modificado los créditos máximos", null));
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
@@ -99,7 +99,7 @@ public class AjusteParametros {
     
     public void guardarPlanDeEstudios(){
         if(planDeEstudiosJson == null){
-            
+            /*
             try {
                 servicios.actualizarSyllabusEstudianteTabla(syllabus);
                 setRenderTable(false);
@@ -109,8 +109,9 @@ public class AjusteParametros {
                 Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
                 FacesContext.getCurrentInstance().addMessage("planMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Existe un error en el grafo realizado en la tabla", null));
             }
-            
+            */
         }else{
+            /*
             try {
                 servicios.actualizarPlanDeEstudio(planDeEstudiosJson);
                 setRenderTable(false);
@@ -119,7 +120,7 @@ public class AjusteParametros {
             } catch (ExcepcionServiciosCancelaciones ex) {
                 Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
                 FacesContext.getCurrentInstance().addMessage("planMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Existe un error en el grafo del texto", null));
-            }
+            }*/
         }
     }
 

@@ -6,6 +6,7 @@ import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,19 +23,7 @@ public class ServiciosCancelacionesTest {
         servicios=ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
     }
     
-    @Test
-    public void consultarProgramaTest (){
-        String programa="";
-        try{
-            programa=servicios.consultarPlanDeEstudioByIdEstudiante(173183);
-            servicios.actualizarJustificacionById(2121465, "mis notas en primer y segundo tercio son muy bajas y no he aprendido lo suficiente", "CALD");
-            
-        }catch (ExcepcionServiciosCancelaciones e){
-            e.getMessage();
-        }
-        assertEquals(programa,"{ \"programa\": \"ing. sistemas\", \"version\": 13, \"courses\": [ { \"nombre\": \"PREM\", \"creditos\": 4, \"PreRec\": \"\", \"coReq\": \"\", \"historialNotas\": [35], \"tercios\": [21, 46, 40], \"estado\":\"A\" }, { \"nombre\": \"CALD\", \"creditos\": 4, \"preReq\": \"PREM\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [34], \"estado\":\"V\" }, { \"nombre\": \"CIED\", \"creditos\": 4, \"preReq\": \"CALD\", \"coReq\": \"\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"P\" }, { \"nombre\": \"FFIS\", \"creditos\": 4, \"preReq\": \"\", \"coReq\": \"\", \"historialNotas\": [50], \"tercios\": [50,50,50], \"estado\":\"A\" }, { \"nombre\": \"FIMF\", \"creditos\": 4, \"preReq\": \"FFIS\", \"coReq\": \"CALD\", \"historialNotas\": [], \"tercios\": [20], \"estado\":\"V\" }, { \"nombre\": \"FIEM\", \"creditos\": 4, \"preReq\": \"FIMF\", \"coReq\": \"CIED\", \"historialNotas\": [], \"tercios\": [], \"estado\":\"P\" } ] }");
-    }
-    
+ 
     @Test 
     public void consultarAsignaturaByIdEstudianteTest(){
         List<String> asignaturas=new ArrayList<String>();
@@ -48,7 +37,7 @@ public class ServiciosCancelacionesTest {
         asignaturas.add("FIMF");
         assertEquals(asignaturas.size(),resultado.size());
         for (int i=0; i<asignaturas.size();i++){
-            assertEquals(asignaturas.get(i),resultado.get(i).getNombre());
+            assertEquals(asignaturas.get(i),resultado.get(i).getNemonico());
         }
 
     }
@@ -61,7 +50,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver.");
+        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver de 28.");
     }
 
     @Test 
@@ -84,7 +73,7 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         
-        assertEquals(resultado.get(0).getCourses().length,6);
+        assertEquals(resultado.get(0).getCourses().length,7);
         assertEquals(resultado.get(0).getCourses()[0].getTercios()[0],21);
         for (CourseStudent c:resultado.get(1).getCourses()){
             assertEquals(c.getEstado(),'P');
@@ -95,8 +84,8 @@ public class ServiciosCancelacionesTest {
     public void actualizarYConsultarCreditosProgramaTest(){
         int creditos=0;
         try{
-            servicios.actualizarNumeroMaximoDeCreditos(22, "Ingenieria de sistemas");
-            creditos=servicios.consultarNumeroMaximoDeCreditos("Ingenieria de sistemas");
+            servicios.actualizarNumeroMaximoDeCreditos(22);
+            creditos=servicios.consultarNumeroMaximoDeCreditos();
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
@@ -122,7 +111,7 @@ public class ServiciosCancelacionesTest {
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(asig.get(0).getNombre(),"PREM");
+        assertEquals(asig.get(0).getNemonico(),"PREM");
     }
     
     @Test 
@@ -136,8 +125,6 @@ public class ServiciosCancelacionesTest {
         assertEquals(programas.size(),1);
         assertEquals(programas.get(0).getNombre(),"Ingenieria de sistemas");
         assertEquals(programas.get(0).getPlanDeEstudio().size(),2);
-        assertEquals(programas.get(0).getPlanDeEstudio().get(0).getId(),8);
-        assertEquals(programas.get(0).getPlanDeEstudio().get(1).getId(),13);
     }
     
     @Test
@@ -150,42 +137,30 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(programa.getPrograma(),"Ingenieria de sistemas");
         assertEquals(programa.getVersion(),13);
-        assertEquals(programa.getCourses().length,6);
+        assertEquals(programa.getCourses().length,7);
     }
     
     @Test
     public void consultarPlanesDeEstudioPorProgramaTest(){
-        ArrayList<Integer> planes= new ArrayList<>();
         ArrayList<Integer> resultado= new ArrayList<>();
-        planes.add(13);
-        planes.add(8);
         try{
             resultado=servicios.consultarPlanesDeEstudiosPorPrograma("Ingenieria de sistemas");
             assertEquals(resultado.size(),2);
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        for (int i=0;i<resultado.size();i++){
-            assertEquals(resultado.get(i),planes.get(i));
-        }
         
     }
     
     @Test
-    public void actualizarSyllabusTest(){
-        Syllabus programa=null;
+    public void consultarSolicitudesConsejero(){
+        List<Solicitud> solicitudes=new ArrayList<>();
         try{
-            programa=servicios.consultarPlanDeEstudios("Ingenieria de sistemas", 13);
-            programa.getCourses()[0].setNemonico("PREC");
-            servicios.actualizarSyllabusEstudianteTabla(programa);
-            programa=servicios.consultarPlanDeEstudios("Ingenieria de sistemas", 13);
-            assertEquals(programa.getCourses()[0].getNemonico(),"PREC");
-            programa.getCourses()[0].setPreReq("CIED");
-            servicios.actualizarSyllabusEstudianteTabla(programa);
-        }catch(ExcepcionServiciosCancelaciones e){
-            assertEquals(e.getMessage(),"El plan de estudios esta mal formado");
+            solicitudes=servicios.consultarSolicitudesDeCancelaciones("claudia.patricia@escuelaing.edu.co");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
         }
-        
+        assertEquals(solicitudes.size(),3);
     }
+    
 } 
-
