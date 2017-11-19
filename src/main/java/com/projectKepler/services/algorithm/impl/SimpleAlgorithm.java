@@ -22,9 +22,7 @@ public class SimpleAlgorithm implements Algorithm {
     }
     @Override
     public String[] getImpact(String[] courses, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
-        int x=0;
-        for(String s: courses)
-            x+=credits(s, planS);
+        int x= credits(courses, planS);
         return new String[]{"Si cancela " + Arrays.toString(courses) + " le quedan: " + Integer.toString(x) + " de "+Integer.toString(planS.getTotalCredits()), ""};
     }
 
@@ -36,6 +34,23 @@ public class SimpleAlgorithm implements Algorithm {
             }
         }
         return pendientes;
+    }
+    public int credits(String[] course,Syllabus planS) {
+        int pendientes = 0;
+        for (CourseStudent c : planS.getCourses()) {
+            if (c.getEstado() == 'P' || Arrays.asList(course).contains(c.getNemonico()) || isCoReq(c.getCoReq(), course)) {
+                pendientes += c.getCreditos();
+            }
+        }
+        return pendientes;
+    }
+    private boolean isCoReq(String[] coReq, String[] courses) {
+        for (String s : courses) {
+            if (Arrays.asList(coReq).contains(s)) {
+                return true;
+            }
+        }
+        return false;
     }
     
 }
