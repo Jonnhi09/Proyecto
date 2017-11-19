@@ -155,13 +155,30 @@
         WHERE pr.nombre=#{programa} AND pl.id=#{numero}
     </select>
     
-    
-
     <update parameterType="map" id="updateSyllabus" >
         update PlanDeEstudios set
             contenido=#{plan}
         WHERE id=#{version} AND ProgramaAcademico=#{programa}
     </update>
+    
+    <select parameterType="map" id="consultRequest" resultType="Solicitud">
+        select 
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.Asignatura_Cancelar,
+            s.avalConsejero,
+            s.Estudiante_codigo,
+            s.necesitaacuserecibo
+        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        WHERE c.correo=#{correo}
+        ORDER BY s.estado DESC,s.fecha;
+    </select>
     
     <resultMap type='Estudiante' id='EstudianteResult' >
         <id property='codigo' column='codigo'/> 
@@ -178,6 +195,7 @@
     
     <resultMap type='Solicitud' id='SolicitudResult' >
         <id property='numero' column='numero'/> 
+        <id property='fecha' column='fecha' />
         <result property='justificacion' column='justificacion'/>
         <result property='impacto' column='impacto'/>
         <result property='proyeccion' column='proyeccion'/>

@@ -8,6 +8,7 @@ package com.projectKepler.services;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
@@ -139,5 +140,13 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones 
      */
     public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones; 
+    
+    /**
+     * Consultar las solicitudes de cancelaciones a partir de un consejero
+     * @param consejero es el correo del consejero 
+     * @return Lista de solicitudes de cancelaciones
+     * @throws ExcepcionServiciosCancelaciones Si NO existen solicitudes, o se se presenta otro problema en las capas inferiores.
+     */
+    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones;
     
 }

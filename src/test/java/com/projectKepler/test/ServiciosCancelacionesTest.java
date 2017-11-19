@@ -6,6 +6,7 @@ import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,6 +150,17 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         
+    }
+    
+    @Test
+    public void consultarSolicitudesConsejero(){
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=servicios.consultarSolicitudesDeCancelaciones("claudia.patricia@escuelaing.edu.co");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(solicitudes.size(),3);
     }
     
 } 

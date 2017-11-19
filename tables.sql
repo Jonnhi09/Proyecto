@@ -82,7 +82,7 @@ CREATE TABLE Solicitud (
     avalConsejero boolean  NULL,
     Estudiante_codigo int  NOT NULL,
     necesitaAcuseRecibo boolean  NULL,
-    CONSTRAINT Solicitud_pk PRIMARY KEY (numero)
+    CONSTRAINT Solicitud_pk PRIMARY KEY (numero,fecha)
 );
 
 -- Table: Universidad
