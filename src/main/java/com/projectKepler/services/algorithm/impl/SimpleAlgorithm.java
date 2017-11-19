@@ -20,7 +20,7 @@ public class SimpleAlgorithm implements Algorithm {
         return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(credits(course, planS)) + " de "+Integer.toString(planS.getTotalCredits()), ""};
 
     }
-
+    @Override
     public String[] getImpact(String[] courses, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
         int x=0;
         for(String s: courses)
