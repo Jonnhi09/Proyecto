@@ -22,11 +22,11 @@ public class CourseStudent {
     private String nemonico;
     
 
-    public CourseStudent(String nombre, int creditos, String preReq, String coReq, int[] historialNotas, int[] tercios, char estado, int numCancelaciones, String nemonico) {
+    public CourseStudent(String nombre, int creditos, String[] preReq, String[] coReq, int[] historialNotas, int[] tercios, char estado, int numCancelaciones, String nemonico) {
         this.nombre = nombre;
         this.creditos = creditos;
-        this.preReq = new String[] {preReq};
-        this.coReq = new String[] {coReq};
+        this.preReq = preReq;
+        this.coReq = coReq;
         this.historialNotas = historialNotas;
         this.tercios = tercios;
         this.estado = estado;
@@ -50,12 +50,12 @@ public class CourseStudent {
         return creditos;
     }
 
-    public String getPreReq() {
-        return preReq[0];
+    public String[] getPreReq() {
+        return preReq;
     }
 
-    public String getCoReq() {
-        return coReq[0];
+    public String[] getCoReq() {
+        return coReq;
     }
 
     public int[] getHistorialNotas() {
@@ -102,21 +102,16 @@ public class CourseStudent {
         this.creditos = creditos;
     }
 
-    public void setPreReq(String preReq) {
-        this.preReq = new String[]{preReq};
+    public void setPreReq(String[] preReq) {
+        this.preReq = preReq;
     }
 
-    public void setCoReq(String coReq) {
-        this.coReq = new String[] {coReq};
+    public void setCoReq(String[] coReq) {
+        this.coReq = coReq;
     }
 
     public void setEstado(char estado) {
         this.estado = estado;
-    }
-
-    @Override
-    public String toString() {
-        return "CourseStudent{" + "creditos=" + creditos + ", nemonico=" + nemonico + '}';
     }
     
     

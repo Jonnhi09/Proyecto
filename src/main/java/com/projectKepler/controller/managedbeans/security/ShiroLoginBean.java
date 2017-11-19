@@ -56,9 +56,6 @@ public class ShiroLoginBean implements Serializable {
             else if(subject.hasRole("estudiante")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("estudiante/SolCancel.xhtml");
             }
-            else if(subject.hasRole("admin")){
-                FacesContext.getCurrentInstance().getExternalContext().redirect("admin/AjusteParametros.xhtml");
-            }
         }
         catch (UnknownAccountException ex) {
             facesError("Unknown account");

@@ -31,10 +31,11 @@ public class SimpleAlgorithm implements Algorithm {
     public int credits(String course,Syllabus planS) {
         int pendientes = 0;
         for (CourseStudent c : planS.getCourses()) {
-            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || c.getCoReq().contains(course)) {
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || Arrays.asList(c.getCoReq()).contains(course)) {
                 pendientes += c.getCreditos();
             }
         }
         return pendientes;
     }
+    
 }

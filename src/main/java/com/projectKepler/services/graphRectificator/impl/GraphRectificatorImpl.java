@@ -19,9 +19,10 @@ public class GraphRectificatorImpl implements GraphRectificator {
     private ArrayList<String> marked;
     private ArrayList<String> stack;
     boolean noHaveCycle = true;
-    
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param graph el grafo del plan de estudios
      * @param node la materia a retirar
      */
@@ -41,26 +42,27 @@ public class GraphRectificatorImpl implements GraphRectificator {
     }
 
     @Override
-    public HashMap<String, ArrayList<String>> verify(Syllabus plan1, Syllabus plan2) {
-        HashMap<String, ArrayList<String>> g1, g2;
+    public HashMap<String, ArrayList<String>> verify(Syllabus plan1) {
+        HashMap<String, ArrayList<String>> g1;
         g1 = makeGraph(plan1);
-        g2 = makeGraph(plan2);
         for (String n : g1.keySet()) {
             marked = new ArrayList<>();
             stack = new ArrayList<>();
             check(g1, n);
         }
-        if (noHaveCycle && g1.equals(g2)) {
+        if (noHaveCycle) {
             return g1;
         } else {
             return null;
         }
 
     }
-    /***
-     * 
+
+    /**
+     * *
+     *
      * @param s el plan de estudios a convertir
-     * @return el grafo como un hashmap 
+     * @return el grafo como un hashmap
      */
     private HashMap<String, ArrayList<String>> makeGraph(Syllabus s) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
@@ -68,11 +70,15 @@ public class GraphRectificatorImpl implements GraphRectificator {
             graph.put(c.getNemonico(), new ArrayList());
         }
         for (CourseStudent c : s.getCourses()) {
-            if (graph.containsKey(c.getPreReq())) {
-                graph.get(c.getNemonico()).add(c.getPreReq());
+            for (String ss : c.getPreReq()) {
+                if (graph.containsKey(ss)) {
+                    graph.get(c.getNemonico()).add(ss);
+                }
             }
-            if (graph.containsKey(c.getCoReq())) {
-                graph.get(c.getNemonico()).add(c.getCoReq());
+            for (String ss : c.getCoReq()) {
+                if (graph.containsKey(ss)) {
+                    graph.get(c.getNemonico()).add(ss);
+                }
             }
         }
 
