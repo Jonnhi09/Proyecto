@@ -7,6 +7,7 @@ package com.projectKepler.persistence;
 
 import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.Asignatura;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
@@ -41,4 +42,7 @@ public interface EstudianteDAO {
     public ProgramaAcademico consultarProgramaAcademicoPorNombre(String nombre) throws PersistenceException;
     public List<Acudiente> consultarAcudientes() throws PersistenceException;
     public List<Solicitud> consultarSolicitudes() throws PersistenceException;
+    public List<Estudiante> consultStudentConsejero(String consejero) throws PersistenceException;
+    public List<Solicitud> consultRequestById(int codigo) throws PersistenceException;
+    public CourseStudent consultAsignatura(int numero) throws PersistenceException;
 }

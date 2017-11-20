@@ -209,13 +209,32 @@
         WHERE pr.nombre=#{programa} AND pl.id=#{numero}
     </select>
     
-    
-
     <update parameterType="map" id="updateSyllabus" >
         update PlanDeEstudios set
             contenido=#{plan}
         WHERE id=#{version} AND ProgramaAcademico=#{programa}
     </update>
+    
+    <select parameterType="map" id="consultRequest" resultType="Estudiante">
+        select *
+        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo
+        WHERE c.correo=#{correo}
+        ORDER BY e.codigo DESC
+    </select>
+    
+    <select parameterType="map" id="consultRequestById" resultType="Solicitud">
+        select *
+        FROM Estudiante LEFT JOIN Solicitud on codigo=Estudiante_codigo
+        WHERE codigo=#{codigo}
+        ORDER BY estado DESC, fecha
+    </select>
+    
+    <select parameterType="map" id="consultAsignatura" resultType="CourseStudent">
+        select *
+        FROM Solicitud LEFT JOIN Asignatura on Asignatura_nemonico=nemonico
+        WHERE numero=#{numero}
+        ORDER BY estado DESC, fecha
+    </select>
     
     <resultMap type="Estudiante" id="EstudianteResult" >
         <id property="codigo" column="codigo"/> 

@@ -299,8 +299,20 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return planes;
     }
-
     
-    
-    
+    @Override
+    public List<Estudiante> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones{
+        List<Estudiante> estudiantes;
+        estudiantes=estudiante.consultStudentConsejero(consejero);
+        for (Estudiante e:estudiantes){
+            e.setSolicitudes(estudiante.consultRequestById(e.getCodigo()));
+            for (Solicitud s:e.getSolicitudes()){
+                s.setAsignatura(estudiante.consultAsignatura(s.getNumero()));
+            }
+        }
+        if (estudiantes==null){
+            throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
+        }
+        return estudiantes;
+    }
 }

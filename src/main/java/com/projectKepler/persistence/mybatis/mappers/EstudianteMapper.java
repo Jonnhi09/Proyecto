@@ -7,6 +7,7 @@ package com.projectKepler.persistence.mybatis.mappers;
 
 import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.Asignatura;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
@@ -40,5 +41,8 @@ public interface EstudianteMapper {
     public ProgramaAcademico consultarProgramaAcademicoPorNombre(@Param("nombre")String nombre);
     public List<Acudiente> cargarAcudientes();
     public List<Solicitud> cargarSolicitudes();
+    public List<Estudiante> consultRequest(@Param("correo") String consejero);
+    public List<Solicitud> consultRequestById(@Param("codigo") int codigo);
+    public CourseStudent consultAsignatura(@Param("numero") int numero);
     
 }
