@@ -24,13 +24,13 @@ and open the template in the editor.
                 <h:outputText value="Codigo: #{detalleSolicitud.codigo}"/>
                 <h:outputText value="Cancelaciones solicitadas y justificadas"/>
 
-                <p:dataTable var="infostud" value="#{detalleSolicitud.estudiante}">
+                <p:dataTable var="infostud" value="#{detalleSolicitud.cancelaciones}">
                     <p:column headerText="Cancelacion Solicitada">
-                        <h:outputText value="#{detalleSolicitud.codigo}" />
+                        <h:outputText value="" />
                     </p:column>
 
                     <p:column headerText="Justificacion">
-                        <h:outputText value="" />
+                        <h:outputText value="#{infostud.justificacion}" />
                     </p:column>
                 </p:dataTable>
 

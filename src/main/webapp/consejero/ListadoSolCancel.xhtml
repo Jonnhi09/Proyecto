@@ -25,22 +25,22 @@ and open the template in the editor.
                     <h:outputLabel value="Solicitudes De Cancelacion De Aconsejados" style=" font-size:x-large"/>
             </h:panelGrid>
             <p:scrollPanel mode="native" style="width:100%;height:40%">
-                <p:dataTable var="i" value="#{detalleSolicitud.listaSol}" style="text-align: center; background-color: red" >
+                <p:dataTable var="i" value="#{detalleSolicitud.cancelaciones}" style="text-align: center; background-color: red" >
                     <p:column headerText="Fecha solicitud">
-                        <p:outputLabel value="#{i.get(0)}" />
+                        <p:outputLabel value="#{i.fecha}" />
                     </p:column>
                     <p:column headerText="Código solicitante">
-                        <p:outputLabel value="#{i.get(1)}" />
+                        <p:outputLabel value="#{i.numero}" />
                     </p:column>
                     <p:column headerText="Nombre solicitante">
-                        <p:outputLabel value="#{i.get(2)}" />
+                        <p:outputLabel value="#{i.asignatura.nombre}" />
                     </p:column>
                     <p:column headerText="Estado">
-                            <p:outputLabel value="#{i.get(3)}" />
+                        <p:outputLabel value="#{i.estado}" />
                     </p:column>
                     <p:column headerText="Acción">
-                            <p:commandButton value="Tramitar" rendered="#{i.get(3) == 'Pendiente'}" action="#{detalleSolicitud.accionVista()}"/>
-                            <p:commandButton value="Consultar" rendered="#{i.get(3) == 'Tramitada'}" action="#{detalleSolicitud.accionVista()}"/>
+                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'En estudio'}" action="#{detalleSolicitud.accionVista()}"/>
+                            <p:commandButton value="Consultar" rendered="#{i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}"/>
 
                     </p:column>
                 </p:dataTable>

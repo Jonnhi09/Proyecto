@@ -7,9 +7,15 @@ package com.projectKepler.controller.managedbeans;
 
 
 import com.projectKepler.controller.managedbeans.security.ShiroLoginBean;
+import com.projectKepler.services.ExcepcionServiciosCancelaciones;
+import com.projectKepler.services.ServiciosCancelaciones;
+import com.projectKepler.services.ServiciosCancelacionesFactory;
+import com.projectKepler.services.entities.Solicitud;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -53,10 +59,19 @@ public class DetalleSolicitudBean{
     public int codigo;
     public String estudiante;
     public List<List<String>> listaSol;
+    List<Solicitud> cancelaciones;
+
+
+    ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
     
     @PostConstruct
     private void initDate(){
         setUsuario(getShiroLoginBean().getUsername());
+        try{
+            cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     
@@ -116,6 +131,14 @@ public class DetalleSolicitudBean{
     
     public String listadoCancelaciones(){
         return "ListadoSolCancel.xhtml";
+    }
+    
+    public List<Solicitud> getCancelaciones() {
+        return cancelaciones;
+    }
+
+    public void setCancelaciones(List<Solicitud> cancelaciones) {
+        this.cancelaciones = cancelaciones;
     }
     
 }
