@@ -8,6 +8,7 @@ package com.projectKepler.persistence.mybatis;
 import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
+import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.Asignatura;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
@@ -213,5 +214,27 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al consultar el programa "+nombre,e);
         }
         return plan;
+    }
+
+    @Override
+    public List<Acudiente> consultarAcudientes() throws PersistenceException {
+        List<Acudiente> programas=null;
+        try{
+            programas=estudiante.cargarAcudientes();
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar los programas academicos",e);
+        }
+        return programas;
+    }
+    
+    @Override 
+    public List<Solicitud> consultarSolicitudes() throws PersistenceException {
+        List<Solicitud> solicitudes=null;
+        try{
+            solicitudes=estudiante.cargarSolicitudes();
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar los programas academicos",e);
+        }
+        return solicitudes;
     }
 }

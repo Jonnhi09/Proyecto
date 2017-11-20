@@ -13,10 +13,12 @@ import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.algorithm.Algorithm;
+import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
 import java.lang.reflect.Type;
@@ -297,4 +299,8 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return planes;
     }
+
+    
+    
+    
 }

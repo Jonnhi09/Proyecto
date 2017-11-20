@@ -140,4 +140,5 @@ public interface ServiciosCancelaciones {
      */
     public ArrayList<Integer> consultarPlanesDeEstudiosPorPrograma(String programa) throws ExcepcionServiciosCancelaciones; 
     
+    
 }

@@ -22,7 +22,6 @@ public class ServiciosCancelacionesTest {
         servicios=ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
     }
     
- 
     @Test 
     public void consultarAsignaturaByIdEstudianteTest(){
         List<String> asignaturas=new ArrayList<String>();
@@ -150,5 +149,6 @@ public class ServiciosCancelacionesTest {
         }
         
     }
+    
     
 } 
