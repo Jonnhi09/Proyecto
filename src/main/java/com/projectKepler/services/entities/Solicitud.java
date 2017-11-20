@@ -21,7 +21,7 @@ public class Solicitud {
     private String estado;
     private boolean acuseRecibo;
     private boolean avalConsejero;
-    private Asignatura asignatura;
+    private CourseStudent asignatura;
     private boolean necesitaAcuseRecibo;
 
     public int getNumero() {
@@ -88,11 +88,11 @@ public class Solicitud {
         this.avalConsejero = avalConsejero;
     }
 
-    public Asignatura getAsignatura() {
+    public CourseStudent getAsignatura() {
         return asignatura;
     }
 
-    public void setAsignatura(Asignatura asignatura) {
+    public void setAsignatura(CourseStudent asignatura) {
         this.asignatura = asignatura;
     }
 
@@ -110,9 +110,6 @@ public class Solicitud {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-    
-    
-    
+    } 
     
 }

@@ -9,12 +9,14 @@ import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
 import com.projectKepler.services.entities.Asignatura;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
+import org.apache.ibatis.parsing.ParsingException;
 
 /**
  *
@@ -216,13 +218,35 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
-    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
-        List<Solicitud> solicitudes;
+    public List<Estudiante> consultStudentConsejero(String consejero) throws PersistenceException{
+        List<Estudiante> estudiantes;
         try{
-            solicitudes=estudiante.consultRequest(consejero);
+            estudiantes=estudiante.consultRequest(consejero);
         }catch (Exception e){
             throw new PersistenceException("Error al consultar las solicitudes",e);
         }
+        return estudiantes;
+    }
+    
+    @Override
+    public List<Solicitud> consultRequestById(int codigo) throws PersistenceException{
+        List<Solicitud> solicitudes;
+        try{
+            solicitudes=estudiante.consultRequestById(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar las solicitudes del estudiante "+codigo,e);
+        }
         return solicitudes;
+    }
+    
+    @Override
+    public CourseStudent consultAsignatura(int numero) throws PersistenceException{
+        CourseStudent asignatura;
+        try{
+            asignatura=estudiante.consultAsignatura(numero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar la asignatura de la solicitud "+numero,e);
+        }
+        return asignatura;
     }
 }

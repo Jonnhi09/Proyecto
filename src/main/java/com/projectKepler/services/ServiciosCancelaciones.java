@@ -147,6 +147,6 @@ public interface ServiciosCancelaciones {
      * @return Lista de solicitudes de cancelaciones
      * @throws ExcepcionServiciosCancelaciones Si NO existen solicitudes, o se se presenta otro problema en las capas inferiores.
      */
-    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones;
+    public List<Estudiante> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones;
     
 }

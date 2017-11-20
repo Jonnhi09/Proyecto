@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,7 +19,7 @@ public class Estudiante {
     private int numeroMatriculas;
     private String correo;
     private Acudiente acudiente;
-    private List<Solicitud> solicitudes;
+    private List<Solicitud> solicitudes=new ArrayList<>();
     private String asignaturas;
     private List<CourseStudent> cursos;
     private int versionPlanDeEstudio;

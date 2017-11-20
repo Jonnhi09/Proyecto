@@ -161,23 +161,25 @@
         WHERE id=#{version} AND ProgramaAcademico=#{programa}
     </update>
     
-    <select parameterType="map" id="consultRequest" resultType="Solicitud">
-        select 
-            s.numero,
-            s.fecha,
-            s.justificacion,
-            s.impacto,
-            s.proyeccion,
-            s.comentarios,
-            s.estado,
-            s.acuseRecibo,
-            s.Asignatura_Cancelar,
-            s.avalConsejero,
-            s.Estudiante_codigo,
-            s.necesitaacuserecibo
-        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+    <select parameterType="map" id="consultRequest" resultType="Estudiante">
+        select *
+        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo
         WHERE c.correo=#{correo}
-        ORDER BY s.estado DESC,s.fecha;
+        ORDER BY e.codigo DESC
+    </select>
+    
+    <select parameterType="map" id="consultRequestById" resultType="Solicitud">
+        select *
+        FROM Estudiante LEFT JOIN Solicitud on codigo=Estudiante_codigo
+        WHERE codigo=#{codigo}
+        ORDER BY estado DESC, fecha
+    </select>
+    
+    <select parameterType="map" id="consultAsignatura" resultType="CourseStudent">
+        select *
+        FROM Solicitud LEFT JOIN Course on Asignatura_Cancelar=nemonico
+        WHERE numero=#{numero}
+        ORDER BY estado DESC, fecha
     </select>
     
     <resultMap type='Estudiante' id='EstudianteResult' >
@@ -188,7 +190,6 @@
         <result property='programa' column='programa'/>
         <result property='versionPlanDeEstudio' column='versionPlanDeEstudio' />
         <result property='asignaturas' column='asignaturas'/>
-        <association property='acudiente' javaType='Acudiente' columnPrefix='Acudiente_' resultMap='AcudienteResult' />
         <collection property='solicitudes' ofType='Solicitud' columnPrefix='Solicitud_' resultMap='SolicitudResult'/> 
         <collection property='cursos' ofType='CourseStudent' columnPrefix='CourseStudent_' resultMap='CourseStudentResult' />
     </resultMap>
@@ -204,7 +205,7 @@
         <result property='acuseRecibo' column='AcuseRecibo'/>
         <result property='avalConsejero' column='avalConsejero'/>
         <result property='necesitaAcuseRecibo' column="necesitaAcuseRecibo"/>
-        <association property="asignatura" javaType="Asignatura" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+        <association property="asignatura" javaType="CourseStudent" columnPrefix="CourseStudent_" resultMap="CourseStudentResult" />
         
     </resultMap>
     
@@ -215,10 +216,8 @@
     </resultMap>
     
     <resultMap type='CourseStudent' id="CourseStudentResult">
-        <id property='codigoEstudiante' column=""/>
-        <id property='nombre' column="Course_nemonico" />
-        <result property="numCancelaciones" column="cantidadCancelaciones" />
-        <result property="estado" column="estado" />
+        <id property='nemonico' column='nemonico'/>
+        <result property='nombre' column="nombre" />
     </resultMap>
     
     <resultMap type='Acudiente' id='AcudienteResult' >
@@ -229,11 +228,13 @@
     <resultMap type='ConsejeroAcademico' id='ConsejeroResult' >
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/>
     </resultMap>
     
     <resultMap type='CoordinadorCancelaciones' id='CoordinadorResult' >
         <id property='codigo' column='codigo'/> 
         <result property='nombre' column='nombre'/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/>
     </resultMap>
     
     <resultMap type='Universidad' id='UniversidadResult'>
@@ -245,6 +246,7 @@
     <resultMap type='ProgramaAcademico' id='ProgramaResult'>
         <id property='nombre' column='nombre'/>
         <collection property='planesDeEstudio' ofType='PlanDeEstudios' columnPrefix="PlanDeEstudio_" resultMap="PlanDeEstudioResult"/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/>
     </resultMap>
     
     <resultMap type='PlanDeEstudios' id='PlanDeEstudioResult'>

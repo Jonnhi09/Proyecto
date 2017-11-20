@@ -14,6 +14,7 @@ import java.util.List;
 public class ProgramaAcademico {
     private String nombre;
     private List<PlanDeEstudios> planesDeEstudio;
+    private List<Estudiante> estudiantes;
 
     public String getNombre() {
         return nombre;
@@ -29,4 +30,12 @@ public class ProgramaAcademico {
     public void setPlanDeEstudio(List<PlanDeEstudios> planesDeEstudio) {
         this.planesDeEstudio = planesDeEstudio;
     }
+
+    public List<Estudiante> getEstudiantes() {
+        return estudiantes;
+    }
+
+    public void setEstudiantes(List<Estudiante> estudiantes) {
+        this.estudiantes = estudiantes;
+    }    
 }
