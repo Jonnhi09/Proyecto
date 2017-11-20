@@ -146,8 +146,16 @@ public interface ServiciosCancelaciones {
      * Consultar las solicitudes de cancelaciones a partir de un consejero
      * @param consejero es el correo del consejero 
      * @return Lista de solicitudes de cancelaciones
-     * @throws ExcepcionServiciosCancelaciones Si NO existen solicitudes, o se se presenta otro problema en las capas inferiores.
+     * @throws ExcepcionServiciosCancelaciones Si NO existen solicitudes, o si se presenta otro problema en las capas inferiores.
      */
-    public List<Estudiante> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones;
+    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta un estudiante dado el numero de una solicitud
+     * @param numero es el identificador de la solicitud
+     * @return el codigo de un estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
+     */
+    public int consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones;
     
 }

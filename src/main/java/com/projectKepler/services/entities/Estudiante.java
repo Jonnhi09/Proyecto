@@ -88,6 +88,12 @@ public class Estudiante {
     public void setProgramaAcademico(String programa) {
         this.programaAcademico = programaAcademico;
     }
-    
-    
+
+    public Acudiente getAcudiente() {
+        return acudiente;
+    }
+
+    public void setAcudiente(Acudiente acudiente) {
+        this.acudiente = acudiente;
+    }
 }

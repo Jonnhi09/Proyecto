@@ -17,7 +17,6 @@ import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.apache.ibatis.parsing.ParsingException;
 
 /**
  *
@@ -241,35 +240,24 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
-    public List<Estudiante> consultStudentConsejero(String consejero) throws PersistenceException{
-        List<Estudiante> estudiantes;
-        try{
-            estudiantes=estudiante.consultRequest(consejero);
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar las solicitudes",e);
-        }
-        return estudiantes;
-    }
-    
-    @Override
-    public List<Solicitud> consultRequestById(int codigo) throws PersistenceException{
+    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
         List<Solicitud> solicitudes;
         try{
-            solicitudes=estudiante.consultRequestById(codigo);
+            solicitudes=estudiante.consultRequest(consejero);
         }catch (Exception e){
-            throw new PersistenceException("Error al consultar las solicitudes del estudiante "+codigo,e);
+            throw new PersistenceException("Error al consultar las solicitudes",e);
         }
         return solicitudes;
     }
     
     @Override
-    public CourseStudent consultAsignatura(int numero) throws PersistenceException{
-        CourseStudent asignatura;
+    public Estudiante consultStudentByRequest(int numero) throws PersistenceException{
+        Estudiante student;
         try{
-            asignatura=estudiante.consultAsignatura(numero);
+            student=estudiante.consultStudentByRequest(numero);
         }catch (Exception e){
-            throw new PersistenceException("Error al consultar la asignatura de la solicitud "+numero,e);
+            throw new PersistenceException("Error al consultar un estudiante dado el numero de una solicitud",e);
         }
-        return asignatura;
+        return student;
     }
 }

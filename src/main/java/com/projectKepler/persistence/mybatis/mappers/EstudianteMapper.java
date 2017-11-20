@@ -41,8 +41,7 @@ public interface EstudianteMapper {
     public ProgramaAcademico consultarProgramaAcademicoPorNombre(@Param("nombre")String nombre);
     public List<Acudiente> cargarAcudientes();
     public List<Solicitud> cargarSolicitudes();
-    public List<Estudiante> consultRequest(@Param("correo") String consejero);
-    public List<Solicitud> consultRequestById(@Param("codigo") int codigo);
-    public CourseStudent consultAsignatura(@Param("numero") int numero);
+    public List<Solicitud> consultRequest(@Param("correo") String consejero);
+    public Estudiante consultStudentByRequest(@Param("codigo") int codigo);
     
 }

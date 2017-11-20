@@ -215,25 +215,17 @@
         WHERE id=#{version} AND ProgramaAcademico=#{programa}
     </update>
     
-    <select parameterType="map" id="consultRequest" resultType="Estudiante">
+    <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
         select *
-        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo
+        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
         WHERE c.correo=#{correo}
-        ORDER BY e.codigo DESC
+        ORDER BY s.estado DESC,s.fecha
     </select>
     
-    <select parameterType="map" id="consultRequestById" resultType="Solicitud">
+    <select parameterType="map" id="consultStudentByRequest" resultMap="EstudianteResult">
         select *
-        FROM Estudiante LEFT JOIN Solicitud on codigo=Estudiante_codigo
-        WHERE codigo=#{codigo}
-        ORDER BY estado DESC, fecha
-    </select>
-    
-    <select parameterType="map" id="consultAsignatura" resultType="CourseStudent">
-        select *
-        FROM Solicitud LEFT JOIN Asignatura on Asignatura_nemonico=nemonico
-        WHERE numero=#{numero}
-        ORDER BY estado DESC, fecha
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_nemonico
+        WHERE s.numero=#{codigo}
     </select>
     
     <resultMap type="Estudiante" id="EstudianteResult" >
@@ -258,10 +250,10 @@
         <result property="acuseRecibo" column="AcuseRecibo"/>
         <result property="avalConsejero" column="avalConsejero"/>
         <result property="necesitaAcuseRecibo" column="necesitaAcuseRecibo"/>
-        <association property="asignatura" javaType="Asignatura" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+        <association property="asignatura" javaType="CourseStudent" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
     </resultMap>
     
-    <resultMap type="Asignatura" id="AsignaturaResult" >
+    <resultMap type="CourseStudent" id="AsignaturaResult" >
         <id property="nemonico" column="nemonico"/> 
         <result property="nombre" column="nombre"/>
         <result property="programa" column="programa"/>

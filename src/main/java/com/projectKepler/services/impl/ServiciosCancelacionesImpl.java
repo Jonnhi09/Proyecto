@@ -13,7 +13,6 @@ import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
@@ -301,18 +300,22 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     }
     
     @Override
-    public List<Estudiante> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones{
-        List<Estudiante> estudiantes;
-        estudiantes=estudiante.consultStudentConsejero(consejero);
-        for (Estudiante e:estudiantes){
-            e.setSolicitudes(estudiante.consultRequestById(e.getCodigo()));
-            for (Solicitud s:e.getSolicitudes()){
-                s.setAsignatura(estudiante.consultAsignatura(s.getNumero()));
-            }
-        }
-        if (estudiantes==null){
+    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes;
+        solicitudes=estudiante.consultRequest(consejero);
+        if (solicitudes==null){
             throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
         }
-        return estudiantes;
+        return solicitudes ;
+    }
+    
+    @Override
+    public int consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones{
+        int codigo;
+        codigo=estudiante.consultStudentByRequest(numero).getCodigo();
+        if (estudiante.consultStudentByRequest(numero)==null){
+            throw new ExcepcionServiciosCancelaciones("La solicitud "+numero+" no existe");
+        }
+        return codigo;
     }
 }

@@ -152,14 +152,14 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test
-    public void consultarSolicitudesConsejero(){
-        List<Estudiante> solicitudes=new ArrayList<>();
+    public void consultarSolicitudesConsejero() throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes=new ArrayList<>();
         try{
             solicitudes=servicios.consultarSolicitudesDeCancelaciones("claudia.patricia@escuelaing.edu.co");
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(solicitudes.size(),2);
+        assertEquals(solicitudes.size(),3);
     }
     
 } 
