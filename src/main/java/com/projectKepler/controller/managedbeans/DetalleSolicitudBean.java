@@ -10,16 +10,18 @@ import com.projectKepler.controller.managedbeans.security.ShiroLoginBean;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelacionesFactory;
+import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.Solicitud;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -32,22 +34,7 @@ public class DetalleSolicitudBean{
     
 
     public DetalleSolicitudBean() {
-        listaSol=new ArrayList<>();
-        List<String> listainfo;
-        for(int j=0;j<5;j++){
-            listainfo = new ArrayList<>();
-            listainfo.add((new Date()).toString());
-            listainfo.add("1"+String.valueOf(j));
-            listainfo.add("nombre"+String.valueOf(j));
-            if(j%2==0){
-                listainfo.add("Pendiente");
-            }else{
-                listainfo.add("Tramitada");
-            }
-            this.listaSol.add(listainfo);
-        }
         this.fecha = new Date();
-
         this.codigo = 2103110;
         this.estudiante = "Diego Borrero";
     }
@@ -58,8 +45,11 @@ public class DetalleSolicitudBean{
     public String usuario;
     public int codigo;
     public String estudiante;
-    public List<List<String>> listaSol;
+    Estudiante student;
+    String consejero;
     List<Solicitud> cancelaciones;
+    String impacto;
+    String proyeccion;
 
 
     ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
@@ -69,7 +59,16 @@ public class DetalleSolicitudBean{
         setUsuario(getShiroLoginBean().getUsername());
         try{
             cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");
+            consejero = usuario.replace("."," ");
         }catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void analisis(int estudiante,String materia){
+        try {
+            proyeccion = servicios.obtenerProyeccionByEstudiante(estudiante,materia);
+        }catch(ExcepcionServiciosCancelaciones ex){
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -116,13 +115,13 @@ public class DetalleSolicitudBean{
     public void setFecha(Date fecha) {
         this.fecha = new Date();
     }
-
-    public List<List<String>> getListaSol() {
-        return listaSol;
+    
+    public String getConsejero() {
+        return consejero;
     }
 
-    public void setListaSol(List<List<String>> listaSol) {
-        this.listaSol = listaSol;
+    public void setConsejero(String consejero) {
+        this.consejero = consejero;
     }
 
     public String accionVista(){
@@ -139,6 +138,15 @@ public class DetalleSolicitudBean{
 
     public void setCancelaciones(List<Solicitud> cancelaciones) {
         this.cancelaciones = cancelaciones;
+    }
+    
+    public Estudiante estudianteIdSolicitud(int numero){
+        try{
+            student = servicios.consultarEstudiantePorSolicitud(numero);
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return student;
     }
     
 }

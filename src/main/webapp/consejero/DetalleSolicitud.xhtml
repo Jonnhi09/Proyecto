@@ -17,7 +17,7 @@ and open the template in the editor.
         <h:form style="margin:2% 10%" id="Listado">
             <h:panelGrid  columns="1" cellpadding="10" style="text-align:center" width="100%">
                 
-                <h:outputLabel value="Consejero: #{detalleSolicitud.usuario}" style="font-weight:bold"/>
+                <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style="font-weight:bold"/>
                 <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold"/>
                 <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" />
                 <h:outputText value="Fecha: #{detalleSolicitud.fecha}"/>
@@ -26,7 +26,7 @@ and open the template in the editor.
 
                 <p:dataTable var="infostud" value="#{detalleSolicitud.cancelaciones}">
                     <p:column headerText="Cancelacion Solicitada">
-                        <h:outputText value="" />
+                        <h:outputText value="#{infostud.asignatura.nemonico}" />
                     </p:column>
 
                     <p:column headerText="Justificacion">
@@ -40,7 +40,7 @@ and open the template in the editor.
                     <p:tab title="Impacto">
                         <h:panelGrid columns="1" cellpadding="10">
                             <h:outputText
-                                value="Perdera la posibilidad de pedir un credito extra" />
+                                value="" />
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Proyecion">
