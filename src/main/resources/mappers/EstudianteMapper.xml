@@ -5,7 +5,8 @@
   
 <mapper namespace="com.projectKepler.persistence.mybatis.mappers.EstudianteMapper">
     <select parameterType="map" id="loadAllEstudiantes" resultMap="EstudianteResult"> 
-        
+        select *
+        FROM Estudiante
     </select>
     
     <select  parameterType="map" id="loadProgramaPorEstudiante" resultType="String"> 
@@ -161,7 +162,7 @@
         FROM Universidad
     </select>
     
-    <select parameterType="map" id="consultStudentByEmail" resultType="Estudiante">
+    <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult">
         select *        
         FROM  Estudiante
         WHERE correo=#{correo};

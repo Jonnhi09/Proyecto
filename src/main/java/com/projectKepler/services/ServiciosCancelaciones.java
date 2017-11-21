@@ -156,6 +156,6 @@ public interface ServiciosCancelaciones {
      * @return el codigo de un estudiante
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
-    public int consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones;
+    public Estudiante consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones;
     
 }

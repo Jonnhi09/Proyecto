@@ -310,12 +310,12 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     }
     
     @Override
-    public int consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones{
-        int codigo;
-        codigo=estudiante.consultStudentByRequest(numero).getCodigo();
+    public Estudiante consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones{
+        Estudiante student;
+        student=estudiante.consultStudentByRequest(numero);
         if (estudiante.consultStudentByRequest(numero)==null){
             throw new ExcepcionServiciosCancelaciones("La solicitud "+numero+" no existe");
         }
-        return codigo;
+        return student;
     }
 }
