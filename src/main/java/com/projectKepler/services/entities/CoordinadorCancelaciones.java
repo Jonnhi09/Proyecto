@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.entities;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,6 +15,7 @@ import java.util.List;
 public class CoordinadorCancelaciones {
     private String nombre;
     private int codigo;
+    private String correo;
     private List<Estudiante> estudiantes;
 
     public CoordinadorCancelaciones(String nombre, int codigo) {
@@ -44,4 +46,16 @@ public class CoordinadorCancelaciones {
     public void setEstudiantes(List<Estudiante> estudiantes) {
         this.estudiantes = estudiantes;
     }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    
+    
+    
 }

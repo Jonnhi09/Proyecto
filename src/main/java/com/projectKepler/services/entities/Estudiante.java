@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,12 +18,11 @@ public class Estudiante {
     private String nombre;
     private int numeroMatriculas;
     private String correo;
-    private Acudiente acudiente;
     private List<Solicitud> solicitudes;
+    private Acudiente acudiente;
     private String asignaturas;
-    private List<CourseStudent> cursos;
     private int versionPlanDeEstudio;
-    private String programa;
+    private String programaAcademico;
     
     
     public List<Solicitud> getSolicitudes() {
@@ -64,22 +64,6 @@ public class Estudiante {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
-    public Acudiente getAcudiente() {
-        return acudiente;
-    }
-
-    public void setAcudiente(Acudiente acudiente) {
-        this.acudiente = acudiente;
-    }    
-    
-    public List<CourseStudent> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(List<CourseStudent> cursos) {
-        this.cursos = cursos;
-    }
     
     public int getVersionPlanDeEstudio() {
         return versionPlanDeEstudio;
@@ -97,13 +81,19 @@ public class Estudiante {
         this.asignaturas = asignaturas;
     }
 
-    public String getPrograma() {
-        return programa;
+    public String getProgramaAcademico() {
+        return programaAcademico;
     }
 
-    public void setPrograma(String programa) {
-        this.programa = programa;
+    public void setProgramaAcademico(String programa) {
+        this.programaAcademico = programaAcademico;
     }
-    
-    
+
+    public Acudiente getAcudiente() {
+        return acudiente;
+    }
+
+    public void setAcudiente(Acudiente acudiente) {
+        this.acudiente = acudiente;
+    }
 }

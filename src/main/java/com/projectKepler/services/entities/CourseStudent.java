@@ -22,17 +22,6 @@ public class CourseStudent {
     private String nemonico;
     
 
-    public CourseStudent(String nombre, int creditos, String[] preReq, String[] coReq, int[] historialNotas, int[] tercios, char estado, int numCancelaciones, String nemonico) {
-        this.nombre = nombre;
-        this.creditos = creditos;
-        this.preReq = preReq;
-        this.coReq = coReq;
-        this.historialNotas = historialNotas;
-        this.tercios = tercios;
-        this.estado = estado;
-        this.numCancelaciones= numCancelaciones;
-        this.nemonico = nemonico;
-    }
 
     public String getNombre() {
         return nombre;

@@ -23,7 +23,6 @@ public class ServiciosCancelacionesTest {
         servicios=ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
     }
     
- 
     @Test 
     public void consultarAsignaturaByIdEstudianteTest(){
         List<String> asignaturas=new ArrayList<String>();
@@ -153,7 +152,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test
-    public void consultarSolicitudesConsejero(){
+    public void consultarSolicitudesConsejero() throws ExcepcionServiciosCancelaciones{
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
             solicitudes=servicios.consultarSolicitudesDeCancelaciones("claudia.patricia@escuelaing.edu.co");
