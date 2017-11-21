@@ -116,6 +116,12 @@ public class AdavancedAlgorithm implements Algorithm {
                 res.add(c);
             }
         }
+        for (String c : graph.keySet()) {
+            if (isCoReqOf(res,c) && !havePreReqIn(res,c)) {
+                res.add(c);
+            }
+        }
+         
         return res;
     }
     private ArrayList<ArrayList<String>> res1 = new ArrayList<>();
@@ -183,6 +189,20 @@ public class AdavancedAlgorithm implements Algorithm {
                 return true;
             }
         }
+        return false;
+    }
+
+    private boolean isCoReqOf(ArrayList<String> res, String course) {
+        for(CourseStudent c : syllabus.getCourses())
+            if(c.getNemonico().equals(course))
+                return isCoReq(c.getCoReq(),res.toArray(new String[res.size()])) ;
+        return false;
+    }
+
+    private boolean havePreReqIn(ArrayList<String> res, String course) {
+        for(CourseStudent c : syllabus.getCourses())
+            if(c.getNemonico().equals(course))
+                return isCoReq(c.getPreReq(),res.toArray(new String[res.size()])) ;
         return false;
     }
 
