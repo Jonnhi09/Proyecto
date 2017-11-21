@@ -17,7 +17,7 @@ and open the template in the editor.
     <h:head>
         <title>Solicitud De Cancelacion De Aconsejados</title>
     </h:head>
-    <h:body style="background-image:url(resources/imgprincipal.jpg);background-size: cover">
+    <h:body style="background-image:url(../resources/ListaCancel.jpg);background-size: cover">
         <h:form style="margin: 2% 10%">
             <h:outputLink value="/logout">logout</h:outputLink>
             <h:panelGrid columns="1" style="width: 100%;text-align: center">
@@ -39,8 +39,8 @@ and open the template in the editor.
                         <p:outputLabel value="#{i.estado}" />
                     </p:column>
                     <p:column headerText="Acción">
-                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'En estudio'}" action="#{detalleSolicitud.accionVista()}"/>
-                            <p:commandButton value="Consultar" rendered="#{i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}"/>
+                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'En estudio'}" action="#{detalleSolicitud.accionVista()}" onclick="#{detalleSolicitud.setSolSelect(i)}"/>
+                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" onclick="#{detalleSolicitud.setSolSelect(i)}"/>
 
                     </p:column>
                 </p:dataTable>

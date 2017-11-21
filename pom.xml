@@ -32,11 +32,6 @@
         </dependency>       
         <!-- Primefaces Theme Library (mirar si la 1.0.10 o 1.0.8) -->
         <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>

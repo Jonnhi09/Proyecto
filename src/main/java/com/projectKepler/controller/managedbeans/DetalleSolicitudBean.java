@@ -50,6 +50,7 @@ public class DetalleSolicitudBean{
     List<Solicitud> cancelaciones;
     String impacto;
     String proyeccion;
+    private Solicitud solSelect;
 
 
     ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
@@ -148,5 +149,14 @@ public class DetalleSolicitudBean{
         }
         return student;
     }
+
+    public Solicitud getSolSelect() {
+        return solSelect;
+    }
+
+    public void setSolSelect(Solicitud solSelect) {
+        this.solSelect = solSelect;
+    }
+    
     
 }
