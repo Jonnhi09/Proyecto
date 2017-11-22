@@ -17,6 +17,7 @@ import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
+import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
 import com.projectKepler.services.graphRectificator.GraphRectificator;
 import java.lang.reflect.Type;
@@ -296,5 +297,25 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             planes.add(p.getId());
         }
         return planes;
+    }
+    
+    @Override
+    public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes;
+        solicitudes=estudiante.consultRequest(consejero);
+        if (solicitudes==null){
+            throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
+        }
+        return solicitudes ;
+    }
+    
+    @Override
+    public Estudiante consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones{
+        Estudiante student;
+        student=estudiante.consultStudentByRequest(numero);
+        if (estudiante.consultStudentByRequest(numero)==null){
+            throw new ExcepcionServiciosCancelaciones("La solicitud "+numero+" no existe");
+        }
+        return student;
     }
 }

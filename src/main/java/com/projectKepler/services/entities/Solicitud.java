@@ -5,20 +5,23 @@
  */
 package com.projectKepler.services.entities;
 
+import java.util.Date;
+
 /**
  *
  * @author diana
  */
 public class Solicitud {
     private int numero;
+    private Date fecha;
     private String justificacion;
     private String impacto;
     private String proyeccion;
-    private String comentariosConsejero;
+    private String comentarios;
     private String estado;
     private boolean acuseRecibo;
     private boolean avalConsejero;
-    private Asignatura asignatura;
+    private CourseStudent asignatura;
     private boolean necesitaAcuseRecibo;
 
     public int getNumero() {
@@ -53,12 +56,12 @@ public class Solicitud {
         this.proyeccion = proyeccion;
     }
 
-    public String getComentariosConsejero() {
-        return comentariosConsejero;
+    public String getComentarios() {
+        return comentarios;
     }
 
-    public void setComentariosConsejero(String comentariosConsejero) {
-        this.comentariosConsejero = comentariosConsejero;
+    public void setComentarios(String comentarios) {
+        this.comentarios= comentarios;
     }
 
     public String getEstado() {
@@ -85,11 +88,11 @@ public class Solicitud {
         this.avalConsejero = avalConsejero;
     }
 
-    public Asignatura getAsignatura() {
+    public CourseStudent getAsignatura() {
         return asignatura;
     }
 
-    public void setAsignatura(Asignatura asignatura) {
+    public void setAsignatura(CourseStudent asignatura) {
         this.asignatura = asignatura;
     }
 
@@ -100,7 +103,13 @@ public class Solicitud {
     public void setNecesitaAcuseRecibo(boolean necesitaAcuseRecibo) {
         this.necesitaAcuseRecibo = necesitaAcuseRecibo;
     }
-    
-    
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
     
 }

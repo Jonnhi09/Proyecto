@@ -28,12 +28,13 @@ CREATE TABLE CoordinadorCancelaciones (
     CONSTRAINT CoordinadorCancelaciones_pk PRIMARY KEY (codigo)
 );
 
--- Table: Course
-CREATE TABLE Course (
+
+-- Table: Asignatura
+CREATE TABLE Asignatura (
     nemonico varchar(4)  NOT NULL,
     nombre varchar(100)  NOT NULL,
     programa varchar(100)  NOT NULL,
-    CONSTRAINT Course_pk PRIMARY KEY (nemonico)
+    CONSTRAINT Asignatura_pk PRIMARY KEY (nemonico)
 );
 
 -- Table: Estudiante
@@ -45,10 +46,10 @@ CREATE TABLE Estudiante (
     numeroMatriculas int  NULL,
     correo varchar(50)  NOT NULL,
     ConsejeroAcademico_codigo int  NOT NULL,
-    Acudiente_correo varchar(50)  NOT NULL,
     CoordinadorCancelaciones_codigo int  NOT NULL,
     programaAcademico varchar(100)  NOT NULL,
     CONSTRAINT correo UNIQUE (correo),
+    Acudiente_correo varchar(50)  NOT NULL,
     CONSTRAINT Estudiante_pk PRIMARY KEY (codigo)
 );
 
@@ -78,10 +79,10 @@ CREATE TABLE Solicitud (
     comentarios varchar(200)  NULL,
     estado varchar(30)  NULL,
     acuseRecibo boolean  NULL,
-    Asignatura_Cancelar varchar(4)  NOT NULL,
     avalConsejero boolean  NULL,
     Estudiante_codigo int  NOT NULL,
     necesitaAcuseRecibo boolean  NULL,
+    Asignatura_nemonico varchar(4)  NOT NULL,
     CONSTRAINT Solicitud_pk PRIMARY KEY (numero)
 );
 
@@ -99,6 +100,13 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_Acudiente
     REFERENCES Acudiente (correo)  
     NOT DEFERRABLE 
 ;
+
+-- Reference: Solicitud_Asignatura (table: Solicitud)
+ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Asignatura
+    FOREIGN KEY (Asignatura_nemonico)
+    REFERENCES Asignatura (nemonico)  
+;
+
 
 -- Reference: Estudiante_ConsejeroAcademico (table: Estudiante)
 ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_ConsejeroAcademico
@@ -125,13 +133,6 @@ ALTER TABLE Estudiante ADD CONSTRAINT Estudiante_ProgramaAcademico_Principal
 ALTER TABLE PlanDeEstudios ADD CONSTRAINT PlanDeEstudios_ProgramaAcademico
     FOREIGN KEY (ProgramaAcademico)
     REFERENCES ProgramaAcademico (nombre)  
-    NOT DEFERRABLE 
-;
-
--- Reference: Solicitud_Asignatura (table: Solicitud)
-ALTER TABLE Solicitud ADD CONSTRAINT Solicitud_Asignatura
-    FOREIGN KEY (Asignatura_Cancelar)
-    REFERENCES Course (nemonico)  
     NOT DEFERRABLE 
 ;
 
@@ -162,12 +163,6 @@ INSERT INTO ConsejeroAcademico VALUES (313131,'Camilo Cadavid','camilo.cadavid@e
 -- Poblar Coordinador de Cancelaciones
 INSERT INTO CoordinadorCancelaciones VALUES (428131,'Oswaldo Navetty','oswaldo.navetty@escuelaing.edu.co');
 
--- Poblar Course
-INSERT INTO Course VALUES ('CALD','Calculo Diferencial','Ingenieria de sistemas');
-INSERT INTO Course VALUES ('FFIS','Fundamentos de Fisica','Ingenieria de sistemas');
-INSERT INTO Course VALUES ('PREM','Precalculo','Ingenieria de sistemas');
-INSERT INTO Course VALUES ('FIMF','Fisica Mecanica y Fluidos','Ingenieria de Sistemas');
-INSERT INTO Course VALUES ('AGEO','Análisis Geométrico','Ingenieria de Sistemas');
 
 -- Poblar Acudiente 
 INSERT INTO Acudiente VALUES ('Yolanda','yolanda@gmail.com');
@@ -178,6 +173,9 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '[
         {
             "nemonico": "PREM",
             "nombre": "Precálculo",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [21],
             "estado":"V"
@@ -185,6 +183,9 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '[
         {
             "nemonico": "AGEO",
             "nombre": "Análisis Geométrico",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [32],
             "estado":"V"
@@ -192,15 +193,21 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '[
         {
             "nemonico": "FFIS",
             "nombre": "Fundamentos de Física",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [41],
             "estado":"V"
         }
-]',13, 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831, 'yolanda@gmail.com',428131,'Ingenieria de sistemas'); 
+]',13, 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831,428131,'Ingenieria de sistemas','yolanda@gmail.com'); 
 INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
         {
             "nemonico": "PREM",
             "nombre": "Precálculo",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [35],
             "tercios": [21, 46, 40],
             "estado":"A"
@@ -208,6 +215,9 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
         {
             "nemonico": "AGEO",
             "nombre": "Análisis Geométrico",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [34],
             "tercios": [35,28,40],
             "estado":"A"
@@ -215,6 +225,9 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
         {
             "nemonico": "CALD",
             "nombre": "Cálculo Diferencial",
+            "creditos": 4,
+            "preReq": ["PREM","AGEO"],
+            "coReq": [],
             "historialNotas": [],
             "tercios": [34],
             "estado":"V"
@@ -222,6 +235,9 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
         {
             "nemonico": "FFIS",
             "nombre": "Fundamentos de Física",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [50],
             "tercios": [50,50,50],
             "estado":"A"
@@ -229,15 +245,21 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
         {
             "nemonico": "FIMF",
             "nombre": "Física Mecánica y de Fluidos",
+            "creditos": 4,
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [20],
             "estado":"V"
         }
-]', 13, 2, 'pepito.perez@mail.escuelaing.edu.co', 231831, 'maria@gmail.com',428131,'Ingenieria de sistemas');
+]', 13, 2, 'pepito.perez@mail.escuelaing.edu.co', 231831,428131,'Ingenieria de sistemas', 'maria@gmail.com');
 INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
         {
             "nemonico": "PREM",
             "nombre": "Precálculo",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [30],
             "tercios": [30,30,30],
             "estado":"A"
@@ -245,6 +267,9 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
         {
             "nemonico": "AGEO",
             "nombre": "Análisis Geométrico",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [30],
             "tercios": [30,30,30],
             "estado":"A"
@@ -252,6 +277,9 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
         {
             "nemonico": "CALD",
             "nombre": "Cálculo Diferencial",
+            "creditos": 4,
+            "preReq": ["PREM","AGEO"],
+            "coReq": [],
             "historialNotas": [-1],
             "tercios": [15],
             "estado":"V"
@@ -259,6 +287,9 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
         {
             "nemonico": "FFIS",
             "nombre": "Fundamentos de Física",
+            "creditos": 4,
+            "preReq": [],
+            "coReq": [],
             "historialNotas": [35],
             "tercios": [35,45,30],
             "estado":"A"
@@ -266,19 +297,27 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
         {
             "nemonico": "FIMF",
             "nombre": "Física Mecánica y de Fluidos",
+            "creditos": 4,
+            "preReq": ["FFIS"],
+            "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [45],
             "estado":"V"
         }
-]', 13, 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131, 'yolanda@gmail.com',428131,'Ingenieria de sistemas');
+]', 13, 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131,428131,'Ingenieria de sistemas', 'yolanda@gmail.com'); 
+
+-- Poblar Course
+INSERT INTO Asignatura VALUES ('CALD','Calculo Diferencial','Ingenieria de sistemas');
+INSERT INTO Asignatura VALUES ('FFIS','Fundamentos de Fisica','Ingenieria de sistemas');
+INSERT INTO Asignatura VALUES ('FIMF','Fisica Mecanica y Fluidos','Ingenieria de Sistemas');
 
 -- Poblar Solicitud--
 INSERT INTO Solicitud VALUES (1,'2017-10-26 10:23:54','Me consume mucho tiempo y estoy descuidando las otras materias','Si cancela FFIS le quedan: 20 creditos por ver de 28.','FFIS,CALD,ALLI,LCAL y una electiva',
-                            'Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Aceptada',null,'FFIS',true,79328,false);
+                            'Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Aceptada',null,true,79328,false,'FFIS');
 INSERT INTO Solicitud VALUES (2,'2017-10-04 17:40:34','Tengo muy bajita la nota y no me quiero arriesgar a perderla','Si cancela CALD le quedan: 16 creditos por ver de 28.','CALD,PIMB,ALLI,FIMF, ENG4',
-                            'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,'CALD',true,173183,true);
+                            'El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','En estudio',true,true,173183,true,'CALD');
 INSERT INTO Solicitud VALUES (3,'2017-10-29 13:24:24','No le entiendo al profesor','Si cancela FIMF le quedan: 20 creditos por ver de 28.','ARQC,PDIS,ACFI,PRON,POOB',
-                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,'FIMF',true,173183,true);  
+                            'El estudiante puede buscar alternativas para entender los temas y pasar la materia','En estudio',false,true,173183,true,'FIMF'); 
 
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{
@@ -423,7 +462,7 @@ INSERT INTO PlanDeEstudios VALUES (8,'Ingenieria de sistemas','{
             "estado":"P"
         },
         {
-            "nem	onico": "FIEM",
+            "nemonico": "FIEM",
             "nombre": "Física del Electromagnetismo",
             "creditos": 4,
             "preReq": ["FIMF"],

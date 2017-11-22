@@ -8,7 +8,9 @@ package com.projectKepler.persistence.mybatis;
 import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
+import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.Asignatura;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
@@ -213,5 +215,49 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al consultar el programa "+nombre,e);
         }
         return plan;
+    }
+    
+    @Override
+    public List<Acudiente> consultarAcudientes() throws PersistenceException {
+        List<Acudiente> programas=null;
+        try{
+            programas=estudiante.cargarAcudientes();
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar los programas academicos",e);
+        }
+        return programas;
+    }
+    
+    @Override 
+    public List<Solicitud> consultarSolicitudes() throws PersistenceException {
+        List<Solicitud> solicitudes=null;
+        try{
+            solicitudes=estudiante.cargarSolicitudes();
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar los programas academicos",e);
+        }
+        return solicitudes;
+    }
+    
+    @Override
+    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
+        List<Solicitud> solicitudes;
+        try{
+            solicitudes=estudiante.consultRequest(consejero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar las solicitudes",e);
+        }
+        return solicitudes;
+    }
+    
+    @Override
+    public Estudiante consultStudentByRequest(int numero) throws PersistenceException{
+        Estudiante student;
+        try{
+            student=estudiante.consultStudentByRequest(numero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar un estudiante dado el numero de una solicitud",e);
+        }
+        return student;
     }
 }
