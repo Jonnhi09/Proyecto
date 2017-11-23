@@ -8,7 +8,9 @@ package com.projectKepler.persistence.mybatis;
 import com.google.inject.Inject;
 import com.projectKepler.persistence.EstudianteDAO;
 import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
+import com.projectKepler.services.entities.Acudiente;
 import com.projectKepler.services.entities.Asignatura;
+import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
 import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
@@ -37,10 +39,10 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
 
     @Override
-    public String loadPlanDeEstudio (int codigoEstudiante) throws PersistenceException {
+    public String loadAsignaturas (int codigoEstudiante) throws PersistenceException {
         String programa="";
         try{
-            programa=estudiante.loadPlanDeEstudio(codigoEstudiante);
+            programa=estudiante.loadMaterias(codigoEstudiante);
         }catch (Exception e){
             throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
         }
@@ -76,6 +78,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
+    public String loadEstudianteProgramaById(int codigo) throws PersistenceException {
+        String student=null;
+        try{
+            student=estudiante.loadProgramaPorEstudiante(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar el estudiante con codigo:"+codigo,e);
+        }
+        return student;
+    }
+    
+    @Override
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException {
         Estudiante student=null;
         try{
@@ -84,6 +97,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al cargar el estudiante con codigo:"+codigo,e);
         }
         return student;
+    }
+    
+    @Override
+    public int loadEstudianteVersionById(int codigo) throws PersistenceException {
+        int version=0;
+        try{
+            version=estudiante.loadVersionPorEstudiante(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al cargar version",e);
+        }
+        return version;
     }
 
     @Override
@@ -119,21 +143,21 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
-    public void updateCredits(int creditos, String programa) throws PersistenceException{
+    public void updateCredits(int creditos) throws PersistenceException{
         try{
-            estudiante.updateCredits(creditos, programa);
+            estudiante.updateCredits(creditos);
         }catch (Exception e){
-            throw new PersistenceException("Error al actualizar los creditos maximos del programa :"+programa,e);
+            throw new PersistenceException("Error al actualizar los creditos maximos",e);
         }
     }
     
     @Override
-    public int consultCredits(String programa) throws PersistenceException{
+    public int consultCredits() throws PersistenceException{
         int credits=0;
         try{
-            credits=estudiante.consultCredits(programa);
+            credits=estudiante.consultCredits();
         }catch (Exception e){
-            throw new PersistenceException("Error al consultar el numero de creditos maximos del programa :"+programa,e);
+            throw new PersistenceException("Error al consultar el numero de creditos maximos",e);
         }
         return credits;
     }
@@ -192,21 +216,48 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return plan;
     }
-
+    
     @Override
-    public void actualizarSyllabus(String syllabus, int numero, String programa) throws PersistenceException {
+    public List<Acudiente> consultarAcudientes() throws PersistenceException {
+        List<Acudiente> programas=null;
         try{
-            estudiante.updateSyllabus(syllabus, numero, programa);
+            programas=estudiante.cargarAcudientes();
         }catch(Exception e){
-            throw new PersistenceException("Error al actualizar el plan de estudios: "+numero+" del programa "+programa,e);
+            throw new PersistenceException("Error al consultar los programas academicos",e);
         }
+        return programas;
     }
-    @Override
-    public void actualizarPlanDeEstudio(String plan,int version,String programa) throws PersistenceException{
+    
+    @Override 
+    public List<Solicitud> consultarSolicitudes() throws PersistenceException {
+        List<Solicitud> solicitudes=null;
         try{
-            estudiante.updateSyllabus(plan,version,programa);
-        }catch (Exception e){
-            throw new PersistenceException("Error al actualizar el plan de estudio",e);
+            solicitudes=estudiante.cargarSolicitudes();
+        }catch(Exception e){
+            throw new PersistenceException("Error al consultar los programas academicos",e);
         }
+        return solicitudes;
+    }
+    
+    @Override
+    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
+        List<Solicitud> solicitudes;
+        try{
+            solicitudes=estudiante.consultRequest(consejero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar las solicitudes",e);
+        }
+        return solicitudes;
+    }
+    
+    @Override
+    public Estudiante consultStudentByRequest(int numero) throws PersistenceException{
+        Estudiante student;
+        try{
+            student=estudiante.consultStudentByRequest(numero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar un estudiante dado el numero de una solicitud",e);
+        }
+        return student;
     }
 }

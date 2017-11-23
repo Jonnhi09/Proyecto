@@ -13,8 +13,8 @@ public class CourseStudent {
     private String nombre;
     private int codigoEstudiante;
     private int creditos ;
-    private String preReq;
-    private String coReq;
+    private String[] preReq;
+    private String[] coReq;
     private int[] historialNotas;
     private int[] tercios;
     private char estado;
@@ -22,17 +22,6 @@ public class CourseStudent {
     private String nemonico;
     
 
-    public CourseStudent(String nombre, int creditos, String preReq, String coReq, int[] historialNotas, int[] tercios, char estado, int numCancelaciones, String nemonico) {
-        this.nombre = nombre;
-        this.creditos = creditos;
-        this.preReq = preReq;
-        this.coReq = coReq;
-        this.historialNotas = historialNotas;
-        this.tercios = tercios;
-        this.estado = estado;
-        this.numCancelaciones= numCancelaciones;
-        this.nemonico = nemonico;
-    }
 
     public String getNombre() {
         return nombre;
@@ -50,11 +39,11 @@ public class CourseStudent {
         return creditos;
     }
 
-    public String getPreReq() {
+    public String[] getPreReq() {
         return preReq;
     }
 
-    public String getCoReq() {
+    public String[] getCoReq() {
         return coReq;
     }
 
@@ -102,11 +91,11 @@ public class CourseStudent {
         this.creditos = creditos;
     }
 
-    public void setPreReq(String preReq) {
+    public void setPreReq(String[] preReq) {
         this.preReq = preReq;
     }
 
-    public void setCoReq(String coReq) {
+    public void setCoReq(String[] coReq) {
         this.coReq = coReq;
     }
 

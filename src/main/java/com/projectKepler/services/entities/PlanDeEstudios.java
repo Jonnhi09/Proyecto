@@ -12,6 +12,7 @@ package com.projectKepler.services.entities;
 public class PlanDeEstudios {
     private int id;
     private String contenido;
+    private int totalCreditos;
 
     public int getId() {
         return id;
@@ -27,6 +28,14 @@ public class PlanDeEstudios {
 
     public void setContenido(String contenido) {
         this.contenido = contenido;
+    }
+
+    public int getTotalCreditos() {
+        return totalCreditos;
+    }
+
+    public void setTotalCreditos(int totalCreditos) {
+        this.totalCreditos = totalCreditos;
     }
     
     

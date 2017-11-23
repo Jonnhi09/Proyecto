@@ -5,6 +5,7 @@
  */
 package com.projectKepler.services.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,11 +18,11 @@ public class Estudiante {
     private String nombre;
     private int numeroMatriculas;
     private String correo;
-    private Acudiente acudiente;
     private List<Solicitud> solicitudes;
-    private String planDeEstudios;
-    private List<CourseStudent> cursos;
+    private Acudiente acudiente;
+    private String asignaturas;
     private int versionPlanDeEstudio;
+    private String programaAcademico;
     
     
     public List<Solicitud> getSolicitudes() {
@@ -48,14 +49,6 @@ public class Estudiante {
         this.nombre = nombre;
     }
 
-    public String getplanDeEstudios() {
-        return planDeEstudios;
-    }
-
-    public void setplanDeEstudios(String planDeEstudios) {
-        this.planDeEstudios = planDeEstudios;
-    }
-
     public int getNumeroMatriculas() {
         return numeroMatriculas;
     }
@@ -71,22 +64,6 @@ public class Estudiante {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-
-    public Acudiente getAcudiente() {
-        return acudiente;
-    }
-
-    public void setAcudiente(Acudiente acudiente) {
-        this.acudiente = acudiente;
-    }    
-    
-    public List<CourseStudent> getCursos() {
-        return cursos;
-    }
-
-    public void setCursos(List<CourseStudent> cursos) {
-        this.cursos = cursos;
-    }
     
     public int getVersionPlanDeEstudio() {
         return versionPlanDeEstudio;
@@ -94,5 +71,29 @@ public class Estudiante {
 
     public void setVersionPlanDeEstudio(int versionPlanDeEstudio) {
         this.versionPlanDeEstudio = versionPlanDeEstudio;
+    }
+
+    public String getAsignaturas() {
+        return asignaturas;
+    }
+
+    public void setAsignaturas(String asignaturas) {
+        this.asignaturas = asignaturas;
+    }
+
+    public String getProgramaAcademico() {
+        return programaAcademico;
+    }
+
+    public void setProgramaAcademico(String programa) {
+        this.programaAcademico = programaAcademico;
+    }
+
+    public Acudiente getAcudiente() {
+        return acudiente;
+    }
+
+    public void setAcudiente(Acudiente acudiente) {
+        this.acudiente = acudiente;
     }
 }

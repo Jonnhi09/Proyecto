@@ -5,6 +5,7 @@
  */
 package com.projectKepler.controller.managedbeans;
 
+import com.projectKepler.controller.managedbeans.security.ShiroLoginBean;
 import com.projectKepler.services.ExcepcionServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.ServiciosCancelacionesFactory;
@@ -12,8 +13,10 @@ import com.projectKepler.services.entities.Syllabus;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -25,13 +28,16 @@ import javax.faces.context.FacesContext;
 @SessionScoped
 public class AjusteParametros {
     
+    
+    @ManagedProperty(value="#{loginBean}")
+    private ShiroLoginBean shiroLoginBean; 
+    private String usuario;
     private int creditosSemestre;
     private int creditosSemestreActuales;
     private String programaSeleccionado;
     private int planDeEstudiosSeleccionado;
     private List<?> planesDeEstudios;
     private List<?> programas;
-    private String planDeEstudiosJson;
     private boolean renderTable;
     private boolean planDisabled;
     private Syllabus syllabus;
@@ -42,8 +48,8 @@ public class AjusteParametros {
     /**
      * Creates a new instance of AjusteParametros
      */
+    
     public AjusteParametros() {
-        this.programaSeleccionado = "Programa";
         this.planDeEstudiosSeleccionado = -1;
         this.planDisabled = true;
         this.renderTable = false;
@@ -54,11 +60,25 @@ public class AjusteParametros {
         }
     }
     
+    @PostConstruct
+    private void init(){
+        if(getShiroLoginBean().getSubject().hasRole("superadmin")){
+            setUsuario(getShiroLoginBean().getUsername());
+            programaSeleccionado= "Programa";
+            
+        }else{
+            setUsuario(getShiroLoginBean().getUsername().replace("admin", "").trim());
+            programaSeleccionado="Ingenieria de "+ usuario;
+            seleccionPrograma();
+        }
+        
+    }
+    
     public void seleccionPrograma(){
         if(!"Programa".equals(programaSeleccionado)){
             try {
                 planesDeEstudios=servicios.consultarPlanesDeEstudiosPorPrograma(programaSeleccionado);
-                creditosSemestreActuales = servicios.consultarNumeroMaximoDeCreditos(programaSeleccionado);
+                creditosSemestreActuales = servicios.consultarNumeroMaximoDeCreditos();
                 setPlanDisabled(false);
             } catch (ExcepcionServiciosCancelaciones ex) {
                 Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,7 +109,7 @@ public class AjusteParametros {
     
     public void guardarCreditos(){
         try {
-            servicios.actualizarNumeroMaximoDeCreditos(creditosSemestre, programaSeleccionado);
+            servicios.actualizarNumeroMaximoDeCreditos(creditosSemestre);
             FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se han modificado los créditos máximos", null));
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,32 +117,6 @@ public class AjusteParametros {
         }
     }
     
-    public void guardarPlanDeEstudios(){
-        if(planDeEstudiosJson == null){
-            
-            try {
-                servicios.actualizarSyllabusEstudianteTabla(syllabus);
-                setRenderTable(false);
-                FacesContext.getCurrentInstance().addMessage("planMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha modificado el plan de estudios correctamente", null));
-                planDeEstudiosJson = null;
-            } catch (ExcepcionServiciosCancelaciones ex) {
-                Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
-                FacesContext.getCurrentInstance().addMessage("planMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Existe un error en el grafo realizado en la tabla", null));
-            }
-            
-        }else{
-            try {
-                servicios.actualizarPlanDeEstudio(planDeEstudiosJson);
-                setRenderTable(false);
-                FacesContext.getCurrentInstance().addMessage("planMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha modificado el plan de estudios correctamente", null));
-                planDeEstudiosJson = null;
-            } catch (ExcepcionServiciosCancelaciones ex) {
-                Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
-                FacesContext.getCurrentInstance().addMessage("planMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Existe un error en el grafo del texto", null));
-            }
-        }
-    }
-
     public int getCreditosSemestre() {
         return creditosSemestre;
     }
@@ -153,14 +147,6 @@ public class AjusteParametros {
 
     public void setProgramas(List<?> programas) {
         this.programas = programas;
-    }
-
-    public String getPlanDeEstudiosJson() {
-        return planDeEstudiosJson;
-    }
-
-    public void setPlanDeEstudiosJson(String planDeEstudiosJson) {
-        this.planDeEstudiosJson = planDeEstudiosJson;
     }
 
     public boolean isRenderTable() {
@@ -211,6 +197,20 @@ public class AjusteParametros {
         this.planDeEstudiosSeleccionado = planDeEstudiosSeleccionado;
     }
     
-    
+    public ShiroLoginBean getShiroLoginBean() {
+        return shiroLoginBean;
+    }
+
+    public void setShiroLoginBean(ShiroLoginBean shiroLoginBean) {
+        this.shiroLoginBean = shiroLoginBean;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
     
 }

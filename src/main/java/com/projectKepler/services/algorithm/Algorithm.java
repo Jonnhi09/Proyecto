@@ -22,4 +22,6 @@ public interface Algorithm {
      * @return un arreglo de strings, el cual contiene el impacto y la proyeccion respectivamente
      */
     public String[] getImpact(String course,HashMap<String,ArrayList<String>> graph, Syllabus planS);
+    public String[] getImpact(String courses[],HashMap<String,ArrayList<String>> graph, Syllabus planS);
+
 }

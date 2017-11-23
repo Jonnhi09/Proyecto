@@ -42,6 +42,7 @@ public class SolCancelBean implements Serializable{
     private List<CourseStudent> materias;
     private Estudiante estudiante;
     private String materiaSeleccionada;
+    private String materiaSeleccionadaNemo;
     private boolean panelVisibility;
     private String justificacion;
     private String impacto;
@@ -187,4 +188,15 @@ public class SolCancelBean implements Serializable{
     public void setShiroLoginBean(ShiroLoginBean shiroLoginBean) {
         this.shiroLoginBean = shiroLoginBean;
     }
+
+    public String getMateriaSeleccionadaNemo() {
+        return materiaSeleccionadaNemo;
+    }
+
+    public void setMateriaSeleccionadaNemo(String materiaSeleccionadaNemo) {
+        this.materiaSeleccionadaNemo = materiaSeleccionadaNemo;
+    }
+    
+    
+    
 }

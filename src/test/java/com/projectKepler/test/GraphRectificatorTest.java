@@ -33,61 +33,80 @@ import org.junit.Test;
 public class GraphRectificatorTest {
 
     private GraphRectificator gRec = new GraphRectificatorImpl();
-
+    
     @Test
     public void TestC1() {
         Gson g = new Gson();
 
         Syllabus s = g.fromJson("{\n" +
 "    \"programa\": \"ing. sistemas\",\n" +
-"    \"vertion\": 13,        \n" +
+"    \"version\": 13,        \n" +
 "    \"courses\": [\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nombre\": \"preca\" ,\n" +
+" 	    \"nemonico\": \"PREM\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preRec\": \"\",\n" +
-"            \"coReq\": \"\",\n" +
-"            \"historialNotas\": [],\n" +
-"            \"tercios\": [],\n" +
+"            \"preReq\": [],\n" +
+"            \"coReq\": [],\n" +
+"            \"historialNotas\": [35],\n" +
+"            \"tercios\": [21, 46, 40],\n" +
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nombre\": \"calculo 1\" ,\n" +
+" 	    \"nemonico\": \"CALD\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preReq\": \"PREM\",\n" +
-"            \"coReq\": \"\",\n" +
+"            \"preReq\": [\"PREM\"],\n" +
+"            \"coReq\": [],\n" +
 "            \"historialNotas\": [],\n" +
-"            \"tercios\": [],\n" +
-"            \"estado\":\"A\"\n" +
-"        }\n" +
-"    ]\n" +
-"}", Syllabus.class);
-        Syllabus s2 = g.fromJson("{\n" +
-"    \"programa\": \"ing. sistemas\",\n" +
-"    \"vertion\": 13,        \n" +
-"    \"courses\": [\n" +
+"            \"tercios\": [34],\n" +
+"            \"estado\":\"V\"\n" +
+"        },\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nombre\": \"calculo 2\" ,\n" +
+" 	    \"nemonico\": \"CIED\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preRec\": \"\",\n" +
-"            \"coReq\": \"\",\n" +
+"            \"preReq\": [\"CALD\"],\n" +
+"            \"coReq\": [],\n" +
 "            \"historialNotas\": [],\n" +
 "            \"tercios\": [],\n" +
+"            \"estado\":\"P\"\n" +
+"        },\n" +
+"        {\n" +
+"            \"nombre\": \"fundamentos fisica\" ,\n" +
+" 	    \"nemonico\": \"FFIS\",\n" +
+"            \"creditos\": 4,\n" +
+"            \"preReq\": [],\n" +
+"            \"coReq\": [],\n" +
+"            \"historialNotas\": [50],\n" +
+"            \"tercios\": [50,50,50],\n" +
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nombre\": \"fisica 1\" ,\n" +
+" 	    \"nemonico\": \"FIMF\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preReq\": \"PREM\",\n" +
-"            \"coReq\": \"\",\n" +
+"            \"preReq\": [\"FFIS\"],\n" +
+"            \"coReq\": [\"CALD\"],\n" +
+"            \"historialNotas\": [],\n" +
+"            \"tercios\": [20],\n" +
+"            \"estado\":\"V\"\n" +
+"        },\n" +
+"        {\n" +
+"            \"nombre\": \"fisica 2\" ,\n" +
+" 	    \"nemonico\": \"FIEM\",\n" +
+"            \"creditos\": 4,\n" +
+"            \"preReq\": [\"FIMF\"],\n" +
+"            \"coReq\": [\"CIED\"],\n" +
 "            \"historialNotas\": [],\n" +
 "            \"tercios\": [],\n" +
-"            \"estado\":\"A\"\n" +
+"            \"estado\":\"P\"\n" +
 "        }\n" +
 "    ]\n" +
 "}", Syllabus.class);
+        //Syllabus s2 = g.fromJson("", Syllabus.class);
         HashMap<String,ArrayList<String>> a;
-        a= gRec.verify(s, s2);
+        a= gRec.verify(s);
         Assert.assertFalse(a==null);
         
     }
@@ -99,53 +118,72 @@ public class GraphRectificatorTest {
         gRec = new GraphRectificatorImpl() ;
         Syllabus s = g.fromJson("{\n" +
 "    \"programa\": \"ing. sistemas\",\n" +
-"    \"vertion\": 13,        \n" +
+"    \"version\": 13,        \n" +
 "    \"courses\": [\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nombre\": \"preca\" ,\n" +
+" 	    \"nemonico\": \"PREM\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preReq\": \"CALD\",\n" +
-"            \"coReq\": \"\",\n" +
-"            \"historialNotas\": [],\n" +
-"            \"tercios\": [],\n" +
+"            \"preReq\": [\"PREM\"],\n" +
+"            \"coReq\": [],\n" +
+"            \"historialNotas\": [30],\n" +
+"            \"tercios\": [30,30,30],\n" +
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nombre\": \"calculo 1\" ,\n" +
+" 	    \"nemonico\": \"CALD\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preReq\": \"PREM\",\n" +
-"            \"coReq\": \"\",\n" +
-"            \"historialNotas\": [],\n" +
-"            \"tercios\": [],\n" +
-"            \"estado\":\"A\"\n" +
-"        }\n" +
-"    ]\n" +
-"}", Syllabus.class);
-        Syllabus s2 = g.fromJson("{\n" +
-"    \"programa\": \"ing. sistemas\",\n" +
-"    \"vertion\": 13,        \n" +
-"    \"courses\": [\n" +
+"            \"preReq\": [\"PREM\"],\n" +
+"            \"coReq\": [],\n" +
+"            \"historialNotas\": [-1],\n" +
+"            \"tercios\": [15],\n" +
+"            \"estado\":\"V\"\n" +
+"        },\n" +
 "        {\n" +
-"            \"nombre\": \"PREM\",\n" +
+"            \"nombre\": \"calculo 2\" ,\n" +
+" 	    \"nemonico\": \"CIED\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preRec\": \"\",\n" +
-"            \"coReq\": \"\",\n" +
+"            \"preReq\": [\"CALD\"],\n" +
+"            \"coReq\": [],\n" +
 "            \"historialNotas\": [],\n" +
 "            \"tercios\": [],\n" +
+"            \"estado\":\"P\"\n" +
+"        },\n" +
+"        {\n" +
+"            \"nombre\": \"fundamentos fisica\" ,\n" +
+" 	    \"nemonico\": \"FFIS\",\n" +
+"            \"creditos\": 4,\n" +
+"            \"preReq\": [],\n" +
+"            \"coReq\": [],\n" +
+"            \"historialNotas\": [35],\n" +
+"            \"tercios\": [35,45,30],\n" +
 "            \"estado\":\"A\"\n" +
 "        },\n" +
 "        {\n" +
-"            \"nombre\": \"CALD\",\n" +
+"            \"nombre\": \"fisica 1\" ,\n" +
+" 	    \"nemonico\": \"FIMF\",\n" +
 "            \"creditos\": 4,\n" +
-"            \"preReq\": \"PREM\",\n" +
-"            \"coReq\": \"\",\n" +
+"            \"preReq\": [\"FFIS\"],\n" +
+"            \"coReq\": [\"CALD\"],\n" +
+"            \"historialNotas\": [],\n" +
+"            \"tercios\": [45],\n" +
+"            \"estado\":\"V\"\n" +
+"        },\n" +
+"        {\n" +
+"            \"nombre\": \"fisica 2\" ,\n" +
+" 	    \"nemonico\": \"FIEM\",\n" +
+"            \"creditos\": 4,\n" +
+"            \"preReq\": [\"FIMF\"],\n" +
+"            \"coReq\": [\"CIED\"],\n" +
 "            \"historialNotas\": [],\n" +
 "            \"tercios\": [],\n" +
-"            \"estado\":\"A\"\n" +
+"            \"estado\":\"P\"\n" +
 "        }\n" +
 "    ]\n" +
 "}", Syllabus.class);
-        Assert.assertTrue(null==gRec.verify(s, s2));
+        Assert.assertTrue(null==gRec.verify(s));
         
     }
 }
+

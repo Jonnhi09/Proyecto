@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Ajuste de Parametros</title>
     </h:head>
@@ -12,26 +13,13 @@
             <h:panelGrid columns="1" style="text-align: right; width: 100%">
                 <h:outputLink value="/logout">logout</h:outputLink>
             </h:panelGrid>
-            
-            <h:panelGrid columns="2" style="width: 40%">
-                <p:outputLabel value="Programa: "/>
-                <p:selectOneMenu id="programas" value="#{ajusteparametros.programaSeleccionado}" style="width:220px">
-                    <f:selectItem itemLabel="Programa" itemValue="Programa" />
-                    <f:selectItems value="#{ajusteparametros.programas}" var="programa" itemValue="#{programa.nombre}" itemLabel="#{programa.nombre}"/>
-                    <p:ajax listener="#{ajusteparametros.seleccionPrograma()}" update="panelCreditos planesdeestudios tableAsign"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
-            
+                     
             <br/>
             <br/>
             
             <h:panelGrid id="panelCreditos" columns="3" style="width: 60%">
-                <p:outputLabel value="Créditos máximos por semestre: "/>
-                <p:inputText value="#{ajusteparametros.creditosSemestre}"  disabled="#{ajusteparametros.planDisabled}"/>
-                <p:commandButton value="Actualizar créditos máximos" actionListener="#{ajusteparametros.guardarCreditos()}" disabled="#{ajusteparametros.planDisabled}" />
                 <p:outputLabel value="Créditos máximos por semestre actuales: #{ajusteparametros.creditosSemestreActuales}" rendered="#{not ajusteparametros.planDisabled}"/>
-            </h:panelGrid>
-            <p:messages for="creditosMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+            </h:panelGrid>     
             
             <br/>
             <br/>
@@ -52,48 +40,41 @@
             <br/>
             
             <h:panelGroup id="tableAsign" >
-                <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                    <p:outputLabel value="Tenga en cuenta que se tendrá como opción principal lo ingresado por el input text, en caso de que esté vacía se tomará como modificada la tabla" rendered="#{ajusteparametros.renderTable}"/>
-                    <p:inputTextarea id="inputJson" rows="6" style="width: 60%" rendered="#{ajusteparametros.renderTable}"/>
-                </h:panelGrid>
-                
-                <br/>
-                <br/>
-                
-                <p:dataTable editable="true" var="asignatura" value="#{ajusteparametros.syllabus.courses}" rendered="#{ajusteparametros.renderTable}">
+                <p:dataTable var="asignatura" value="#{ajusteparametros.syllabus.courses}" rendered="#{ajusteparametros.renderTable}">
                     <f:facet name="header">
                         Asignaturas del plan de estudios
                     </f:facet>
 
-                    <p:column headerText="Nombre" sortBy="#{asignatura.nombre}">
-                        <p:inputText value="#{asignatura.nombre}" />
+                    <p:column headerText="Nombre">
+                        <p:outputLabel value="#{asignatura.nombre}" />
                     </p:column>
 
-                    <p:column headerText="Nemónico" sortBy="#{asignatura.nemonico}">
-                        <p:inputText value="#{asignatura.nemonico}" />
+                    <p:column headerText="Nemónico">
+                        <p:outputLabel value="#{asignatura.nemonico}" />
                     </p:column>
 
-                    <p:column headerText="Créditos" sortBy="#{asignatura.creditos}">
-                        <p:inputText value="#{asignatura.creditos}" />
+                    <p:column headerText="Créditos">
+                        <p:outputLabel value="#{asignatura.creditos}" />
                     </p:column>
 
-                    <p:column headerText="Prerequisitos" sortBy="#{asignatura.preReq}">
-                        <p:inputText value="#{asignatura.preReq}" />
+                    <p:column headerText="Prerequisitos">
+                        <ui:repeat value="#{asignatura.preReq}" var="s">
+                            #{s}
+                        </ui:repeat>
                     </p:column>
 
-                    <p:column headerText="Corequisitos" sortBy="#{asignatura.coReq}">
-                        <p:inputText value="#{asignatura.coReq}" />
+                    <p:column headerText="Corequisitos">
+                        <ui:repeat value="#{asignatura.coReq}" var="s">
+                            #{s}
+                        </ui:repeat>
                     </p:column>
                 </p:dataTable>
                 
                 <br/>
                 <br/>
                 
-                <h:panelGrid columns="2" style="width: 100%;text-align: center" rendered="#{ajusteparametros.renderTable}">
+                <h:panelGrid columns="1" style="width: 100%;text-align: center" rendered="#{ajusteparametros.renderTable}">
                     <p:commandButton value="Cancelar" actionListener="#{ajusteparametros.setRenderTable(false)}" update="tableAsign"/>
-                    <p:commandButton value="Actualizar" actionListener="#{ajusteparametros.guardarPlanDeEstudios()}" update="tableAsign inputJson">
-                        <p:resetInput target="inputJson" />
-                    </p:commandButton>                                  
                 </h:panelGrid>
             </h:panelGroup>
         </h:form>   

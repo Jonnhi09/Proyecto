@@ -49,7 +49,7 @@ public class ShiroLoginBean implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("coordinador/ListadoSolCancel.xhtml");
             }else if(subject.hasRole("estudiante")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("estudiante/SolCancel.xhtml");
-            }else if(subject.hasRole("admin")){
+            }else if(subject.hasRole("superadmin")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("superadmin/AjusteParametros.xhtml");
             }else if(subject.hasRole("adminprograma")){
                 FacesContext.getCurrentInstance().getExternalContext().redirect("adminPrograma/AjusteParametros.xhtml");
