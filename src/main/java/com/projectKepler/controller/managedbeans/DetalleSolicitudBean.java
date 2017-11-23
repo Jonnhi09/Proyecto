@@ -145,8 +145,11 @@ public class DetalleSolicitudBean{
         return solSelect;
     }
 
-    public void setSolSelect(Solicitud solSelect) {
+    public void setSolSelect(Solicitud solSelect,boolean bool) {
         this.solSelect = solSelect;
+        if(bool){
+            cargarDatos();
+        }
     }
 
     public String getImpacto() {
@@ -181,13 +184,18 @@ public class DetalleSolicitudBean{
         this.materia = materia;
     }
     
+    
+    
     public void cargarDatos(){
         try{
+            student=servicios.consultarEstudiantePorSolicitud(solSelect.getNumero());
             materia=solSelect.getAsignatura().getNemonico()+"-"+solSelect.getAsignatura().getNombre();
+            System.out.println(solSelect.getAsignatura().getNombre());
             impacto=solSelect.getImpacto();
             justificacion=solSelect.getJustificacion();
             proyeccion=solSelect.getProyeccion();
-            estudiante=servicios.consultarEstudiantePorSolicitud(solSelect.getNumero()).getNombre();
+            estudiante=student.getNombre();
+            codigo=student.getCodigo();
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
