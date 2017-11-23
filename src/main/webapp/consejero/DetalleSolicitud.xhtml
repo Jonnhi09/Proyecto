@@ -24,13 +24,13 @@ and open the template in the editor.
                 <h:outputText value="Codigo: #{detalleSolicitud.codigo}"/>
                 <h:outputText value="Cancelaciones solicitadas y justificadas"/>
 
-                <p:dataTable var="infostud" value="#{detalleSolicitud.cancelaciones}">
+                <p:dataTable var="infostud" value="">
                     <p:column headerText="Cancelacion Solicitada">
-                        <h:outputText value="#{infostud.asignatura.nemonico}" />
+                        <h:outputText value="#{detalleSolicitud.materia}" />
                     </p:column>
 
                     <p:column headerText="Justificacion">
-                        <h:outputText value="#{infostud.justificacion}" />
+                        <h:outputText value="#{detalleSolicitud.justificacion}" />
                     </p:column>
                 </p:dataTable>
 
@@ -40,12 +40,12 @@ and open the template in the editor.
                     <p:tab title="Impacto">
                         <h:panelGrid columns="1" cellpadding="10">
                             <h:outputText
-                                value="" />
+                                value="#{detalleSolicitud.impacto}" />
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Proyecion">
                         <h:panelGrid columns="1" cellpadding="10">
-                            <h:outputText value="Tendra que pagar un semestre de mas" />
+                            <h:outputText value="#{detalleSolicitud.proyeccion}" />
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Justificacion">

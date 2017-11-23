@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <!--
     <h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
@@ -39,9 +40,12 @@ and open the template in the editor.
                         <p:outputLabel value="#{i.estado}" />
                     </p:column>
                     <p:column headerText="Acción">
-                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'En estudio'}" action="#{detalleSolicitud.accionVista()}" onclick="#{detalleSolicitud.setSolSelect(i)}"/>
-                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" onclick="#{detalleSolicitud.setSolSelect(i)}"/>
-
+                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'En estudio'}" action="#{detalleSolicitud.accionVista()}" onclick="#{detalleSolicitud.setSolSelect(i)}">
+                            <f:actionListener binding="#{detalleSolicitud.cargarDatos()}"/>
+                        </p:commandButton>
+                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" onclick="#{detalleSolicitud.setSolSelect(i)}">
+                            <f:actionListener binding="#{detalleSolicitud.cargarDatos()}"/>
+                        </p:commandButton>    
                     </p:column>
                 </p:dataTable>
                  

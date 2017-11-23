@@ -50,6 +50,8 @@ public class DetalleSolicitudBean{
     List<Solicitud> cancelaciones;
     String impacto;
     String proyeccion;
+    String justificacion;
+    String materia;
     private Solicitud solSelect;
 
 
@@ -65,15 +67,6 @@ public class DetalleSolicitudBean{
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void analisis(int estudiante,String materia){
-        try {
-            proyeccion = servicios.obtenerProyeccionByEstudiante(estudiante,materia);
-        }catch(ExcepcionServiciosCancelaciones ex){
-            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
     
     public String getUsuario(){
         return usuario;
@@ -107,8 +100,6 @@ public class DetalleSolicitudBean{
         this.codigo = codigo;
     }
     
-    
-
     public Date getFecha() {
         return fecha;
     }
@@ -157,6 +148,50 @@ public class DetalleSolicitudBean{
     public void setSolSelect(Solicitud solSelect) {
         this.solSelect = solSelect;
     }
+
+    public String getImpacto() {
+        return impacto;
+    }
+
+    public void setImpacto(String impacto) {
+        this.impacto = impacto;
+    }
+
+    public String getProyeccion() {
+        return proyeccion;
+    }
+
+    public void setProyeccion(String proyeccion) {
+        this.proyeccion = proyeccion;
+    }
+
+    public String getJustificacion() {
+        return justificacion;
+    }
+
+    public void setJustificacion(String justificacion) {
+        this.justificacion = justificacion;
+    }
+
+    public String getMateria() {
+        return materia;
+    }
+
+    public void setMateria(String materia) {
+        this.materia = materia;
+    }
     
+    public void cargarDatos(){
+        try{
+            materia=solSelect.getAsignatura().getNemonico()+"-"+solSelect.getAsignatura().getNombre();
+            impacto=solSelect.getImpacto();
+            justificacion=solSelect.getJustificacion();
+            proyeccion=solSelect.getProyeccion();
+            estudiante=servicios.consultarEstudiantePorSolicitud(solSelect.getNumero()).getNombre();
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }
