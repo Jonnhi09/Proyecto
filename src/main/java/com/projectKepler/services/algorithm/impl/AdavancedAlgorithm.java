@@ -18,35 +18,45 @@ import java.util.*;
  */
 public class AdavancedAlgorithm implements Algorithm {
 
-    private int sem;
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;
 
     @Override
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
         proyection = new ArrayList<>();
-        for (int i = 0; i < 60; i++) {
-            proyection.add(new ArrayList<String>());
-        }
         Gson g = new Gson();
         syllabus = planS;
-        return new String[]{Integer.toString(solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits(), 0)), "JAJAJAJ"};
+        int x = solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits());
+        Collections.reverse(proyection);
+        return new String[]{"Le quedarian: " + x + " por ver.", proyection.toString()};
     }
 
-    private int solveYears(HashMap<String, ArrayList<String>> graph, int total, int semester) {
-        if (total <= 0) {
+    @Override
+    public String[] getImpact(String courses[], HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+        proyection = new ArrayList<>();
+        Gson g = new Gson();
+        syllabus = planS;
+        int x = solveYears(makeActualGraph(syllabus, courses), syllabus.getTotalCredits());
+        Collections.reverse(proyection);
+        return new String[]{"Le quedarian: " + x + " por ver.", proyection.toString()};
+    }
+
+    private int solveYears(HashMap<String, ArrayList<String>> graph, int total) {
+        if (total <= 0 || graph.isEmpty()) {
             return 0;
         } else {
             ArrayList<String> matOk = getMatsOk(graph);
             ArrayList<ArrayList<String>> config = getAllConfigs(matOk);
-            int mini = 24;
+            int mini = Integer.MAX_VALUE;
+            ArrayList<String> theBest = null;
             for (ArrayList<String> c : config) {
-                int res = 1 + solveYears(diff(graph, c), total - sumCreds(c), semester++);
+                int res = 1 + solveYears(diff(graph, c), total - sumCreds(c));
                 if (mini > res) {
                     mini = res;
-                    proyection.set(semester, c);
+                    theBest = (ArrayList<String>) c.clone();
                 }
             }
+            proyection.add(theBest);
             return mini;
         }
 
@@ -55,17 +65,44 @@ public class AdavancedAlgorithm implements Algorithm {
     private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String course) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().equals(course)) {
-                graph.put(c.getNombre(), new ArrayList());
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || Arrays.asList(c.getCoReq()).contains(course)) {
+                graph.put(c.getNemonico(), new ArrayList());
             }
         }
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' || c.getNombre().equals(course) || c.getCoReq().equals(course)) {
-                if (graph.containsKey(c.getPreReq())) {
-                    //graph.get(c.getNombre()).add(c.getPreReq());
+            for (String ss : c.getPreReq()) {
+                if (graph.containsKey(ss)) {
+                    graph.get(c.getNemonico()).add(ss);
                 }
-                if (graph.containsKey(c.getCoReq())) {
-                    //graph.get(c.getNombre()).add(c.getCoReq());
+            }
+            for (String ss : c.getCoReq()) {
+                if (graph.containsKey(ss)) {
+                    graph.get(c.getNemonico()).add(ss);
+                }
+            }
+        }
+
+        return graph;
+    }
+
+    private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String courses[]) {
+        HashMap<String, ArrayList<String>> graph = new HashMap<>();
+        for (CourseStudent c : s.getCourses()) {
+            if (c.getEstado() == 'P' || Arrays.asList(courses).contains(c.getNemonico()) || isCoReq(c.getCoReq(), courses)) {
+                graph.put(c.getNemonico(), new ArrayList());
+            }
+        }
+        for (CourseStudent c : s.getCourses()) {
+            if (c.getEstado() == 'P' || Arrays.asList(courses).contains(c.getNemonico()) || isCoReq(c.getCoReq(), courses)) {
+                for (String ss : c.getPreReq()) {
+                    if (graph.containsKey(ss)) {
+                        graph.get(c.getNemonico()).add(ss);
+                    }
+                }
+                for (String ss : c.getCoReq()) {
+                    if (graph.containsKey(ss)) {
+                        graph.get(c.getNemonico()).add(ss);
+                    }
                 }
             }
         }
@@ -79,27 +116,44 @@ public class AdavancedAlgorithm implements Algorithm {
                 res.add(c);
             }
         }
+        for (String c : graph.keySet()) {
+            if (isCoReqOf(res,c) && !havePreReqIn(res,c)) {
+                res.add(c);
+            }
+        }
+         
         return res;
     }
+    private ArrayList<ArrayList<String>> res1 = new ArrayList<>();
 
     private ArrayList<ArrayList<String>> getAllConfigs(ArrayList<String> matOk) {
-        int total = (int) Math.pow(2d, Double.valueOf(matOk.size()));
-        ArrayList<ArrayList<String>> res = new ArrayList<>();
-        for (int i = 1; i < total; i++) {
-            ArrayList<String> temp = new ArrayList<>();
-            String code = Integer.toBinaryString(total | total - i).substring(1);
-            for (int j = 0; j < matOk.size(); j++) {
-                if (code.charAt(j) == '1') {
-                    temp.add(matOk.get(j));
-                }
-            }
-            if (sumCreds(temp) <= sem) {
-                res.add(temp);
-                //FIXME: se puede redu el numero de iteraciones. recordar que se esta haciendo al revez
-            }
-
+        int r = matOk.size();
+        res1 = new ArrayList<>();
+        while (res1.isEmpty()) {
+            combinationUtil(matOk, matOk.size(), r, 0, new ArrayList<String>(), 0);
+            r--;
         }
-        return res;
+        return res1;
+    }
+
+    public void combinationUtil(List<String> arr, int n, int r, int index, ArrayList<String> data, int i) {
+        if (index == r) {
+            ArrayList<String> temp = new ArrayList<>();
+            for (int j = 0; j < r; j++) {
+                temp.add(data.get(j));
+            }
+            int sumcre = sumCreds(temp);
+            if (sumcre <= 18) { //TODO: sacar el maximo numero de creditos
+                res1.add(temp);
+            }
+            return;
+        }
+        if (i >= n) {
+            return;
+        }
+        data.add(index, arr.get(i));
+        combinationUtil(arr, n, r, index + 1, data, i + 1);
+        combinationUtil(arr, n, r, index, data, i + 1);
     }
 
     private HashMap<String, ArrayList<String>> diff(HashMap<String, ArrayList<String>> graph, ArrayList<String> string) {
@@ -120,7 +174,7 @@ public class AdavancedAlgorithm implements Algorithm {
     private int sumCreds(ArrayList<String> c) {
         HashMap<String, Integer> matsCred = new HashMap<>();
         for (CourseStudent co : syllabus.getCourses()) {
-            matsCred.put(co.getNombre(), co.getCreditos());
+            matsCred.put(co.getNemonico(), co.getCreditos());
         }
         int res = 0;
         for (String s : c) {
@@ -129,5 +183,27 @@ public class AdavancedAlgorithm implements Algorithm {
         return res;
     }
 
-}
+    private boolean isCoReq(String[] coReq, String[] courses) {
+        for (String s : courses) {
+            if (Arrays.asList(coReq).contains(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private boolean isCoReqOf(ArrayList<String> res, String course) {
+        for(CourseStudent c : syllabus.getCourses())
+            if(c.getNemonico().equals(course))
+                return isCoReq(c.getCoReq(),res.toArray(new String[res.size()])) ;
+        return false;
+    }
+
+    private boolean havePreReqIn(ArrayList<String> res, String course) {
+        for(CourseStudent c : syllabus.getCourses())
+            if(c.getNemonico().equals(course))
+                return isCoReq(c.getPreReq(),res.toArray(new String[res.size()])) ;
+        return false;
+    }
+
+}
