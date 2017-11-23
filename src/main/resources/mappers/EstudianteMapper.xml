@@ -4,16 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.projectKepler.persistence.mybatis.mappers.EstudianteMapper">
-    <select parameterType="map" id="loadAllEstudiantes" resultMap="EstudianteResult"> 
-        select *
-        FROM Estudiante
-    </select>
-    
-    <select  parameterType="map" id="loadProgramaPorEstudiante" resultType="String"> 
-        select programaAcademico
-        FROM  Estudiante
-        WHERE codigo=#{codigo};
-    </select>
     
     <select  parameterType="map" id="loadEstudianteById" resultMap="EstudianteResult"> 
         select 
@@ -45,47 +35,6 @@
         WHERE e.codigo=#{codigo};
     </select>
     
-    <select  parameterType="map" id="cargarAcudientes" resultMap="AcudienteResult"> 
-        select 
-        
-            a.nombre,
-            a.correo,
-        
-            e.codigo as Estudiante_codigo,
-            e.nombre as Estudiante_nombre,
-            e.asignaturas as Estudiante_asignaturas,
-            e.versionPlanDeEstudio as Estudiante_versionPlanDeEstudio,
-            e.numeroMatriculas as Estudiante_numeroMatriculas,
-            e.correo as Estudiante_correo,
-            e.programaAcademico as Estudiante_programaAcademico,
-        
-            s.numero as Solicitud_numero,
-            s.fecha as Solicitud_fecha,
-            s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
-            s.comentarios as Solicitud_comentarios,
-            s.estado as Solicitud_estado,
-            s.acuseRecibo as Solicitud_acuseRecibo,
-            s.avalConsejero as Solicitud_avalConsejero,
-            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-        
-            asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa,
-        
-            c.nombre as Consejero_nombre,
-            c.codigo as Consejero_codigo,
-            c.correo as Consejero_correo,
-            
-            co.nombre as Coodinador_nombre,
-            co.codigo as Coodinador_codigo,
-            co.correo as Coodinador_correo
-        
-        FROM  Estudiante as e left join Acudiente as a on e.Acudiente_correo=a.correo left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico left join consejeroAcademico as c on e.consejeroAcademico_codigo=c.codigo left join coordinadorCancelaciones as co on co.codigo=e.coordinadorCancelaciones_codigo
-
-    </select>
-    
     <select  parameterType="map" id="cargarSolicitudes" resultMap="SolicitudResult"> 
         select 
         
@@ -108,46 +57,19 @@
 
     </select>
     
-    <select  parameterType="map" id="loadVersionPorEstudiante" resultType="int"> 
-        select versionplandeestudio
-        FROM  Estudiante
-        WHERE codigo=#{codigo}
-    </select>
-    
-    <select parameterType="map" id="loadMaterias" resultType="String"> 
-        select
-            asignaturas
-        FROM  Estudiante
-        WHERE codigo=#{codigo} 
-    </select>
-    
     <insert id="updateJustification" useGeneratedKeys="true" keyProperty="numero"> 
         INSERT INTO Solicitud (numero,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,Asignatura_Cancelar,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo)
         values (#{numero},#{justificacion},#{impacto},#{proyeccion},"","Enviada",null,#{materia},null,#{codigo},#{acuse})
     </insert>
     
-    <select parameterType="map" id="loadSolicitudes" resultType="String"> 
+    <select parameterType="map" id="loadSyllabusByStudent" resultMap="PlanDeEstudioResult">
         select *
-        FROM  Solicitud
-    </select>
-    
-    <select parameterType="map" id="loadSyllabusPrograma" resultType="String">
-        select DISTINCT
-            pl.contenido
         FROM Estudiante as e left join PlanDeEstudios as pl on pl.ProgramaAcademico=e.programaAcademico
         WHERE e.codigo=#{codigo} AND e.versionPlanDeEstudio=pl.id
     </select>
     
-    <select parameterType="map" id="consultImpactById" resultType="String">
-        select 
-            s.impacto
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
-        WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
-    </select>
-    
-    <select parameterType="map" id="consultProyectionById" resultType="String">
-        select 
-            s.proyeccion
+    <select parameterType="map" id="consultRequestByStudentSubject" resultMap="SolicitudResult">
+        select *
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
     </select>
@@ -157,7 +79,7 @@
             totalCredits=#{creditos}
     </update>
     
-    <select parameterType="map" id="consultCredits" resultType="int">
+    <select parameterType="map" id="consultUniversity" resultMap="UniversidadResult">
         select totalCredits
         FROM Universidad
     </select>
@@ -168,10 +90,8 @@
         WHERE correo=#{correo};
     </select>
     
-    <select parameterType="map" id="consultCourse" resultType="String" >
-        select 
-            s.asignatura_nemonico
-        
+    <select parameterType="map" id="loadCoursesById" resultMap="AsignaturaResult">
+        select *
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo 
         WHERE e.codigo=#{codigo};
     </select>
@@ -199,22 +119,11 @@
         WHERE pr.nombre=#{nombre}
     </select>
     
-    <select parameterType="map" id="consultarPlanDeEstudios" resultMap="PlanDeEstudioResult" >
-        
-        select DISTINCT
-            pl.id,
-            pl.ProgramaAcademico,
-            pl.contenido,
-            pl.totalCreditos
-        FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pl.ProgramaAcademico=pr.nombre
-        WHERE pr.nombre=#{programa} AND pl.id=#{numero}
+    <select parameterType="map" id="consultarPlanDeEstudios" resultMap="PlanDeEstudioResult" >  
+        select *
+        FROM PlanDeEstudios as pl 
+        WHERE pl.programaAcademico=#{programa} AND pl.id=#{numero}
     </select>
-    
-    <update parameterType="map" id="updateSyllabus" >
-        update PlanDeEstudios set
-            contenido=#{plan}
-        WHERE id=#{version} AND ProgramaAcademico=#{programa}
-    </update>
     
     <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
         select *

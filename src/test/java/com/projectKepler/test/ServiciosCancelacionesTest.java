@@ -5,6 +5,7 @@ import com.projectKepler.services.ServiciosCancelacionesFactory;
 import com.projectKepler.services.ServiciosCancelaciones;
 import com.projectKepler.services.entities.CourseStudent;
 import com.projectKepler.services.entities.Estudiante;
+import com.projectKepler.services.entities.PlanDeEstudios;
 import com.projectKepler.services.entities.ProgramaAcademico;
 import com.projectKepler.services.entities.Solicitud;
 import com.projectKepler.services.entities.Syllabus;
@@ -161,5 +162,4 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(solicitudes.size(),3);
     }
-    
 } 

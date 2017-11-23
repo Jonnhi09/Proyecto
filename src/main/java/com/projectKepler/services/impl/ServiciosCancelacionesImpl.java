@@ -44,18 +44,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Inject
     private EstudianteDAO estudiante;
     
-    @Transactional
-    @Override
-    public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones {
-        List<Estudiante> estudiantes=null;
-        try{
-            estudiantes=estudiante.loadAllEstudiantes();
-        }catch (PersistenceException e){
-            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
-        }
-        return estudiantes;
-    }
-    
     
     @Transactional
     @Override
@@ -63,7 +51,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         String programa="";
         List<CourseStudent> asignaturas=null;
         try{
-            programa=estudiante.loadAsignaturas(codigo);
+            programa=estudiante.loadEstudianteById(codigo).getAsignaturas();
             Gson g = new Gson();
             Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
             asignaturas=g.fromJson(programa, materias);
@@ -116,15 +104,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return asignaturas;
     }
-    
-    @Transactional
-    @Override
-    public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones{
-        Gson g = new Gson();
-        Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
-        String impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
-        return impacto;
-    }
 
     @Transactional
     @Override
@@ -133,7 +112,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            impacto=estudiante.consultImpactById(codigoEstudiante, nemonicoAsignatura);
+            impacto=estudiante.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
             if (impacto==null){
                 impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
             }
@@ -146,13 +125,18 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Transactional
     @Override
     public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
-        String impacto="";
+        String proyeccion=null;
+        Gson g = new Gson();
+        Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            impacto=estudiante.consultProyectionById(codigoEstudiante, nemonicoAsignatura);
+            proyeccion=estudiante.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getProyeccion();
+            if (proyeccion==null){
+                proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
+            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
-        return impacto;
+        return proyeccion;
     }
 
     @Transactional
@@ -163,7 +147,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         String syllabusEstudiante="";
         try{
             syllabusEstudiante=consultarPlanDeEstudioByIdEstudiante(codigo);
-            programa=estudiante.loadSyllabusProgramaById(codigo);
+            programa=estudiante.loadSyllabusByStudent(codigo).getContenido();
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -175,6 +159,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         
         return planesDeEstudio;
     }
+    
     @Transactional
     @Override
     public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones {
@@ -193,9 +178,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         if (student.getNumeroMatriculas()<3){
             acuse=true;
         }
-        int numero=estudiante.loadSolicitudes().size()+1;
+        int numero=estudiante.consultarSolicitudes().size()+1;
         String impacto=consultarImpactoByEstudianteAsignatura(id, materia);
-        String proyeccion=obtenerProyeccionByEstudiante(id, materia);
+        String proyeccion=consultarProyeccionByEstudianteAsignatura(id, materia);
         estudiante.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
         student=estudiante.loadEstudianteById(id);
         
@@ -216,7 +201,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     public int consultarNumeroMaximoDeCreditos() throws ExcepcionServiciosCancelaciones{
         int credits=0;
         try{
-            credits=estudiante.consultCredits();
+            credits=estudiante.consultUniversity().getTotalCredits();
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -239,15 +224,15 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public List<CourseStudent> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones{
         List<CourseStudent> asignaturas=new ArrayList<>();
-        List<String> asig=null;
+        List<CourseStudent> asig=null;
         try{
-            asig=estudiante.consultCourse(codigoEstudiante);
+            asig=estudiante.loadCoursesById(codigoEstudiante);
             if (asig==null){
                 asignaturas=consultarAsignaturasByIdEstudiante(codigoEstudiante);
             }else{
                 for (CourseStudent c:consultarAsignaturasByIdEstudiante(codigoEstudiante)){
-                    for(String a:asig){
-                        if(!(c.getNombre().equals(a))){
+                    for(CourseStudent a:asig){
+                        if(!(c.getNemonico().equals(a.getNemonico()))){
                             asignaturas.add(c);
                         }
                     }

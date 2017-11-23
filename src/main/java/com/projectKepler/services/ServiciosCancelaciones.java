@@ -20,13 +20,6 @@ import java.util.List;
 public interface ServiciosCancelaciones {
     
     /**
-     * Carga todos los estudiantes registrados en la base de datos
-     * @return Lista de estudiantes
-     * @throws ExcepcionServiciosCancelaciones Si NO existe ningun estudiante registrado, o si se presenta otro problema en las capas inferiores.
-     */
-    public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones;
-    
-    /**
      * Consulta el plan de estudio de un estudiante a partir de su identificador
      * @param codigo es el identificador del estudiante
      * @return Plan de estudio de un estudiante
@@ -66,15 +59,6 @@ public interface ServiciosCancelaciones {
      * @return en la primera posicion esta el plan de estudios especifico del estudiante y en la segunda posicion esta el plan de estudios del programa academico
      */
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
-
-    /**
-     * Obtener la proyeccion de una cancelacion calculado por el algoritmo a partir del identificador del estudiante y de la asignatura
-     * @param codigoEstudiante es el identificador del estudiante
-     * @param nemonicoAsignatura identificador de la asignatura
-     * @return Proyeccion calculado por el algoritmo.
-     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con el identificador del estudiante, o si se presenta otro problema en las capas inferiores.
-     */
-    public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta la proyeccion que genera la cancelacion de una asignatura a partir del identificador del estudiante y de la asignatura

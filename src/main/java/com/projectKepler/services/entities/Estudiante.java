@@ -86,7 +86,7 @@ public class Estudiante {
     }
 
     public void setProgramaAcademico(String programa) {
-        this.programaAcademico = programaAcademico;
+        this.programaAcademico = programa;
     }
 
     public Acudiente getAcudiente() {
