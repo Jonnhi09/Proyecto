@@ -190,7 +190,6 @@ public class DetalleSolicitudBean{
         try{
             student=servicios.consultarEstudiantePorSolicitud(solSelect.getNumero());
             materia=solSelect.getAsignatura().getNemonico()+"-"+solSelect.getAsignatura().getNombre();
-            System.out.println(solSelect.getAsignatura().getNombre());
             impacto=solSelect.getImpacto();
             justificacion=solSelect.getJustificacion();
             proyeccion=solSelect.getProyeccion();

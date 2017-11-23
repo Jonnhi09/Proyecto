@@ -49,13 +49,18 @@ consejeros-->
                             <h:outputText value="#{detalleSolicitud.proyeccion}" />
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Justificacion">
+                    <p:tab title="JustificacionE" rendered="#{detalleSolicitud.solSelect.estado == 'En estudio'}">
                         <h:panelGrid columns="1" cellpadding="10">
-                            <p:inputTextarea rows="5" cols="100" counter="display" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" />
+                            <p:inputTextarea rows="5" cols="100" counter="display" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" value="#{detalleSolicitud.solSelect.comentarios}"/>
                             <h:outputText id="display" />
                             <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
                             <h:outputText value="This is a Modal Dialog." />
                             </p:dialog>   
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="JustificacionA" rendered="#{detalleSolicitud.solSelect.estado == 'Aceptada'}">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <h:outputText value="#{detalleSolicitud.solSelect.comentarios}" />   
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
