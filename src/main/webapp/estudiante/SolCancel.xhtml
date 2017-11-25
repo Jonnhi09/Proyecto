@@ -24,14 +24,14 @@
                 <p:outputLabel for="materias" value="Asignatura a cancelar" style=" font-size:x-large"/>
                 <p:selectOneMenu id="materias" value="#{solCancelBean.materiaSeleccionada}" style="width:125px">
                     <f:selectItem itemLabel="Asignatura" itemValue="Asignatura" />
-                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemValue="#{materia.nombre}" itemLabel="#{materia.nombre}"/>
-                    <p:ajax update="matselec"/>
+                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemValue="#{materia.nombre}" itemLabel="#{materia.nemonico}"/>
+                    <p:ajax update="matselec" />
                 </p:selectOneMenu>
             </h:panelGrid>
             <br/>
             <br/>
             <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                <p:outputLabel id="matselec" value="Curso seleccionado: #{solCancelBean.materiaSeleccionada}" style=" font-size:x-large"/>
+                <p:outputLabel id="matselec" value="Curso seleccionado:#{solCancelBean.materiaSeleccionada}" style=" font-size:x-large"/>
                 <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis"/>
                 <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
             </h:panelGrid>

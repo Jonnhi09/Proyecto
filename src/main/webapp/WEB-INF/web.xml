@@ -38,4 +38,8 @@
             30
         </session-timeout>
     </session-config>
+    <context-param>
+      <param-name>primefaces.THEME</param-name>
+      <param-value>mytheme</param-value>
+    </context-param>
 </web-app>
