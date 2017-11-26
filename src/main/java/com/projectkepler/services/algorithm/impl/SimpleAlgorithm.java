@@ -1,0 +1,56 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.projectkepler.services.algorithm.impl;
+
+import com.projectkepler.services.algorithm.Algorithm;
+import com.projectkepler.services.entities.*;
+import java.util.*;
+
+/**
+ *
+ * @author blackphantom
+ */
+public class SimpleAlgorithm implements Algorithm {
+
+    @Override
+    public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+        return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(credits(course, planS)) + " de "+Integer.toString(planS.getTotalCredits()), ""};
+
+    }
+    @Override
+    public String[] getImpact(String[] courses, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+        int x= credits(courses, planS);
+        return new String[]{"Si cancela " + Arrays.toString(courses) + " le quedan: " + Integer.toString(x) + " de "+Integer.toString(planS.getTotalCredits()), ""};
+    }
+
+    public int credits(String course,Syllabus planS) {
+        int pendientes = 0;
+        for (CourseStudent c : planS.getCourses()) {
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || Arrays.asList(c.getCoReq()).contains(course)) {
+                pendientes += c.getCreditos();
+            }
+        }
+        return pendientes;
+    }
+    public int credits(String[] course,Syllabus planS) {
+        int pendientes = 0;
+        for (CourseStudent c : planS.getCourses()) {
+            if (c.getEstado() == 'P' || Arrays.asList(course).contains(c.getNemonico()) || isCoReq(c.getCoReq(), course)) {
+                pendientes += c.getCreditos();
+            }
+        }
+        return pendientes;
+    }
+    private boolean isCoReq(String[] coReq, String[] courses) {
+        for (String s : courses) {
+            if (Arrays.asList(coReq).contains(s)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+}

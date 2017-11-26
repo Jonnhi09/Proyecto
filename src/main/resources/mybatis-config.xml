@@ -9,15 +9,15 @@
     </settings>
     
     <typeAliases>
-        <typeAlias type='com.projectKepler.services.entities.ConsejeroAcademico' alias='ConsejeroAcademico'/>
-        <typeAlias type='com.projectKepler.services.entities.CoordinadorCancelaciones' alias='CoordinadorCancelaciones'/>
-        <typeAlias type='com.projectKepler.services.entities.Acudiente' alias='Acudiente'/>
-        <typeAlias type='com.projectKepler.services.entities.Estudiante' alias='Estudiante'/>
-        <typeAlias type='com.projectKepler.services.entities.CourseStudent' alias='CourseStudent'/>
-        <typeAlias type='com.projectKepler.services.entities.Solicitud' alias='Solicitud'/>
-        <typeAlias type='com.projectKepler.services.entities.ProgramaAcademico' alias='ProgramaAcademico'/>
-        <typeAlias type='com.projectKepler.services.entities.PlanDeEstudios' alias='PlanDeEstudios'/>
-        <typeAlias type='com.projectKepler.services.entities.Universidad' alias='Universidad'/>
+        <typeAlias type='com.projectkepler.services.entities.ConsejeroAcademico' alias='ConsejeroAcademico'/>
+        <typeAlias type='com.projectkepler.services.entities.CoordinadorCancelaciones' alias='CoordinadorCancelaciones'/>
+        <typeAlias type='com.projectkepler.services.entities.Acudiente' alias='Acudiente'/>
+        <typeAlias type='com.projectkepler.services.entities.Estudiante' alias='Estudiante'/>
+        <typeAlias type='com.projectkepler.services.entities.CourseStudent' alias='CourseStudent'/>
+        <typeAlias type='com.projectkepler.services.entities.Solicitud' alias='Solicitud'/>
+        <typeAlias type='com.projectkepler.services.entities.ProgramaAcademico' alias='ProgramaAcademico'/>
+        <typeAlias type='com.projectkepler.services.entities.PlanDeEstudios' alias='PlanDeEstudios'/>
+        <typeAlias type='com.projectkepler.services.entities.Universidad' alias='Universidad'/>
     </typeAliases>
                          
     <environments default="development">
@@ -34,7 +34,8 @@
         
     <mappers>    
         <mapper resource="mappers/EstudianteMapper.xml"></mapper>    
-
+        <mapper resource="mappers/SolicitudMapper.xml"></mapper> 
+        <mapper resource="mappers/UniversidadMapper.xml"></mapper> 
     </mappers> 
         
         

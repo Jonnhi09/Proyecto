@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.projectKepler.persistence.mybatis.mappers.EstudianteMapper">
+<mapper namespace="com.projectkepler.persistence.mybatis.mappers.EstudianteMapper">
     
     <select  parameterType="map" id="loadEstudianteById" resultMap="EstudianteResult"> 
         select 
@@ -28,60 +28,10 @@
             s.asignatura_nemonico as Solicitud_asignatura_nemonico,
         
             asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa
+            asi.nombre as Asignatura_nombre
         
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo};
-    </select>
-    
-    <select  parameterType="map" id="cargarSolicitudes" resultMap="SolicitudResult"> 
-        select 
-        
-            s.numero,
-            s.fecha,
-            s.justificacion,
-            s.impacto,
-            s.proyeccion,
-            s.comentarios,
-            s.estado,
-            s.acuseRecibo,
-            s.avalConsejero,
-            s.necesitaAcuseRecibo,
-        
-            asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa
-        
-        FROM Solicitud as s left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
-
-    </select>
-    
-    <insert id="updateJustification" useGeneratedKeys="true" keyProperty="numero"> 
-        INSERT INTO Solicitud (numero,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,Asignatura_Cancelar,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo)
-        values (#{numero},#{justificacion},#{impacto},#{proyeccion},"","Enviada",null,#{materia},null,#{codigo},#{acuse})
-    </insert>
-    
-    <select parameterType="map" id="loadSyllabusByStudent" resultMap="PlanDeEstudioResult">
-        select *
-        FROM Estudiante as e left join PlanDeEstudios as pl on pl.ProgramaAcademico=e.programaAcademico
-        WHERE e.codigo=#{codigo} AND e.versionPlanDeEstudio=pl.id
-    </select>
-    
-    <select parameterType="map" id="consultRequestByStudentSubject" resultMap="SolicitudResult">
-        select *
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
-        WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
-    </select>
-    
-    <update parameterType="map" id="updateCredits">
-        update Universidad set
-            totalCredits=#{creditos}
-    </update>
-    
-    <select parameterType="map" id="consultUniversity" resultMap="UniversidadResult">
-        select totalCredits
-        FROM Universidad
     </select>
     
     <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult">
@@ -90,51 +40,31 @@
         WHERE correo=#{correo};
     </select>
     
-    <select parameterType="map" id="loadCoursesById" resultMap="AsignaturaResult">
-        select *
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo 
-        WHERE e.codigo=#{codigo};
-    </select>
-    
-    <select parameterType="map" id="consultarProgramasAcademicos" resultMap="ProgramaResult" >
-        select DISTINCT 
-            pr.nombre,
-        
-            pl.id as PlanDeEstudio_id,
-            pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
-            pl.contenido as PlanDeEstudio_contenido,
-            pl.totalCreditos as PlanDeEstudio_totalCreditos
-        FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
-    </select>
-    
-    <select parameterType="map" id="consultarProgramaAcademicoPorNombre" resultMap="ProgramaResult" >
-        select DISTINCT 
-            pr.nombre,
-        
-            pl.id as PlanDeEstudio_id,
-            pl.ProgramaAcademico as PlanDeEstudio_ProgramaAcademico,
-            pl.contenido as PlanDeEstudio_contenido,
-            pl.totalCreditos as PlanDeEstudio_totalCreditos
-        FROM ProgramaAcademico as pr left join PlanDeEstudios as pl on pr.nombre=pl.ProgramaAcademico 
-        WHERE pr.nombre=#{nombre}
-    </select>
-    
-    <select parameterType="map" id="consultarPlanDeEstudios" resultMap="PlanDeEstudioResult" >  
-        select *
-        FROM PlanDeEstudios as pl 
-        WHERE pl.programaAcademico=#{programa} AND pl.id=#{numero}
-    </select>
-    
-    <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
-        select *
-        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
-        WHERE c.correo=#{correo}
-        ORDER BY s.estado DESC,s.fecha
-    </select>
-    
     <select parameterType="map" id="consultStudentByRequest" resultMap="EstudianteResult">
-        select *
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_nemonico
+        select 
+            e.codigo,
+            e.nombre,
+            e.asignaturas,
+            e.versionPlanDeEstudio,
+            e.numeroMatriculas,
+            e.correo,
+            e.programaAcademico,
+            
+            s.numero as Solicitud_numero,
+            s.fecha as Solicitud_fecha,
+            s.justificacion as Solicitud_justificacion,
+            s.impacto as Solicitud_impacto,
+            s.proyeccion as Solicitud_proyeccion,
+            s.comentarios as Solicitud_comentarios,
+            s.estado as Solicitud_estado,
+            s.acuseRecibo as Solicitud_acuseRecibo,
+            s.avalConsejero as Solicitud_avalConsejero,
+            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
+            s.asignatura_nemonico as Solicitud_asignatura_nemonico,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
         WHERE s.numero=#{codigo}
     </select>
     
@@ -166,44 +96,6 @@
     <resultMap type="CourseStudent" id="AsignaturaResult" >
         <id property="nemonico" column="nemonico"/> 
         <result property="nombre" column="nombre"/>
-        <result property="programa" column="programa"/>
-    </resultMap>
-    
-    <resultMap type="Acudiente" id="AcudienteResult" >
-        <id property="correo" column="correo"/> 
-        <result property="nombre" column="nombre"/>
-        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/> 
-    </resultMap>
-    
-    <resultMap type="ConsejeroAcademico" id="ConsejeroResult" >
-        <id property="codigo" column="codigo"/> 
-        <result property="nombre" column="nombre"/>
-        <result property="correo" column="correo"/>
-        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/>
-    </resultMap>
-    
-    <resultMap type="CoordinadorCancelaciones" id="CoordinadorResult" >
-        <id property="codigo" column="codigo"/> 
-        <result property="nombre" column="nombre"/>
-        <result property="correo" column="correo"/>
-        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/>
-    </resultMap>
-    
-    <resultMap type="Universidad" id="UniversidadResult">
-        <id property="nombre" column="nombre"/>
-        <result property="totalCredits" column="totalCredits"/>
-        <collection property="programas" ofType="ProgramaAcademico" columnPrefix="ProgramaAcademico_" resultMap="ProgramaResult"/>
-    </resultMap>
-    
-    <resultMap type="ProgramaAcademico" id="ProgramaResult">
-        <id property="nombre" column="nombre"/>
-        <collection property="planesDeEstudio" ofType="PlanDeEstudios" columnPrefix="PlanDeEstudio_" resultMap="PlanDeEstudioResult"/>
-    </resultMap>
-    
-    <resultMap type="PlanDeEstudios" id="PlanDeEstudioResult">
-        <id property="id" column="id"/>
-        <result property="contenido" column="contenido"/>
-        <result property="totalCreditos" column="totalCreditos"/>
     </resultMap>
     
     
