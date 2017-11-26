@@ -29,7 +29,8 @@
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>5.0</version>
-        </dependency>        
+        </dependency>       
+        <!-- Primefaces Theme Library (mirar si la 1.0.10 o 1.0.8) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

@@ -164,7 +164,6 @@ public class ServiciosCancelacionesTest {
     
     @Test
     public void actualizarComentariosTest() throws ExcepcionServiciosCancelaciones{
-        System.out.println(servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0).getComentarios());
         try{
             servicios.actualizarComentariosSolicitud(3,"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
         }catch (ExcepcionServiciosCancelaciones e){
