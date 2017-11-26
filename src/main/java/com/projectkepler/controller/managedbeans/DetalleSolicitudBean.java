@@ -62,6 +62,7 @@ public class DetalleSolicitudBean{
         setUsuario(getShiroLoginBean().getUsername());
         try{
             cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");
+            System.out.println(cancelaciones);
             consejero = usuario.replace("."," ");
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,4 +202,12 @@ public class DetalleSolicitudBean{
         
     }
     
+    public void atualizarEstadoJustificacion(){
+        try{
+            servicios.actualizarComentariosSolicitud(solSelect.getNumero(),solSelect.getComentarios());
+            servicios.actualizarEstadoSolicitud(solSelect.getNumero(), solSelect.getEstado());
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

@@ -64,7 +64,7 @@ consejeros-->
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
-                <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.solSelect.setEstado('Aceptada')}" onclick="PF('mess').show();" update="informacion">
+                <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.solSelect.setEstado('Aceptada');detalleSolicitud.atualizarEstadoJustificacion()}" onclick="PF('mess').show();" update="informacion">
                     <p:resetInput target="informacion" />
                 </p:commandButton>
                 <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/>
@@ -73,6 +73,5 @@ consejeros-->
                     </p:dialog>   
              </h:panelGrid>
         </h:form>
-        
     </h:body>
 </html>
