@@ -57,7 +57,6 @@ public class ServiciosCancelacionesTest {
         String resultado="";
         try{
             resultado=servicios.consultarProyeccionByEstudianteAsignatura(2121465,"CALD");
-            System.out.println(resultado);
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }

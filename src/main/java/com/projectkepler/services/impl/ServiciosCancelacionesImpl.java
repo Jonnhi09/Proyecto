@@ -129,7 +129,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
             Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura);
-            if (request==null){
+            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto()==null ){
                 impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
             }else{
                 impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
@@ -152,10 +152,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
             Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura);
-            if (request==null){
+            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getProyeccion()==null){
                 proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
             }else{
-                proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
+                proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getProyeccion();
             }
             
         }catch (PersistenceException e){
