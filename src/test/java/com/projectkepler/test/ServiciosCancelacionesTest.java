@@ -45,22 +45,23 @@ public class ServiciosCancelacionesTest {
     public void consultarImpactoByEstudianteTest(){
         String resultado="";
         try{
-            resultado=servicios.consultarImpactoByEstudianteAsignatura(79328,"FFIS");
+            resultado=servicios.consultarImpactoByEstudianteAsignatura(2121465,"CALD");
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"Le quedarian: 3 por ver.");
+        assertEquals(resultado,"Le quedarian: 2 por ver.");
     }
 
     @Test 
     public void consultarProyeccionByEstudianteTest(){
         String resultado="";
         try{
-            resultado=servicios.consultarProyeccionByEstudianteAsignatura(79328,"FFIS");
+            resultado=servicios.consultarProyeccionByEstudianteAsignatura(2121465,"CALD");
+            System.out.println(resultado);
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"[[CALD, FFIS], [CIED, FIMF], [FIEM]]");
+        assertEquals(resultado,"[[CALD, FIMF], [CIED, FIEM]]");
     }
 
     @Test 

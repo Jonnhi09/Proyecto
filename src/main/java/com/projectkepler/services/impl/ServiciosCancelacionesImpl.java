@@ -128,9 +128,11 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
-            if (impacto==null){
+            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura);
+            if (request==null){
                 impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
+            }else{
+                impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
@@ -149,10 +151,13 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getProyeccion();
-            if (proyeccion==null){
+            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura);
+            if (request==null){
                 proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
+            }else{
+                proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
             }
+            
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar la proyeccion de cancelar la asignatura "+nemonicoAsignatura);
