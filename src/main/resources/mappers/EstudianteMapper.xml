@@ -34,6 +34,37 @@
         WHERE e.codigo=#{codigo};
     </select>
     
+    <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
+        select 
+            
+            e.codigo as Estudiante_codigo,
+            e.nombre as Estudiante_nombre,
+            e.asignaturas as Estudiante_asignaturas,
+            e.versionPlanDeEstudio as Estudiante_versionPlanDeEstudio,
+            e.numeroMatriculas as Estudiante_numeroMatriculas,
+            e.correo as Estudiante_correo,
+            e.programaAcademico as Estudiante_programaAcademico,
+            e.consejeroAcademico_codigo as Estudiante_consejeroAcademico_codigo,
+        
+            s.numero as Solicitud_numero,
+            s.fecha as Solicitud_fecha,
+            s.justificacion as Solicitud_justificacion,
+            s.impacto as Solicitud_impacto,
+            s.proyeccion as Solicitud_proyeccion,
+            s.comentarios as Solicitud_comentarios,
+            s.estado as Solicitud_estado,
+            s.acuseRecibo as Solicitud_acuseRecibo,
+            s.avalConsejero as Solicitud_avalConsejero,
+            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
+        
+            c.nombre as Consejero_nombre,
+            c.codigo as Consejero_codigo,
+            c.correo as Consejero_correo
+        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        WHERE c.correo=#{correo}
+        ORDER BY s.estado DESC,s.fecha
+    </select>
+    
     <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult">
         select *        
         FROM  Estudiante

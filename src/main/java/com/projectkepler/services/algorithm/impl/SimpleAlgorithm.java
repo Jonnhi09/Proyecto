@@ -5,8 +5,10 @@
  */
 package com.projectkepler.services.algorithm.impl;
 
+
+import com.projectkepler.services.entities.Syllabus;
+import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.algorithm.Algorithm;
-import com.projectkepler.services.entities.*;
 import java.util.*;
 
 /**

@@ -5,7 +5,6 @@ import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
-import com.projectkepler.services.entities.PlanDeEstudios;
 import com.projectkepler.services.entities.ProgramaAcademico;
 import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Syllabus;
@@ -26,7 +25,7 @@ public class ServiciosCancelacionesTest {
     
     @Test 
     public void consultarAsignaturaByIdEstudianteTest(){
-        List<String> asignaturas=new ArrayList<String>();
+        List<String> asignaturas=new ArrayList<>();
         List<CourseStudent> resultado=null;
         try{
             resultado=servicios.consultarAsignaturasByIdEstudiante(2121465);
@@ -98,7 +97,7 @@ public class ServiciosCancelacionesTest {
         try{
             estudiante=servicios.consultarEstudianteByCorreo("diana.sanchez-m@mail.escuelaing.edu.co");
         }catch (ExcepcionServiciosCancelaciones e){
-            e.getMessage();
+            e.toString();
         }
         assertEquals(estudiante.getCorreo(),"diana.sanchez-m@mail.escuelaing.edu.co");
     }

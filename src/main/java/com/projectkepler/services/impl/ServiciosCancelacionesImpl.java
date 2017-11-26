@@ -65,6 +65,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             asignaturas=g.fromJson(programa, materias);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el plan de estudios del estudiante "+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el plan de estudios del estudiante "+codigo,e);
         }
         CourseStudent[] materiasPlan=consultarPlanDeEstudios(estudiante.loadEstudianteProgramaById(codigo),estudiante.loadEstudianteVersionById(codigo)).getCourses();
         ArrayList<String> materiasEnEstudiante=new ArrayList<>();
@@ -100,8 +104,12 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<Syllabus> planes=null;
         try{
             planes=obtenerSyllabusEstudiante(codigoEstudiante);
-        }catch (ExcepcionServiciosCancelaciones e){
+        }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e); 
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las asignaturas del estudiante "+codigoEstudiante);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las asignaturas del estudiante "+codigoEstudiante, e);
         }
         for (CourseStudent c: planes.get(0).getCourses()){
             String cadena="V";
@@ -126,6 +134,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el impacto de la asignatura "+nemonicoAsignatura+" del estudiante "+codigoEstudiante);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el impacto de una asignatura", e);
         }
         return impacto;
     }
@@ -143,6 +155,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar la proyeccion de cancelar la asignatura "+nemonicoAsignatura);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar la proyeccion de cancelar una asignatura", e);
         }
         return proyeccion;
     }
@@ -150,7 +166,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Transactional
     @Override
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones {
-        List<Syllabus> planesDeEstudio= new ArrayList<Syllabus>();
+        List<Syllabus> planesDeEstudio= new ArrayList<>();
         String programa="";
         String syllabusEstudiante="";
         try{
@@ -158,6 +174,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             programa=universidad.loadSyllabusByStudent(codigo).getContenido();
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el plan de estudios del estudiante "+codigo+" y del programa al que pertenece");
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el plan de estudios de un estudiante y del programa", e);
         }
         Gson plan= new Gson();
         Syllabus planEstudiante= plan.fromJson(syllabusEstudiante, Syllabus.class);
@@ -172,21 +192,35 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones {
         Syllabus planE=obtenerSyllabusEstudiante(id).get(0);
-        Estudiante student=estudiante.loadEstudianteById(id);
+        Estudiante student;
+        int numero;
         boolean acuse=false;
-        for (CourseStudent c:planE.getCourses()){
-            if(c.getNombre().equals(materia)){
-                for (int i:c.getHistorialNotas()){
-                    if(i==-1){
-                        acuse=true;
+        try{
+            student=estudiante.loadEstudianteById(id);
+            for (CourseStudent c:planE.getCourses()){
+                if(c.getNombre().equals(materia)){
+                    for (int i:c.getHistorialNotas()){
+                        if(i==-1){
+                            acuse=true;
+                        }
                     }
                 }
             }
+            if (student.getNumeroMatriculas()<3){
+                acuse=true;
+            }
+            numero=solicitud.consultarSolicitudes().size()+1;
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo actualizar la justificacion para cancelar la asignatura "+materia);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al actualizar la justificacion de una solicitud", e);
         }
+
         if (student.getNumeroMatriculas()<3){
             acuse=true;
         }
-        int numero=solicitud.consultarSolicitudes().size()+1;
         String impacto=consultarImpactoByEstudianteAsignatura(id, materia);
         String proyeccion=consultarProyeccionByEstudianteAsignatura(id, materia);
         solicitud.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
@@ -201,6 +235,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             universidad.updateCredits(creditos);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se actualizaron el numero maximo de creditos por semestre");
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al actualizar el numero maximo de creditos", e);
         }
     }
     
@@ -212,6 +250,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             credits=universidad.consultUniversity().getTotalCredits();
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el numero maximo de creditos");
+        }catch (Exception e){
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el numero maximo de creditos", e);
         }
         return credits;
     }
@@ -222,8 +263,15 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Estudiante student=null;
         try{
             student=estudiante.consultStudentByEmail(correo);
+            if (student==null){
+                throw new ExcepcionServiciosCancelaciones("No existe un estudiante con el correo "+correo);
+            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el estudiante por correo "+correo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar un estudiante por correo", e);
         }
         return student;
     }
@@ -232,7 +280,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public List<CourseStudent> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones{
         List<CourseStudent> asignaturas=new ArrayList<>();
-        List<CourseStudent> asig=null;
+        List<CourseStudent> asig;
         try{
             asig=solicitud.loadCoursesById(codigoEstudiante);
             if (asig==null){
@@ -248,6 +296,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las asignaturas sin solicitud de cancelacion del estudiante "+codigoEstudiante);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las asignaturas sin solicitud de un estudiante", e);
         }
         return asignaturas;
     }
@@ -257,8 +309,12 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<ProgramaAcademico> programas=null;
         try{
             programas=universidad.consultarProgramasAcademicos();
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar todos los programas academicos");
         }catch(Exception e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperarado al consultar todos los programas academicos",e);
         }
         return programas;
     }
@@ -268,8 +324,12 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         PlanDeEstudios plan=null;
         try{
             plan=universidad.consultarPlanDeEstudios(programa, planDeEstudios);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el plan de estudios "+planDeEstudios+" del programa "+programa);
         }catch (Exception e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar un plan de estudios de un programa");
         }
         Gson gson= new Gson();
         Syllabus syllabus= gson.fromJson(plan.getContenido(), Syllabus.class);
@@ -283,8 +343,12 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             programaAc=universidad.consultarProgramaAcademicoPorNombre(programa);
             
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudieron consultar los planes de estudios del programa "+programa);
         }catch(Exception e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar todos los planes de estudios de un programa");
         }
         for (PlanDeEstudios p:programaAc.getPlanDeEstudio()){
             planes.add(p.getId());
@@ -295,9 +359,19 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public List<Solicitud> consultarSolicitudesDeCancelaciones(String consejero) throws ExcepcionServiciosCancelaciones{
         List<Solicitud> solicitudes;
-        solicitudes=solicitud.consultRequest(consejero);
-        if (solicitudes==null){
-            throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
+        solicitudes=estudiante.consultRequest(consejero);
+        
+        try{
+            solicitudes=estudiante.consultRequest(consejero);
+            if (solicitudes==null){
+                throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudieron consultar las solicitudes del consejero "+consejero);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de un consejero");
         }
         return solicitudes ;
     }
@@ -305,9 +379,17 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public Estudiante consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones{
         Estudiante student;
-        student=estudiante.consultStudentByRequest(numero);
-        if (student==null){
-            throw new ExcepcionServiciosCancelaciones("La solicitud "+numero+" no existe");
+        try{
+            student=estudiante.consultStudentByRequest(numero);
+            if (student==null){
+                throw new ExcepcionServiciosCancelaciones("La solicitud "+numero+" no existe");
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el estudiante que realizo la solicitud "+numero);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar un estudiante por numero de solicitud");
         }
         
         return student;
@@ -327,7 +409,18 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("Error inesperado al alctualizar la solicitud numero "+numero);
         }
+    }
         
-        
+    
+    @Override
+    public void actualizarEstadoSolicitud(int numero, String estado) throws ExcepcionServiciosCancelaciones{
+        try{
+            solicitud.updateStateRequest(numero,estado);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo actualizar el estado de la solicitud "+numero);
+        }catch (Exception e){
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al actualizar el estado de la solicitud");
+        }
     }
 }

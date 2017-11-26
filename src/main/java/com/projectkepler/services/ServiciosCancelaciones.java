@@ -57,6 +57,7 @@ public interface ServiciosCancelaciones {
      *Obtiene el plan de estudios especifico del estudiante y el plan de estudios de programa academico al que pertenece el estudiante
      * @param codigo identificador del estudiante que realiza la solicitud
      * @return en la primera posicion esta el plan de estudios especifico del estudiante y en la segunda posicion esta el plan de estudios del programa academico
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un plan de estudios para el estudiante, o si se presenta otro problema en las capas inferiores.
      */
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
     
@@ -72,16 +73,14 @@ public interface ServiciosCancelaciones {
     /**
      * Actualiza el numero maximo de creditos que se pueden ver por semestre.
      * @param creditos numero de creditos maximos
-     * @param programa nombre del programa al que se le van a modificar el numero de creditos
      * @throws ExcepcionServiciosCancelaciones Si NO existe un programa con ese nombre, o si se presenta otro problema en las capas inferiores.
      */
     public void actualizarNumeroMaximoDeCreditos(int creditos) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta el numero maximo de creditos que se pueden ver por semestre de un programa
-     * @param programa nombre del programa
      * @return numero de creditos maximos de un programa
-     * @throws ExcepcionServiciosCancelaciones Si NO existe el programa, o si se presenta otro problema en las capas inferiores.
+     * @throws ExcepcionServiciosCancelaciones Si se presenta otro problema en las capas inferiores.
      */
     public int consultarNumeroMaximoDeCreditos() throws ExcepcionServiciosCancelaciones;
     
@@ -150,4 +149,13 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
     public void actualizarComentariosSolicitud(int numero,String comentarios) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Actualiza el estado de una solicitud de acuerdo a sus modificaciones
+     * @param numero es el numero de la solicitud que se va modificar
+     * @param estado es el nuevo estado de la solicitud
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese numero, o si se presenta otro problema en las capas inferiores.
+     */
+    public void actualizarEstadoSolicitud(int numero, String estado) throws ExcepcionServiciosCancelaciones;
 }
+

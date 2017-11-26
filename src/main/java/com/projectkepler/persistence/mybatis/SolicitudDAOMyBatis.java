@@ -63,17 +63,6 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
         }
         return solicitudes;
     }
-    
-    @Override
-    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
-        List<Solicitud> solicitudes;
-        try{
-            solicitudes=solicitud.consultRequest(consejero);
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar las solicitudes",e);
-        }
-        return solicitudes;
-    }
 
     @Override
     public void updateComentariosSolicitud(int numero, String comentarios) throws PersistenceException {
@@ -81,6 +70,15 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
             solicitud.updateComentariosSolicitud(numero,comentarios);
         }catch (Exception e){
             throw new PersistenceException("Error al actualizar justificacion",e);
+        }
+    }
+    
+    @Override
+    public void updateStateRequest(int numero,String estado) throws PersistenceException{
+        try{
+            solicitud.updateStateRequest(numero,estado);
+        }catch (Exception e){
+            throw new PersistenceException("Error al actualizar el estado de la solicitud "+numero,e);
         }
     }
 }

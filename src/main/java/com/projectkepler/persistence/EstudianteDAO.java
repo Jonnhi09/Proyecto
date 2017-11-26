@@ -5,7 +5,13 @@
  */
 package com.projectkepler.persistence;
 
+import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
+import com.projectkepler.services.entities.PlanDeEstudios;
+import com.projectkepler.services.entities.ProgramaAcademico;
+import com.projectkepler.services.entities.Solicitud;
+import com.projectkepler.services.entities.Universidad;
+import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 
@@ -19,5 +25,7 @@ public interface EstudianteDAO {
     public Estudiante loadEstudianteById(int codigo) throws PersistenceException;
     public int loadEstudianteVersionById(int codigo) throws PersistenceException;
     public Estudiante consultStudentByEmail(String correo) throws PersistenceException;
+    public List<Solicitud> consultRequest(String consejero) throws PersistenceException;
     public Estudiante consultStudentByRequest(int numero) throws PersistenceException;
+    
 }
