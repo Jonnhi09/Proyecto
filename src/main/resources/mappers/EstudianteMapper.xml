@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.projectKepler.persistence.mybatis.mappers.EstudianteMapper">
+<mapper namespace="com.projectkepler.persistence.mybatis.mappers.EstudianteMapper">
     
     <select  parameterType="map" id="loadEstudianteById" resultMap="EstudianteResult"> 
         select 
@@ -137,6 +137,12 @@
         FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as a on a.nemonico=s.Asignatura_nemonico
         WHERE s.numero=#{codigo}
     </select>
+    
+    <update parameterType="map" id="updateStateRequest" >
+        update Solicitud set
+            estado=#{estado}
+        WHERE numero=#{numero}
+    </update>
     
     <resultMap type="Estudiante" id="EstudianteResult" >
         <id property="codigo" column="codigo"/> 
