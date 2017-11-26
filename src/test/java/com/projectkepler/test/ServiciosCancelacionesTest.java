@@ -25,7 +25,7 @@ public class ServiciosCancelacionesTest {
     
     @Test 
     public void consultarAsignaturaByIdEstudianteTest(){
-        List<String> asignaturas=new ArrayList<String>();
+        List<String> asignaturas=new ArrayList<>();
         List<CourseStudent> resultado=null;
         try{
             resultado=servicios.consultarAsignaturasByIdEstudiante(2121465);
@@ -49,7 +49,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"Si cancela FFIS le quedan: 20 creditos por ver de 28.");
+        assertEquals(resultado,"Le quedarian: 3 por ver.");
     }
 
     @Test 
@@ -60,7 +60,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"FFIS,CALD,ALLI,LCAL y una electiva");
+        assertEquals(resultado,"[[CALD, FFIS], [CIED, FIMF], [FIEM]]");
     }
 
     @Test 
@@ -97,7 +97,7 @@ public class ServiciosCancelacionesTest {
         try{
             estudiante=servicios.consultarEstudianteByCorreo("diana.sanchez-m@mail.escuelaing.edu.co");
         }catch (ExcepcionServiciosCancelaciones e){
-            e.getMessage();
+            e.toString();
         }
         assertEquals(estudiante.getCorreo(),"diana.sanchez-m@mail.escuelaing.edu.co");
     }
@@ -162,4 +162,14 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitudes.size(),3);
     }
     
+    @Test
+    public void actualizarComentariosTest() throws ExcepcionServiciosCancelaciones{
+        try{
+            servicios.actualizarComentariosSolicitud(3,"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0);
+        assertEquals(solicitud.getComentarios(),"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
+    }
 } 

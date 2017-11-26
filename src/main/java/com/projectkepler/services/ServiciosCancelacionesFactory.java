@@ -15,7 +15,6 @@ import com.projectkepler.persistence.mybatis.UniversidadDAOMyBatis;
 import com.projectkepler.persistence.mybatis.EstudianteDAOMyBatis;
 import com.projectkepler.services.algorithm.Algorithm;
 import com.projectkepler.services.algorithm.impl.AdavancedAlgorithm;
-import com.projectkepler.services.algorithm.impl.SimpleAlgorithm;
 import com.projectkepler.services.graphRectificator.GraphRectificator;
 import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import com.projectkepler.services.impl.ServiciosCancelacionesImpl;

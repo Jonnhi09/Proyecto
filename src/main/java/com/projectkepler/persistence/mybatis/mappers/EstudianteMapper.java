@@ -5,7 +5,6 @@
  */
 package com.projectkepler.persistence.mybatis.mappers;
 
-import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.PlanDeEstudios;
 import com.projectkepler.services.entities.ProgramaAcademico;

@@ -14,8 +14,6 @@ import com.projectkepler.services.algorithm.impl.AdavancedAlgorithm;
 import com.projectkepler.services.entities.Syllabus;
 import com.projectkepler.services.graphRectificator.GraphRectificator;
 import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
-import com.projectkepler.services.impl.ServiciosCancelacionesImpl;
-import java.util.Arrays;
 import junit.framework.Assert;
 import org.junit.Test;
 

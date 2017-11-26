@@ -38,20 +38,20 @@ public class SimpleAlgorithmTest {
     private GraphRectificator gRec = new  GraphRectificatorImpl();
     
     
-    
     @Test
     public void TestCE1() throws ExcepcionServiciosCancelaciones {
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
         Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("FIMF", gRec.verify(s), s)[0] , "Si cancela FIMF le quedan: 12 de 28");
+    
     }
 
     @Test
     public void TestCE2() throws ExcepcionServiciosCancelaciones {
-
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
         Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("CALD", gRec.verify(s), s)[0] , "Si cancela CALD le quedan: 16 de 28");
+    
     }
     
     @Test
