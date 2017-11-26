@@ -4,12 +4,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services.algorithm.impl;
+package com.projectkepler.services.algorithm.impl;
 
 import com.google.gson.Gson;
-import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.Syllabus;
+import com.projectkepler.services.algorithm.Algorithm;
+import com.projectkepler.services.entities.CourseStudent;
+import com.projectkepler.services.entities.Syllabus;
 import java.util.*;
 
 /**
@@ -21,7 +21,7 @@ public class AdavancedAlgorithm implements Algorithm {
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;
 
-     @Override
+    @Override
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
         proyection = new ArrayList<>();
         Gson g = new Gson();
@@ -207,4 +207,3 @@ public class AdavancedAlgorithm implements Algorithm {
     }
 
 }
-

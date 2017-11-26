@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services.graphRectificator.impl;
+package com.projectkepler.services.graphRectificator.impl;
 
-import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.Syllabus;
-import com.projectKepler.services.graphRectificator.GraphRectificator;
+import com.projectkepler.services.entities.CourseStudent;
+import com.projectkepler.services.entities.Syllabus;
+import com.projectkepler.services.graphRectificator.GraphRectificator;
 import java.util.*;
 
 /**

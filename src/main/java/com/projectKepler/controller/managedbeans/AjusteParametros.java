@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.controller.managedbeans;
+package com.projectkepler.controller.managedbeans;
 
-import com.projectKepler.controller.managedbeans.security.ShiroLoginBean;
-import com.projectKepler.services.ExcepcionServiciosCancelaciones;
-import com.projectKepler.services.ServiciosCancelaciones;
-import com.projectKepler.services.ServiciosCancelacionesFactory;
-import com.projectKepler.services.entities.Syllabus;
+import com.projectkepler.controller.managedbeans.security.ShiroLoginBean;
+import com.projectkepler.services.ExcepcionServiciosCancelaciones;
+import com.projectkepler.services.ServiciosCancelaciones;
+import com.projectkepler.services.ServiciosCancelacionesFactory;
+import com.projectkepler.services.entities.Syllabus;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

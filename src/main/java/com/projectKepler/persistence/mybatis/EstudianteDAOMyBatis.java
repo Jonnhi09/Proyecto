@@ -3,18 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.persistence.mybatis;
+package com.projectkepler.persistence.mybatis;
 
 import com.google.inject.Inject;
-import com.projectKepler.persistence.EstudianteDAO;
-import com.projectKepler.persistence.mybatis.mappers.EstudianteMapper;
-import com.projectKepler.services.entities.Acudiente;
-import com.projectKepler.services.entities.Asignatura;
-import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.Estudiante;
-import com.projectKepler.services.entities.PlanDeEstudios;
-import com.projectKepler.services.entities.ProgramaAcademico;
-import com.projectKepler.services.entities.Solicitud;
+import com.projectkepler.persistence.EstudianteDAO;
+import com.projectkepler.persistence.mybatis.mappers.EstudianteMapper;
+import com.projectkepler.services.entities.CourseStudent;
+import com.projectkepler.services.entities.Estudiante;
+import com.projectkepler.services.entities.PlanDeEstudios;
+import com.projectkepler.services.entities.ProgramaAcademico;
+import com.projectkepler.services.entities.Solicitud;
+import com.projectkepler.services.entities.Universidad;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 
@@ -26,64 +25,17 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
 
     @Inject 
     private EstudianteMapper estudiante;
-    
-    @Override
-    public List<Estudiante> loadAllEstudiantes() throws PersistenceException {
-        List<Estudiante> allEstudiantes=null;
-        try{
-            allEstudiantes=estudiante.loadAllEstudiantes();
-        }catch (Exception e){
-            throw new PersistenceException("Error al cargar todos los estudiantes",e);
-        }
-        return allEstudiantes;
-    }
-
-    @Override
-    public String loadAsignaturas (int codigoEstudiante) throws PersistenceException {
-        String programa="";
-        try{
-            programa=estudiante.loadMaterias(codigoEstudiante);
-        }catch (Exception e){
-            throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
-        }
-        return programa;
-    }
-
-    @Override
-    public List<Asignatura> loadCoursesById(int codigo) throws PersistenceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String consultImpactById(int codigo, String nemonico) throws PersistenceException {
-        String impacto="";
-        try{
-            impacto=estudiante.consultImpactById(codigo, nemonico);
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar el impacto de cancelar la asignatura "+nemonico+" del estudiante :"+codigo,e);
-        }
-        return impacto;
-    }
 
     
-    @Override
-    public String loadSyllabusProgramaById(int codigoEstudiante) throws PersistenceException {
-        String programa="";
-        try{
-            programa=estudiante.loadSyllabusPrograma(codigoEstudiante);
-        }catch (Exception e){
-            throw new PersistenceException("Error al cargar el programa del estudiante: "+codigoEstudiante,e);
-        }
-        return programa;
-    }
+    
     
     @Override
     public String loadEstudianteProgramaById(int codigo) throws PersistenceException {
         String student=null;
         try{
-            student=estudiante.loadProgramaPorEstudiante(codigo);
+            student=estudiante.loadEstudianteById(codigo).getProgramaAcademico();
         }catch (Exception e){
-            throw new PersistenceException("Error al cargar el estudiante con codigo:"+codigo,e);
+            throw new PersistenceException("Error al consultar el programa academico del estudiante con codigo:"+codigo,e);
         }
         return student;
     }
@@ -103,63 +55,11 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     public int loadEstudianteVersionById(int codigo) throws PersistenceException {
         int version=0;
         try{
-            version=estudiante.loadVersionPorEstudiante(codigo);
+            version=estudiante.loadEstudianteById(codigo).getVersionPlanDeEstudio();
         }catch (Exception e){
-            throw new PersistenceException("Error al cargar version",e);
+            throw new PersistenceException("Error al cargar la version de plan de estudio del estudiante "+codigo,e);
         }
         return version;
-    }
-
-    @Override
-    public void updateJustification(int codigo, String materia, String justificacion, int numero,boolean acuse, String impacto, String proyeccion) throws PersistenceException {
-        try{
-            estudiante.updateJustification(codigo, justificacion, materia, numero, acuse, impacto,proyeccion);
-        }catch (Exception e){
-            throw new PersistenceException("Error al registrar la solicitud numero:"+numero,e);
-        }
-    }
-
-    @Override
-    public List<Solicitud> loadSolicitudes() throws PersistenceException {
-        List<Solicitud> solicitudes=null;
-    
-        try{
-            solicitudes=estudiante.loadSolicitudes();
-        }catch (Exception e){
-            throw new PersistenceException("Error al cargar las solicitudes",e);
-        }
-        return solicitudes;
-    }
-
-    @Override
-    public String consultProyectionById(int codigo, String nemonico) throws PersistenceException {
-        String proyeccion="";
-        try{
-            proyeccion=estudiante.consultProyectionById(codigo, nemonico);
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar el impacto de cancelar la asignatura "+nemonico+" del estudiante :"+codigo,e);
-        }
-        return proyeccion;
-    }
-    
-    @Override
-    public void updateCredits(int creditos) throws PersistenceException{
-        try{
-            estudiante.updateCredits(creditos);
-        }catch (Exception e){
-            throw new PersistenceException("Error al actualizar los creditos maximos",e);
-        }
-    }
-    
-    @Override
-    public int consultCredits() throws PersistenceException{
-        int credits=0;
-        try{
-            credits=estudiante.consultCredits();
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar el numero de creditos maximos",e);
-        }
-        return credits;
     }
     
     @Override
@@ -174,78 +74,12 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
-    public List<String> consultCourse(int codigo) throws PersistenceException{
-        List<String> course=null;
-        try{
-            course=estudiante.consultCourse(codigo);
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar la asignaturas que tienen solicitud de cancelacion del estudiante :"+codigo,e);
-        }
-        return course;
-    }
-    
-    @Override
-    public List<ProgramaAcademico> consultarProgramasAcademicos() throws PersistenceException {
-        List<ProgramaAcademico> programas=null;
-        try{
-            programas=estudiante.consultarProgramasAcademicos();
-        }catch(Exception e){
-            throw new PersistenceException("Error al consultar los programas academicos",e);
-        }
-        return programas;
-    }
-
-    @Override
-    public PlanDeEstudios consultarPlanDeEstudios(String programa, int numero) throws PersistenceException {
-        PlanDeEstudios plan=null;
-        try{
-            plan=estudiante.consultarPlanDeEstudios(numero, programa);
-        }catch(Exception e){
-            throw new PersistenceException("Error al consultar el plan de estudios: "+numero+" del programa "+programa,e);
-        }
-        return plan;
-    }
-
-    @Override
-    public ProgramaAcademico consultarProgramaAcademicoPorNombre(String nombre) throws PersistenceException {
-        ProgramaAcademico plan=null;
-        try{
-            plan=estudiante.consultarProgramaAcademicoPorNombre(nombre);
-        }catch(Exception e){
-            throw new PersistenceException("Error al consultar el programa "+nombre,e);
-        }
-        return plan;
-    }
-    
-    @Override
-    public List<Acudiente> consultarAcudientes() throws PersistenceException {
-        List<Acudiente> programas=null;
-        try{
-            programas=estudiante.cargarAcudientes();
-        }catch(Exception e){
-            throw new PersistenceException("Error al consultar los programas academicos",e);
-        }
-        return programas;
-    }
-    
-    @Override 
-    public List<Solicitud> consultarSolicitudes() throws PersistenceException {
-        List<Solicitud> solicitudes=null;
-        try{
-            solicitudes=estudiante.cargarSolicitudes();
-        }catch(Exception e){
-            throw new PersistenceException("Error al consultar los programas academicos",e);
-        }
-        return solicitudes;
-    }
-    
-    @Override
     public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
         List<Solicitud> solicitudes;
         try{
             solicitudes=estudiante.consultRequest(consejero);
         }catch (Exception e){
-            throw new PersistenceException("Error al consultar las solicitudes",e);
+            throw new PersistenceException("Error al consultar las solicitudes para el consejero "+consejero,e);
         }
         return solicitudes;
     }
@@ -260,4 +94,6 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return student;
     }
+    
+    
 }

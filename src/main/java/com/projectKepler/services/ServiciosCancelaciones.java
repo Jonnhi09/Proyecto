@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services;
+package com.projectkepler.services;
 
-import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.Estudiante;
-import com.projectKepler.services.entities.ProgramaAcademico;
-import com.projectKepler.services.entities.Solicitud;
-import com.projectKepler.services.entities.Syllabus;
+import com.projectkepler.services.entities.CourseStudent;
+import com.projectkepler.services.entities.Estudiante;
+import com.projectkepler.services.entities.ProgramaAcademico;
+import com.projectkepler.services.entities.Solicitud;
+import com.projectkepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +18,6 @@ import java.util.List;
  * @author danielagonzalez
  */
 public interface ServiciosCancelaciones {
-    
-    /**
-     * Carga todos los estudiantes registrados en la base de datos
-     * @return Lista de estudiantes
-     * @throws ExcepcionServiciosCancelaciones Si NO existe ningun estudiante registrado, o si se presenta otro problema en las capas inferiores.
-     */
-    public List<Estudiante> cargarEstudiantes() throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta el plan de estudio de un estudiante a partir de su identificador
@@ -64,17 +57,9 @@ public interface ServiciosCancelaciones {
      *Obtiene el plan de estudios especifico del estudiante y el plan de estudios de programa academico al que pertenece el estudiante
      * @param codigo identificador del estudiante que realiza la solicitud
      * @return en la primera posicion esta el plan de estudios especifico del estudiante y en la segunda posicion esta el plan de estudios del programa academico
+     * @throws ExcepcionServiciosCancelaciones Si NO existe un plan de estudios para el estudiante, o si se presenta otro problema en las capas inferiores.
      */
     public List<Syllabus> obtenerSyllabusEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
-
-    /**
-     * Obtener la proyeccion de una cancelacion calculado por el algoritmo a partir del identificador del estudiante y de la asignatura
-     * @param codigoEstudiante es el identificador del estudiante
-     * @param nemonicoAsignatura identificador de la asignatura
-     * @return Proyeccion calculado por el algoritmo.
-     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con el identificador del estudiante, o si se presenta otro problema en las capas inferiores.
-     */
-    public String obtenerProyeccionByEstudiante(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta la proyeccion que genera la cancelacion de una asignatura a partir del identificador del estudiante y de la asignatura
@@ -88,16 +73,14 @@ public interface ServiciosCancelaciones {
     /**
      * Actualiza el numero maximo de creditos que se pueden ver por semestre.
      * @param creditos numero de creditos maximos
-     * @param programa nombre del programa al que se le van a modificar el numero de creditos
      * @throws ExcepcionServiciosCancelaciones Si NO existe un programa con ese nombre, o si se presenta otro problema en las capas inferiores.
      */
     public void actualizarNumeroMaximoDeCreditos(int creditos) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta el numero maximo de creditos que se pueden ver por semestre de un programa
-     * @param programa nombre del programa
      * @return numero de creditos maximos de un programa
-     * @throws ExcepcionServiciosCancelaciones Si NO existe el programa, o si se presenta otro problema en las capas inferiores.
+     * @throws ExcepcionServiciosCancelaciones Si se presenta otro problema en las capas inferiores.
      */
     public int consultarNumeroMaximoDeCreditos() throws ExcepcionServiciosCancelaciones;
     
@@ -158,4 +141,21 @@ public interface ServiciosCancelaciones {
      */
     public Estudiante consultarEstudiantePorSolicitud(int numero) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Actualiza los comentarios de una solicitud dados por el consejero
+     * @param numero es el identificador del estudiante que hizo la solicitud
+     * @param comentarios son los comentarios a insertar
+     * @Param nemonico es el nemonico de la asignatura a cancelar
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
+     */
+    public void actualizarComentariosSolicitud(int numero,String comentarios) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Actualiza el estado de una solicitud de acuerdo a sus modificaciones
+     * @param numero es el numero de la solicitud que se va modificar
+     * @param estado es el nuevo estado de la solicitud
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese numero, o si se presenta otro problema en las capas inferiores.
+     */
+    public void actualizarEstadoSolicitud(int numero, String estado) throws ExcepcionServiciosCancelaciones;
 }
+

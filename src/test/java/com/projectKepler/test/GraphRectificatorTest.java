@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.test;
+package com.projectkepler.test;
 
 import com.google.gson.Gson;
-import com.projectKepler.services.entities.Syllabus;
-import com.projectKepler.services.graphRectificator.GraphRectificator;
-import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
+import com.projectkepler.services.entities.Syllabus;
+import com.projectkepler.services.graphRectificator.GraphRectificator;
+import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.Assert;

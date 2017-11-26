@@ -1,14 +1,14 @@
-package com.projectKepler.test;
+package com.projectkepler.test;
 
 import com.google.gson.Gson;
-import com.projectKepler.services.ExcepcionServiciosCancelaciones;
-import com.projectKepler.services.ServiciosCancelaciones;
-import com.projectKepler.services.ServiciosCancelacionesFactory;
-import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.algorithm.impl.SimpleAlgorithm;
-import com.projectKepler.services.entities.Syllabus;
-import com.projectKepler.services.graphRectificator.GraphRectificator;
-import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
+import com.projectkepler.services.ExcepcionServiciosCancelaciones;
+import com.projectkepler.services.ServiciosCancelaciones;
+import com.projectkepler.services.ServiciosCancelacionesFactory;
+import com.projectkepler.services.algorithm.Algorithm;
+import com.projectkepler.services.algorithm.impl.SimpleAlgorithm;
+import com.projectkepler.services.entities.Syllabus;
+import com.projectkepler.services.graphRectificator.GraphRectificator;
+import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import org.junit.Assert;
 
 import org.junit.Test;

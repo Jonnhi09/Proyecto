@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services.entities;
+package com.projectkepler.services.entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -19,7 +18,6 @@ public class Estudiante {
     private int numeroMatriculas;
     private String correo;
     private List<Solicitud> solicitudes;
-    private Acudiente acudiente;
     private String asignaturas;
     private int versionPlanDeEstudio;
     private String programaAcademico;
@@ -86,14 +84,6 @@ public class Estudiante {
     }
 
     public void setProgramaAcademico(String programa) {
-        this.programaAcademico = programaAcademico;
-    }
-
-    public Acudiente getAcudiente() {
-        return acudiente;
-    }
-
-    public void setAcudiente(Acudiente acudiente) {
-        this.acudiente = acudiente;
+        this.programaAcademico = programa;
     }
 }

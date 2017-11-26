@@ -1,13 +1,13 @@
-package com.projectKepler.test;
+package com.projectkepler.test;
 
-import com.projectKepler.services.ExcepcionServiciosCancelaciones;
-import com.projectKepler.services.ServiciosCancelacionesFactory;
-import com.projectKepler.services.ServiciosCancelaciones;
-import com.projectKepler.services.entities.CourseStudent;
-import com.projectKepler.services.entities.Estudiante;
-import com.projectKepler.services.entities.ProgramaAcademico;
-import com.projectKepler.services.entities.Solicitud;
-import com.projectKepler.services.entities.Syllabus;
+import com.projectkepler.services.ExcepcionServiciosCancelaciones;
+import com.projectkepler.services.ServiciosCancelacionesFactory;
+import com.projectkepler.services.ServiciosCancelaciones;
+import com.projectkepler.services.entities.CourseStudent;
+import com.projectkepler.services.entities.Estudiante;
+import com.projectkepler.services.entities.ProgramaAcademico;
+import com.projectkepler.services.entities.Solicitud;
+import com.projectkepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.assertEquals;

@@ -3,17 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services;
+package com.projectkepler.services;
 
 import com.google.inject.Injector;
 import static com.google.inject.Guice.createInjector;
-import com.projectKepler.persistence.EstudianteDAO;
-import com.projectKepler.persistence.mybatis.EstudianteDAOMyBatis;
-import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.algorithm.impl.SimpleAlgorithm;
-import com.projectKepler.services.graphRectificator.GraphRectificator;
-import com.projectKepler.services.graphRectificator.impl.GraphRectificatorImpl;
-import com.projectKepler.services.impl.ServiciosCancelacionesImpl;
+import com.projectkepler.persistence.EstudianteDAO;
+import com.projectkepler.persistence.SolicitudDAO;
+import com.projectkepler.persistence.UniversidadDAO;
+import com.projectkepler.persistence.mybatis.SolicitudDAOMyBatis;
+import com.projectkepler.persistence.mybatis.UniversidadDAOMyBatis;
+import com.projectkepler.persistence.mybatis.EstudianteDAOMyBatis;
+import com.projectkepler.services.algorithm.Algorithm;
+import com.projectkepler.services.algorithm.impl.AdavancedAlgorithm;
+import com.projectkepler.services.algorithm.impl.SimpleAlgorithm;
+import com.projectkepler.services.graphRectificator.GraphRectificator;
+import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
+import com.projectkepler.services.impl.ServiciosCancelacionesImpl;
 import org.mybatis.guice.XMLMyBatisModule;
 import org.mybatis.guice.datasource.helper.JdbcHelper;
 
@@ -36,7 +41,9 @@ public class ServiciosCancelacionesFactory {
                 setClassPathResource("mybatis-config.xml");
                 bind(ServiciosCancelaciones.class).to(ServiciosCancelacionesImpl.class);
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
-                bind(Algorithm.class).to(SimpleAlgorithm.class);
+                bind(SolicitudDAO.class).to(SolicitudDAOMyBatis.class);
+                bind(UniversidadDAO.class).to(UniversidadDAOMyBatis.class);
+                bind(Algorithm.class).to(AdavancedAlgorithm.class);
                 bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
         });
@@ -49,7 +56,9 @@ public class ServiciosCancelacionesFactory {
                 setClassPathResource("mybatis-config-h2.xml");
                 bind(ServiciosCancelaciones.class).to(ServiciosCancelacionesImpl.class);
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
-                bind(Algorithm.class).to(SimpleAlgorithm.class);
+                bind(SolicitudDAO.class).to(SolicitudDAOMyBatis.class);
+                bind(UniversidadDAO.class).to(UniversidadDAOMyBatis.class);
+                bind(Algorithm.class).to(AdavancedAlgorithm.class);
                 bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
         });

@@ -2,7 +2,7 @@
  * Very simple bean that authenticates the user via Apache Shiro, using JSF
  * @author Daniel Mascarenhas
  */
-package com.projectKepler.controller.managedbeans.security;
+package com.projectkepler.controller.managedbeans.security;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;

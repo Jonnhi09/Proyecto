@@ -3,10 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services.algorithm.impl;
+package com.projectkepler.services.algorithm.impl;
 
-import com.projectKepler.services.algorithm.Algorithm;
-import com.projectKepler.services.entities.*;
+
+import com.projectkepler.services.entities.Syllabus;
+import com.projectkepler.services.entities.CourseStudent;
+import com.projectkepler.services.algorithm.Algorithm;
 import java.util.*;
 
 /**
@@ -34,7 +36,6 @@ public class SimpleAlgorithm implements Algorithm {
             }
         }
         return pendientes;
-
     }
     public int credits(String[] course,Syllabus planS) {
         int pendientes = 0;

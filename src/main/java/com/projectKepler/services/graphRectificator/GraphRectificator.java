@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.projectKepler.services.graphRectificator;
+package com.projectkepler.services.graphRectificator;
 
-import com.projectKepler.services.entities.Syllabus;
+import com.projectkepler.services.entities.Syllabus;
 import java.util.*;
 
 /**
