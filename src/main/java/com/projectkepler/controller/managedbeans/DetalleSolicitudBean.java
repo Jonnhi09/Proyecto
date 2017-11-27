@@ -197,8 +197,16 @@ public class DetalleSolicitudBean{
             codigo=student.getCodigo();
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }   
+    }
+    
+    public void atualizarEstadoJustificacion(){
+        try{
+            servicios.actualizarComentariosSolicitud(solSelect.getNumero(),solSelect.getComentarios());
+            servicios.actualizarEstadoSolicitud(solSelect.getNumero(), solSelect.getEstado());
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
     
 }

@@ -7,9 +7,11 @@ package com.projectkepler.services;
 
 import com.google.inject.Injector;
 import static com.google.inject.Guice.createInjector;
+import com.projectkepler.persistence.AcudienteDAO;
 import com.projectkepler.persistence.EstudianteDAO;
 import com.projectkepler.persistence.SolicitudDAO;
 import com.projectkepler.persistence.UniversidadDAO;
+import com.projectkepler.persistence.mybatis.AcudienteDAOMyBatis;
 import com.projectkepler.persistence.mybatis.SolicitudDAOMyBatis;
 import com.projectkepler.persistence.mybatis.UniversidadDAOMyBatis;
 import com.projectkepler.persistence.mybatis.EstudianteDAOMyBatis;
@@ -42,6 +44,7 @@ public class ServiciosCancelacionesFactory {
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
                 bind(SolicitudDAO.class).to(SolicitudDAOMyBatis.class);
                 bind(UniversidadDAO.class).to(UniversidadDAOMyBatis.class);
+                bind(AcudienteDAO.class).to(AcudienteDAOMyBatis.class);
                 bind(Algorithm.class).to(AdavancedAlgorithm.class);
                 bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
@@ -57,6 +60,7 @@ public class ServiciosCancelacionesFactory {
                 bind(EstudianteDAO.class).to(EstudianteDAOMyBatis.class);
                 bind(SolicitudDAO.class).to(SolicitudDAOMyBatis.class);
                 bind(UniversidadDAO.class).to(UniversidadDAOMyBatis.class);
+                bind(AcudienteDAO.class).to(AcudienteDAOMyBatis.class);
                 bind(Algorithm.class).to(AdavancedAlgorithm.class);
                 bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }

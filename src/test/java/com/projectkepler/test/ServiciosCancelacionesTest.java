@@ -3,6 +3,7 @@ package com.projectkepler.test;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.ServiciosCancelaciones;
+import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.ProgramaAcademico;
@@ -44,8 +45,10 @@ public class ServiciosCancelacionesTest {
     @Test 
     public void consultarImpactoByEstudianteTest(){
         String resultado="";
+        String[] nemonico=new String[1];
+        nemonico[0]="CALD";
         try{
-            resultado=servicios.consultarImpactoByEstudianteAsignatura(2121465,"CALD");
+            resultado=servicios.consultarImpactoByEstudianteAsignatura(2121465,nemonico);
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
@@ -55,8 +58,10 @@ public class ServiciosCancelacionesTest {
     @Test 
     public void consultarProyeccionByEstudianteTest(){
         String resultado="";
+        String[] nemonico=new String[1];
+        nemonico[0]="CALD";
         try{
-            resultado=servicios.consultarProyeccionByEstudianteAsignatura(2121465,"CALD");
+            resultado=servicios.consultarProyeccionByEstudianteAsignatura(2121465,nemonico);
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
@@ -171,5 +176,17 @@ public class ServiciosCancelacionesTest {
         }
         Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0);
         assertEquals(solicitud.getComentarios(),"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
+    }
+    
+    @Test 
+    public void cosultarAcudienteTest() throws ExcepcionServiciosCancelaciones{
+        Acudiente acu=null;
+        try{
+            acu=servicios.consultarAcudientePorStudiante(2121465);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(acu.getCorreo(),"yolanda@gmail.com");
+        assertEquals(acu.getNombre(),"Yolanda");
     }
 } 

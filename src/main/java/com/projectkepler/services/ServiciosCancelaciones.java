@@ -5,6 +5,7 @@
  */
 package com.projectkepler.services;
 
+import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.ProgramaAcademico;
@@ -42,16 +43,18 @@ public interface ServiciosCancelaciones {
      * @return Impacto de cancelar una asignatura
      * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese identificador o no tiene esa asignatura, o si se presenta otro problema en las capas inferiores.
      */
-    public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
+    public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Modificar la justificacion de una solicitud de cancelacion a partir del codigo y la materia que va a cancelar el estudiante
      * @param id id es el codigo del estudiante que va a cancelar
      * @param justificacion es la justificacion de una cancelacion
      * @param materia es el nemonico de la asignatura a cancelar
+     * @Param impacto es el impacto que se produce al cancelar las o la materia
+     * @Param proyeccion es la proyeccion que se produce al cancelar las o la materia
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
-    public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones;
+    public void actualizarJustificacionById(int id, String justificacion, String materia, String impacto, String proyeccion) throws ExcepcionServiciosCancelaciones;
     
     /**
      *Obtiene el plan de estudios especifico del estudiante y el plan de estudios de programa academico al que pertenece el estudiante
@@ -68,7 +71,7 @@ public interface ServiciosCancelaciones {
      * @return Proyeccion de cancelar una asignatura
      * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese identificador o no tiene esa asignatura, o si se presenta otro problema en las capas inferiores.
      */
-    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
+    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Actualiza el numero maximo de creditos que se pueden ver por semestre.
@@ -157,5 +160,23 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese numero, o si se presenta otro problema en las capas inferiores.
      */
     public void actualizarEstadoSolicitud(int numero, String estado) throws ExcepcionServiciosCancelaciones;
+ 
+    /**
+     * Registra la solicitud en la base de datos
+     * @param id id es el codigo del estudiante que va a cancelar
+     * @param justificacion es la justificacion de una cancelacion
+     * @param materias es una lista que contiene las asignaturas a cancelar
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
+     */
+    public void enviarSolicitudes(int id, String justificacion, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta el acudiente de un estudiante dado su codigo
+     * @param codigoEstudiante es el identificador del estudiante 
+     * @return el Acudiente del estudiante
+     * @throws ExcepcionServiciosCancelaciones 
+     */
+    public Acudiente consultarAcudientePorStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
+    
 }
 

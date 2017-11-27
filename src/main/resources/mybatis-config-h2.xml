@@ -35,7 +35,8 @@
     <mappers>   
         <mapper resource="mappers/EstudianteMapper.xml"></mapper> 
         <mapper resource="mappers/SolicitudMapper.xml"></mapper> 
-        <mapper resource="mappers/UniversidadMapper.xml"></mapper> 
+        <mapper resource="mappers/UniversidadMapper.xml"></mapper>
+        <mapper resource="mappers/AcudienteMapper.xml"></mapper> 
     </mappers> 
         
 </configuration>
