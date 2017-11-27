@@ -12,6 +12,7 @@ import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,8 +42,7 @@ public class SolCancelBean implements Serializable{
     private ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
     private List<CourseStudent> materias;
     private Estudiante estudiante;
-    private String materiaSeleccionada;
-    private String materiaSeleccionadaNemo;
+    private List<CourseStudent> materiasSelect;
     private boolean panelVisibility;
     private String justificacion;
     private String impacto;
@@ -77,20 +77,18 @@ public class SolCancelBean implements Serializable{
     }
     
     public void analisis(){
-        /**
-        try {
-            if("Asignatura".equals(materiaSeleccionada)){
+        //try {
+            if(materiasSelect.size()<1){
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe seleccionar una materia para realizar el análisis", null)); 
                 makePanelInvisible();
             }else{
-                impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), materiaSeleccionada);
-                proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), materiaSeleccionada);
+                //impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), materiasSelect);
+                //proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), materiasSelect);
                 makePanelVisible();
             }
-        } catch (ExcepcionServiciosCancelaciones ex) {
-            Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        * **/
+//        } catch (ExcepcionServiciosCancelaciones ex) {
+//            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+//        }
     }
     
     public void enviarSolicitud(){
@@ -100,7 +98,7 @@ public class SolCancelBean implements Serializable{
             }else{
                 makePanelInvisible();
                 RequestContext.getCurrentInstance().execute("PF('dialogJustificacion').hide();");
-                //servicios.actualizarJustificacionById(estudiante.getCodigo(), justificacion, materiaSeleccionada);
+                servicios.enviarSolicitudes(estudiante.getCodigo(), justificacion,materiasSelect);
                 materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
                 RequestContext.getCurrentInstance().update("formSol");
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su solicitud ha sido enviada", null));
@@ -119,12 +117,12 @@ public class SolCancelBean implements Serializable{
         this.justificacion = justificacion;
     }
     
-    public String getMateriaSeleccionada() {
-        return materiaSeleccionada;
+    public List<CourseStudent> getMateriasSelect() {
+        return materiasSelect;
     }
 
-    public void setMateriaSeleccionada(String materiaSeleccionada) {
-        this.materiaSeleccionada = materiaSeleccionada;
+    public void setMateriasSelect(List<CourseStudent> materiasSelect) {
+        this.materiasSelect = materiasSelect;
     }
 
     public Estudiante getEstudiante() {
@@ -190,15 +188,6 @@ public class SolCancelBean implements Serializable{
     public void setShiroLoginBean(ShiroLoginBean shiroLoginBean) {
         this.shiroLoginBean = shiroLoginBean;
     }
-
-    public String getMateriaSeleccionadaNemo() {
-        return materiaSeleccionadaNemo;
-    }
-
-    public void setMateriaSeleccionadaNemo(String materiaSeleccionadaNemo) {
-        this.materiaSeleccionadaNemo = materiaSeleccionadaNemo;
-    }
-    
     
     
 }

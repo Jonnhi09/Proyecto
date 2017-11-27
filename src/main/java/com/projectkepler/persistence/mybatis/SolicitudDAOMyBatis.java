@@ -11,9 +11,6 @@ import com.projectkepler.persistence.mybatis.mappers.SolicitudMapper;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Solicitud;
 import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 
@@ -53,6 +50,7 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try{
             solicitud.updateJustification(codigo, justificacion, materia, numero, acuse, impacto,proyeccion, timestamp);
+
         }catch (Exception e){
             throw new PersistenceException("Error al registrar la solicitud numero:"+numero,e);
         }

@@ -57,9 +57,11 @@
         WHERE e.codigo=#{codigo};
     </select>
     
+    
     <insert id="updateJustification" > 
         INSERT INTO Solicitud (numero,fecha,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo,Asignatura_nemonico)
         values (#{numero},#{fecha},#{justificacion},#{impacto},#{proyeccion},'','Enviada',null,null,#{codigo},#{acuse},#{materia})
+
     </insert>
     
     <update id="updateComentariosSolicitud"> 

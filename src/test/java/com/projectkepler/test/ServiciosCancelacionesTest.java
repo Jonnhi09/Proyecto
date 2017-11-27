@@ -177,6 +177,7 @@ public class ServiciosCancelacionesTest {
         Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0);
         assertEquals(solicitud.getComentarios(),"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
     }
+
     
     @Test 
     public void cosultarAcudienteTest() throws ExcepcionServiciosCancelaciones{

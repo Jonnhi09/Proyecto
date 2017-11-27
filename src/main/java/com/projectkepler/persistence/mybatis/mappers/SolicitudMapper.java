@@ -8,7 +8,6 @@ package com.projectkepler.persistence.mybatis.mappers;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Solicitud;
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

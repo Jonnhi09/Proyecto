@@ -201,6 +201,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Transactional
     @Override
     public void actualizarJustificacionById(int id, String justificacion, String materia, String impacto, String proyeccion) throws ExcepcionServiciosCancelaciones {
+
         Syllabus planE=obtenerSyllabusEstudiante(id).get(0);
         Estudiante student;
         int numero;
@@ -232,7 +233,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         if (student.getNumeroMatriculas()<3){
             acuse=true;
         }
-        solicitud.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
         
     }   
     
@@ -459,6 +459,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return acu;
     }
+    
     
     
 }

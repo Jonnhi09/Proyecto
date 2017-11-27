@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Solicitud de Cancelación</title>
     </h:head>
@@ -21,19 +22,23 @@
                 <br/>
             </h:panelGrid>
             <h:panelGrid columns="2" style="width: 40%">
-                <p:outputLabel for="materias" value="Asignatura a cancelar" style=" font-size:x-large"/>
-                <p:selectOneMenu id="materias" value="#{solCancelBean.materiaSeleccionada}" style="width:125px">
-                    <f:selectItem itemLabel="Asignatura" itemValue="Asignatura" />
-                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemValue="#{materia.nombre}" itemLabel="#{materia.nemonico}"/>
-                    <p:ajax update="matselec" />
-                </p:selectOneMenu>
+                <p:outputLabel value="Asignatura/s a cancelar" style=" font-size:x-large"/>
+                <p:selectManyCheckbox id="matcheck" value="#{solCancelBean.materiasSelect}" layout="grid" columns="3" converter="CourseStudentConverter" disabled="#{solCancelBean.panelVisibility}">
+                    <f:selectItems value="#{solCancelBean.materias}" var="materia" itemLabel="#{materia.nemonico}" itemValue="#{materia}" />
+                </p:selectManyCheckbox>
             </h:panelGrid>
             <br/>
             <br/>
             <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                <p:outputLabel id="matselec" value="Curso seleccionado:#{solCancelBean.materiaSeleccionada}" style=" font-size:x-large"/>
-                <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis"/>
+                <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis matselect matcheck"/>
                 <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+                <h:panelGroup id = "matselect">
+                    <p:outputLabel value="Cursos seleccionados:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() gt 1 and solCancelBean.panelVisibility}"/>
+                    <p:outputLabel value="Curso seleccionado:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() eq 1 and solCancelBean.panelVisibility}"/>
+                    <ui:repeat value="#{solCancelBean.materiasSelect}" var="m" rendered="#{solCancelBean.panelVisibility}">
+                        <br/>#{m.nemonico} - #{m.nombre} 
+                    </ui:repeat>
+                </h:panelGroup>
             </h:panelGrid>
             <br/>
             <br/>
@@ -51,7 +56,7 @@
                     <br/>
                     <br/>
                     <h:panelGrid columns="2" style="width: 100%;text-align: center">
-                        <p:commandButton value="Anular operación" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis"/>
+                        <p:commandButton value="Anular operación" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis matselect matcheck"/>
                         <p:commandButton value="Proceder con solicitud" onclick="PF('dialogJustificacion').show();"/>
                     </h:panelGrid>
                     
