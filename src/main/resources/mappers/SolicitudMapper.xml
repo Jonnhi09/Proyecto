@@ -57,9 +57,11 @@
         WHERE e.codigo=#{codigo};
     </select>
     
-    <insert id="updateJustification" useGeneratedKeys="true" keyProperty="numero"> 
-        INSERT INTO Solicitud (numero,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,Asignatura_Cancelar,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo)
-        values (#{numero},#{justificacion},#{impacto},#{proyeccion},"","Enviada",null,#{materia},null,#{codigo},#{acuse})
+    
+    <insert id="updateJustification" > 
+        INSERT INTO Solicitud (numero,fecha,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo,Asignatura_nemonico)
+        values (#{numero},#{fecha},#{justificacion},#{impacto},#{proyeccion},'','Enviada',null,null,#{codigo},#{acuse},#{materia})
+
     </insert>
     
     <update id="updateComentariosSolicitud"> 

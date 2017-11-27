@@ -160,7 +160,7 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese numero, o si se presenta otro problema en las capas inferiores.
      */
     public void actualizarEstadoSolicitud(int numero, String estado) throws ExcepcionServiciosCancelaciones;
- 
+
     /**
      * Registra la solicitud en la base de datos
      * @param id id es el codigo del estudiante que va a cancelar

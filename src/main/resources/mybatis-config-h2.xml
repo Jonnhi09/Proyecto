@@ -20,7 +20,7 @@
     </typeAliases>             
     
     
-    <environments default="development">
+   <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
@@ -34,7 +34,7 @@
         
     <mappers>   
         <mapper resource="mappers/EstudianteMapper.xml"></mapper> 
-        <mapper resource="mappers/SolicitudMapper.xml"></mapper> 
+        <mapper resource="mappers/SolicitudMapper.xml"></mapper>
         <mapper resource="mappers/UniversidadMapper.xml"></mapper>
         <mapper resource="mappers/AcudienteMapper.xml"></mapper> 
     </mappers> 

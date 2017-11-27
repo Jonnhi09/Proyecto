@@ -10,11 +10,11 @@ import com.projectkepler.persistence.AcudienteDAO;
 import com.projectkepler.persistence.mybatis.mappers.AcudienteMapper;
 import com.projectkepler.services.entities.Acudiente;
 import org.apache.ibatis.exceptions.PersistenceException;
+
 /**
  *
  * @author diana
  */
-
 public class AcudienteDAOMyBatis implements AcudienteDAO {
     
     @Inject 
@@ -29,5 +29,5 @@ public class AcudienteDAOMyBatis implements AcudienteDAO {
             throw new PersistenceException("Error al consultar el acudiente del estudiante con codigo:"+codigo,e);
         }
         return acu;
-    }  
+    }
 }

@@ -10,7 +10,7 @@ import com.projectkepler.services.entities.Acudiente;
 /**
  *
  * @author diana
- */    
+ */
 public interface AcudienteDAO {
    
     public Acudiente consultarAcudiantePorEstudiante(int codigo);

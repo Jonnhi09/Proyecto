@@ -99,11 +99,12 @@ public class SolCancelBean implements Serializable{
             if(justificacion == null || justificacion.isEmpty()){
                 FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese una justificación", null));
             }else{
+                servicios.enviarSolicitudes(estudiante.getCodigo(), justificacion,materiasSelect);
+                materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
                 makePanelInvisible();
                 RequestContext.getCurrentInstance().execute("PF('dialogJustificacion').hide();");
-                servicios.enviarSolicitudes(estudiante.getCodigo(), justificacion, materiasSelect);
-                materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
                 RequestContext.getCurrentInstance().update("formSol");
+                RequestContext.getCurrentInstance().update("formSol:matcheck");
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su solicitud ha sido enviada", null));
                 justificacion = null;
             }
