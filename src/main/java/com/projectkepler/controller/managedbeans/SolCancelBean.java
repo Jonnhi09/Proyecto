@@ -12,7 +12,6 @@ import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,18 +76,22 @@ public class SolCancelBean implements Serializable{
     }
     
     public void analisis(){
-        //try {
+        try {
             if(materiasSelect.size()<1){
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe seleccionar una materia para realizar el análisis", null)); 
                 makePanelInvisible();
             }else{
-                //impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), materiasSelect);
-                //proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), materiasSelect);
+                String[] nemonicos = new String[materiasSelect.size()];
+                for(int i=0; i < materiasSelect.size(); i++){
+                    nemonicos[i]=materiasSelect.get(i).getNemonico();
+                }
+                impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
+                proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
                 makePanelVisible();
             }
-//        } catch (ExcepcionServiciosCancelaciones ex) {
-//            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
-//        }
+        } catch (ExcepcionServiciosCancelaciones ex) {
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+        }
     }
     
     public void enviarSolicitud(){
@@ -98,14 +101,14 @@ public class SolCancelBean implements Serializable{
             }else{
                 makePanelInvisible();
                 RequestContext.getCurrentInstance().execute("PF('dialogJustificacion').hide();");
-                //servicios.actualizarJustificacionById(estudiante.getCodigo(), justificacion, materiasSelect);
+                servicios.enviarSolicitudes(estudiante.getCodigo(), justificacion, materiasSelect);
                 materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
                 RequestContext.getCurrentInstance().update("formSol");
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su solicitud ha sido enviada", null));
                 justificacion = null;
             }
         }catch (ExcepcionServiciosCancelaciones ex) {
-            Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
         }
     }
     
