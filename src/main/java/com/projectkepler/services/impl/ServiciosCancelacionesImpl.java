@@ -460,6 +460,23 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         return acu;
     }
     
+    @Override
+    public List<Solicitud> consultarSolicitudesPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=estudiante.consultRequestByStudent(codigo);
+            if (solicitudes==null){
+                throw new ExcepcionServiciosCancelaciones("El estudiante con codigo "+codigo+" no tiene solicitudes de cancelaciones");
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes de cancelaciones del estudiante con codigo "+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de cancelaciones del estudiante");
+        }
+        return solicitudes;
+    }
     
     
 }

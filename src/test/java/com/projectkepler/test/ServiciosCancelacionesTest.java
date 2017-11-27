@@ -190,4 +190,15 @@ public class ServiciosCancelacionesTest {
         assertEquals(acu.getCorreo(),"yolanda@gmail.com");
         assertEquals(acu.getNombre(),"Yolanda");
     }
+    
+    @Test
+    public void consultarSolicitudesPorEstudianteTest(){
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=servicios.consultarSolicitudesPorEstudiante(173183);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(solicitudes.size(),2);
+    }
 } 
