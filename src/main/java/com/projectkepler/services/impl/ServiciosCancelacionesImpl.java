@@ -220,6 +220,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
                 acuse=true;
             }
             numero=solicitud.consultarSolicitudes().size()+1;
+            solicitud.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo actualizar la justificacion para cancelar la asignatura "+materia);
@@ -232,7 +233,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             acuse=true;
         }
         solicitud.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
-        student=estudiante.loadEstudianteById(id);
         
     }   
     
