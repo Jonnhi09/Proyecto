@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.projectkepler.persistence.mybatis.mappers.AcudienteMapper">
+    
+    <select  parameterType="map" id="consultarAcudientePorEstudiante" resultMap="AcudienteResult"> 
+        select 
+            *
+        FROM  Acudiente as a left join Estudiante as e on e.Acudiente_correo=a.correo
+        WHERE e.codigo=#{codigo};
+    </select>
+    
+    
+    
+    <resultMap type="Acudiente" id="AcudienteResult" >
+        <id property="correo" column="correo"/> 
+        <result property="nombre" column="nombre"/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/> 
+    </resultMap>
+    
+    <resultMap type="Estudiante" id="EstudianteResult" >
+        <id property="codigo" column="codigo"/> 
+        <result property="nombre" column="nombre"/>
+        <result property="asignaturas" column="asignaturas"/>
+        <result property="versionPlanDeEstudio" column="versionPlanDeEstudio" />
+        <result property="numeroMatriculas" column="numeroMatriculas"/>
+        <result property="correo" column="correo"/>
+        <result property="programaAcademico" column="programaAcademico"/>
+        <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/>
+    </resultMap>
+    
+    <resultMap type="Solicitud" id="SolicitudResult" >
+        <id property="numero" column="numero"/> 
+        <result property="fecha" column="fecha"/>
+        <result property="justificacion" column="justificacion"/>
+        <result property="impacto" column="impacto"/>
+        <result property="proyeccion" column="proyeccion"/>
+        <result property="comentarios" column="comentarios"/>
+        <result property="estado" column="estado"/>
+        <result property="acuseRecibo" column="AcuseRecibo"/>
+        <result property="avalConsejero" column="avalConsejero"/>
+        <result property="necesitaAcuseRecibo" column="necesitaAcuseRecibo"/>
+        <association property="asignatura" javaType="CourseStudent" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+    </resultMap>
+    
+    <resultMap type="CourseStudent" id="AsignaturaResult" >
+        <id property="nemonico" column="nemonico"/> 
+        <result property="nombre" column="nombre"/>
+    </resultMap>
+    
+</mapper>

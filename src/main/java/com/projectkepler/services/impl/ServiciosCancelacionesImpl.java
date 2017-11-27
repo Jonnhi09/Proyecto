@@ -9,12 +9,14 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.inject.Inject;
+import com.projectkepler.persistence.AcudienteDAO;
 import com.projectkepler.persistence.EstudianteDAO;
 import com.projectkepler.persistence.SolicitudDAO;
 import com.projectkepler.persistence.UniversidadDAO;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.algorithm.Algorithm;
+import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.PlanDeEstudios;
@@ -51,6 +53,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Inject
     private UniversidadDAO universidad;
+    
+    @Inject 
+    private AcudienteDAO acudiente;
     
     
     @Transactional
@@ -123,16 +128,16 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
 
     @Transactional
     @Override
-    public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
+    public String consultarImpactoByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
         String impacto=null;
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura);
-            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto()==null ){
+            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
+            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto()==null ){
                 impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
             }else{
-                impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getImpacto();
+                impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto();
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
@@ -146,16 +151,16 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
+    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
         String proyeccion=null;
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura);
-            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getProyeccion()==null){
+            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
+            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion()==null){
                 proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
             }else{
-                proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura).getProyeccion();
+                proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion();
             }
             
         }catch (PersistenceException e){
@@ -195,7 +200,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones {
+    public void actualizarJustificacionById(int id, String justificacion, String materia, String impacto, String proyeccion) throws ExcepcionServiciosCancelaciones {
         Syllabus planE=obtenerSyllabusEstudiante(id).get(0);
         Estudiante student;
         int numero;
@@ -226,8 +231,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         if (student.getNumeroMatriculas()<3){
             acuse=true;
         }
-        String impacto=consultarImpactoByEstudianteAsignatura(id, materia);
-        String proyeccion=consultarProyeccionByEstudianteAsignatura(id, materia);
         solicitud.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
         student=estudiante.loadEstudianteById(id);
         
@@ -428,4 +431,34 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             throw new ExcepcionServiciosCancelaciones("Error inesperado al actualizar el estado de la solicitud");
         }
     }
+
+    @Override
+    public void enviarSolicitudes(int id, String justificacion, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones {
+        String courses[]=new String [materias.size()];
+        for (int i=0; i<materias.size();i++){
+            courses[i]=materias.get(i).getNemonico();
+        }
+        String impacto=consultarImpactoByEstudianteAsignatura(id,courses);
+        String proyeccion=consultarProyeccionByEstudianteAsignatura(id, courses);
+        for (CourseStudent course:materias){
+            
+            actualizarJustificacionById(id, justificacion, course.getNemonico(),impacto,proyeccion);
+        }
+    }
+
+    @Override
+    public Acudiente consultarAcudientePorStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones {
+        Acudiente acu;
+        try{
+            acu=acudiente.consultarAcudiantePorEstudiante(codigoEstudiante);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el acudiente del estudiante con codigo "+codigoEstudiante);
+        }catch (Exception e){
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el acudiente");
+        }
+        return acu;
+    }
+    
+    
 }

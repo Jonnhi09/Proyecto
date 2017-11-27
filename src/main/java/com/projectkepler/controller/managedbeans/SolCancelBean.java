@@ -77,6 +77,7 @@ public class SolCancelBean implements Serializable{
     }
     
     public void analisis(){
+        /**
         try {
             if("Asignatura".equals(materiaSeleccionada)){
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe seleccionar una materia para realizar el análisis", null)); 
@@ -89,6 +90,7 @@ public class SolCancelBean implements Serializable{
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        * **/
     }
     
     public void enviarSolicitud(){
@@ -98,7 +100,7 @@ public class SolCancelBean implements Serializable{
             }else{
                 makePanelInvisible();
                 RequestContext.getCurrentInstance().execute("PF('dialogJustificacion').hide();");
-                servicios.actualizarJustificacionById(estudiante.getCodigo(), justificacion, materiaSeleccionada);
+                //servicios.actualizarJustificacionById(estudiante.getCodigo(), justificacion, materiaSeleccionada);
                 materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
                 RequestContext.getCurrentInstance().update("formSol");
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su solicitud ha sido enviada", null));
