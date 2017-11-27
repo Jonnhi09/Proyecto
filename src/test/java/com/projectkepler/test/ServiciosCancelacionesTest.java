@@ -195,13 +195,24 @@ public class ServiciosCancelacionesTest {
     public void actualizarAcuseSolicitudTest() throws ExcepcionServiciosCancelaciones{
         try{
             servicios.actualizarAcuseSolicitud(1);
-            //servicios.actualizarAcuseSolicitud(3);
+            servicios.actualizarAcuseSolicitud(3);
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
         Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(1).getSolicitudes().get(0);
         assertEquals(solicitud.isAcuseRecibo(),true);
         solicitud=servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0);
-        assertEquals(solicitud.isAcuseRecibo(),false);
+        assertEquals(solicitud.isAcuseRecibo(),true);
+    }
+    
+    @Test
+    public void consultarSolicitudesPorEstudianteTest(){
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=servicios.consultarSolicitudesPorEstudiante(173183);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(solicitudes.size(),2);
     }
 } 

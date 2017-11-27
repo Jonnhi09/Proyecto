@@ -462,17 +462,14 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
 
     @Override
     public void actualizarAcuseSolicitud(int numero) throws ExcepcionServiciosCancelaciones {
-        solicitud.consultRequestByStudentAndId(173183, "CALD").isAcuseRecibo();
         try{
             boolean seEnvia=true;
-            /**
-            List<Solicitud> solicitudes = 
+            List<Solicitud> solicitudes = estudiante.consultRequestByStudent(estudiante.consultStudentByRequest(numero).getCodigo());
             for (Solicitud s: solicitudes){
                 if(s.getComentarios()==null){
                     seEnvia=false;
                 }
             }
-            * */
             if (seEnvia){
                 solicitud.actualizarAcuseSolicitud(numero);
             }
@@ -485,6 +482,23 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
     }
     
+    @Override
+    public List<Solicitud> consultarSolicitudesPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=estudiante.consultRequestByStudent(codigo);
+            if (solicitudes==null){
+                throw new ExcepcionServiciosCancelaciones("El estudiante con codigo "+codigo+" no tiene solicitudes de cancelaciones");
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes de cancelaciones del estudiante con codigo "+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de cancelaciones del estudiante");
+        }
+        return solicitudes;
+    }
     
     
 }

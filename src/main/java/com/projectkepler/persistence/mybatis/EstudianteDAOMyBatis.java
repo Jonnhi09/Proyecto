@@ -91,5 +91,14 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         return student;
     }
     
-    
+    @Override
+    public List<Solicitud> consultRequestByStudent(int codigo) throws PersistenceException{
+        List<Solicitud> solicitudes=null;
+        try{
+            solicitudes=estudiante.consultRequestByStudent(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar las solicitudes del estudiante "+codigo, e);
+        }
+        return solicitudes;
+    }
 }
