@@ -3,10 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.projectkepler.persistence.mybatis.mappers.EstudianteMapper">
+<mapper namespace="com.projectkepler.persistence.mybatis.mappers.SolicitudMapper">
     
-    <select  parameterType="map" id="loadEstudianteById" resultMap="EstudianteResult"> 
+    <select  parameterType="map" id="cargarSolicitudes" resultMap="SolicitudResult"> 
         select 
+        
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.avalConsejero,
+            s.necesitaAcuseRecibo,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre,
+            asi.programa as Asignatura_programa
+        
+        FROM Solicitud as s left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
+
+    </select>
+    
+    <select parameterType="map" id="loadCoursesById" resultMap="AsignaturaResult">
+        select 
+
             e.codigo,
             e.nombre,
             e.asignaturas,
@@ -28,26 +51,23 @@
             s.asignatura_nemonico as Solicitud_asignatura_nemonico,
         
             asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre
-        
+            asi.nombre as Asignatura_nombre,
+            asi.programa as Asignatura_programa
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo};
     </select>
     
-    <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
-        select *
-        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
-        WHERE c.correo=#{correo}
-        ORDER BY s.estado DESC,s.fecha
-    </select>
+    <insert id="updateJustification" useGeneratedKeys="true" keyProperty="numero"> 
+        INSERT INTO Solicitud (numero,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,Asignatura_Cancelar,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo)
+        values (#{numero},#{justificacion},#{impacto},#{proyeccion},"","Enviada",null,#{materia},null,#{codigo},#{acuse})
+    </insert>
     
-    <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult">
-        select *        
-        FROM  Estudiante
-        WHERE correo=#{correo};
-    </select>
+    <update id="updateComentariosSolicitud"> 
+        UPDATE Solicitud SET comentarios = #{comentarios}
+        WHERE numero=#{numero};
+    </update>    
     
-    <select parameterType="map" id="consultStudentByRequest" resultMap="EstudianteResult">
+    <select parameterType="map" id="consultRequestByStudentSubject" resultMap="SolicitudResult">
         select 
             e.codigo,
             e.nombre,
@@ -71,21 +91,18 @@
         
             asi.nemonico as Asignatura_nemonico,
             asi.nombre as Asignatura_nombre
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
-        WHERE s.numero=#{codigo}
+        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
+        WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
     </select>
     
-    <resultMap type="Estudiante" id="EstudianteResult" >
-        <id property="codigo" column="codigo"/> 
-        <result property="nombre" column="nombre"/>
-        <result property="asignaturas" column="asignaturas"/>
-        <result property="versionPlanDeEstudio" column="versionPlanDeEstudio" />
-        <result property="numeroMatriculas" column="numeroMatriculas"/>
-        <result property="correo" column="correo"/>
-        <result property="programaAcademico" column="programaAcademico"/>
-        <collection property="solicitudes" ofType="Solicitud" columnPrefix="Solicitud_" resultMap="SolicitudResult"/>
-    </resultMap>
     
+    
+    <update parameterType="map" id="updateStateRequest" >
+        update Solicitud set
+            estado=#{estado}
+        WHERE numero=#{numero}
+    </update>
+        
     <resultMap type="Solicitud" id="SolicitudResult" >
         <id property="numero" column="numero"/> 
         <result property="fecha" column="fecha"/>
@@ -104,7 +121,6 @@
         <id property="nemonico" column="nemonico"/> 
         <result property="nombre" column="nombre"/>
     </resultMap>
-    
     
     
 </mapper>
