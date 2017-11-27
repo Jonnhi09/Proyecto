@@ -97,11 +97,15 @@
         WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
     </select>
     
-    
-    
     <update parameterType="map" id="updateStateRequest" >
         update Solicitud set
             estado=#{estado}
+        WHERE numero=#{numero}
+    </update>
+    
+    <update parameterType="map" id="actualizarAcuseSolicitud" >
+        update Solicitud set
+            acuseRecibo=true
         WHERE numero=#{numero}
     </update>
         

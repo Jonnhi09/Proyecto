@@ -84,4 +84,13 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
             throw new PersistenceException("Error al actualizar el estado de la solicitud "+numero,e);
         }
     }
+
+    @Override
+    public void actualizarAcuseSolicitud(int numero) throws PersistenceException {
+        try{
+            solicitud.actualizarAcuseSolicitud(numero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al actualizar el acuse de la solicitud "+numero,e);
+        }
+    }
 }

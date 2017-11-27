@@ -179,5 +179,13 @@ public interface ServiciosCancelaciones {
      */
     public Acudiente consultarAcudientePorStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
     
+    
+    /**
+     * Actualiza el acuse de recibo cuando el acudiente de un estudiante ve la olas solicitudes
+     * @param numero es el identificador de la solicitud
+     * @throws ExcepcionServiciosCancelaciones cuando no todas las solicitudes del estudiante han sido comentadas por el consejero
+     */
+    public void actualizarAcuseSolicitud(int numero)throws ExcepcionServiciosCancelaciones;
+    
 }
 

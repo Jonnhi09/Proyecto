@@ -22,4 +22,5 @@ public interface SolicitudMapper {
     public List<CourseStudent> loadCoursesById(@Param("codigo") int codigo);
     public void updateComentariosSolicitud (@Param("numero")int numero,@Param("comentarios")String comentarios);
     public void updateStateRequest(@Param("numero") int numero, @Param("estado") String estado);
+    public void actualizarAcuseSolicitud(@Param("numero") int numero); 
 }

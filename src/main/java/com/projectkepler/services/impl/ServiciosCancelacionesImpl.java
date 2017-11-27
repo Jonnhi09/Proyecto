@@ -459,6 +459,31 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return acu;
     }
+
+    @Override
+    public void actualizarAcuseSolicitud(int numero) throws ExcepcionServiciosCancelaciones {
+        solicitud.consultRequestByStudentAndId(173183, "CALD").isAcuseRecibo();
+        try{
+            boolean seEnvia=true;
+            /**
+            List<Solicitud> solicitudes = 
+            for (Solicitud s: solicitudes){
+                if(s.getComentarios()==null){
+                    seEnvia=false;
+                }
+            }
+            * */
+            if (seEnvia){
+                solicitud.actualizarAcuseSolicitud(numero);
+            }
+            solicitud.consultRequestByStudentAndId(173183, "CALD").isAcuseRecibo();
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo actualizar la solicitud "+numero);
+        }catch (Exception e){
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el acudiente");
+        }
+    }
     
     
     
