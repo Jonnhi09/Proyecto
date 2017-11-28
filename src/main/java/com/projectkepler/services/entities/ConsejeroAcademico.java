@@ -17,10 +17,7 @@ public class ConsejeroAcademico {
     private String correo;
     private List<Estudiante> estudiantes;
 
-    public ConsejeroAcademico(String nombre, int codigo) {
-        this.nombre = nombre;
-        this.codigo = codigo;
-    }
+    
 
     public String getNombre() {
         return nombre;

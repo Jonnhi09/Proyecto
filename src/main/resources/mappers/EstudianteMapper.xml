@@ -131,6 +131,39 @@
         WHERE e.codigo=#{codigo}
     </select>
     
+    <select parameterType="map" id="consultarConsejeroPorEstudiante" resultMap="ConsejeroResult">
+        select 
+            c.codigo,
+            c.nombre,
+            c.correo,
+        
+            e.codigo as Estudiante_codigo,
+            e.nombre as Estudiante_nombre,
+            e.asignaturas as Estudiante_asignaturas,
+            e.versionPlanDeEstudio as Estudiante_versionPlanDeEstudio,
+            e.numeroMatriculas as Estudiante_numeroMatriculas,
+            e.correo as Estudiante_correo,
+            e.programaAcademico as Estudiante_programaAcademico,
+        
+            s.numero as Estudiante_Solicitud_numero,
+            s.fecha as Estudiante_Solicitud_fecha,
+            s.justificacion as Estudiante_Solicitud_justificacion,
+            s.impacto as Estudiante_Solicitud_impacto,
+            s.proyeccion as Estudiante_Solicitud_proyeccion,
+            s.comentarios as Estudiante_Solicitud_comentarios,
+            s.estado as Estudiante_Solicitud_estado,
+            s.acuseRecibo as Estudiante_Solicitud_acuseRecibo,
+            s.avalConsejero as Estudiante_Solicitud_avalConsejero,
+            s.necesitaAcuseRecibo as Estudiante_Solicitud_necesitaAcuseRecibo,
+            s.asignatura_nemonico as Estudiante_Solicitud_asignatura_nemonico,
+            
+            asi.nemonico as Estudiante_Solicitud_Asignatura_nemonico,
+            asi.nombre as Estudiante_Solicitud_Asignatura_nombre
+        
+        FROM Estudiante as e left join ConsejeroAcademico as c on e.ConsejeroAcademico_codigo=c.codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
+        WHERE e.codigo=#{codigo};
+    </select>
+    
     <resultMap type="Estudiante" id="EstudianteResult" >
         <id property="codigo" column="codigo"/> 
         <result property="nombre" column="nombre"/>
@@ -159,6 +192,20 @@
     <resultMap type="CourseStudent" id="AsignaturaResult" >
         <id property="nemonico" column="nemonico"/> 
         <result property="nombre" column="nombre"/>
+    </resultMap>
+    
+    <resultMap type="ConsejeroAcademico" id="ConsejeroResult" >
+        <id property="codigo" column="codigo"/> 
+        <result property="nombre" column="nombre"/>
+        <result property="correo" column="correo"/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/> 
+    </resultMap>
+    
+    <resultMap type="CoordinadorCancelaciones" id="CoordinadorResult" >
+        <id property="codigo" column="codigo"/> 
+        <result property="nombre" column="nombre"/>
+        <result property="correo" column="correo"/>
+        <collection property="estudiantes" ofType="Estudiante" columnPrefix="Estudiante_" resultMap="EstudianteResult"/> 
     </resultMap>
   
 </mapper>

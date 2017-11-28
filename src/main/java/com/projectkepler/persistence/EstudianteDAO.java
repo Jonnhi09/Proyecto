@@ -5,6 +5,7 @@
  */
 package com.projectkepler.persistence;
 
+import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.Solicitud;
 import java.util.List;
@@ -24,4 +25,5 @@ public interface EstudianteDAO {
     public List<Solicitud> consultRequest(String consejero) throws PersistenceException;
     public Estudiante consultStudentByRequest(int numero) throws PersistenceException;
     public List<Solicitud> consultRequestByStudent(int codigo) throws PersistenceException;
+    public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws PersistenceException;
 }

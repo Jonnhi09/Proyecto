@@ -8,6 +8,7 @@ package com.projectkepler.persistence.mybatis;
 import com.google.inject.Inject;
 import com.projectkepler.persistence.EstudianteDAO;
 import com.projectkepler.persistence.mybatis.mappers.EstudianteMapper;
+import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.Solicitud;
 import java.util.List;
@@ -100,5 +101,16 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
             throw new PersistenceException("Error al consultar las solicitudes del estudiante "+codigo, e);
         }
         return solicitudes;
+    }
+
+    @Override
+    public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws PersistenceException {
+        ConsejeroAcademico consejero;
+        try{
+            consejero=estudiante.consultarConsejeroPorEstudiante(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar un estudiante dado el numero de una solicitud",e);
+        }
+        return consejero;
     }
 }

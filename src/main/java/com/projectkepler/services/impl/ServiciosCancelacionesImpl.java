@@ -17,6 +17,7 @@ import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.algorithm.Algorithm;
 import com.projectkepler.services.entities.Acudiente;
+import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.PlanDeEstudios;
@@ -546,5 +547,20 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de cancelaciones");
         }
         return solicitudes;
+    }
+
+    @Override
+    public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones {
+        ConsejeroAcademico conse=null;
+        try{
+            conse=estudiante.consultarConsejeroPorEstudiante(codigo);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar el consejero del estudiante con codigo"+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el consejero");
+        }
+        return conse;
     }
 }

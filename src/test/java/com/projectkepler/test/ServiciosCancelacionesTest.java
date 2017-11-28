@@ -4,6 +4,7 @@ import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.entities.Acudiente;
+import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.ProgramaAcademico;
@@ -280,5 +281,22 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitudes.get(0).getNumero(),1);
         assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"FFIS");
         assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Fisica");
+    }
+    
+    @Test 
+    public void consultarConsjeroPorEstudianteTest(){
+        ConsejeroAcademico consejero=null;
+        try{
+            consejero=servicios.consultarConsejeroPorEstudiante(79328);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(consejero.getNombre(), "Claudia Patricia");
+        assertEquals(consejero.getCorreo(), "claudia.patricia@escuelaing.edu.co");
+        assertEquals(consejero.getEstudiantes().size(),1);
+        assertEquals(consejero.getEstudiantes().get(0).getCodigo(),79328);
+        assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().size(),1);
+        assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getNumero(),1);
+        assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getAsignatura().getNombre(),"Fundamentos de Fisica");
     }
 } 

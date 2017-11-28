@@ -17,10 +17,7 @@ public class CoordinadorCancelaciones {
     private String correo;
     private List<Estudiante> estudiantes;
 
-    public CoordinadorCancelaciones(String nombre, int codigo) {
-        this.nombre = nombre;
-        this.codigo = codigo;
-    }
+    
     
     public String getNombre() {
         return nombre;

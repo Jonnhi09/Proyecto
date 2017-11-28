@@ -6,6 +6,7 @@
 package com.projectkepler.services;
 
 import com.projectkepler.services.entities.Acudiente;
+import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.ProgramaAcademico;
@@ -205,5 +206,7 @@ public interface ServiciosCancelaciones {
     public Solicitud consultarSolicitudPorEstudianteYNemonico(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
     
     public List<Solicitud> consultarSolicitudes() throws  ExcepcionServiciosCancelaciones;
+    
+    public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
 }
 
