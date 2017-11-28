@@ -202,5 +202,7 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe estudiante con ese codigo, o si se presenta otro problema en las capas inferiores.
      */
     public Estudiante consultarEstudianteById(int codigo) throws ExcepcionServiciosCancelaciones;
+    
+    public Solicitud consultarSolicitudPorEstudianteYNemonico(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
 }
 

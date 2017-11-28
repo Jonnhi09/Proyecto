@@ -291,19 +291,25 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<CourseStudent> asig;
         try{
             asig=solicitud.loadCoursesById(codigoEstudiante);
-            if (asig==null){
+            List<String> tieneSolicitud=new ArrayList<>();
+            for (CourseStudent co:asig){
+                tieneSolicitud.add(co.getNemonico());
+            }
+            if (asig.size()==0){
                 asignaturas=consultarAsignaturasByIdEstudiante(codigoEstudiante);
             }else{
+                asignaturas=new ArrayList<>();
+                List<String> as=new ArrayList<>();
                 for (CourseStudent c:consultarAsignaturasByIdEstudiante(codigoEstudiante)){
                     for(CourseStudent a:asig){
                         if(!(c.getNemonico().equals(a.getNemonico()))){
-                            asignaturas.add(c);
+                            if (!(as.contains(c.getNemonico())) && !(tieneSolicitud.contains(c.getNemonico()))){
+                                as.add(c.getNemonico());
+                                asignaturas.add(c);
+                            }
                         }
                     }
                 }
-            }
-            for (CourseStudent c:asignaturas){
-                System.out.println("KDKJAJDA "+c.getNemonico());
             }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
@@ -519,4 +525,14 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         return estu;
     }
     
+    @Override
+    public Solicitud consultarSolicitudPorEstudianteYNemonico(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones{
+        Solicitud sol=null;
+        try{
+            sol=solicitud.consultRequestByStudentAndId(codigo, nemonico);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return sol;
+    }
 }
