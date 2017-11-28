@@ -212,9 +212,14 @@ public class DetalleSolicitudBean{
     
     public void atualizarEstadoJustificacion(){
         try{
-            servicios.actualizarComentariosSolicitud(solSelect.getNumero(),solSelect.getComentarios());
-            servicios.actualizarEstadoSolicitud(solSelect.getNumero(), solSelect.getEstado());
-            enviarCorreo();
+            if(solSelect.getComentarios()== null){
+                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese un comentario para continuar", null));
+            }else{
+                servicios.actualizarComentariosSolicitud(solSelect.getNumero(),solSelect.getComentarios());
+                servicios.actualizarEstadoSolicitud(solSelect.getNumero(), solSelect.getEstado());
+                enviarCorreo();
+                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "El comentario a sido agregado corretamente", null));
+            }
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -224,7 +229,7 @@ public class DetalleSolicitudBean{
         if(solSelect.isNecesitaAcuseRecibo()||true){
             try{
                 acudiente=servicios.consultarAcudientePorStudiante(student.getCodigo());
-                Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar las solicitudes realizadas por pepito perez http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo()));
+                Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar las solicitudes realizadas por pepito perez http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo())+"&sol="+solSelect.getNumero());
                 EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
                 sender.send(email);
             }catch (Exception ex) {

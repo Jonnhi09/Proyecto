@@ -28,6 +28,8 @@ public class InformacionAcudiente {
     Estudiante alumno;
     int codigo;
     List<Solicitud> solicitudesCancel;
+    int sol;
+    Solicitud solInfo;
     
     ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
     
@@ -35,6 +37,7 @@ public class InformacionAcudiente {
     public int getCodigo() {
         HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
         codigo=Integer.parseInt(req.getParameter("id"));
+        sol=Integer.parseInt(req.getParameter("sol"));
         return codigo;
     }
     
@@ -53,7 +56,9 @@ public class InformacionAcudiente {
         try{
             alumno=servicios.consultarEstudianteById(getCodigo());
             solicitudesCancel=servicios.consultarSolicitudesPorEstudiante(codigo);
-        }catch (ExcepcionServiciosCancelaciones ex){
+            solInfo=servicios.consultarSolicitudPorNumero(sol);
+            
+        }catch(ExcepcionServiciosCancelaciones ex){
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -65,8 +70,32 @@ public class InformacionAcudiente {
     public void setSolicitudesCancel(List<Solicitud> solicitudesCancel) {
         this.solicitudesCancel = solicitudesCancel;
     }
+
+    public int getSol() {
+        return sol;
+    }
+
+    public void setSol(int sol) {
+        this.sol = sol;
+    }
+
+    public Solicitud getSolInfo() {
+        return solInfo;
+    }
+
+    public void setSolInfo(Solicitud solInfo) {
+        this.solInfo = solInfo;
+    }
     
     
+    public void actualizarAcuse(){
+        try{
+            servicios.actualizarAcuseSolicitud(sol);
+            alumno=null;
+        }catch(ExcepcionServiciosCancelaciones ex){
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
 }
