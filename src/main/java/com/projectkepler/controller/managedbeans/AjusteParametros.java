@@ -10,6 +10,7 @@ import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.entities.Syllabus;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean(name = "ajusteparametros")
 @SessionScoped
-public class AjusteParametros {
+public class AjusteParametros implements Serializable {
     
     
     @ManagedProperty(value="#{loginBean}")
@@ -58,6 +59,12 @@ public class AjusteParametros {
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            creditosSemestreActuales = servicios.consultarNumeroMaximoDeCreditos();
+        } catch (ExcepcionServiciosCancelaciones ex) {
+            Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getLocalizedMessage(), null));
+        }
     }
     
     @PostConstruct
@@ -68,7 +75,7 @@ public class AjusteParametros {
             
         }else{
             setUsuario(getShiroLoginBean().getUsername().replace("admin", "").trim());
-            programaSeleccionado="Ingenieria de "+ usuario;
+            programaSeleccionado="Ingenieria de "+ usuario; //TODO: estandarizar
             seleccionPrograma();
         }
         
@@ -78,11 +85,11 @@ public class AjusteParametros {
        if(!"Programa".equals(programaSeleccionado)){
             try {
                 planesDeEstudios=servicios.consultarPlanesDeEstudiosPorPrograma(programaSeleccionado);
-                creditosSemestreActuales = servicios.consultarNumeroMaximoDeCreditos();
+                
                 setPlanDisabled(false);
             } catch (ExcepcionServiciosCancelaciones ex) {
                 Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
-                FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se produjo un error obteniendo los planes de estudio del programa o el numero máximo de créditos", null));
+                FacesContext.getCurrentInstance().addMessage("programaMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getLocalizedMessage(),null));
             }
         }else{
             setPlanDisabled(true);
@@ -99,6 +106,7 @@ public class AjusteParametros {
                 setRenderTable(true);
             } catch (ExcepcionServiciosCancelaciones ex) {
                 Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
+                FacesContext.getCurrentInstance().addMessage("programaMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getLocalizedMessage(),null));
             }
         }else{
             setRenderTable(false);
@@ -113,7 +121,7 @@ public class AjusteParametros {
             FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se han modificado los créditos máximos", null));
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(AjusteParametros.class.getName()).log(Level.SEVERE, null, ex);
-            FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Se produjo un error actualizando los créditos máximos", null));
+            FacesContext.getCurrentInstance().addMessage("creditosMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getLocalizedMessage(), null));
         }
     }
     

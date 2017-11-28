@@ -23,7 +23,7 @@
             </h:panelGrid>
             <h:panelGrid columns="2" style="width: 40%">
                 <p:outputLabel value="Asignatura/s a cancelar" style=" font-size:x-large"/>
-                <p:selectManyCheckbox id="matcheck" value="#{solCancelBean.materiasSelect}" layout="grid" columns="3" converter="CourseStudentConverter" disabled="#{solCancelBean.panelVisibility}">
+                <p:selectManyCheckbox id="matcheck" value="#{solCancelBean.materiasSelect}" layout="grid" columns="2" converter="CourseStudentConverter" disabled="#{solCancelBean.panelVisibility}">
                     <f:selectItems value="#{solCancelBean.materias}" var="materia" itemLabel="#{materia.nemonico}" itemValue="#{materia}" />
                 </p:selectManyCheckbox>
             </h:panelGrid>

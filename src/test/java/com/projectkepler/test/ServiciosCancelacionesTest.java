@@ -181,7 +181,6 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitud.getComentarios(),"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
     }
 
-    
     @Test 
     public void cosultarAcudienteTest() throws ExcepcionServiciosCancelaciones{
         Acudiente acu=null;

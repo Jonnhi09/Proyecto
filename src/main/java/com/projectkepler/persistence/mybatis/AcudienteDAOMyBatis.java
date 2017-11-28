@@ -30,5 +30,4 @@ public class AcudienteDAOMyBatis implements AcudienteDAO {
         }
         return acu;
     }
-    
 }
