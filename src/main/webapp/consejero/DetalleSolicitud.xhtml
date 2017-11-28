@@ -23,7 +23,7 @@ consejeros-->
                 
                 <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style="font-weight:bold"/>
                 <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold"/>
-                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" />
+                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="color: white"/>
                 <h:outputText value="Fecha: #{detalleSolicitud.fecha}"/>
                 <h:outputText value="Codigo: #{detalleSolicitud.codigo}"/>
                 <h:outputText value="Cancelaciones solicitadas y justificadas"/>
@@ -72,6 +72,10 @@ consejeros-->
                 <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/>
                     <p:dialog header="Modal Dialog" widgetVar="mess" modal="true" height="70">
                         <h:outputText value="Registro Exitoso." />
+                        <a href="http://localhost:8080/InfoAcudiente.xhtml?id=#{detalleSolicitud.student.getCodigo()}">Ver ficha del cliente</a>
+                        <!--php  
+                        echo "<a href="http://localhost:8080/InfoAcudiente.xhtml?ingeniero=#{detalleSolicitud.student}">Enviar variables</a>";
+                        ?-->
                     </p:dialog>   
              </h:panelGrid>
         </h:form>

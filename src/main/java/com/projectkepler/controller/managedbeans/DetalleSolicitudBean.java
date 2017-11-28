@@ -12,6 +12,8 @@ import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.Solicitud;
+import com.projectkepler.services.entities.Acudiente;
+import com.projectkepler.services.email.*;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,12 +27,11 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author dxmortem
+ * @author MathewsGuz
  */
 @ManagedBean(name = "detalleSolicitud")
 @SessionScoped
 public class DetalleSolicitudBean{
-    
     
 
     public DetalleSolicitudBean() {
@@ -52,6 +53,7 @@ public class DetalleSolicitudBean{
     String proyeccion;
     String justificacion;
     String materia;
+    Acudiente acudiente;
     private Solicitud solSelect;
 
 
@@ -132,6 +134,8 @@ public class DetalleSolicitudBean{
         this.cancelaciones = cancelaciones;
     }
     
+    
+    
     public Estudiante estudianteIdSolicitud(int numero){
         try{
             student = servicios.consultarEstudiantePorSolicitud(numero);
@@ -184,7 +188,13 @@ public class DetalleSolicitudBean{
         this.materia = materia;
     }
     
+    public Estudiante getStudent(){
+        return student;
+    }
     
+    public void setStudent(Estudiante student){
+        this.student=student;
+    } 
     
     public void cargarDatos(){
         try{
@@ -204,8 +214,22 @@ public class DetalleSolicitudBean{
         try{
             servicios.actualizarComentariosSolicitud(solSelect.getNumero(),solSelect.getComentarios());
             servicios.actualizarEstadoSolicitud(solSelect.getNumero(), solSelect.getEstado());
+            enviarCorreo();
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void enviarCorreo(){
+        if(solSelect.isNecesitaAcuseRecibo()||true){
+            try{
+                acudiente=servicios.consultarAcudientePorStudiante(student.getCodigo());
+                Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar las solicitudes realizadas por pepito perez http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo()));
+                EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
+                sender.send(email);
+            }catch (Exception ex) {
+            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
         }
     }
     

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <title>Informacion sobre cancelaciones</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h1>Solicitudes de: #{infoCancel.alumno.getNombre()}</h1>
+            <h1>Carne: #{infoCancel.codigo}</h1>
+            <h3>Acontinuacion se presentan las solicitudes de cancelacion con su respectivo impacto(Consecuencias de la cancelacion) junto con un comentario del respectivo consejero academico del estudiante</h3>
+            <h:outputText value="#{infoCancel.codigo}"/>
+            <p:dataTable id="IAcudiente" var="solicitud" value="#{infoCancel.solicitudesCancel}">
+            
+                <p:column headerText="Materia">
+                    <h:outputText value="#{solicitud.asignatura.nemonico}" />
+                </p:column>
+                <p:column headerText="Impacto">
+                    <h:outputText value="#{solicitud.impacto}" />
+                </p:column>
+                <p:column headerText="Justificacion">
+                    <h:outputText value="#{solicitud.justificacion}" />
+                </p:column>
+                <p:column headerText="Comentario Consejero">
+                    <h:outputText value="#{solicitud.comentarios}" />
+                </p:column>
+            </p:dataTable>
+            <p:commandButton value="Aceptar"  ajax="false" onclick="window.opener=null;window.open('','_self');window.close();"/>
+        </h:form>
+    </h:body>
+    
+</html>
