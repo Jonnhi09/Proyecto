@@ -33,7 +33,6 @@ CREATE TABLE CoordinadorCancelaciones (
 CREATE TABLE Asignatura (
     nemonico varchar(4)  NOT NULL,
     nombre varchar(100)  NOT NULL,
-    programa varchar(100)  NOT NULL,
     CONSTRAINT Asignatura_pk PRIMARY KEY (nemonico)
 );
 
@@ -307,13 +306,13 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
 ]', 13, 3, 'diana.sanchez-m@mail.escuelaing.edu.co', 313131,428131,'Ingenieria de sistemas', 'yolanda@gmail.com'); 
 
 -- Poblar Course
-INSERT INTO Asignatura VALUES ('PREM','Precálculo','Ingenieria de Sistemas');
-INSERT INTO Asignatura VALUES ('AGEO','Análisis Geométrico','Ingenieria de Sistemas');
-INSERT INTO Asignatura VALUES ('CALD','Calculo Diferencial','Ingenieria de sistemas');
-INSERT INTO Asignatura VALUES ('CIED','Cálculo Integral y Ecuaciones Diferenciales','Ingenieria de Sistemas');
-INSERT INTO Asignatura VALUES ('FFIS','Fundamentos de Fisica','Ingenieria de sistemas');
-INSERT INTO Asignatura VALUES ('FIMF','Fisica Mecanica y Fluidos','Ingenieria de Sistemas');
-INSERT INTO Asignatura VALUES ('FIEM','Física del Electromagnetismo','Ingenieria de Sistemas');
+INSERT INTO Asignatura VALUES ('PREM','Precálculo');
+INSERT INTO Asignatura VALUES ('AGEO','Análisis Geométrico');
+INSERT INTO Asignatura VALUES ('CALD','Calculo Diferencial');
+INSERT INTO Asignatura VALUES ('CIED','Cálculo Integral y Ecuaciones Diferenciales');
+INSERT INTO Asignatura VALUES ('FFIS','Fundamentos de Fisica');
+INSERT INTO Asignatura VALUES ('FIMF','Fisica Mecanica y Fluidos');
+INSERT INTO Asignatura VALUES ('FIEM','Física del Electromagnetismo');
 
 -- Poblar Solicitud--
 INSERT INTO Solicitud VALUES (1,'2017-10-26 10:23:54','Me consume mucho tiempo y estoy descuidando las otras materias','Si cancela FFIS le quedan: 20 creditos por ver de 28.','FFIS,CALD,ALLI,LCAL y una electiva',

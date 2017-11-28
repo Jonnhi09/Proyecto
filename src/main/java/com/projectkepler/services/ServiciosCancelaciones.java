@@ -195,5 +195,12 @@ public interface ServiciosCancelaciones {
      */
     public List<Solicitud> consultarSolicitudesPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
 
+    /**
+     * Consulta un estudiante dado su identificador
+     * @param codigo identificador del estudiante
+     * @return El estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe estudiante con ese codigo, o si se presenta otro problema en las capas inferiores.
+     */
+    public Estudiante consultarEstudianteById(int codigo) throws ExcepcionServiciosCancelaciones;
 }
 

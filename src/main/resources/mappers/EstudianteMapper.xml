@@ -36,15 +36,34 @@
     
     <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
         select *
-        FROM Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        FROM (Estudiante as e JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo) LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE c.correo=#{correo}
         ORDER BY s.estado DESC,s.fecha
     </select>
     
     <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult">
-        select *        
-        FROM  Estudiante
-        WHERE correo=#{correo};
+        select 
+            e.codigo,
+            e.nombre,
+            e.asignaturas,
+            e.versionPlanDeEstudio,
+            e.numeroMatriculas,
+            e.correo,
+            e.programaAcademico,
+            
+            s.numero as Solicitud_numero,
+            s.fecha as Solicitud_fecha,
+            s.justificacion as Solicitud_justificacion,
+            s.impacto as Solicitud_impacto,
+            s.proyeccion as Solicitud_proyeccion,
+            s.comentarios as Solicitud_comentarios,
+            s.estado as Solicitud_estado,
+            s.acuseRecibo as Solicitud_acuseRecibo,
+            s.avalConsejero as Solicitud_avalConsejero,
+            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
+            s.asignatura_nemonico as Solicitud_asignatura_nemonico
+        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo
+        WHERE e.correo=#{correo}
     </select>
     
     <select parameterType="map" id="consultStudentByRequest" resultMap="EstudianteResult">
@@ -67,17 +86,14 @@
             s.acuseRecibo as Solicitud_acuseRecibo,
             s.avalConsejero as Solicitud_avalConsejero,
             s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-            s.asignatura_nemonico as Solicitud_asignatura_nemonico,
-        
-            asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
+            s.asignatura_nemonico as Solicitud_asignatura_nemonico
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
         WHERE s.numero=#{codigo}
     </select>
     
     <select parameterType="map" id="consultRequestByStudent" resultMap="SolicitudResult">
         select *      
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
         WHERE e.codigo=#{codigo}
     </select>
     
@@ -110,7 +126,5 @@
         <id property="nemonico" column="nemonico"/> 
         <result property="nombre" column="nombre"/>
     </resultMap>
-    
-    
-    
+  
 </mapper>

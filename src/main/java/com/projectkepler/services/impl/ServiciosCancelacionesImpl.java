@@ -302,6 +302,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
                     }
                 }
             }
+            for (CourseStudent c:asignaturas){
+                System.out.println("KDKJAJDA "+c.getNemonico());
+            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar las asignaturas sin solicitud de cancelacion del estudiante "+codigoEstudiante);
@@ -392,6 +395,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             if (student==null){
                 throw new ExcepcionServiciosCancelaciones("La solicitud "+numero+" no existe");
             }
+            student=estudiante.loadEstudianteById(student.getCodigo());
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar el estudiante que realizo la solicitud "+numero);
@@ -500,5 +504,19 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         return solicitudes;
     }
     
+    @Override
+    public Estudiante consultarEstudianteById(int codigo) throws ExcepcionServiciosCancelaciones {
+        Estudiante estu=null;
+        try{
+            estu=estudiante.loadEstudianteById(codigo);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar lel estudiante con codigo"+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar el estudiante");
+        }
+        return estu;
+    }
     
 }

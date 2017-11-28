@@ -20,8 +20,7 @@
             s.necesitaAcuseRecibo,
         
             asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa
+            asi.nombre as Asignatura_nombre
         
         FROM Solicitud as s left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
 
@@ -51,8 +50,7 @@
             s.asignatura_nemonico as Solicitud_asignatura_nemonico,
         
             asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa
+            asi.nombre as Asignatura_nombre
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo};
     </select>
