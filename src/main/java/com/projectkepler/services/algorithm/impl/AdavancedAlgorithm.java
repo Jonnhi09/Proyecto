@@ -21,6 +21,7 @@ public class AdavancedAlgorithm implements ImpactAnalizer {
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;
     public int maxCre;
+    SimpleAlgorithm algo = new SimpleAlgorithm();
     @Override
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
         proyection = new ArrayList<>();
@@ -29,7 +30,8 @@ public class AdavancedAlgorithm implements ImpactAnalizer {
         syllabus = planS;
         int x = solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits());
         Collections.reverse(proyection);
-        return new String[]{"Le quedarian: " + x + " por ver.", proyection.toString()};
+        String creditosPorVer = algo.getImpact(course,graph,planS,maxCredits)[0];
+        return new String[]{creditosPorVer + " ademas le quedarian: " + x + " semestres por ver.", proyection.toString()};
         
     }
 
@@ -41,7 +43,8 @@ public class AdavancedAlgorithm implements ImpactAnalizer {
         syllabus = planS;
         int x = solveYears(makeActualGraph(syllabus, courses), syllabus.getTotalCredits());
         Collections.reverse(proyection);
-        return new String[]{"Le quedarian: " + x + " por ver.", proyection.toString()};
+        String creditosPorVer = algo.getImpact(courses,graph,planS,maxCredits)[0];
+        return new String[]{creditosPorVer + " ademas le quedarian: " + x + " semestres por ver.", proyection.toString()};
     }
 
     private int solveYears(HashMap<String, ArrayList<String>> graph, int total) {
@@ -208,5 +211,6 @@ public class AdavancedAlgorithm implements ImpactAnalizer {
                 return isCoReq(c.getPreReq(),res.toArray(new String[res.size()])) ;
         return false;
     }
+    
 
 }

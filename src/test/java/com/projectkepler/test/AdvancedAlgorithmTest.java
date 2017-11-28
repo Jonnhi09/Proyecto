@@ -42,7 +42,7 @@ public class AdvancedAlgorithmTest {
     public void CE1Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("esta calculando mal los semestres por ver","Le quedarian: 2 por ver." , a.getImpact("FIMF",gRec.verify(s) , s,18)[0]);
+        Assert.assertEquals("esta calculando mal los semestres por ver","Si cancela FIMF le quedan: 12 de 28 creditos por ver" + " ademas le quedarian: " + 2 + " semestres por ver." , a.getImpact("FIMF",gRec.verify(s) , s,18)[0]);
         Assert.assertEquals("no esta dando proyeccion correcta","[[CIED, FIMF], [FIEM]]", a.getImpact("FIMF",gRec.verify(s) , s,18)[1]);
     }
     
@@ -50,7 +50,7 @@ public class AdvancedAlgorithmTest {
     public void CE2Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("no esta teniendo en cuenta el corequsito","Le quedarian: 2 por ver." , a.getImpact("CALD",gRec.verify(s) , s,18)[0]);
+        Assert.assertEquals("no esta teniendo en cuenta el corequsito","Si cancela CALD le quedan: 16 de 28 creditos por ver" + " ademas le quedarian: " + 2 + " semestres por ver." , a.getImpact("CALD",gRec.verify(s) , s,18)[0]);
         Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact("CALD",gRec.verify(s) , s,18)[1]);
     }
     
@@ -58,7 +58,7 @@ public class AdvancedAlgorithmTest {
     public void CE3Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("no esta cancelando mas de 1 materia","Le quedarian: 2 por ver." , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s,18)[0]);
+        Assert.assertEquals("no esta cancelando mas de 1 materia","Si cancela [CALD, FIMF] le quedan: 16 de 28 creditos por ver" + " ademas le quedarian: " + 2 + " semestres por ver." , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s,18)[0]);
         Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s,18)[1]);
 
     }

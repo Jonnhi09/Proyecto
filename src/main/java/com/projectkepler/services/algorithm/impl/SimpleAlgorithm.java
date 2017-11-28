@@ -19,13 +19,13 @@ public class SimpleAlgorithm implements ImpactAnalizer {
 
     @Override
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
-        return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(credits(course, planS)) + " de "+Integer.toString(planS.getTotalCredits()), ""};
+        return new String[]{"Si cancela " + course + " le quedan: " + Integer.toString(credits(course, planS)) + " de "+Integer.toString(planS.getTotalCredits()) + " creditos por ver",""};
 
     }
     @Override
     public String[] getImpact(String[] courses, HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
         int x= credits(courses, planS);
-        return new String[]{"Si cancela " + Arrays.toString(courses) + " le quedan: " + Integer.toString(x) + " de "+Integer.toString(planS.getTotalCredits()), ""};
+        return new String[]{"Si cancela " + Arrays.toString(courses) + " le quedan: " + Integer.toString(x) + " de "+Integer.toString(planS.getTotalCredits()) + " creditos por ver", ""};
     }
     private int credits(String course,Syllabus planS) {
         int pendientes = 0;

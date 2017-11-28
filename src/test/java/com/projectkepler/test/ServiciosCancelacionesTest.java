@@ -53,7 +53,7 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"Le quedarian: 2 por ver.");
+        assertEquals(resultado,"Si cancela [CALD] le quedan: 16 de 28 creditos por ver ademas le quedarian: 2 semestres por ver.");
     }
 
     @Test 
