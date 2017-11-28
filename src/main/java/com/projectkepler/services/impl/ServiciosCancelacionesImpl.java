@@ -135,7 +135,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
             if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto()==null ){
-                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,18)[0];
+                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[0];
             }else{
                 impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto();
             }
@@ -158,7 +158,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
             if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion()==null){
-                proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,18)[1];
+                proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[1];
             }else{
                 proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion();
             }
