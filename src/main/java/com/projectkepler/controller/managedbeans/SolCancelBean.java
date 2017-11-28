@@ -9,6 +9,12 @@ import com.projectkepler.controller.managedbeans.security.ShiroLoginBean;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
+import com.projectkepler.services.email.Email;
+import com.projectkepler.services.email.EmailConfiguration;
+import com.projectkepler.services.email.EmailSender;
+import com.projectkepler.services.email.SimpleEmail;
+import com.projectkepler.services.email.SimpleEmailSender;
+import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import java.io.Serializable;
@@ -21,6 +27,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -47,6 +54,7 @@ public class SolCancelBean implements Serializable{
     private String impacto;
     private String proyeccion;
     private String usuario;
+    private ConsejeroAcademico consejero;
     
     @PostConstruct
     private void init(){
@@ -54,6 +62,7 @@ public class SolCancelBean implements Serializable{
         try {
             estudiante = servicios.consultarEstudianteByCorreo(usuario+"@mail.escuelaing.edu.co");
             materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
+            consejero = servicios.consultarConsejeroPorEstudiante(estudiante.getCodigo());
         } catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,6 +110,7 @@ public class SolCancelBean implements Serializable{
             }else{
                 servicios.enviarSolicitudes(estudiante.getCodigo(), justificacion,materiasSelect);
                 materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
+                enviarCorreo();
                 makePanelInvisible();
                 RequestContext.getCurrentInstance().execute("PF('dialogJustificacion').hide();");
                 RequestContext.getCurrentInstance().update("formSol");
@@ -110,7 +120,25 @@ public class SolCancelBean implements Serializable{
             }
         }catch (ExcepcionServiciosCancelaciones ex) {
             FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+        } catch (MessagingException ex) {
+            Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
         }
+    }
+    
+    public void enviarCorreo() throws MessagingException{
+  
+        Email email = new SimpleEmail("noreplay@escuelaing.edu.co",consejero.getCorreo(),"Cancelación " + estudiante.getNombre() + ": " + sMaterias(),"Buen día " + consejero.getNombre() + ",\n\nEste es un mensaje automático para informar sobre una nueva cancelación adicionada en el sistema" + "\n\nEstudiante: " + estudiante.getNombre() + "\nMateria/s: " + sMaterias() + "\nJustificación: " + justificacion + "\nImpacto: " + impacto + "\nProyección: " + proyeccion +  "\n\nPor favor no responda este mensaje.");
+        EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
+        sender.send(email);
+    }
+    
+    public String sMaterias(){
+        String sMat = new String();
+        for(int i=0; i<materiasSelect.size();i++){
+            sMat += (i+1<materiasSelect.size())? materiasSelect.get(i).getNemonico() + ", " : materiasSelect.get(i).getNemonico();
+        }
+        return sMat;
     }
     
     public String getJustificacion() {
@@ -192,6 +220,13 @@ public class SolCancelBean implements Serializable{
     public void setShiroLoginBean(ShiroLoginBean shiroLoginBean) {
         this.shiroLoginBean = shiroLoginBean;
     }
-    
+
+    public ConsejeroAcademico getConsejero() {
+        return consejero;
+    }
+
+    public void setConsejero(ConsejeroAcademico consejero) {
+        this.consejero = consejero;
+    }
     
 }
