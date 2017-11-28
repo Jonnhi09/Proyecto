@@ -44,9 +44,23 @@
         WHERE numero=#{numero};
     </update>    
     
-    <select parameterType="map" id="consultRequestByStudentSubject"  resultType="Solicitud">
-        select *
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
+    <select parameterType="map" id="consultRequestByStudentSubject"  resultMap="SolicitudResult">
+        select     
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.avalConsejero,
+            s.necesitaAcuseRecibo,
+            s.asignatura_nemonico,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
         WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
     </select>
     
@@ -73,7 +87,7 @@
         <result property="acuseRecibo" column="AcuseRecibo"/>
         <result property="avalConsejero" column="avalConsejero"/>
         <result property="necesitaAcuseRecibo" column="necesitaAcuseRecibo"/>
-        <association property="asignatura" javaType="CourseStudent" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+        <association property="asignatura"  columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
     </resultMap>
     
     <resultMap type="CourseStudent" id="AsignaturaResult" >

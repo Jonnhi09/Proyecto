@@ -14,7 +14,7 @@
             e.numeroMatriculas,
             e.correo,
             e.programaAcademico,
-            
+        
             s.numero as Solicitud_numero,
             s.fecha as Solicitud_fecha,
             s.justificacion as Solicitud_justificacion,
@@ -27,15 +27,29 @@
             s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
             s.asignatura_nemonico as Solicitud_asignatura_nemonico,
         
-            asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre
+            asi.nemonico as Solicitud_Asignatura_nemonico,
+            asi.nombre as Solicitud_Asignatura_nombre
         
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo};
     </select>
     
     <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
-        select *
+        select 
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.avalConsejero,
+            s.necesitaAcuseRecibo,
+            s.asignatura_nemonico,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre
         FROM (Estudiante as e JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo) LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE c.correo=#{correo}
         ORDER BY s.estado DESC,s.fecha
@@ -61,12 +75,15 @@
             s.acuseRecibo as Solicitud_acuseRecibo,
             s.avalConsejero as Solicitud_avalConsejero,
             s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-            s.asignatura_nemonico as Solicitud_asignatura_nemonico
-        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo
+            s.asignatura_nemonico as Solicitud_asignatura_nemonico,
+        
+            asi.nemonico as Solicitud_Asignatura_nemonico,
+            asi.nombre as Solicitud_Asignatura_nombre
+        FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo  left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.correo=#{correo}
     </select>
     
-    <select parameterType="map" id="consultStudentByRequest" resultMap="EstudianteResult">
+    <select parameterType="map" id="consultStudentByRequest" resultType="Estudiante">
         select 
             e.codigo,
             e.nombre,
@@ -86,23 +103,27 @@
             s.acuseRecibo as Solicitud_acuseRecibo,
             s.avalConsejero as Solicitud_avalConsejero,
             s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-            s.asignatura_nemonico as Solicitud_asignatura_nemonico
-        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo
+            s.asignatura_nemonico as Solicitud_asignatura_nemonico,
+            
+            asi.nemonico as Solicitud_Asignatura_nemonico,
+            asi.nombre as Solicitud_Asignatura_nombre
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
         WHERE s.numero=#{codigo}
     </select>
     
     <select parameterType="map" id="consultRequestByStudent" resultMap="SolicitudResult">
-        select             
-            s.numero as Solicitud_numero,
-            s.fecha as Solicitud_fecha,
-            s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
-            s.comentarios as Solicitud_comentarios,
-            s.estado as Solicitud_estado,
-            s.acuseRecibo as Solicitud_acuseRecibo,
-            s.avalConsejero as Solicitud_avalConsejero,
-            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
+        select     
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.avalConsejero,
+            s.necesitaAcuseRecibo,
+            s.asignatura_nemonico,
         
             asi.nemonico as Asignatura_nemonico,
             asi.nombre as Asignatura_nombre
@@ -132,7 +153,7 @@
         <result property="acuseRecibo" column="AcuseRecibo"/>
         <result property="avalConsejero" column="avalConsejero"/>
         <result property="necesitaAcuseRecibo" column="necesitaAcuseRecibo"/>
-        <association property="asignatura" javaType="CourseStudent" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
+        <association property="asignatura" columnPrefix="Asignatura_" resultMap="AsignaturaResult" />
     </resultMap>
     
     <resultMap type="CourseStudent" id="AsignaturaResult" >

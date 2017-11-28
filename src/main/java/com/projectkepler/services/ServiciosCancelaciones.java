@@ -204,5 +204,7 @@ public interface ServiciosCancelaciones {
     public Estudiante consultarEstudianteById(int codigo) throws ExcepcionServiciosCancelaciones;
     
     public Solicitud consultarSolicitudPorEstudianteYNemonico(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
+    
+    public List<Solicitud> consultarSolicitudes() throws  ExcepcionServiciosCancelaciones;
 }
 

@@ -535,4 +535,19 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return sol;
     }
+
+    @Override
+    public List<Solicitud> consultarSolicitudes() throws ExcepcionServiciosCancelaciones {
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=solicitud.consultarSolicitudes();
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes de cancelaciones");
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de cancelaciones");
+        }
+        return solicitudes;
+    }
 }
