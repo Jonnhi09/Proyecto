@@ -92,7 +92,20 @@
     </select>
     
     <select parameterType="map" id="consultRequestByStudent" resultMap="SolicitudResult">
-        select *      
+        select             
+            s.numero as Solicitud_numero,
+            s.fecha as Solicitud_fecha,
+            s.justificacion as Solicitud_justificacion,
+            s.impacto as Solicitud_impacto,
+            s.proyeccion as Solicitud_proyeccion,
+            s.comentarios as Solicitud_comentarios,
+            s.estado as Solicitud_estado,
+            s.acuseRecibo as Solicitud_acuseRecibo,
+            s.avalConsejero as Solicitud_avalConsejero,
+            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre
         FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
         WHERE e.codigo=#{codigo}
     </select>
