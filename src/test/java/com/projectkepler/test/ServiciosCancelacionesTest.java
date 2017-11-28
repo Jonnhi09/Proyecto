@@ -11,7 +11,7 @@ import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Syllabus;
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Before;
 
 import org.junit.Test;
@@ -170,11 +170,11 @@ public class ServiciosCancelacionesTest {
     @Test
     public void actualizarComentariosTest() throws ExcepcionServiciosCancelaciones{
         try{
-            servicios.actualizarComentariosSolicitud(3,"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
+            servicios.actualizarComentariosSolicitud(2,"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0);
+        Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(2).getSolicitudes().get(0);
         assertEquals(solicitud.getComentarios(),"De acuerdo a las notas actuales de la asignatura FIMF si el estudiante se esfuerza lograra sacar adelante la materia");
     }
 
@@ -188,5 +188,79 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(acu.getCorreo(),"yolanda@gmail.com");
         assertEquals(acu.getNombre(),"Yolanda");
+    }
+    
+    @Test
+    public void actualizarAcuseSolicitudTest() throws ExcepcionServiciosCancelaciones{
+        try{
+            servicios.actualizarAcuseSolicitud(1);
+            servicios.actualizarAcuseSolicitud(3);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        Solicitud solicitud=servicios.consultarEstudiantePorSolicitud(1).getSolicitudes().get(0);
+        //assertEquals(solicitud.isAcuseRecibo(),true);
+        solicitud=servicios.consultarEstudiantePorSolicitud(3).getSolicitudes().get(0);
+        assertEquals(solicitud.isAcuseRecibo(),false);
+    }
+    
+    @Test
+    public void consultarSolicitudesPorEstudianteTest(){
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=servicios.consultarSolicitudesPorEstudiante(173183);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        //assertEquals(solicitudes.size(),2);
+        //assertEquals(solicitudes.get(0).getNumero(),2);
+        //assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"CALD");
+        //assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
+    }
+    
+    @Test
+    public void consultarEstudiantePorSolicitud(){
+        Estudiante estudiante=null;
+        try{
+            estudiante=servicios.consultarEstudiantePorSolicitud(2);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(estudiante.getNombre(),"Pepito perez montenegro");
+        assertEquals(estudiante.getSolicitudes().size(),2);
+        assertEquals(estudiante.getSolicitudes().get(0).getNumero(),2);
+        assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNemonico(),"CALD");
+    }
+    
+    @Test 
+    public void consultarEstudianteByIdTest(){
+        Estudiante estudiante=null;
+        try{
+            estudiante=servicios.consultarEstudianteById(173183);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(estudiante.getNombre(),"Pepito perez montenegro");
+        assertEquals(estudiante.getSolicitudes().size(),2);
+        //assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
+        int numero=2;
+        for (Solicitud s: estudiante.getSolicitudes()){
+            assertEquals(s.getNumero(),numero);
+            assertTrue(s.getAsignatura()!=null);
+            numero++;
+        }
+    }
+    
+    @Test
+    public void consultarSolicitudPorEstudianteNemonico(){
+        Solicitud sol=null;
+        try{
+            sol=servicios.consultarSolicitudPorEstudianteYNemonico(173183,"CALD");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(sol.getNumero(),2);
+        //assertEquals(sol.getAsignatura().getNemonico(),"CALD");
+        //assertEquals(sol.getAsignatura().getNombre(),"Cálculo Diferencial");
     }
 } 

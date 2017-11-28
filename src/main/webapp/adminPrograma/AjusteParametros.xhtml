@@ -18,8 +18,9 @@
             <br/>
             
             <h:panelGrid id="panelCreditos" columns="3" style="width: 60%">
-                <p:outputLabel value="Créditos máximos por semestre actuales: #{ajusteparametros.creditosSemestreActuales}" rendered="#{not ajusteparametros.planDisabled}"/>
-            </h:panelGrid>     
+                <p:outputLabel value="Créditos máximos por semestre actuales: #{ajusteparametros.creditosSemestreActuales}"/>
+            </h:panelGrid>
+            <p:messages for="creditosMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
             
             <br/>
             <br/>
@@ -34,7 +35,7 @@
                     <p:ajax listener="#{ajusteparametros.seleccionPlanDeEstudios()}" update="tableAsign"/>
                 </p:selectOneMenu>
             </h:panelGrid>
-            <p:messages for="planMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+            <p:messages for="programaMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
             
             <br/>
             <br/>

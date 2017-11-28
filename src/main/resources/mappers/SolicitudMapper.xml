@@ -20,41 +20,16 @@
             s.necesitaAcuseRecibo,
         
             asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa
+            asi.nombre as Asignatura_nombre
         
         FROM Solicitud as s left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
 
     </select>
     
-    <select parameterType="map" id="loadCoursesById" resultMap="AsignaturaResult">
-        select 
-
-            e.codigo,
-            e.nombre,
-            e.asignaturas,
-            e.versionPlanDeEstudio,
-            e.numeroMatriculas,
-            e.correo,
-            e.programaAcademico,
-            
-            s.numero as Solicitud_numero,
-            s.fecha as Solicitud_fecha,
-            s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
-            s.comentarios as Solicitud_comentarios,
-            s.estado as Solicitud_estado,
-            s.acuseRecibo as Solicitud_acuseRecibo,
-            s.avalConsejero as Solicitud_avalConsejero,
-            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-            s.asignatura_nemonico as Solicitud_asignatura_nemonico,
-        
-            asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre,
-            asi.programa as Asignatura_programa
+    <select parameterType="map" id="loadCoursesById" resultType="CourseStudent">
+        select *
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
-        WHERE e.codigo=#{codigo};
+        WHERE e.codigo=#{codigo} AND numero IS NOT NULL
     </select>
     
     
@@ -69,39 +44,21 @@
         WHERE numero=#{numero};
     </update>    
     
-    <select parameterType="map" id="consultRequestByStudentSubject" resultMap="SolicitudResult">
-        select 
-            e.codigo,
-            e.nombre,
-            e.asignaturas,
-            e.versionPlanDeEstudio,
-            e.numeroMatriculas,
-            e.correo,
-            e.programaAcademico,
-            
-            s.numero as Solicitud_numero,
-            s.fecha as Solicitud_fecha,
-            s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
-            s.comentarios as Solicitud_comentarios,
-            s.estado as Solicitud_estado,
-            s.acuseRecibo as Solicitud_acuseRecibo,
-            s.avalConsejero as Solicitud_avalConsejero,
-            s.necesitaAcuseRecibo as Solicitud_necesitaAcuseRecibo,
-            s.asignatura_nemonico as Solicitud_asignatura_nemonico,
-        
-            asi.nemonico as Asignatura_nemonico,
-            asi.nombre as Asignatura_nombre
+    <select parameterType="map" id="consultRequestByStudentSubject"  resultType="Solicitud">
+        select *
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo} AND s.asignatura_nemonico=#{nem}
     </select>
     
-    
-    
     <update parameterType="map" id="updateStateRequest" >
         update Solicitud set
             estado=#{estado}
+        WHERE numero=#{numero}
+    </update>
+    
+    <update parameterType="map" id="actualizarAcuseSolicitud" >
+        update Solicitud set
+            acuseRecibo=true
         WHERE numero=#{numero}
     </update>
         

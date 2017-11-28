@@ -178,5 +178,30 @@ public interface ServiciosCancelaciones {
      */
     public Acudiente consultarAcudientePorStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Actualiza el acuse de recibo cuando el acudiente de un estudiante ve la olas solicitudes
+     * @param numero es el identificador de la solicitud
+     * @throws ExcepcionServiciosCancelaciones cuando no todas las solicitudes del estudiante han sido comentadas por el consejero
+     */
+    public void actualizarAcuseSolicitud(int numero)throws ExcepcionServiciosCancelaciones;
+    
+    
+    /**
+     * Consulta las solicitudes de cancelacion de un estudiante
+     * @param codigo es el identificador del estudiante
+     * @return Una lista de las solicitudes del estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existen solicitudes para ese estudiante, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<Solicitud> consultarSolicitudesPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
+
+    /**
+     * Consulta un estudiante dado su identificador
+     * @param codigo identificador del estudiante
+     * @return El estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe estudiante con ese codigo, o si se presenta otro problema en las capas inferiores.
+     */
+    public Estudiante consultarEstudianteById(int codigo) throws ExcepcionServiciosCancelaciones;
+    
+    public Solicitud consultarSolicitudPorEstudianteYNemonico(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
 }
 
