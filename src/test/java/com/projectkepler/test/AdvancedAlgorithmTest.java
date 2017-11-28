@@ -9,13 +9,13 @@ import com.google.gson.Gson;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
-import com.projectkepler.services.algorithm.Algorithm;
 import com.projectkepler.services.algorithm.impl.AdavancedAlgorithm;
 import com.projectkepler.services.entities.Syllabus;
 import com.projectkepler.services.graphRectificator.GraphRectificator;
 import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import junit.framework.Assert;
 import org.junit.Test;
+import com.projectkepler.services.algorithm.ImpactAnalizer;
 
 /**
  *
@@ -34,7 +34,7 @@ import org.junit.Test;
  */
 public class AdvancedAlgorithmTest {
     ServiciosCancelaciones sc = ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
-    Algorithm a = new AdavancedAlgorithm() ;
+    ImpactAnalizer a = new AdavancedAlgorithm() ;
     GraphRectificator gRec = new  GraphRectificatorImpl();
     
     
@@ -42,24 +42,24 @@ public class AdvancedAlgorithmTest {
     public void CE1Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("esta calculando mal los semestres por ver","Le quedarian: 2 por ver." , a.getImpact("FIMF",gRec.verify(s) , s)[0]);
-        Assert.assertEquals("no esta dando proyeccion correcta","[[CIED, FIMF], [FIEM]]", a.getImpact("FIMF",gRec.verify(s) , s)[1]);
+        Assert.assertEquals("esta calculando mal los semestres por ver","Le quedarian: 2 por ver." , a.getImpact("FIMF",gRec.verify(s) , s,18)[0]);
+        Assert.assertEquals("no esta dando proyeccion correcta","[[CIED, FIMF], [FIEM]]", a.getImpact("FIMF",gRec.verify(s) , s,18)[1]);
     }
     
     @Test
     public void CE2Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("no esta teniendo en cuenta el corequsito","Le quedarian: 2 por ver." , a.getImpact("CALD",gRec.verify(s) , s)[0]);
-        Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact("CALD",gRec.verify(s) , s)[1]);
+        Assert.assertEquals("no esta teniendo en cuenta el corequsito","Le quedarian: 2 por ver." , a.getImpact("CALD",gRec.verify(s) , s,18)[0]);
+        Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact("CALD",gRec.verify(s) , s,18)[1]);
     }
     
     @Test
     public void CE3Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("no esta cancelando mas de 1 materia","Le quedarian: 2 por ver." , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s)[0]);
-        Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s)[1]);
+        Assert.assertEquals("no esta cancelando mas de 1 materia","Le quedarian: 2 por ver." , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s,18)[0]);
+        Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s,18)[1]);
 
     }
     

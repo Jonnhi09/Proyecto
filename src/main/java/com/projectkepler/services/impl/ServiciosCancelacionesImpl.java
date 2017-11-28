@@ -15,7 +15,6 @@ import com.projectkepler.persistence.SolicitudDAO;
 import com.projectkepler.persistence.UniversidadDAO;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
-import com.projectkepler.services.algorithm.Algorithm;
 import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.CourseStudent;
@@ -32,6 +31,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.transaction.Transactional;
 import org.apache.ibatis.exceptions.PersistenceException;
+import com.projectkepler.services.algorithm.ImpactAnalizer;
 
 /**
  *
@@ -41,7 +41,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
 
     
     @Inject 
-    private Algorithm algo ;
+    private ImpactAnalizer algo ;
     
     @Inject 
     private GraphRectificator gRec;
@@ -135,7 +135,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
             if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto()==null ){
-                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[0];
+                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,18)[0];
             }else{
                 impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto();
             }
@@ -158,7 +158,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
             if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion()==null){
-                proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s)[1];
+                proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,18)[1];
             }else{
                 proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion();
             }

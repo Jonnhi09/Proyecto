@@ -7,33 +7,36 @@
 package com.projectkepler.services.algorithm.impl;
 
 import com.google.gson.Gson;
-import com.projectkepler.services.algorithm.Algorithm;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Syllabus;
 import java.util.*;
+import com.projectkepler.services.algorithm.ImpactAnalizer;
 
 /**
  *
  * @author blackphantom
  */
-public class AdavancedAlgorithm implements Algorithm {
+public class AdavancedAlgorithm implements ImpactAnalizer {
 
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;
-
+    public int maxCre;
     @Override
-    public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+    public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
         proyection = new ArrayList<>();
+        maxCre=maxCredits;
         Gson g = new Gson();
         syllabus = planS;
         int x = solveYears(makeActualGraph(syllabus, course), syllabus.getTotalCredits());
         Collections.reverse(proyection);
         return new String[]{"Le quedarian: " + x + " por ver.", proyection.toString()};
+        
     }
 
     @Override
-    public String[] getImpact(String courses[], HashMap<String, ArrayList<String>> graph, Syllabus planS) {
+    public String[] getImpact(String courses[], HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
         proyection = new ArrayList<>();
+        maxCre=maxCredits;
         Gson g = new Gson();
         syllabus = planS;
         int x = solveYears(makeActualGraph(syllabus, courses), syllabus.getTotalCredits());
@@ -143,7 +146,7 @@ public class AdavancedAlgorithm implements Algorithm {
                 temp.add(data.get(j));
             }
             int sumcre = sumCreds(temp);
-            if (sumcre <= 18) { //TODO: sacar el maximo numero de creditos
+            if (sumcre <= maxCre) { 
                 res1.add(temp);
             }
             return;

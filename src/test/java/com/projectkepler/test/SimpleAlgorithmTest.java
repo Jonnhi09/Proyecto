@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
-import com.projectkepler.services.algorithm.Algorithm;
 import com.projectkepler.services.algorithm.impl.SimpleAlgorithm;
 import com.projectkepler.services.entities.Syllabus;
 import com.projectkepler.services.graphRectificator.GraphRectificator;
@@ -12,6 +11,7 @@ import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import org.junit.Assert;
 
 import org.junit.Test;
+import com.projectkepler.services.algorithm.ImpactAnalizer;
 
 /**
  *
@@ -20,7 +20,7 @@ import org.junit.Test;
  *
  * Clases de equivalencia.
  *
- * CE1 Cuando se cancela una materia, se agregue en el proximo semestre y se
+ * CE1 Cuando se cancela una materia, s,18e agregue en el proximo semestre y se
  * sume. Resultado: cantidad Creditos cursos pendientes.
  *
  * CE2 Cuando se cancele una materia que es correquisito de otras materia y se
@@ -33,7 +33,7 @@ import org.junit.Test;
  */
 public class SimpleAlgorithmTest {
 
-    private Algorithm a = new SimpleAlgorithm();
+    private ImpactAnalizer a = new SimpleAlgorithm();
     private ServiciosCancelaciones sc= ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
     private GraphRectificator gRec = new  GraphRectificatorImpl();
     
@@ -42,7 +42,7 @@ public class SimpleAlgorithmTest {
     public void TestCE1() throws ExcepcionServiciosCancelaciones {
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("FIMF", gRec.verify(s), s)[0] , "Si cancela FIMF le quedan: 12 de 28");
+        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("FIMF", gRec.verify(s), s,18)[0] , "Si cancela FIMF le quedan: 12 de 28");
     
     }
 
@@ -50,7 +50,7 @@ public class SimpleAlgorithmTest {
     public void TestCE2() throws ExcepcionServiciosCancelaciones {
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("CALD", gRec.verify(s), s)[0] , "Si cancela CALD le quedan: 16 de 28");
+        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("CALD", gRec.verify(s), s,18)[0] , "Si cancela CALD le quedan: 16 de 28");
     
     }
     
@@ -58,7 +58,7 @@ public class SimpleAlgorithmTest {
     public void TestCE3() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact(new String[]{"FIMF","CALD"}, gRec.verify(s), s)[0] , "Si cancela [FIMF, CALD] le quedan: 16 de 28");
+        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact(new String[]{"FIMF","CALD"}, gRec.verify(s), s,18)[0] , "Si cancela [FIMF, CALD] le quedan: 16 de 28");
     }
 }
 

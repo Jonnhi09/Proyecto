@@ -13,7 +13,7 @@ import java.util.HashMap;
  *
  * @author blackphantom
  */
-public interface Algorithm {
+public interface ImpactAnalizer {
     /***
      * entrega el impacto del estudiante al cancelar una materia.
      * @param course el curso que se va a cancelar
@@ -21,7 +21,6 @@ public interface Algorithm {
      * @param planS el plan de estudio
      * @return un arreglo de strings, el cual contiene el impacto y la proyeccion respectivamente
      */
-    public String[] getImpact(String course,HashMap<String,ArrayList<String>> graph, Syllabus planS);
-    public String[] getImpact(String courses[],HashMap<String,ArrayList<String>> graph, Syllabus planS);
-
+    public String[] getImpact(String course,HashMap<String,ArrayList<String>> graph, Syllabus planS,int maxCredits);
+    public String[] getImpact(String courses[],HashMap<String,ArrayList<String>> graph, Syllabus planS,int maxCredits);
 }
