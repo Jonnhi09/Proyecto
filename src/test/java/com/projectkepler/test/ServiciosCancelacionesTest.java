@@ -299,4 +299,16 @@ public class ServiciosCancelacionesTest {
         assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getNumero(),1);
         assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getAsignatura().getNombre(),"Fundamentos de Fisica");
     }
+    
+    @Test
+    public void consultarSolicitudTest(){
+        Solicitud sol=null;
+        try{
+            sol=servicios.consultarSolicitudPorNumero(1);
+        }catch(ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+            assertEquals(sol.getJustificacion(),"Me consume mucho tiempo y estoy descuidando las otras materias" );
+            assertEquals(sol.getAsignatura().getNombre(), "Fundamentos de Fisica");
+    }
 } 

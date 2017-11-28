@@ -22,4 +22,5 @@ public interface SolicitudDAO {
     public void updateComentariosSolicitud(int numero,String comentarios) throws PersistenceException;
     public void updateStateRequest(int numero,String estado) throws PersistenceException;
     public void actualizarAcuseSolicitud(int numero)throws PersistenceException;
+    public Solicitud consultarSolicitud(int numero) throws PersistenceException;
 }

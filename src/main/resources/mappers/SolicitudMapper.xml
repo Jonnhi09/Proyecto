@@ -26,6 +26,28 @@
 
     </select>
     
+    <select  parameterType="map" id="cargarSolicitud" resultMap="SolicitudResult"> 
+        select 
+        
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.impacto,
+            s.proyeccion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.avalConsejero,
+            s.necesitaAcuseRecibo,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre
+        
+        FROM Solicitud as s left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
+        WHERE s.numero=#{numero}
+
+    </select>
+    
     <select parameterType="map" id="loadCoursesById" resultType="CourseStudent">
         select *
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico

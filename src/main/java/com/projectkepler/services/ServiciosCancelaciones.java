@@ -208,5 +208,7 @@ public interface ServiciosCancelaciones {
     public List<Solicitud> consultarSolicitudes() throws  ExcepcionServiciosCancelaciones;
     
     public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
+    
+    public Solicitud consultarSolicitudPorNumero(int numero) throws ExcepcionServiciosCancelaciones;
 }
 

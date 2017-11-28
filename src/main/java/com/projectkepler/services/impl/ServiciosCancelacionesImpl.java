@@ -563,4 +563,19 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         return conse;
     }
+
+    @Override
+    public Solicitud consultarSolicitudPorNumero(int numero) throws ExcepcionServiciosCancelaciones {
+        Solicitud sol=null;
+        try{
+            sol=solicitud.consultarSolicitud(numero);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar la solicitud con numero: "+numero);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar la solicitud");
+        }
+        return sol;
+    }
 }

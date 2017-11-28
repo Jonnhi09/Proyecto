@@ -23,4 +23,5 @@ public interface SolicitudMapper {
     public void updateComentariosSolicitud (@Param("numero")int numero,@Param("comentarios")String comentarios);
     public void updateStateRequest(@Param("numero") int numero, @Param("estado") String estado);
     public void actualizarAcuseSolicitud(@Param("numero") int numero); 
+    public Solicitud cargarSolicitud(@Param("numero")int numero);
 }
