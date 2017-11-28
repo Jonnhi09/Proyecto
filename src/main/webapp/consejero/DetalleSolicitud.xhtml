@@ -21,12 +21,12 @@ consejeros-->
         <h:form style="margin:2% 10%" id="Listado">
             <h:panelGrid  columns="1" cellpadding="10" style="text-align:center" width="100%">
                 
-                <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style="font-weight:bold"/>
-                <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold"/>
-                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="color: white"/>
-                <h:outputText value="Fecha: #{detalleSolicitud.fecha}"/>
-                <h:outputText value="Codigo: #{detalleSolicitud.codigo}"/>
-                <h:outputText value="Cancelaciones solicitadas y justificadas"/>
+                <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style="font-weight:bold;color:white;"/>
+                <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold;color:white;"/>
+                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="color: white;"/>
+                <h:outputText value="Fecha: #{detalleSolicitud.fecha}" style="color: white;"/>
+                <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="color: white;"/>
+                <h:outputText value="Cancelaciones solicitadas y justificadas" style="color: white;"/>
 
                 <p:dataTable var="infostud" value="">
                     <p:column headerText="Cancelacion Solicitada">
@@ -37,7 +37,7 @@ consejeros-->
                         <h:outputText value="#{detalleSolicitud.justificacion}" />
                     </p:column>
                 </p:dataTable>
-                <h:outputText value="Impacto y proyeccion calculados"/>
+                <h:outputText value="Impacto y proyeccion calculados" style="color: white;"/>
                 <p:tabView id="informacion">
                     <p:tab title="Impacto">
                         <h:panelGrid columns="1" cellpadding="10">
@@ -72,10 +72,6 @@ consejeros-->
                 <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/>
                     <p:dialog header="Modal Dialog" widgetVar="mess" modal="true" height="70">
                         <h:outputText value="Registro Exitoso." />
-                        <a href="http://localhost:8080/InfoAcudiente.xhtml?id=#{detalleSolicitud.student.getCodigo()}">Ver ficha del cliente</a>
-                        <!--php  
-                        echo "<a href="http://localhost:8080/InfoAcudiente.xhtml?ingeniero=#{detalleSolicitud.student}">Enviar variables</a>";
-                        ?-->
                     </p:dialog>   
              </h:panelGrid>
         </h:form>

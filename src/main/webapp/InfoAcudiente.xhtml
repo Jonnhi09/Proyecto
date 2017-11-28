@@ -12,12 +12,13 @@ and open the template in the editor.
     <h:head>
         <title>Informacion sobre cancelaciones</title>
     </h:head>
-    <h:body>
-        <h:form>
+    <h:body style="background-image:url(../resources/Fondo.jpg);background-size: auto">
+        <h:form style="margin: 2% 10%">
+            <center>
             <h1>Solicitudes de: #{infoCancel.alumno.getNombre()}</h1>
             <h1>Carne: #{infoCancel.codigo}</h1>
             <h3>Acontinuacion se presentan las solicitudes de cancelacion con su respectivo impacto(Consecuencias de la cancelacion) junto con un comentario del respectivo consejero academico del estudiante</h3>
-            <h:outputText value="#{infoCancel.codigo}"/>
+            </center>
             <p:dataTable id="IAcudiente" var="solicitud" value="#{infoCancel.solicitudesCancel}">
             
                 <p:column headerText="Materia">
