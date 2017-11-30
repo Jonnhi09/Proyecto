@@ -34,7 +34,7 @@ public class AdavancedAlgorithm implements ImpactAnalizer {
         return new String[]{creditosPorVer + " ademas le quedarian: " + x + " semestres por ver.", proyection.toString()};
         
     }
-
+    
     @Override
     public String[] getImpact(String courses[], HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
         proyection = new ArrayList<>();
@@ -211,6 +211,8 @@ public class AdavancedAlgorithm implements ImpactAnalizer {
                 return isCoReq(c.getPreReq(),res.toArray(new String[res.size()])) ;
         return false;
     }
-    
+    public ArrayList<ArrayList<String>> getProyeccion(){
+        return proyection;
+    }
 
 }
