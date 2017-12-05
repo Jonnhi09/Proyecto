@@ -528,8 +528,15 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Solicitud sol=null;
         try{
             sol=solicitud.consultRequestByStudentAndId(codigo, nemonico);
+            if (sol==null){
+                throw new ExcepcionServiciosCancelaciones("No existe una solicitud para la materia "+nemonico+" del estudiante con codigo "+codigo);
+            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar la solicitud del estudiante "+codigo+" para la materia "+nemonico);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar la solicitud de la materia "+nemonico);
         }
         return sol;
     }
@@ -539,6 +546,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
             solicitudes=solicitud.consultarSolicitudes();
+            if (solicitudes.isEmpty()){
+                throw new ExcepcionServiciosCancelaciones("No existe ninguna solicitud");
+            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes de cancelaciones");
@@ -569,6 +579,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Solicitud sol=null;
         try{
             sol=solicitud.consultarSolicitud(numero);
+            if (sol==null){
+                throw new ExcepcionServiciosCancelaciones("No existe la solicitud con numero "+numero);
+            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar la solicitud con numero: "+numero);
@@ -577,5 +590,23 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar la solicitud");
         }
         return sol;
+    }
+    
+    @Override
+    public List<CourseStudent> consultarAsignaturasCanceladasPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones{
+        List<CourseStudent> materias=new ArrayList<>();
+        try{
+            materias=solicitud.consultCanceledSubjectsByStudent(codigo);
+            if (materias.isEmpty()){
+                throw new ExcepcionServiciosCancelaciones("El estudiante no tiene asignaturas canceladas");
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las asignaturas canceladas del estudiante con codigo "+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las asignaturas canceladas del estudiante");
+        }
+        return materias;
     }
 }

@@ -97,6 +97,14 @@
             acuseRecibo=true
         WHERE numero=#{numero}
     </update>
+    
+    <select parameterType="map" id="consultCanceledSubjectsByStudent" resultType="CourseStudent">
+        select             
+            asi.nemonico,
+            asi.nombre
+        FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
+        WHERE e.codigo=#{codigo} AND s.estado='aceptada'
+    </select>
         
     <resultMap type="Solicitud" id="SolicitudResult" >
         <id property="numero" column="numero"/> 

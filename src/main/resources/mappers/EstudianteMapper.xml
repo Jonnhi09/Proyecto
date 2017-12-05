@@ -50,9 +50,9 @@
         
             asi.nemonico as Asignatura_nemonico,
             asi.nombre as Asignatura_nombre
-        FROM (Estudiante as e JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo) LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
+        FROM Estudiante as e JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE c.correo=#{correo}
-        ORDER BY s.estado DESC,s.fecha
+        ORDER BY s.estado,s.fecha
     </select>
     
     <select parameterType="map" id="consultStudentByEmail" resultMap="EstudianteResult">

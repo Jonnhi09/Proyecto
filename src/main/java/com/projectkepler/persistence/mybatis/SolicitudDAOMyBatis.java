@@ -11,6 +11,7 @@ import com.projectkepler.persistence.mybatis.mappers.SolicitudMapper;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Solicitud;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.exceptions.PersistenceException;
 
@@ -103,5 +104,16 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
             throw new PersistenceException("Error al consultar la solicitud "+numero,e);
         }
         return soli;
+    }
+    
+    @Override
+    public List<CourseStudent> consultCanceledSubjectsByStudent(int codigo) throws PersistenceException{
+        List<CourseStudent> materias=new ArrayList<>();
+        try{
+            materias=solicitud.consultCanceledSubjectsByStudent(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar las asignaturas canceladas del estudiante",e);
+        }
+        return materias;
     }
 }

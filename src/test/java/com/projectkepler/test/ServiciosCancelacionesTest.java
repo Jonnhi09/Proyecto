@@ -117,6 +117,7 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         assertEquals(asig.get(0).getNemonico(),"PREM");
+        assertEquals(asig.get(0).getNombre(),"Precálculo");
     }
     
     @Test 
@@ -308,7 +309,20 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-            assertEquals(sol.getJustificacion(),"Me consume mucho tiempo y estoy descuidando las otras materias" );
-            assertEquals(sol.getAsignatura().getNombre(), "Fundamentos de Fisica");
+        assertEquals(sol.getJustificacion(),"Me consume mucho tiempo y estoy descuidando las otras materias" );
+        assertEquals(sol.getAsignatura().getNombre(), "Fundamentos de Fisica");
+    }
+    
+    @Test
+    public void consultarAsignaturasCanceladasTest(){
+        List<CourseStudent> materias=new ArrayList<>();
+        try{
+            materias=servicios.consultarAsignaturasCanceladasPorEstudiante(173183);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(materias.size(),1);
+        assertEquals(materias.get(0).getNemonico(),"FIMF");
+        assertEquals(materias.get(0).getNombre(),"Fisica Mecanica y Fluidos");
     }
 } 

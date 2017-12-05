@@ -32,4 +32,5 @@ public interface EstudianteMapper {
     public Estudiante consultStudentByRequest(@Param("codigo") int codigo);
     public List<Solicitud> consultRequestByStudent(@Param("codigo") int codigo);
     public ConsejeroAcademico consultarConsejeroPorEstudiante(@Param("codigo") int codigo);
+    
 }

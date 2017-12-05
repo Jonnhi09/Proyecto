@@ -203,12 +203,44 @@ public interface ServiciosCancelaciones {
      */
     public Estudiante consultarEstudianteById(int codigo) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Consulta una solicitud de un estudiante y de una materia
+     * @param codigo es el identificador del estudiante
+     * @param nemonico es el identificador de la materia
+     * @return La solicitud de una materia y de un estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud de ese estudiante para esa materia, o si se presenta otro problema en las capas inferiores.
+     */
     public Solicitud consultarSolicitudPorEstudianteYNemonico(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Consulta todas las solicitudes de cancelacion
+     * @return Una lista de solicitudes de cancelacion 
+     * @throws ExcepcionServiciosCancelaciones Si NO existe ninguna solicitud de cancelacion, o si se presenta otro problema en las capas inferiores.
+     */
     public List<Solicitud> consultarSolicitudes() throws  ExcepcionServiciosCancelaciones;
     
+    /**
+     * Consulta el consejero de un estudiante
+     * @param codigo es el identificador del estudiante
+     * @return El consejero del estudiante
+     * @throws ExcepcionServiciosCancelaciones Si NO existe el consejero, o si se presenta otro problema en las capas inferiores.
+     */
     public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Consulta una solicitud dado el numero
+     * @param numero es el identificador de la solicitud
+     * @return La solicitud a partir del numero
+     * @throws ExcepcionServiciosCancelaciones Si NO existe la solicitud, o si se presenta otro problema en las capas inferiores.
+     */
     public Solicitud consultarSolicitudPorNumero(int numero) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta las materias canceladas de un estudiante
+     * @param codigo es el identificador del estudiante
+     * @return Una lista de las asignaturas canceladas
+     * @throws ExcepcionServiciosCancelaciones Si NO existen materias canceladas, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<CourseStudent> consultarAsignaturasCanceladasPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
 }
 
