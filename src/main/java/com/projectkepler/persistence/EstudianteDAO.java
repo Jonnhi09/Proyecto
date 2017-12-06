@@ -26,4 +26,5 @@ public interface EstudianteDAO {
     public Estudiante consultStudentByRequest(int numero) throws PersistenceException;
     public List<Solicitud> consultRequestByStudent(int codigo) throws PersistenceException;
     public ConsejeroAcademico consultarConsejeroPorEstudiante(int codigo) throws PersistenceException;
+    public void updateCourseStudent(int codigo,String asignaturas) throws PersistenceException;
 }

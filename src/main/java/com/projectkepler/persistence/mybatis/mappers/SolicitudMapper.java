@@ -18,11 +18,11 @@ import org.apache.ibatis.annotations.Param;
 public interface SolicitudMapper {
     public Solicitud consultRequestByStudentSubject (@Param("codigo") int codigo, @Param("nem") String nemonico);
     public List<Solicitud> cargarSolicitudes();
-    public void updateJustification (@Param("codigo") int codigo, @Param("justificacion") String justificacion,@Param("materia") String materia, @Param("numero")int numero, @Param("acuse") boolean acuse, @Param("impacto") String impacto, @Param("proyeccion")String proyeccion, @Param("fecha")Timestamp fecha);
+    public void updateJustification (@Param("codigo") int codigo, @Param("justificacion") String justificacion,@Param("materia") String materia, @Param("numero")int numero, @Param("acuse") boolean acuse, @Param("fecha")Timestamp fecha);
     public List<CourseStudent> loadCoursesById(@Param("codigo") int codigo);
     public void updateComentariosSolicitud (@Param("numero")int numero,@Param("comentarios")String comentarios);
     public void updateStateRequest(@Param("numero") int numero, @Param("estado") String estado);
-    public void actualizarAcuseSolicitud(@Param("numero") int numero); 
+    public void actualizarAcuseSolicitud(@Param("numero") int numero, @Param("acuse") boolean acuse); 
     public Solicitud cargarSolicitud(@Param("numero")int numero);
     public List<CourseStudent> consultCanceledSubjectsByStudent(@Param("codigo") int codigo);
 }

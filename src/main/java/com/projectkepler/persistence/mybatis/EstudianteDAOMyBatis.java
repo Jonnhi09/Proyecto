@@ -113,4 +113,13 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
         }
         return consejero;
     }
+    
+    @Override
+    public void updateCourseStudent(int codigo,String asignaturas) throws PersistenceException{
+        try{
+            estudiante.updateCourseStudent(codigo, asignaturas);
+        }catch(Exception e){
+            throw new PersistenceException("Error al actualizar las asignaturas del estudiante con codigo "+codigo,e);
+        }
+    }
 }

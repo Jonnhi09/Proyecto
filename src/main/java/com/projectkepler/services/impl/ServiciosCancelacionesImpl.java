@@ -200,7 +200,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public void actualizarJustificacionById(int id, String justificacion, String materia, String impacto, String proyeccion) throws ExcepcionServiciosCancelaciones {
+    public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones {
         Syllabus planE=obtenerSyllabusEstudiante(id).get(0);
         Estudiante student;
         int numero;
@@ -220,7 +220,8 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
                 acuse=true;
             }
             numero=solicitud.consultarSolicitudes().size()+1;
-            solicitud.updateJustification(id, materia, justificacion, numero, acuse, impacto,proyeccion);
+            solicitud.updateJustification(id, materia, justificacion, numero, acuse);
+            actualizarEstadoAsignaturasPorEstudiante(id, materia, 'P');
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo actualizar la justificacion para cancelar la asignatura "+materia);
@@ -441,16 +442,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     }
 
     @Override
-    public void enviarSolicitudes(int id, String justificacion, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones {
-        String courses[]=new String [materias.size()];
-        for (int i=0; i<materias.size();i++){
-            courses[i]=materias.get(i).getNemonico();
-        }
-        String impacto=consultarImpactoByEstudianteAsignatura(id,courses);
-        String proyeccion=consultarProyeccionByEstudianteAsignatura(id, courses);
-        for (CourseStudent course:materias){
-            
-            actualizarJustificacionById(id, justificacion, course.getNemonico(),impacto,proyeccion);
+    public void enviarSolicitudes(int id, List<String> justificacion, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones {
+        for (int i=0;i<materias.size();i++){
+            actualizarJustificacionById(id, justificacion.get(i), materias.get(i).getNemonico());
         }
     }
 
@@ -469,19 +463,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     }
 
     @Override
-    public void actualizarAcuseSolicitud(int numero) throws ExcepcionServiciosCancelaciones {
+    public void actualizarAcuseSolicitud(int numero,boolean acuse) throws ExcepcionServiciosCancelaciones {
         try{
-            boolean seEnvia=true;
-            List<Solicitud> solicitudes = estudiante.consultRequestByStudent(estudiante.consultStudentByRequest(numero).getCodigo());
-            for (Solicitud s: solicitudes){
-                if(s.getComentarios()==null){
-                    seEnvia=false;
-                }
-            }
-            if (seEnvia){
-                solicitud.actualizarAcuseSolicitud(numero);
-            }
-            solicitud.consultRequestByStudentAndId(173183, "CALD").isAcuseRecibo();
+            solicitud.actualizarAcuseSolicitud(numero,acuse);
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo actualizar la solicitud "+numero);
@@ -608,5 +592,39 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las asignaturas canceladas del estudiante");
         }
         return materias;
+    }
+    
+    @Override
+    public void actualizarEstadoAsignaturasPorEstudiante(int codigo,String nemonico,char estado) throws ExcepcionServiciosCancelaciones{
+        Gson g = new Gson();
+        List<CourseStudent> asignaturas = new ArrayList<>();
+        Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
+        asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
+        for (CourseStudent c:asignaturas){
+            if (c.getNemonico().equals(nemonico)){
+                c.setEstado(estado);
+            }
+        }
+        Gson p = new GsonBuilder().setPrettyPrinting().create();
+        String materiasActualizadas= p.toJson(asignaturas);
+        estudiante.updateCourseStudent(codigo, materiasActualizadas);   
+    }
+    
+    @Override
+    public List<CourseStudent> consultarCorequisitosPorMateria(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones{
+        List<CourseStudent> materiasCorequisitos=new ArrayList<>();
+        Gson g = new Gson();
+        List<CourseStudent> asignaturas = new ArrayList<>();
+        Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
+        asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
+        for (CourseStudent c:asignaturas){
+            for (String co: c.getCoReq()){
+                if (co.equals(nemonico)){
+                    materiasCorequisitos.add(c);
+                }
+                
+            }
+        }
+        return materiasCorequisitos;
     }
 }

@@ -249,7 +249,7 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
             "coReq": ["CALD"],
             "historialNotas": [],
             "tercios": [20],
-            "estado":"V"
+            "estado":"C"
         }
 ]', 13, 2, 'pepito.perez@mail.escuelaing.edu.co', 231831,428131,'Ingenieria de sistemas', 'maria@gmail.com');
 INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[

@@ -164,6 +164,12 @@
         WHERE e.codigo=#{codigo};
     </select>
     
+    <update parameterType="map" id="updateCourseStudent" >
+        update Estudiante set 
+            asignaturas=#{asignaturas}            
+        WHERE codigo=#{codigo}
+    </update>
+    
     <resultMap type="Estudiante" id="EstudianteResult" >
         <id property="codigo" column="codigo"/> 
         <result property="nombre" column="nombre"/>

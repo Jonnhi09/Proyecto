@@ -54,10 +54,9 @@
         WHERE e.codigo=#{codigo} AND numero IS NOT NULL
     </select>
     
-    
     <insert id="updateJustification" > 
         INSERT INTO Solicitud (numero,fecha,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo,Asignatura_nemonico)
-        values (#{numero},#{fecha},#{justificacion},#{impacto},#{proyeccion},'','Enviada',null,null,#{codigo},#{acuse},#{materia})
+        values (#{numero},#{fecha},#{justificacion},'','','','No tramitada',null,null,#{codigo},#{acuse},#{materia})
 
     </insert>
     
@@ -94,7 +93,7 @@
     
     <update parameterType="map" id="actualizarAcuseSolicitud" >
         update Solicitud set
-            acuseRecibo=true
+            acuseRecibo=#{acuse}
         WHERE numero=#{numero}
     </update>
     

@@ -198,8 +198,8 @@ public class ServiciosCancelacionesTest {
     @Test
     public void actualizarAcuseSolicitudTest() throws ExcepcionServiciosCancelaciones{
         try{
-            servicios.actualizarAcuseSolicitud(1);
-            servicios.actualizarAcuseSolicitud(3);
+            servicios.actualizarAcuseSolicitud(1,true);
+            servicios.actualizarAcuseSolicitud(3,false);
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
@@ -324,5 +324,21 @@ public class ServiciosCancelacionesTest {
         assertEquals(materias.size(),1);
         assertEquals(materias.get(0).getNemonico(),"FIMF");
         assertEquals(materias.get(0).getNombre(),"Fisica Mecanica y Fluidos");
+    }
+    
+    @Test
+    public void actualizarEstadoMateriaTest() throws ExcepcionServiciosCancelaciones{
+        CourseStudent[] materia=null;
+        try{
+            servicios.actualizarEstadoAsignaturasPorEstudiante(2121465, "CALD", 'P');            
+            materia=servicios.obtenerSyllabusEstudiante(2121465).get(0).getCourses();
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(materia.length,7);
+        assertEquals(materia[2].getNemonico(),"CALD");
+        assertEquals(materia[2].getEstado(),'P');
+        
+        
     }
 } 

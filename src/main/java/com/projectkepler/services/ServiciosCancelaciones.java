@@ -51,11 +51,9 @@ public interface ServiciosCancelaciones {
      * @param id id es el codigo del estudiante que va a cancelar
      * @param justificacion es la justificacion de una cancelacion
      * @param materia es el nemonico de la asignatura a cancelar
-     * @Param impacto es el impacto que se produce al cancelar las o la materia
-     * @Param proyeccion es la proyeccion que se produce al cancelar las o la materia
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
-    public void actualizarJustificacionById(int id, String justificacion, String materia, String impacto, String proyeccion) throws ExcepcionServiciosCancelaciones;
+    public void actualizarJustificacionById(int id, String justificacion, String materia) throws ExcepcionServiciosCancelaciones;
     
     /**
      *Obtiene el plan de estudios especifico del estudiante y el plan de estudios de programa academico al que pertenece el estudiante
@@ -169,7 +167,7 @@ public interface ServiciosCancelaciones {
      * @param materias es una lista que contiene las asignaturas a cancelar
      * @throws ExcepcionServiciosCancelaciones Si NO existe una solicitud con ese identificador, o si se presenta otro problema en las capas inferiores.
      */
-    public void enviarSolicitudes(int id, String justificacion, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones;
+    public void enviarSolicitudes(int id, List<String> justificacion, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta el acudiente de un estudiante dado su codigo
@@ -182,9 +180,10 @@ public interface ServiciosCancelaciones {
     /**
      * Actualiza el acuse de recibo cuando el acudiente de un estudiante ve la olas solicitudes
      * @param numero es el identificador de la solicitud
+     * @param acuse es la aprobacion del acudiente.
      * @throws ExcepcionServiciosCancelaciones cuando no todas las solicitudes del estudiante han sido comentadas por el consejero
      */
-    public void actualizarAcuseSolicitud(int numero)throws ExcepcionServiciosCancelaciones;
+    public void actualizarAcuseSolicitud(int numero,boolean acuse)throws ExcepcionServiciosCancelaciones;
     
     
     /**
@@ -242,5 +241,16 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existen materias canceladas, o si se presenta otro problema en las capas inferiores.
      */
     public List<CourseStudent> consultarAsignaturasCanceladasPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * 
+     * @param codigo
+     * @param nemonico
+     * @param estado
+     * @throws ExcepcionServiciosCancelaciones 
+     */
+    public void actualizarEstadoAsignaturasPorEstudiante(int codigo,String nemonico,char estado) throws ExcepcionServiciosCancelaciones;
+    
+    public List<CourseStudent> consultarCorequisitosPorMateria(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
 }
 

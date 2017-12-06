@@ -90,7 +90,7 @@ public class InformacionAcudiente {
     
     public void actualizarAcuse(){
         try{
-            servicios.actualizarAcuseSolicitud(sol);
+            servicios.actualizarAcuseSolicitud(sol,true);
             alumno=null;
         }catch(ExcepcionServiciosCancelaciones ex){
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);

@@ -47,10 +47,10 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
     }
     
     @Override
-    public void updateJustification(int codigo, String materia, String justificacion, int numero,boolean acuse, String impacto, String proyeccion) throws PersistenceException {
+    public void updateJustification(int codigo, String materia, String justificacion, int numero,boolean acuse) throws PersistenceException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         try{
-            solicitud.updateJustification(codigo, justificacion, materia, numero, acuse, impacto,proyeccion, timestamp);
+            solicitud.updateJustification(codigo, justificacion, materia, numero, acuse, timestamp);
 
         }catch (Exception e){
             throw new PersistenceException("Error al registrar la solicitud numero:"+numero,e);
@@ -87,9 +87,9 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
     }
 
     @Override
-    public void actualizarAcuseSolicitud(int numero) throws PersistenceException {
+    public void actualizarAcuseSolicitud(int numero,boolean acuse) throws PersistenceException {
         try{
-            solicitud.actualizarAcuseSolicitud(numero);
+            solicitud.actualizarAcuseSolicitud(numero,acuse);
         }catch (Exception e){
             throw new PersistenceException("Error al actualizar el acuse de la solicitud "+numero,e);
         }

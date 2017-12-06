@@ -18,6 +18,7 @@ import com.projectkepler.services.entities.ConsejeroAcademico;
 import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Estudiante;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,7 +109,9 @@ public class SolCancelBean implements Serializable{
             if(justificacion == null || justificacion.isEmpty()){
                 FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese una justificación", null));
             }else{
-                servicios.enviarSolicitudes(estudiante.getCodigo(), justificacion,materiasSelect);
+                List<String> just=new ArrayList<>();
+                just.add(justificacion);
+                servicios.enviarSolicitudes(estudiante.getCodigo(), just,materiasSelect);
                 materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
                 enviarCorreo();
                 makePanelInvisible();
