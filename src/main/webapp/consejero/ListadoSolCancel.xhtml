@@ -27,9 +27,9 @@ consejeros-->
             <h:panelGrid columns="1" style="text-align: right; width: 100%">
                 <h:outputLink value="/logout">logout</h:outputLink>
             </h:panelGrid>
-            <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                <h:outputLabel value="Consejero #{detalleSolicitud.consejero}" style=" font-size:x-large"/>
-                    <h:outputLabel value="Solicitudes De Cancelacion De Aconsejados" style=" font-size:x-large"/>
+            <h:panelGrid columns="1" style="width: 100%;text-align: center;background-color:transparent">
+                <h:outputLabel value="Consejero #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;"/>
+                <h:outputLabel value="Solicitudes De Cancelacion De Aconsejados" style=" font-size:x-large;font-weight:bold;color:white;"/>
             </h:panelGrid>
             <p:scrollPanel mode="native" style="width:100%;height:40%">
                 <p:dataTable var="i" value="#{detalleSolicitud.cancelaciones}" style="text-align: center; background-color: red;" scrollable="true" scrollHeight="150">
@@ -49,15 +49,14 @@ consejeros-->
                         <p:outputLabel value="#{i.estado}" />
                     </p:column>
                     <p:column headerText="Acción">
-                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'En estudio'}" action="#{detalleSolicitud.accionVista()}">
+                        <p:commandButton value="Tramitar" rendered="#{i.estado == 'No tramitada'}" action="#{detalleSolicitud.accionVista()}" style="background:blue;">
                             <f:actionListener binding="#{detalleSolicitud.setSolSelect(i,true)}"/>
                         </p:commandButton>
-                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" >
+                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Tramitada' || i.estado == 'aceptada' || i.estado == 'rechazada' || i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" style="background:green;">
                             <f:actionListener binding="#{detalleSolicitud.setSolSelect(i,true)}"/>
                         </p:commandButton>    
                     </p:column>
                 </p:dataTable>
-                 
             </p:scrollPanel>
                 
         </h:form>

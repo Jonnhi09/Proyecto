@@ -229,7 +229,7 @@ public class DetalleSolicitudBean{
         if(solSelect.isNecesitaAcuseRecibo()||true){
             try{
                 acudiente=servicios.consultarAcudientePorStudiante(student.getCodigo());
-                Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar las solicitudes realizadas por pepito perez http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo())+"&sol="+solSelect.getNumero());
+                Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar la solicitud realizada por "+ student.getNombre() +" http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo())+"&sol="+solSelect.getNumero());
                 EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
                 sender.send(email);
             }catch (Exception ex) {
