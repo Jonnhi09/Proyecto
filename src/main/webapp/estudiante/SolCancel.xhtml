@@ -26,6 +26,12 @@
                 <p:selectManyCheckbox id="matcheck" value="#{solCancelBean.materiasSelect}" layout="grid" columns="2" converter="CourseStudentConverter" disabled="#{solCancelBean.panelVisibility}">
                     <f:selectItems value="#{solCancelBean.materias}" var="materia" itemLabel="#{materia.nemonico}" itemValue="#{materia}" />
                 </p:selectManyCheckbox>
+                <p:outputLabel value="No tiene ninguna solicitud en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() lt 1}"/>
+                <p:outputLabel value="Asignaturas con solicitudes de canceclación en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() gt 1}"/>
+                <p:outputLabel value="Asignatura con solicitud de canceclación en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() eq 1}"/>
+                <ui:repeat value="#{solCancelBean.materiasCanceladas}" var="m" rendered="#{solCancelBean.materiasCanceladas.size() gt 0}">
+                        <br/>#{m.nemonico} - #{m.nombre} 
+                </ui:repeat>
             </h:panelGrid>
             <br/>
             <br/>
@@ -33,8 +39,8 @@
                 <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis matselect matcheck"/>
                 <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
                 <h:panelGroup id = "matselect">
-                    <p:outputLabel value="Cursos seleccionados:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() gt 1 and solCancelBean.panelVisibility}"/>
-                    <p:outputLabel value="Curso seleccionado:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() eq 1 and solCancelBean.panelVisibility}"/>
+                    <p:outputLabel value="Asignaturas seleccionadas:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() gt 1 and solCancelBean.panelVisibility}"/>
+                    <p:outputLabel value="Asignatura seleccionada:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() eq 1 and solCancelBean.panelVisibility}"/>
                     <ui:repeat value="#{solCancelBean.materiasSelect}" var="m" rendered="#{solCancelBean.panelVisibility}">
                         <br/>#{m.nemonico} - #{m.nombre} 
                     </ui:repeat>
@@ -62,9 +68,19 @@
                     
                     <p:dialog header="Justificación de la solicitud de cancelación" widgetVar="dialogJustificacion" modal="true" height="300">
                         <h:panelGrid columns="1">
-                            <p:inputTextarea id="justificacion" value="#{solCancelBean.justificacion}" rows="5" cols="60" counter="display" maxlength="150" counterTemplate="{0} characters remaining." autoResize="false"/>
-                            <h:outputText id="display" />
+                            
+                            <ui:repeat value="#{solCancelBean.materiasSelect}" varStatus="loop" var="">
+                                <br/>
+                                <p:outputLabel value="Justificación para #{solCancelBean.materiasSelect.get(loop.index).nombre}:"/>
+                                <br/>
+                                <p:inputTextarea id="justificacion" value="#{solCancelBean.justificaciones[loop.index]}" rows="3" cols="60" counter="display" maxlength="150" counterTemplate="{0} characters remaining." autoResize="false"/>
+                                <br/>
+                                <h:outputText id="display" />
+                                <br/>
+                                
+                            </ui:repeat>
                             <p:messages for="dialogMessages" autoUpdate="true" closable="true"/>
+                            
                         </h:panelGrid>
                         <br/>
                         <br/>
