@@ -367,4 +367,16 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"FFIS");
         assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Física");
     }
+    
+    @Test
+    public void consultarCorequisitoPorMaterias() throws ExcepcionServiciosCancelaciones{
+        List<CourseStudent> materias=new ArrayList<>();
+        try{
+            List<CourseStudent> asigEstu=servicios.consultarAsignaturasSinSolicitudByIdEStudiante(2121465);
+            materias=servicios.consultarCorequisitosPorMaterias(2121465,asigEstu );
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(materias.size(),0);
+    }
 } 

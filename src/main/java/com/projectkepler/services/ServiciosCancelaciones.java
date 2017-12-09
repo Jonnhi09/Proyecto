@@ -267,5 +267,14 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si el coordinador no tiene solicitudes, o si se presenta otro problema en las capas inferiores.
      */
     public List<Solicitud> consultarSolicitudesPorCoordinador(int codigo) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta las materias de un estudiante que tienen como corequisito una materia dada
+     * @param codigo es el identificador del estudiante
+     * @param materias es una lista de las materias que se quieren cancelar
+     * @return Una lista de materias que tiene como corequisito las materias a cancelar
+     * @throws ExcepcionServiciosCancelaciones Si NO existe materias que tenga corequisito, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<CourseStudent> consultarCorequisitosPorMaterias(int codigo,List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones;
 }
 

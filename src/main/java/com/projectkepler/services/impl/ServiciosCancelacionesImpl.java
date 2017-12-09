@@ -623,15 +623,14 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
 
                 }
             }
-            if (materiasCorequisitos.isEmpty()){
-                throw new ExcepcionServiciosCancelaciones("Ninguna materia tiene como corequisito a "+nemonico);
-            }
         }catch (Exception e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las materias que tienen como corequisito a "+nemonico);
         }
         return materiasCorequisitos;
     }
+    
+    
     
     @Override
     public List<Solicitud> consultarSolicitudesPorCoordinador(int codigo) throws ExcepcionServiciosCancelaciones{
@@ -649,5 +648,27 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de un coordinador");
         }
         return solicitudes;
+    }
+
+    @Override
+    public List<CourseStudent> consultarCorequisitosPorMaterias(int codigo, List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones {
+        List<CourseStudent> materiasCorre=new ArrayList<>();
+        List<String> nemonicoCorre=new ArrayList<>();
+        List<String> nemonicos=new ArrayList<>();
+        for (CourseStudent c:materias){
+            nemonicos.add(c.getNemonico());
+            List<CourseStudent> tieneCorrequisitos=new ArrayList<>();
+            tieneCorrequisitos=consultarCorequisitosPorMateria(codigo, c.getNemonico());
+            for (CourseStudent t: tieneCorrequisitos){
+                materiasCorre.add(t);
+                nemonicoCorre.add(t.getNemonico());
+            }
+        }
+        for (int i=0;i<materiasCorre.size();i++){
+            if ((nemonicos.contains(materiasCorre.get(i).getNemonico()))){
+                materiasCorre.remove(materiasCorre.get(i));
+            }
+        }
+        return materiasCorre;
     }
 }
