@@ -200,9 +200,10 @@ public class DetalleSolicitudBean{
         try{
             student=servicios.consultarEstudiantePorSolicitud(solSelect.getNumero());
             materia=solSelect.getAsignatura().getNemonico()+"-"+solSelect.getAsignatura().getNombre();
-            impacto=solSelect.getImpacto();
+            String[] asignatura={solSelect.getAsignatura().getNemonico()};
+            impacto=servicios.consultarImpactoByEstudianteAsignatura(codigo,asignatura);
             justificacion=solSelect.getJustificacion();
-            proyeccion=solSelect.getProyeccion();
+            proyeccion=servicios.consultarProyeccionByEstudianteAsignatura(codigo, asignatura);
             estudiante=student.getNombre();
             codigo=student.getCodigo();
         }catch (ExcepcionServiciosCancelaciones ex) {

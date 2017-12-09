@@ -15,8 +15,6 @@ public class Solicitud {
     private int numero;
     private Date fecha;
     private String justificacion;
-    private String impacto;
-    private String proyeccion;
     private String comentarios;
     private String estado;
     private boolean acuseRecibo;
@@ -38,22 +36,6 @@ public class Solicitud {
 
     public void setJustificacion(String justificacion) {
         this.justificacion = justificacion;
-    }
-
-    public String getImpacto() {
-        return impacto;
-    }
-
-    public void setImpacto(String impacto) {
-        this.impacto = impacto;
-    }
-
-    public String getProyeccion() {
-        return proyeccion;
-    }
-
-    public void setProyeccion(String proyeccion) {
-        this.proyeccion = proyeccion;
     }
 
     public String getComentarios() {

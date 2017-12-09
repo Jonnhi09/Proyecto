@@ -35,8 +35,6 @@
         <id property="numero" column="numero"/> 
         <result property="fecha" column="fecha"/>
         <result property="justificacion" column="justificacion"/>
-        <result property="impacto" column="impacto"/>
-        <result property="proyeccion" column="proyeccion"/>
         <result property="comentarios" column="comentarios"/>
         <result property="estado" column="estado"/>
         <result property="acuseRecibo" column="AcuseRecibo"/>

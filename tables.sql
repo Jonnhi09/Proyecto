@@ -73,8 +73,6 @@ CREATE TABLE Solicitud (
     numero int  NOT NULL,
     fecha TIMESTAMP NOT NULL,
     justificacion varchar(200)  NOT NULL,
-    impacto varchar(200)  NOT NULL,
-    proyeccion varchar(200)  NOT NULL,
     comentarios varchar(200)  NULL,
     estado varchar(30)  NULL,
     acuseRecibo boolean  NULL,
@@ -315,10 +313,10 @@ INSERT INTO Asignatura VALUES ('FIMF','Física Mecánica y de Fluidos');
 INSERT INTO Asignatura VALUES ('FIEM','Física del Electromagnetismo');
 
 -- Poblar Solicitud--
-INSERT INTO Solicitud VALUES (1,'2017-10-26 10:23:54','Me consume mucho tiempo y estoy descuidando las otras materias','Si cancela FFIS le quedan: 20 creditos por ver de 28.','FFIS,CALD,ALLI,LCAL y una electiva',
+INSERT INTO Solicitud VALUES (1,'2017-10-26 10:23:54','Me consume mucho tiempo y estoy descuidando las otras materias',
                             'Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Tramitada',null,true,79328,false,'FFIS');
-INSERT INTO Solicitud VALUES (2,'2017-10-04 17:40:34','Tengo muy bajita la nota y no me quiero arriesgar a perderla','Si cancela CALD le quedan: 16 creditos por ver de 28.','CALD,PIMB,ALLI,FIMF, ENG4',null,'No tramitada',null,true,173183,true,'CALD');
-INSERT INTO Solicitud VALUES (3,'2017-10-29 13:24:24','No le entiendo al profesor','Si cancela FIMF le quedan: 20 creditos por ver de 28.','ARQC,PDIS,ACFI,PRON,POOB','El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','aceptada',true,true,173183,true,'FIMF'); 
+INSERT INTO Solicitud VALUES (2,'2017-10-04 17:40:34','Tengo muy bajita la nota y no me quiero arriesgar a perderla',null,'No tramitada',null,true,173183,true,'CALD');
+INSERT INTO Solicitud VALUES (3,'2017-10-29 13:24:24','No le entiendo al profesor','El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','aceptada',true,true,173183,true,'FIMF'); 
 
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{

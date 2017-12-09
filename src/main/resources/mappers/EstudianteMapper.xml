@@ -18,8 +18,6 @@
             s.numero as Solicitud_numero,
             s.fecha as Solicitud_fecha,
             s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
             s.comentarios as Solicitud_comentarios,
             s.estado as Solicitud_estado,
             s.acuseRecibo as Solicitud_acuseRecibo,
@@ -39,8 +37,6 @@
             s.numero,
             s.fecha,
             s.justificacion,
-            s.impacto,
-            s.proyeccion,
             s.comentarios,
             s.estado,
             s.acuseRecibo,
@@ -68,8 +64,6 @@
             s.numero as Solicitud_numero,
             s.fecha as Solicitud_fecha,
             s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
             s.comentarios as Solicitud_comentarios,
             s.estado as Solicitud_estado,
             s.acuseRecibo as Solicitud_acuseRecibo,
@@ -96,8 +90,6 @@
             s.numero as Solicitud_numero,
             s.fecha as Solicitud_fecha,
             s.justificacion as Solicitud_justificacion,
-            s.impacto as Solicitud_impacto,
-            s.proyeccion as Solicitud_proyeccion,
             s.comentarios as Solicitud_comentarios,
             s.estado as Solicitud_estado,
             s.acuseRecibo as Solicitud_acuseRecibo,
@@ -116,8 +108,6 @@
             s.numero,
             s.fecha,
             s.justificacion,
-            s.impacto,
-            s.proyeccion,
             s.comentarios,
             s.estado,
             s.acuseRecibo,
@@ -148,8 +138,6 @@
             s.numero as Estudiante_Solicitud_numero,
             s.fecha as Estudiante_Solicitud_fecha,
             s.justificacion as Estudiante_Solicitud_justificacion,
-            s.impacto as Estudiante_Solicitud_impacto,
-            s.proyeccion as Estudiante_Solicitud_proyeccion,
             s.comentarios as Estudiante_Solicitud_comentarios,
             s.estado as Estudiante_Solicitud_estado,
             s.acuseRecibo as Estudiante_Solicitud_acuseRecibo,
@@ -185,8 +173,6 @@
         <id property="numero" column="numero"/> 
         <result property="fecha" column="fecha"/>
         <result property="justificacion" column="justificacion"/>
-        <result property="impacto" column="impacto"/>
-        <result property="proyeccion" column="proyeccion"/>
         <result property="comentarios" column="comentarios"/>
         <result property="estado" column="estado"/>
         <result property="acuseRecibo" column="AcuseRecibo"/>

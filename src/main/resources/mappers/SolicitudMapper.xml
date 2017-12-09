@@ -11,8 +11,6 @@
             s.numero,
             s.fecha,
             s.justificacion,
-            s.impacto,
-            s.proyeccion,
             s.comentarios,
             s.estado,
             s.acuseRecibo,
@@ -32,8 +30,6 @@
             s.numero,
             s.fecha,
             s.justificacion,
-            s.impacto,
-            s.proyeccion,
             s.comentarios,
             s.estado,
             s.acuseRecibo,
@@ -55,8 +51,8 @@
     </select>
     
     <insert id="updateJustification" > 
-        INSERT INTO Solicitud (numero,fecha,justificacion,impacto,proyeccion,comentarios,estado,acuseRecibo,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo,Asignatura_nemonico)
-        values (#{numero},#{fecha},#{justificacion},'','','','No tramitada',null,null,#{codigo},#{acuse},#{materia})
+        INSERT INTO Solicitud (numero,fecha,justificacion,comentarios,estado,acuseRecibo,avalConsejero,Estudiante_codigo,necesitaAcuseRecibo,Asignatura_nemonico)
+        values (#{numero},#{fecha},#{justificacion},'','No tramitada',null,null,#{codigo},#{acuse},#{materia})
 
     </insert>
     
@@ -70,8 +66,6 @@
             s.numero,
             s.fecha,
             s.justificacion,
-            s.impacto,
-            s.proyeccion,
             s.comentarios,
             s.estado,
             s.acuseRecibo,
@@ -110,8 +104,6 @@
             s.numero,
             s.fecha,
             s.justificacion,
-            s.impacto,
-            s.proyeccion,
             s.comentarios,
             s.estado,
             s.acuseRecibo,
@@ -130,8 +122,6 @@
         <id property="numero" column="numero"/> 
         <result property="fecha" column="fecha"/>
         <result property="justificacion" column="justificacion"/>
-        <result property="impacto" column="impacto"/>
-        <result property="proyeccion" column="proyeccion"/>
         <result property="comentarios" column="comentarios"/>
         <result property="estado" column="estado"/>
         <result property="acuseRecibo" column="AcuseRecibo"/>

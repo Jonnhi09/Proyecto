@@ -133,12 +133,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
-            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto()==null ){
-                impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[0];
-            }else{
-                impacto=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getImpacto();
-            }
+            impacto=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[0];
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar el impacto de la asignatura "+nemonicoAsignatura+" del estudiante "+codigoEstudiante);
@@ -156,13 +151,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            Solicitud request=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]);
-            if (request==null || solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion()==null){
-                proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[1];
-            }else{
-                proyeccion=solicitud.consultRequestByStudentAndId(codigoEstudiante, nemonicoAsignatura[0]).getProyeccion();
-            }
-            
+            proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[1];    
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar la proyeccion de cancelar la asignatura "+nemonicoAsignatura);
