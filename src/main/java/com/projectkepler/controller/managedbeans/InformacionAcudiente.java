@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.entities.Solicitud;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 /**
  *
@@ -30,18 +33,18 @@ public class InformacionAcudiente {
     List<Solicitud> solicitudesCancel;
     int sol;
     Solicitud solInfo;
-    
+    String impacto;
     ServiciosCancelaciones servicios = ServiciosCancelacionesFactory.getInstance().getServiciosCancelaciones();
     
 
-    public int getCodigo() {
+    public int getCodigo(){
         HttpServletRequest req = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        codigo=Integer.parseInt(req.getParameter("id"));
+        codigo=Integer.parseInt((req.getParameter("id")));
         sol=Integer.parseInt(req.getParameter("sol"));
         return codigo;
     }
     
-    public Estudiante getAlumno() {
+    public Estudiante getAlumno(){
         if(alumno==null){
             cargarInformacion();
         }
@@ -57,6 +60,8 @@ public class InformacionAcudiente {
             alumno=servicios.consultarEstudianteById(getCodigo());
             solicitudesCancel=servicios.consultarSolicitudesPorEstudiante(codigo);
             solInfo=servicios.consultarSolicitudPorNumero(sol);
+            String[] asignatura={solInfo.getAsignatura().getNemonico()};
+            impacto=servicios.consultarImpactoByEstudianteAsignatura(codigo,asignatura);
             
         }catch(ExcepcionServiciosCancelaciones ex){
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,17 +91,26 @@ public class InformacionAcudiente {
     public void setSolInfo(Solicitud solInfo) {
         this.solInfo = solInfo;
     }
+
+    public String getImpacto() {
+        return impacto;
+    }
+
+    public void setImpacto(String impacto) {
+        this.impacto = impacto;
+    }
     
     
     public void actualizarAcuse(){
         try{
-            servicios.actualizarAcuseSolicitud(sol,true);
+            servicios.actualizarAcuseSolicitud(sol,solInfo.isAcuseRecibo());
             alumno=null;
         }catch(ExcepcionServiciosCancelaciones ex){
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     
-    
+
 }
 

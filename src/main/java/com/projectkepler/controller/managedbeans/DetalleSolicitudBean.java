@@ -14,11 +14,14 @@ import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.email.*;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -199,13 +202,13 @@ public class DetalleSolicitudBean{
     public void cargarDatos(){
         try{
             student=servicios.consultarEstudiantePorSolicitud(solSelect.getNumero());
+            codigo=student.getCodigo();
             materia=solSelect.getAsignatura().getNemonico()+"-"+solSelect.getAsignatura().getNombre();
             String[] asignatura={solSelect.getAsignatura().getNemonico()};
             impacto=servicios.consultarImpactoByEstudianteAsignatura(codigo,asignatura);
             justificacion=solSelect.getJustificacion();
             proyeccion=servicios.consultarProyeccionByEstudianteAsignatura(codigo, asignatura);
             estudiante=student.getNombre();
-            codigo=student.getCodigo();
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
         }   
@@ -222,7 +225,7 @@ public class DetalleSolicitudBean{
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "El comentario a sido agregado corretamente", null));
             }
         }catch (ExcepcionServiciosCancelaciones ex) {
-            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
         }
     }
     
@@ -233,9 +236,10 @@ public class DetalleSolicitudBean{
                 Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar la solicitud realizada por "+ student.getNombre() +" http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo())+"&sol="+solSelect.getNumero());
                 EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
                 sender.send(email);
+                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "El correo se a enviado", null));
             }catch (Exception ex) {
-            Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+            }
         }
     }
     

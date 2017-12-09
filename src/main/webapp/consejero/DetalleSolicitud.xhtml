@@ -60,13 +60,13 @@ onclick="PF('mess').show();"-->
                             </p:dialog>   
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Comentarios" rendered="#{detalleSolicitud.solSelect.estado == 'Aceptada' || detalleSolicitud.solSelect.estado =='aceptada' }">
+                    <p:tab title="Comentarios" rendered="#{detalleSolicitud.solSelect.estado == 'Tramitada' || detalleSolicitud.solSelect.estado =='aceptada' }">
                         <h:panelGrid columns="1" cellpadding="10">
                             <h:outputText value="#{detalleSolicitud.solSelect.comentarios}" />   
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
-                <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.solSelect.setEstado('Tramitada')}"  update="informacion">
+                <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.solSelect.setEstado('Tramitada')}"  update="informacion" rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}">
                     <p:resetInput target="informacion" />
                     <f:actionListener binding="#{detalleSolicitud.atualizarEstadoJustificacion()}"/>
                     <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
