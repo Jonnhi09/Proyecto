@@ -15,7 +15,7 @@ import com.projectkepler.persistence.UniversidadDAO;
 import com.projectkepler.persistence.mybatis.SolicitudDAOMyBatis;
 import com.projectkepler.persistence.mybatis.UniversidadDAOMyBatis;
 import com.projectkepler.persistence.mybatis.EstudianteDAOMyBatis;
-import com.projectkepler.services.algorithm.impl.AdavancedAlgorithm;
+import com.projectkepler.services.algorithm.impl.AdvancedAlgorithm;
 import com.projectkepler.services.graphRectificator.GraphRectificator;
 import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
 import com.projectkepler.services.impl.ServiciosCancelacionesImpl;
@@ -45,7 +45,7 @@ public class ServiciosCancelacionesFactory {
                 bind(SolicitudDAO.class).to(SolicitudDAOMyBatis.class);
                 bind(UniversidadDAO.class).to(UniversidadDAOMyBatis.class);
                 bind(AcudienteDAO.class).to(AcudienteDAOMyBatis.class);
-                bind(ImpactAnalizer.class).to(AdavancedAlgorithm.class);
+                bind(ImpactAnalizer.class).to(AdvancedAlgorithm.class);
                 bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
         });
@@ -61,7 +61,7 @@ public class ServiciosCancelacionesFactory {
                 bind(SolicitudDAO.class).to(SolicitudDAOMyBatis.class);
                 bind(UniversidadDAO.class).to(UniversidadDAOMyBatis.class);
                 bind(AcudienteDAO.class).to(AcudienteDAOMyBatis.class);
-                bind(ImpactAnalizer.class).to(AdavancedAlgorithm.class);
+                bind(ImpactAnalizer.class).to(AdvancedAlgorithm.class);
                 bind(GraphRectificator.class).to(GraphRectificatorImpl.class);
             }
         });

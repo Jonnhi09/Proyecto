@@ -134,7 +134,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test
-    public void consultarPlanDeEstudios(){
+    public void consultarPlanDeEstudiosTest(){
         Syllabus programa=null;
         try{
             programa=servicios.consultarPlanDeEstudios("Ingenieria de sistemas", 13);
@@ -159,7 +159,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test
-    public void consultarSolicitudesConsejero() throws ExcepcionServiciosCancelaciones{
+    public void consultarSolicitudesConsejeroTest() throws ExcepcionServiciosCancelaciones{
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
             solicitudes=servicios.consultarSolicitudesDeCancelaciones("claudia.patricia@escuelaing.edu.co");
@@ -169,7 +169,7 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitudes.size(),3);
         assertEquals(solicitudes.get(0).getNumero(),2);
         assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"CALD");
-        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Calculo Diferencial");
+        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
     }
     
     @Test
@@ -184,7 +184,7 @@ public class ServiciosCancelacionesTest {
     }
 
     @Test 
-    public void cosultarAcudienteTest() throws ExcepcionServiciosCancelaciones{
+    public void consultarAcudienteTest() throws ExcepcionServiciosCancelaciones{
         Acudiente acu=null;
         try{
             acu=servicios.consultarAcudientePorStudiante(2121465);
@@ -220,11 +220,11 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitudes.size(),2);
         assertEquals(solicitudes.get(0).getNumero(),2);
         assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"CALD");
-        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Calculo Diferencial");
+        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
     }
     
     @Test
-    public void consultarEstudiantePorSolicitud(){
+    public void consultarEstudiantePorSolicitudTest(){
         Estudiante estudiante=null;
         try{
             estudiante=servicios.consultarEstudiantePorSolicitud(2);
@@ -235,7 +235,7 @@ public class ServiciosCancelacionesTest {
         assertEquals(estudiante.getSolicitudes().size(),2);
         assertEquals(estudiante.getSolicitudes().get(0).getNumero(),2);
         assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNemonico(),"CALD");
-        assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNombre(),"Calculo Diferencial");
+        assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
     }
     
     @Test 
@@ -248,7 +248,7 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(estudiante.getNombre(),"Pepito perez montenegro");
         assertEquals(estudiante.getSolicitudes().size(),2);
-        assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNombre(),"Calculo Diferencial");
+        assertEquals(estudiante.getSolicitudes().get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
         int numero=2;
         for (Solicitud s: estudiante.getSolicitudes()){
             assertEquals(s.getNumero(),numero);
@@ -258,7 +258,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test
-    public void consultarSolicitudPorEstudianteNemonico(){
+    public void consultarSolicitudPorEstudianteNemonicoTest(){
         Solicitud sol=null;
         try{
             sol=servicios.consultarSolicitudPorEstudianteYNemonico(173183,"CALD");
@@ -267,7 +267,7 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(sol.getNumero(),2);
         assertEquals(sol.getAsignatura().getNemonico(),"CALD");
-        assertEquals(sol.getAsignatura().getNombre(),"Calculo Diferencial");
+        assertEquals(sol.getAsignatura().getNombre(),"Cálculo Diferencial");
     }
     
     @Test 
@@ -281,7 +281,7 @@ public class ServiciosCancelacionesTest {
         assertEquals(solicitudes.size(),3);
         assertEquals(solicitudes.get(0).getNumero(),1);
         assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"FFIS");
-        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Fisica");
+        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Física");
     }
     
     @Test 
@@ -298,7 +298,7 @@ public class ServiciosCancelacionesTest {
         assertEquals(consejero.getEstudiantes().get(0).getCodigo(),79328);
         assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().size(),1);
         assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getNumero(),1);
-        assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getAsignatura().getNombre(),"Fundamentos de Fisica");
+        assertEquals(consejero.getEstudiantes().get(0).getSolicitudes().get(0).getAsignatura().getNombre(),"Fundamentos de Física");
     }
     
     @Test
@@ -310,7 +310,7 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         assertEquals(sol.getJustificacion(),"Me consume mucho tiempo y estoy descuidando las otras materias" );
-        assertEquals(sol.getAsignatura().getNombre(), "Fundamentos de Fisica");
+        assertEquals(sol.getAsignatura().getNombre(), "Fundamentos de Física");
     }
     
     @Test
@@ -323,7 +323,7 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(materias.size(),1);
         assertEquals(materias.get(0).getNemonico(),"FIMF");
-        assertEquals(materias.get(0).getNombre(),"Fisica Mecanica y Fluidos");
+        assertEquals(materias.get(0).getNombre(),"Física Mecánica y de Fluidos");
     }
     
     @Test
@@ -337,8 +337,34 @@ public class ServiciosCancelacionesTest {
         }
         assertEquals(materia.length,7);
         assertEquals(materia[2].getNemonico(),"CALD");
-        assertEquals(materia[2].getEstado(),'P');
-        
-        
+        assertEquals(materia[2].getEstado(),'P');  
+    }
+    
+    @Test
+    public void consultarMateriasConCorequisitoPorEstudianteTest() throws ExcepcionServiciosCancelaciones{
+        List<CourseStudent> materias=new ArrayList<>();
+        try{
+            materias=servicios.consultarCorequisitosPorMateria(2121465, "CALD");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(materias.size(),1);
+        assertEquals(materias.get(0).getNemonico(),"FIMF");
+        assertEquals(materias.get(0).getNombre(),"Física Mecánica y de Fluidos");
+        assertEquals(materias.get(0).getCoReq()[0],"CALD");
+    }
+    
+    @Test
+    public void consultarSolicitudesPorCoordinadorTest() throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=servicios.consultarSolicitudesPorCoordinador(428131);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(solicitudes.size(),3);
+        assertEquals(solicitudes.get(0).getNumero(), 1);
+        assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"FFIS");
+        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Física");
     }
 } 

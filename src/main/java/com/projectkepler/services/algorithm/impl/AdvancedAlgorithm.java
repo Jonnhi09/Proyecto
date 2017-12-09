@@ -16,7 +16,7 @@ import com.projectkepler.services.algorithm.ImpactAnalizer;
  *
  * @author blackphantom
  */
-public class AdavancedAlgorithm implements ImpactAnalizer {
+public class AdvancedAlgorithm implements ImpactAnalizer {
 
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;

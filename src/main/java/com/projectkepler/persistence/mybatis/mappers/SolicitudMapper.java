@@ -25,4 +25,5 @@ public interface SolicitudMapper {
     public void actualizarAcuseSolicitud(@Param("numero") int numero, @Param("acuse") boolean acuse); 
     public Solicitud cargarSolicitud(@Param("numero")int numero);
     public List<CourseStudent> consultCanceledSubjectsByStudent(@Param("codigo") int codigo);
+    public List<Solicitud> consultRequestsByCoordinator(@Param("codigo") int codigo);
 }

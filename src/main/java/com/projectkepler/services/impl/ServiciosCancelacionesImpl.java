@@ -596,35 +596,69 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Override
     public void actualizarEstadoAsignaturasPorEstudiante(int codigo,String nemonico,char estado) throws ExcepcionServiciosCancelaciones{
-        Gson g = new Gson();
-        List<CourseStudent> asignaturas = new ArrayList<>();
-        Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
-        asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
-        for (CourseStudent c:asignaturas){
-            if (c.getNemonico().equals(nemonico)){
-                c.setEstado(estado);
+        try{
+            Gson g = new Gson();
+            List<CourseStudent> asignaturas = new ArrayList<>();
+            Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
+            asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
+            for (CourseStudent c:asignaturas){
+                if (c.getNemonico().equals(nemonico)){
+                    c.setEstado(estado);
+                }
             }
+            Gson p = new GsonBuilder().setPrettyPrinting().create();
+            String materiasActualizadas= p.toJson(asignaturas);
+            estudiante.updateCourseStudent(codigo, materiasActualizadas); 
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo actualizar el estado de la materia "+nemonico);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al actualizar el estado de una materia");
         }
-        Gson p = new GsonBuilder().setPrettyPrinting().create();
-        String materiasActualizadas= p.toJson(asignaturas);
-        estudiante.updateCourseStudent(codigo, materiasActualizadas);   
     }
     
     @Override
     public List<CourseStudent> consultarCorequisitosPorMateria(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones{
         List<CourseStudent> materiasCorequisitos=new ArrayList<>();
-        Gson g = new Gson();
-        List<CourseStudent> asignaturas = new ArrayList<>();
-        Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
-        asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
-        for (CourseStudent c:asignaturas){
-            for (String co: c.getCoReq()){
-                if (co.equals(nemonico)){
-                    materiasCorequisitos.add(c);
+        try{
+            Gson g = new Gson();
+            List<CourseStudent> asignaturas = new ArrayList<>();
+            Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
+            asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
+            for (CourseStudent c:asignaturas){
+                for (String co: c.getCoReq()){
+                    if (co.equals(nemonico)){
+                        materiasCorequisitos.add(c);
+                    }
+
                 }
-                
             }
+            if (materiasCorequisitos.isEmpty()){
+                throw new ExcepcionServiciosCancelaciones("Ninguna materia tiene como corequisito a "+nemonico);
+            }
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las materias que tienen como corequisito a "+nemonico);
         }
         return materiasCorequisitos;
+    }
+    
+    @Override
+    public List<Solicitud> consultarSolicitudesPorCoordinador(int codigo) throws ExcepcionServiciosCancelaciones{
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=solicitud.consultRequestsByCoordinator(codigo);
+            if (solicitudes.isEmpty()){
+                throw new ExcepcionServiciosCancelaciones("El coordinador no tiene ninguna solicitud para revisar");
+            }
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes para el coordinador con codigo "+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de un coordinador");
+        }
+        return solicitudes;
     }
 }

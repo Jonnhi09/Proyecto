@@ -243,14 +243,29 @@ public interface ServiciosCancelaciones {
     public List<CourseStudent> consultarAsignaturasCanceladasPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
     
     /**
-     * 
-     * @param codigo
-     * @param nemonico
-     * @param estado
-     * @throws ExcepcionServiciosCancelaciones 
+     * Actualiza el estado de una asignatura de un estudiante (V-Viendo,C-Cancelada,P-Pendiente)
+     * @param codigo es el identificador del estudiante
+     * @param nemonico es el identificador de la materia 
+     * @param estado es el nuevo estado para la asignatura
+     * @throws ExcepcionServiciosCancelaciones Si el estudiante no tiene esa materia, o si se presenta otro problema en las capas inferiores.   
      */
     public void actualizarEstadoAsignaturasPorEstudiante(int codigo,String nemonico,char estado) throws ExcepcionServiciosCancelaciones;
     
+    /**
+     * Consulta las materias de un estudiante que tienen como corequisito una materia dada
+     * @param codigo es el identificador del estudiante
+     * @param nemonico es el identificador de la materia que es corequisito de otras
+     * @return Una lista de materias que tiene como corequisito otra materia
+     * @throws ExcepcionServiciosCancelaciones Si NO existe materias que tenga corequisito, o si se presenta otro problema en las capas inferiores.
+     */
     public List<CourseStudent> consultarCorequisitosPorMateria(int codigo,String nemonico) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta las solicitudes para un coordinador dado su identificador 
+     * @param codigo es el identificador del coordinador
+     * @return Una lista de solicitudes 
+     * @throws ExcepcionServiciosCancelaciones Si el coordinador no tiene solicitudes, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<Solicitud> consultarSolicitudesPorCoordinador(int codigo) throws ExcepcionServiciosCancelaciones;
 }
 

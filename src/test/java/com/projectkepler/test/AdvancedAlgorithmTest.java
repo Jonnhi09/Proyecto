@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.projectkepler.services.ExcepcionServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
-import com.projectkepler.services.algorithm.impl.AdavancedAlgorithm;
+import com.projectkepler.services.algorithm.impl.AdvancedAlgorithm;
 import com.projectkepler.services.entities.Syllabus;
 import com.projectkepler.services.graphRectificator.GraphRectificator;
 import com.projectkepler.services.graphRectificator.impl.GraphRectificatorImpl;
@@ -34,7 +34,7 @@ import com.projectkepler.services.algorithm.ImpactAnalizer;
  */
 public class AdvancedAlgorithmTest {
     ServiciosCancelaciones sc = ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
-    ImpactAnalizer a = new AdavancedAlgorithm() ;
+    ImpactAnalizer a = new AdvancedAlgorithm() ;
     GraphRectificator gRec = new  GraphRectificatorImpl();
     
     

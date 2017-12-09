@@ -308,10 +308,10 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
 -- Poblar Course
 INSERT INTO Asignatura VALUES ('PREM','Precálculo');
 INSERT INTO Asignatura VALUES ('AGEO','Análisis Geométrico');
-INSERT INTO Asignatura VALUES ('CALD','Calculo Diferencial');
+INSERT INTO Asignatura VALUES ('CALD','Cálculo Diferencial');
 INSERT INTO Asignatura VALUES ('CIED','Cálculo Integral y Ecuaciones Diferenciales');
-INSERT INTO Asignatura VALUES ('FFIS','Fundamentos de Fisica');
-INSERT INTO Asignatura VALUES ('FIMF','Fisica Mecanica y Fluidos');
+INSERT INTO Asignatura VALUES ('FFIS','Fundamentos de Física');
+INSERT INTO Asignatura VALUES ('FIMF','Física Mecánica y de Fluidos');
 INSERT INTO Asignatura VALUES ('FIEM','Física del Electromagnetismo');
 
 -- Poblar Solicitud--

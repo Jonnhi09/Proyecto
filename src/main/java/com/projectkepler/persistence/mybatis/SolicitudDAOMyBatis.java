@@ -116,4 +116,15 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
         }
         return materias;
     }
+    
+    @Override
+    public List<Solicitud> consultRequestsByCoordinator(int codigo) throws PersistenceException{
+        List<Solicitud> solicitudes=new ArrayList<>();
+        try{
+            solicitudes=solicitud.consultRequestsByCoordinator(codigo);
+        }catch (Exception e){
+            throw new PersistenceException("Erro al consultar las solicitudes de cancelacion para el coordinador "+codigo,e);
+        }
+        return solicitudes;
+    }
 }
