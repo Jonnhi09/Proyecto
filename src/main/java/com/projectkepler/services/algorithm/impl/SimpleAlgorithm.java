@@ -54,5 +54,8 @@ public class SimpleAlgorithm implements ImpactAnalizer {
         }
         return false;
     }
-    
+    @Override
+    public ArrayList<ArrayList<String>> getProyeccion(){
+        return null;
+    }
 }

@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,4 +24,5 @@ public interface ImpactAnalizer {
      */
     public String[] getImpact(String course,HashMap<String,ArrayList<String>> graph, Syllabus planS,int maxCredits);
     public String[] getImpact(String courses[],HashMap<String,ArrayList<String>> graph, Syllabus planS,int maxCredits);
+    public ArrayList<ArrayList<String>> getProyeccion();
 }
