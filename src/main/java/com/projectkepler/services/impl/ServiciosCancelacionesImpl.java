@@ -570,9 +570,6 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<CourseStudent> materias=new ArrayList<>();
         try{
             materias=solicitud.consultCanceledSubjectsByStudent(codigo);
-            if (materias.isEmpty()){
-                throw new ExcepcionServiciosCancelaciones("El estudiante no tiene asignaturas canceladas");
-            }
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar las asignaturas canceladas del estudiante con codigo "+codigo);
