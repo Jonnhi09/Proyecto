@@ -96,7 +96,7 @@ public class SolCancelBean implements Serializable{
                     nemonicos[i]=materiasSelect.get(i).getNemonico();
                 }
                 impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
-                proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
+                //proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
                 makePanelVisible();
             }
         } catch (ExcepcionServiciosCancelaciones ex) {

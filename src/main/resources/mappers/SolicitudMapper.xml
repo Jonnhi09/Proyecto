@@ -45,7 +45,9 @@
     </select>
     
     <select parameterType="map" id="loadCoursesById" resultType="CourseStudent">
-        select *
+        select 
+            asi.nemonico,
+            asi.nombre
         FROM  Estudiante as e left join Solicitud as s on s.Estudiante_codigo=e.codigo left join Asignatura as asi on asi.nemonico=s.asignatura_nemonico
         WHERE e.codigo=#{codigo} AND numero IS NOT NULL
     </select>

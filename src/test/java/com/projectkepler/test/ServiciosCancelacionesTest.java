@@ -11,6 +11,7 @@ import com.projectkepler.services.entities.ProgramaAcademico;
 import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Syllabus;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -58,7 +59,7 @@ public class ServiciosCancelacionesTest {
 
     @Test 
     public void consultarProyeccionByEstudianteTest(){
-        String resultado="";
+        ArrayList<ArrayList<String>> resultado=null;
         String[] nemonico=new String[1];
         nemonico[0]="CALD";
         try{
@@ -66,7 +67,10 @@ public class ServiciosCancelacionesTest {
         }catch(ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(resultado,"[[CALD, FIMF], [CIED, FIEM]]");
+        ArrayList<ArrayList<String>> prueba=new ArrayList<ArrayList<String>> ();
+        prueba.add(new ArrayList<String> (Arrays.asList("CALD","FIMF")));
+        prueba.add(new ArrayList<String> (Arrays.asList("CIED","FIEM")));
+        assertEquals(resultado,prueba);
     }
 
     @Test 
@@ -116,8 +120,22 @@ public class ServiciosCancelacionesTest {
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
+        assertEquals(asig.size(),2);
         assertEquals(asig.get(0).getNemonico(),"PREM");
         assertEquals(asig.get(0).getNombre(),"Precálculo");
+    }
+    
+    @Test
+    public void consultarAsignaturasConSolicitudTest(){
+        List<CourseStudent> asig=null;
+        try{
+            asig=servicios.consultarAsignaturasConSolicitudPorEstudiante(173183);
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
+        assertEquals(asig.size(),2);
+        assertEquals(asig.get(0).getNemonico(),"CALD");
+        assertEquals(asig.get(0).getNombre(),"Cálculo Diferencial");
     }
     
     @Test 

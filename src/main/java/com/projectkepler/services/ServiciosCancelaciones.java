@@ -70,7 +70,7 @@ public interface ServiciosCancelaciones {
      * @return Proyeccion de cancelar una asignatura
      * @throws ExcepcionServiciosCancelaciones Si NO existe un estudiante con ese identificador o no tiene esa asignatura, o si se presenta otro problema en las capas inferiores.
      */
-    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
+    public ArrayList<ArrayList<String>> consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Actualiza el numero maximo de creditos que se pueden ver por semestre.
@@ -101,6 +101,14 @@ public interface ServiciosCancelaciones {
      * @throws ExcepcionServiciosCancelaciones Si NO existe el estudiante, o si se presenta otro problema en las capas inferiores.
      */
     public List<CourseStudent> consultarAsignaturasSinSolicitudByIdEStudiante(int codigoEstudiante) throws ExcepcionServiciosCancelaciones;
+    
+    /**
+     * Consulta las asignaturas de un estudiante que tienen solicitudes de cancelacion
+     * @param codigo identificador del estudiante
+     * @return Lista de asignaturas del estudiante
+     * @throws ExcepcionServiciosCancelaciones Si el estudiante no tiene asignaturas con solicitud, o si se presenta otro problema en las capas inferiores.
+     */
+    public List<CourseStudent> consultarAsignaturasConSolicitudPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consultar todos los programas academicos 
@@ -277,4 +285,3 @@ public interface ServiciosCancelaciones {
      */
     public List<CourseStudent> consultarCorequisitosPorMaterias(int codigo,List<CourseStudent> materias) throws ExcepcionServiciosCancelaciones;
 }
-

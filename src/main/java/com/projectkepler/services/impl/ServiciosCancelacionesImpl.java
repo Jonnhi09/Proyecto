@@ -146,12 +146,13 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     @Transactional
     @Override
-    public String consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
-        String proyeccion=null;
+    public ArrayList<ArrayList<String>> consultarProyeccionByEstudianteAsignatura(int codigoEstudiante, String[] nemonicoAsignatura) throws ExcepcionServiciosCancelaciones {
+        ArrayList<ArrayList<String>> proyeccion;
         Gson g = new Gson();
         Syllabus s = g.fromJson(consultarPlanDeEstudioByIdEstudiante(codigoEstudiante), Syllabus.class);
         try{
-            proyeccion=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[1];    
+            String proyeccionString=algo.getImpact(nemonicoAsignatura, gRec.verify(s), s,consultarNumeroMaximoDeCreditos())[1];
+            proyeccion=algo.getProyeccion();   
         }catch (PersistenceException e){
             Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
             throw new ExcepcionServiciosCancelaciones("No se pudo consultar la proyeccion de cancelar la asignatura "+nemonicoAsignatura);
@@ -278,7 +279,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<CourseStudent> asignaturas=new ArrayList<>();
         List<CourseStudent> asig;
         try{
-            asig=solicitud.loadCoursesById(codigoEstudiante);
+            asig=consultarAsignaturasConSolicitudPorEstudiante(codigoEstudiante);
             List<String> tieneSolicitud=new ArrayList<>();
             for (CourseStudent co:asig){
                 tieneSolicitud.add(co.getNemonico());
@@ -307,6 +308,21 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las asignaturas sin solicitud de un estudiante", e);
         }
         return asignaturas;
+    }
+    
+    @Override
+    public List<CourseStudent> consultarAsignaturasConSolicitudPorEstudiante(int codigo) throws ExcepcionServiciosCancelaciones{
+        List<CourseStudent> materias=new ArrayList<>();
+        try{
+            materias=solicitud.loadCoursesById(codigo);
+        }catch (PersistenceException e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las asignaturas con solicitud de cancelacion del estudiante "+codigo);
+        }catch (Exception e){
+            Logger.getLogger(ServiciosCancelacionesImpl.class.getName()).log(Level.SEVERE, null, e);
+            throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las asignaturas con solicitud de un estudiante", e);
+        }
+        return materias;
     }
     
     @Override

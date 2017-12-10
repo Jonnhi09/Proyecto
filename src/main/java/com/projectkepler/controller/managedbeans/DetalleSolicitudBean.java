@@ -207,7 +207,7 @@ public class DetalleSolicitudBean{
             String[] asignatura={solSelect.getAsignatura().getNemonico()};
             impacto=servicios.consultarImpactoByEstudianteAsignatura(codigo,asignatura);
             justificacion=solSelect.getJustificacion();
-            proyeccion=servicios.consultarProyeccionByEstudianteAsignatura(codigo, asignatura);
+            //proyeccion=servicios.consultarProyeccionByEstudianteAsignatura(codigo, asignatura);
             estudiante=student.getNombre();
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
