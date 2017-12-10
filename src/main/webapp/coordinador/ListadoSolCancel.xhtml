@@ -55,9 +55,6 @@ consejeros-->
                         <p:commandButton rendered="#{i.estado != 'Aceptada' and i.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(i)=='Tramitada'}" value="Rechazar" style="background:red;">
                             <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(i)}"/>
                         </p:commandButton>  
-                        <p:commandButton value="Consultar" style="background:blue;">
-                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(i)}"/>
-                        </p:commandButton> 
                     </p:column>
                 </p:dataTable>
             </p:scrollPanel>
