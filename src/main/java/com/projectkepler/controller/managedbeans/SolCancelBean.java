@@ -62,7 +62,7 @@ public class SolCancelBean implements Serializable{
             estudiante = servicios.consultarEstudianteByCorreo(usuario+"@mail.escuelaing.edu.co");
             materias = servicios.consultarAsignaturasSinSolicitudByIdEStudiante(estudiante.getCodigo());
             consejero = servicios.consultarConsejeroPorEstudiante(estudiante.getCodigo());
-            materiasCanceladas = servicios.consultarAsignaturasCanceladasPorEstudiante(estudiante.getCodigo());
+            materiasCanceladas = servicios.consultarAsignaturasConSolicitudPorEstudiante(estudiante.getCodigo());
         } catch (ExcepcionServiciosCancelaciones ex) {
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, ex.getLocalizedMessage(), null)); 
         }
