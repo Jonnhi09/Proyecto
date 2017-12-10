@@ -3,61 +3,77 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->
+consejeros
+onclick="PF('mess').show();"-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     
     <h:head>
-        <title>Solicitud De Cancelacion De Aconsejados</title>
+        <title>Solicitudes De Cancelacion</title>
     </h:head>
     <h:body>
-        <h:form style="margin:2% 10%" id="Listado">
+        <h:panelGrid columns="1" style="text-align: right; width: 100%">
             <h:outputLink value="/logout">logout</h:outputLink>
-            <h:panelGrid columns="1" cellpadding="10" style="text-align:center" width="100%">
-                
-                <h:outputLabel value="Coordinador: #{detalleSolicitud.usuario}" style="font-weight:bold"/>
-                <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold"/>
-                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" />
-                <h:outputText value="Fecha: #{detalleSolicitud.fecha}"/>
-                <h:outputText value="Codigo: #{detalleSolicitud.codigo}"/>
-                <h:outputText value="Cancelaciones solicitadas y justificadas"/>
+        </h:panelGrid>
 
-                <p:dataTable var="infostud" value="#{detalleSolicitud.estudiante}">
+        <h:form style="margin:2% 10%" id="Listado">
+            <h:panelGrid  columns="1" cellpadding="10" style="text-align:center" width="100%">
+                
+                <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style="font-weight:bold;color:white;"/>
+                <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold;color:white;"/>
+                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="color: white;"/>
+                <h:outputText value="Fecha: #{detalleSolicitud.fecha}" style="color: white;"/>
+                <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="color: white;"/>
+                <h:outputText value="Cancelaciones solicitadas y justificadas" style="color: white;"/>
+
+                <p:dataTable var="infostud" value="">
                     <p:column headerText="Cancelacion Solicitada">
-                        <h:outputText value="#{detalleSolicitud.codigo}" />
+                        <h:outputText value="#{detalleSolicitud.materia}" />
                     </p:column>
 
                     <p:column headerText="Justificacion">
-                        <h:outputText value="" />
+                        <h:outputText value="#{detalleSolicitud.justificacion}" />
                     </p:column>
                 </p:dataTable>
-
-                <h:outputText value="Impacto y proyeccion calculados"/>
-
-                <p:tabView>
+                <h:outputText value="Impacto y proyeccion calculados" style="color: white;"/>
+                <p:tabView id="informacion">
                     <p:tab title="Impacto">
                         <h:panelGrid columns="1" cellpadding="10">
                             <h:outputText
-                                value="Perdera la posibilidad de pedir un credito extra" />
+                                value="#{detalleSolicitud.impacto}" />
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Proyecion">
                         <h:panelGrid columns="1" cellpadding="10">
-                            <h:outputText value="Tendra que pagar un semestre de mas" />
+                            <h:outputText value="#{detalleSolicitud.proyeccion}" />
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Justificacion">
+                    <p:tab title="Comentarios" rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}">
                         <h:panelGrid columns="1" cellpadding="10">
-                            <h:outputText
-                                value="El estudiante, tiene problemas para entender al profesor en la materia" />
+                            <p:inputTextarea rows="5" cols="100" counter="display" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" value="#{detalleSolicitud.solSelect.comentarios}"/>
+                            <h:outputText id="display" />
+                            <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
+                            <h:outputText value="This is a Modal Dialog." />
+                            </p:dialog>   
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Comentarios" rendered="#{detalleSolicitud.solSelect.estado == 'Aceptada' || detalleSolicitud.solSelect.estado =='aceptada' }">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <h:outputText value="#{detalleSolicitud.solSelect.comentarios}" />   
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
-                <p:commandButton value="Registrar resultados consejeria"/>
-                <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/>
+                <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.solSelect.setEstado('Tramitada')}"  update="informacion">
+                    <p:resetInput target="informacion" />
+                    <f:actionListener binding="#{detalleSolicitud.atualizarEstadoJustificacion()}"/>
+                    <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+                </p:commandButton>
+                <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
              </h:panelGrid>
         </h:form>
+        
     </h:body>
 </html>

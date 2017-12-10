@@ -3,11 +3,12 @@
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
--->
+consejeros-->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <!--
     <h:head>
         <link rel="stylesheet" type="text/css" href="mycss.css"/>
@@ -15,36 +16,50 @@ and open the template in the editor.
     https://github.com/EPIC-WINO
     -->
     <h:head>
-        <title>Solicitud De Cancelacion De Aconsejados</title>
+        <title>Solicitudes De Cancelacion</title>
     </h:head>
-    <h:body>
+    
+    <h:body style="background-image:url(../resources/Fondo.jpg);background-size: auto"  >
+        <center>
+            <image src="../resources/logo.jpg" width="250"/>
+        </center>
         <h:form style="margin: 2% 10%">
-            <h:outputLink value="/logout">logout</h:outputLink>
-            <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                <h:outputLabel value="Coordinador #{detalleSolicitud.usuario}" style=" font-size:x-large"/>
-                    <h:outputLabel value="Solicitudes De Cancelacion De Aconsejados" style=" font-size:x-large"/>
+            <h:panelGrid columns="1" style="text-align: right; width: 100%">
+                <h:outputLink value="/logout">logout</h:outputLink>
+            </h:panelGrid>
+            <h:panelGrid columns="1" style="width: 100%;text-align: center;background-color:transparent">
+                <!--<h:outputLabel value="Consejero #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;"/>-->
+                <h:outputLabel value="Solicitudes De Cancelacion" style=" font-size:x-large;font-weight:bold;color:white;"/>
             </h:panelGrid>
             <p:scrollPanel mode="native" style="width:100%;height:40%">
-                <p:dataTable var="i" value="#{detalleSolicitud.listaSol}" style="text-align: center">
+                <p:dataTable var="i" value="#{detalleSolicitud.allCancelaciones}" style="text-align: center; background-color: red;" scrollable="true" scrollHeight="150">
+                    <f:facet name="header">
+                        Cancelaciones
+                    </f:facet>
                     <p:column headerText="Fecha solicitud">
-                        <p:outputLabel value="#{i.get(0)}" />
+                        <p:outputLabel value="#{i.fecha}" />
                     </p:column>
                     <p:column headerText="Código solicitante">
-                        <p:outputLabel value="#{i.get(1)}" />
+                        <p:outputLabel value="#{detalleSolicitud.estudianteIdSolicitud(i.numero).getCodigo()}" />
                     </p:column>
                     <p:column headerText="Nombre solicitante">
-                        <p:outputLabel value="#{i.get(2)}" />
+                        <p:outputLabel value="#{detalleSolicitud.estudianteIdSolicitud(i.numero).getNombre()}" />
                     </p:column>
                     <p:column headerText="Estado">
-                            <p:outputLabel value="#{i.get(3)}" />
+                        <p:outputLabel value="#{detalleSolicitud.getEstadoSolicitud(i)}" />
                     </p:column>
-                    <p:column headerText="Acción">
-                            <p:commandButton value="Tramitar" rendered="#{i.get(3) == 'Pendiente'}" action="#{detalleSolicitud.accionVista()}"/>
-                            <p:commandButton value="Consultar" rendered="#{i.get(3) == 'Tramitada'}" action="#{detalleSolicitud.accionVista()}"/>
-
+                    <p:column headerText="Accion">
+                        <p:commandButton rendered="#{i.estado != 'Aceptada' and i.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(i)=='Tramitada'}" value="Aceptar"  style="background:green;">
+                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudAceptada(i)}"/>
+                        </p:commandButton>
+                        <p:commandButton rendered="#{i.estado != 'Aceptada' and i.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(i)=='Tramitada'}" value="Rechazar" style="background:red;">
+                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(i)}"/>
+                        </p:commandButton>  
+                        <p:commandButton value="Consultar" style="background:blue;">
+                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(i)}"/>
+                        </p:commandButton> 
                     </p:column>
                 </p:dataTable>
-                 
             </p:scrollPanel>
                 
         </h:form>

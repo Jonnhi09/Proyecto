@@ -15,6 +15,7 @@ import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.email.*;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -132,12 +133,32 @@ public class DetalleSolicitudBean{
     public List<Solicitud> getCancelaciones() {
         return cancelaciones;
     }
+    
+    public List<Solicitud> getAllCancelaciones() throws ExcepcionServiciosCancelaciones{
+        return servicios.consultarSolicitudes();
+    }
+    public String getEstadoSolicitud(Solicitud s){
+        
+        String a = "Falta Aval de: ";
+        if (!s.isAvalConsejero())
+            a+="Consejero ";
+        if(s.isNecesitaAcuseRecibo() && !s.isAcuseRecibo())
+            a+="Acuendinte";
+        if(a.equals("Falta Aval de: "))
+            a="Tramitada";
+        return a;
+    }
 
     public void setCancelaciones(List<Solicitud> cancelaciones) {
         this.cancelaciones = cancelaciones;
     }
     
-    
+    public void CambiarestadoSolicitudAceptada(Solicitud s) throws ExcepcionServiciosCancelaciones{
+        servicios.actualizarEstadoSolicitud(s.getNumero(), "Aceptada");
+    }
+    public void CambiarestadoSolicitudRechazada(Solicitud s) throws ExcepcionServiciosCancelaciones{
+        servicios.actualizarEstadoSolicitud(s.getNumero(), "Rechazada");
+    }
     
     public Estudiante estudianteIdSolicitud(int numero){
         try{
