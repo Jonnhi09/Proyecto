@@ -476,9 +476,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             LOG.debug("Se realiza la actualizacion del estado de la solicitud en SolicitudDAO");
             solicitud.updateStateRequest(numero,estado);
-            if (estado.equals("Rechazada")){
+            if ("Rechazada".equals(estado)){
                 actualizarEstadoAsignaturasPorEstudiante(consultarEstudiantePorSolicitud(numero).getCodigo(),consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'V');
-            }else if (estado.equals("Aceptada")){
+            }else if ("Aceptada".equals(estado)){
                 actualizarEstadoAsignaturasPorEstudiante(consultarEstudiantePorSolicitud(numero).getCodigo(),consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'C');
             }
         }catch (PersistenceException e){

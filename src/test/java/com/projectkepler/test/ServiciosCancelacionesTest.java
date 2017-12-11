@@ -406,5 +406,7 @@ public class ServiciosCancelacionesTest {
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
+        assertEquals(servicios.obtenerSyllabusEstudiante(173183).get(0).getCourses()[2].getNemonico(), "CALD");
+        assertEquals(servicios.obtenerSyllabusEstudiante(173183).get(0).getCourses()[2].getEstado(), 'P');
     }
 } 
