@@ -52,7 +52,7 @@ consejeros-->
                         <p:commandButton value="Tramitar" rendered="#{i.estado == 'No tramitada'}" action="#{detalleSolicitud.accionVista()}" style="background:blue;">
                             <f:actionListener binding="#{detalleSolicitud.setSolSelect(i,true)}"/>
                         </p:commandButton>
-                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Tramitada' || i.estado == 'aceptada' || i.estado == 'rechazada' || i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" style="background:green;">
+                        <p:commandButton value="Consultar" rendered="#{i.estado == 'Tramitada' || i.estado == 'Aceptada' || i.estado == 'Rechazada' || i.estado == 'Aceptada'}" action="#{detalleSolicitud.accionVista()}" style="background:green;">
                             <f:actionListener binding="#{detalleSolicitud.setSolSelect(i,true)}"/>
                         </p:commandButton>    
                     </p:column>
