@@ -72,7 +72,7 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String course) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' ||c.getEstado() == 'C'|| c.getNemonico().equals(course) || Arrays.asList(c.getCoReq()).contains(course)) {
+            if (c.getEstado() == 'P' || c.getNemonico().equals(course) || Arrays.asList(c.getCoReq()).contains(course)) {
                 graph.put(c.getNemonico(), new ArrayList());
             }
         }
@@ -95,12 +95,12 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     private HashMap<String, ArrayList<String>> makeActualGraph(Syllabus s, String courses[]) {
         HashMap<String, ArrayList<String>> graph = new HashMap<>();
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' ||c.getEstado() == 'C'|| Arrays.asList(courses).contains(c.getNemonico()) || isCoReq(c.getCoReq(), courses)) {
+            if (c.getEstado() == 'P' || Arrays.asList(courses).contains(c.getNemonico()) || isCoReq(c.getCoReq(), courses)) {
                 graph.put(c.getNemonico(), new ArrayList());
             }
         }
         for (CourseStudent c : s.getCourses()) {
-            if (c.getEstado() == 'P' ||c.getEstado() == 'C'|| Arrays.asList(courses).contains(c.getNemonico()) || isCoReq(c.getCoReq(), courses)) {
+            if (c.getEstado() == 'P' || Arrays.asList(courses).contains(c.getNemonico()) || isCoReq(c.getCoReq(), courses)) {
                 for (String ss : c.getPreReq()) {
                     if (graph.containsKey(ss)) {
                         graph.get(c.getNemonico()).add(ss);
