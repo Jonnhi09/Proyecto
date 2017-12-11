@@ -28,6 +28,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -54,7 +55,7 @@ public class DetalleSolicitudBean{
     String consejero;
     List<Solicitud> cancelaciones;
     String impacto;
-    String proyeccion;
+    ArrayList<ArrayList<String>> proyeccion;
     String justificacion;
     String materia;
     Acudiente acudiente;
@@ -188,11 +189,11 @@ public class DetalleSolicitudBean{
         this.impacto = impacto;
     }
 
-    public String getProyeccion() {
+    public ArrayList<ArrayList<String>> getProyeccion() {
         return proyeccion;
     }
 
-    public void setProyeccion(String proyeccion) {
+    public void setProyeccion(ArrayList<ArrayList<String>> proyeccion) {
         this.proyeccion = proyeccion;
     }
 
@@ -228,7 +229,7 @@ public class DetalleSolicitudBean{
             String[] asignatura={solSelect.getAsignatura().getNemonico()};
             impacto=servicios.consultarImpactoByEstudianteAsignatura(codigo,asignatura);
             justificacion=solSelect.getJustificacion();
-            //proyeccion=servicios.consultarProyeccionByEstudianteAsignatura(codigo, asignatura);
+            proyeccion=servicios.consultarProyeccionByEstudianteAsignatura(codigo, asignatura);
             estudiante=student.getNombre();
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -237,9 +238,11 @@ public class DetalleSolicitudBean{
     
     public void atualizarEstadoJustificacion(){
         try{
-            if(solSelect.getComentarios()== null){
+            if(solSelect.getComentarios()== null || solSelect.getComentarios().isEmpty()){
+                solSelect.setEstado("No tramitada");
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingrese un comentario para continuar", null));
             }else{
+                solSelect.setEstado("Tramitada");
                 servicios.actualizarComentariosSolicitud(solSelect.getNumero(),solSelect.getComentarios());
                 servicios.actualizarEstadoSolicitud(solSelect.getNumero(), solSelect.getEstado());
                 enviarCorreo();
@@ -257,7 +260,7 @@ public class DetalleSolicitudBean{
                 Email email = new SimpleEmail("noreplay@escuelaing.edu.co",acudiente.getCorreo(),"Informacion de cancelaciones","A continuacion se presenta el link donde podra consultar la solicitud realizada por "+ student.getNombre() +" http://localhost:8080/InfoAcudiente.xhtml?id="+Integer.toString(student.getCodigo())+"&sol="+solSelect.getNumero());
                 EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
                 sender.send(email);
-                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "El correo se a enviado", null));
+                FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "El correo se ha enviado", null));
             }catch (Exception ex) {
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
             }
