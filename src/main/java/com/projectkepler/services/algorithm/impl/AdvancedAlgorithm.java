@@ -60,12 +60,12 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
             int mini = Integer.MAX_VALUE;
             ArrayList<String> theBest = null;
             for (ArrayList<String> c : config) {
-                System.err.println(mini+" "+graph);
+                //System.err.println(mini+" "+graph);
                 int res = 1 + solveYears(diff(graph, c), total - sumCreds(c));
                 if (mini > res) {
                     mini = res;
                     theBest = (ArrayList<String>) c.clone();
-                    System.err.println(res+" "+c);
+                    //System.err.println(res+" "+c);
                 }
             }
             proyection.add(theBest);
