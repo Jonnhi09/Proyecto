@@ -331,7 +331,7 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
             "preReq": ["CIED"],
             "coReq": [],
             "historialNotas": [],
-            "estado":"C"   
+            "estado":"P"   
         },
         {
             "nemonico": "ARQC",
@@ -649,7 +649,7 @@ INSERT INTO Estudiante VALUES (2109734, 'Daniela Gonzalez Ramirez', '[
             "preReq": ["TSOR"],
             "coReq": [],
             "historialNotas": [],
-            "estado":"V"   
+            "estado":"P"   
         },
         {
             "nemonico": "PDSW",
@@ -681,7 +681,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [49],
             "estado":"A"
     	},
-	{
+	    {
             "nemonico": "FFIS",
             "nombre": "Fundamentos de Física",
             "creditos": 3,
@@ -690,7 +690,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [35],
             "estado":"A"
     	},
-	{
+	    {
             "nemonico": "FQUI",
             "nombre": "",
             "creditos": 3,
@@ -699,7 +699,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [37],
             "estado":"A"
         },
- 	{
+ 	    {
             "nemonico": "EXOE",
             "nombre": "Expresión oral y escrita",
             "creditos": 3,
@@ -707,7 +707,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "coReq": [],
             "historialNotas": [37],
             "estado":"A"
-            },
+        },
     	{
             "nemonico": "CALD",
             "nombre": "Cálculo Diferencial",
@@ -717,7 +717,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [45],
             "estado":"A"
     	},
-	{
+	    {
             "nemonico": "ALLI",
             "nombre": "Algebra lineal",
             "creditos": 3,
@@ -726,7 +726,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [36],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "BIOL",
             "nombre": "Biología",
             "creditos": 3,
@@ -735,7 +735,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [38],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "EGR1",
             "nombre": "Expresión Gráfica 1",
             "creditos": 3,
@@ -744,8 +744,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [30],
             "estado":"A"
         },
- 
-	{
+        {
             "nemonico": "IINI",
             "nombre": "Introducción a la ingeniería industrial",
             "creditos": 4,
@@ -754,7 +753,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [50],
             "estado":"A"
         },
-   	{
+   	    {
             "nemonico": "CALI",
             "nombre": "Cálculo Integral",
             "creditos": 4,
@@ -763,7 +762,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [46],
             "estado":"A"
     	},
-           {
+        {
             "nemonico": "FIMF",
             "nombre": "Física Mecánica y de Fluidos",
             "creditos": 4,
@@ -772,29 +771,29 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "historialNotas": [45],
             "estado":"A"
     	},
-	{
+	    {
             "nemonico": "QUIM",
             "nombre": "Química",
             "creditos": 3,
-            "preReq": [“FQUI”],
+            "preReq": ["FQUI"],
             "coReq": [],
             "historialNotas": [39],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "EGR2",
             "nombre": "Expresión Gráfica 1",
             "creditos": 3,
-            "preReq": [“EGR1”],
+            "preReq": ["EGR1"],
             "coReq": [],
             "historialNotas": [40],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "CALV",
             "nombre": "Cálculo vectorial",
             "creditos": 4,
-            "preReq": [“ALLI”,”CALI”],
+            "preReq": ["ALLI","CALI"],
             "coReq": [],
             "historialNotas": [47],
             "estado":"A"
@@ -805,95 +804,95 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "creditos": 4,
             "preReq": ["FIMF"],
             "coReq": ["CALI"],
-            "historialNotas": [31],
-            "estado":"A"
-    	}
-	{
+            "historialNotas": [34],
+            "estado":"A"   
+        },
+        {
             "nemonico": "MSOL",
             "nombre": "Mecánica de sólidos",
             "creditos": 4,
-            "preReq": [“FIMF”,”CALD”],
+            "preReq": ["FIMF","CALD"],
             "coReq": [],
-            "historialNotas": [41],
-            "estado":"A"
+            "historialNotas": [35],
+            "estado":"A"   
         },
-	{
+	    {
             "nemonico": "HYSE",
             "nombre": "Higiene y seguridad",
             "creditos": 2,
-            "preReq": [“IINI”],
+            "preReq": ["IINI"],
             "coReq": [],
             "historialNotas": [34],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "ECDI",
             "nombre": "Ecuaciones diferenciales",
             "creditos": 3,
-            "preReq": [“CALV”],
+            "preReq": ["CALV"],
             "coReq": [],
             "historialNotas": [],
             "estado":"V"
         },
-	{
+	    {
             "nemonico": "FICO",
             "nombre": "Física del electromagnetismo",
             "creditos": 4,
-            "preReq": [“FIEM”],
+            "preReq": ["FIEM"],
             "coReq": [],
             "historialNotas": [38],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "MTRL",
             "nombre": "Materiales",
             "creditos": 3,
-            "preReq": [“FIMF”,”QUIM”],
-            "coReq": [“LMTR”],
+            "preReq": ["FIMF","QUIM"],
+            "coReq": ["LMTR"],
             "historialNotas": [],
             "estado":"V"
         },
-	{
+	    {
             "nemonico": "LMTR",
             "nombre": "Laboratorio de materiales",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“MTRL”],
+            "coReq": ["MTRL"],
             "historialNotas": [],
             "estado":"V"
         },
-	{
+	    {
             "nemonico": "SPPC",
             "nombre": "Soluciones de problemas por computador",
             "creditos": 3,
-            "preReq": [“ALII”,”CALD”],
+            "preReq": ["ALLI","CALD"],
             "coReq": [],
             "historialNotas": [-1],
             "estado":"V"
         },
-	{
+	    {
             "nemonico": "ERGO",
             "nombre": "Ergonomia",
             "creditos": 2,
             "preReq": [],
-            "coReq": [“LCTR”],
+            "coReq": ["LCTR"],
             "historialNotas": [35],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "LCTR",
             "nombre": "Laboratorio de condiciones de trabajo",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“ERGO”],
+            "coReq": ["ERGO"],
             "historialNotas": [31],
             "estado":"A"
         },
-	{
+	    {
             "nemonico": "FUNE",
             "nombre": "Fundamentos de economía",
             "creditos": 3,
-            "preReq": [“CALD”],
+            "preReq": ["CALD"],
             "coReq": [],
             "historialNotas": [],
             "estado":"V"
@@ -1051,7 +1050,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "historialNotas": [],
             "estado":"P"
     	},
-	{
+	    {
             "nemonico": "FFIS",
             "nombre": "Fundamentos de Física",
             "creditos": 3,
@@ -1060,23 +1059,23 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "historialNotas": [],
             "estado":"P"
     	},
-	{
-    "nemonico": "FQUI",
+	    {
+            "nemonico": "FQUI",
             "nombre": "",
             "creditos": 3,
             "preReq": [],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
- 	{
+        },
+ 	    {
             "nemonico": "EXOE",
             "nombre": "Expresión oral y escrita",
             "creditos": 3,
             "preReq": [],
             "coReq": [],
             "estado":"P"
-            },
+        },
     	{
             "nemonico": "CALD",
             "nombre": "Cálculo Diferencial",
@@ -1086,44 +1085,43 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "historialNotas": [],
             "estado":"P"
     	},
-	{
-    "nemonico": "ALLI",
+	    {
+            "nemonico": "ALLI",
             "nombre": "Algebra lineal",
             "creditos": 3,
             "preReq": [],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "BIOL",
+        },
+	    {
+            "nemonico": "BIOL",
             "nombre": "Biología",
             "creditos": 3,
             "preReq": [],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "EGR1",
+        },
+	    {
+            "nemonico": "EGR1",
             "nombre": "Expresión Gráfica 1",
             "creditos": 3,
             "preReq": [],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
- 
-	{
-    "nemonico": "IINI",
+        },
+ 	    {
+           "nemonico": "IINI",
             "nombre": "Introducción a la ingeniería industrial",
             "creditos": 4,
             "preReq": [],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
-   	{
+        },
+       	{
             "nemonico": "CALI",
             "nombre": "Cálculo Integral",
             "creditos": 4,
@@ -1132,7 +1130,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "historialNotas": [],
             "estado":"P"
     	},
-           {
+        {
             "nemonico": "FIMF",
             "nombre": "Física Mecánica y de Fluidos",
             "creditos": 4,
@@ -1141,357 +1139,358 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "historialNotas": [],
             "estado":"P"
     	},
-	{
-    "nemonico": "QUIM",
+    	{
+            "nemonico": "QUIM",
             "nombre": "Química",
             "creditos": 3,
-            "preReq": [“FQUI”],
+            "preReq": ["FQUI"],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "EGR2",
+        },
+    	{
+            "nemonico": "EGR2",
             "nombre": "Expresión Gráfica 1",
             "creditos": 3,
-            "preReq": [“EGR1”],
+            "preReq": ["EGR1"],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "CALV",
+        },
+    	{
+            "nemonico": "CALV",
             "nombre": "Cálculo vectorial",
             "creditos": 4,
-            "preReq": [“ALLI”,”CALI”],
+            "preReq": ["ALLI","CALI"],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
-},
-    	{
+        },
+      	{
             "nemonico": "FIEM",
             "nombre": "Física del Electromagnetismo",
             "creditos": 4,
             "preReq": ["FIMF"],
             "coReq": ["CALI"],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-    	}
-	{
-    "nemonico": "MSOL",
+    	},
+	    {
+            "nemonico": "MSOL",
             "nombre": "Mecánica de sólidos",
             "creditos": 4,
-            "preReq": [“FIMF”,”CALD”],
+            "preReq": ["FIMF","CALD"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "HYSE",
+        },
+    	{
+            "nemonico": "HYSE",
             "nombre": "Higiene y seguridad",
             "creditos": 2,
-            "preReq": [“IINI”],
+            "preReq": ["IINI"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "ECDI",
+        },
+    	{
+            "nemonico": "ECDI",
             "nombre": "Ecuaciones diferenciales",
             "creditos": 3,
-            "preReq": [“CALV”],
+            "preReq": ["CALV"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "FICO",
+        },
+    	{
+            "nemonico": "FICO",
             "nombre": "Física del electromagnetismo",
             "creditos": 4,
-            "preReq": [“FIEM”],
+            "preReq": ["FIEM"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "MTRL",
+        },
+    	{
+            "nemonico": "MTRL",
             "nombre": "Materiales",
             "creditos": 3,
-            "preReq": [“FIMF”,”QUIM”],
-            "coReq": [“LMTR”],
-"historialNotas": [],
+            "preReq": ["FIMF","QUIM"],
+            "coReq": ["LMTR"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "LMTR",
+        },
+	    {
+            "nemonico": "LMTR",
             "nombre": "Laboratorio de materiales",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“MTRL”],
-"historialNotas": [],
+            "coReq": ["MTRL"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "SPPC",
+        },
+	    {
+            "nemonico": "SPPC",
             "nombre": "Soluciones de problemas por computador",
             "creditos": 3,
-            "preReq": [“ALII”,”CALD”],
+            "preReq": ["ALLI","CALD"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "ERGO",
+        },
+	    {
+            "nemonico": "ERGO",
             "nombre": "Ergonomia",
             "creditos": 2,
             "preReq": [],
-            "coReq": [“LCTR”],
-"historialNotas": [],
+            "coReq": ["LCTR"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "LCTR",
+        },
+	    {
+            "nemonico": "LCTR",
             "nombre": "Laboratorio de condiciones de trabajo",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“ERGO”],
-"historialNotas": [],
+            "coReq": ["ERGO"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "PRBA",
+        },
+	    {
+            "nemonico": "PRBA",
             "nombre": "Probabilidad",
             "creditos": 3,
-            "preReq": [“CALV”],
+            "preReq": ["CALV"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "TMDN",
+        },
+	    {
+            "nemonico": "TMDN",
             "nombre": "Termodinámica",
             "creditos": 3,
-            "preReq": [“ECDI”,”FICO”],
+            "preReq": ["ECDI","FICO"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "PIND",
+        },
+      	{
+            "nemonico": "PIND",
             "nombre": "Procesos industriales",
             "creditos": 3,
-            "preReq": [“EGR2”,”MTRL”,”LMTR”,”MSOL”],
-            "coReq": [“LPIN”],
-"historialNotas": [],
+            "preReq": ["EGR2","MTRL","LMTR","MSOL"],
+            "coReq": ["LPIN"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "LPIN",
+        },
+	    {
+            "nemonico": "LPIN",
             "nombre": "Laboratorio de procesos industriales",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“PIND”],
-"historialNotas": [],
+            "coReq": ["PIND"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "FUNE",
+        },
+	    {
+            "nemonico": "FUNE",
             "nombre": "Fundamentos de economía",
             "creditos": 3,
-            "preReq": [“CALD”],
+            "preReq": ["CALD"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "ESTI",
+        },
+	    {
+            "nemonico": "ESTI",
             "nombre": "Estadística",
             "creditos": 3,
-            "preReq": [“PRBA”],
+            "preReq": ["PRBA"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "MMAT",
+        },
+    	{
+            "nemonico": "MMAT",
             "nombre": "Modelamiento matemático",
             "creditos": 2,
-            "preReq": [“SPPC”,”PRBA”],
+            "preReq": ["SPPC","PRBA"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "ELET",
+        },
+    	{
+            "nemonico": "ELET",
             "nombre": "Electrotecnia",
             "creditos": 3,
-            "preReq": [“FIEM”,”ECDI”],
-            "coReq": [“LETC”],
-"historialNotas": [],
+            "preReq": ["FIEM","ECDI"],
+            "coReq": ["LETC"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "LETC",
+        },
+    	{
+            "nemonico": "LETC",
             "nombre": "Laboratorio de electrotecnia",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“ELET”],
-"historialNotas": [],
+            "coReq": ["ELET"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "DPRD",
+        },
+    	{
+            "nemonico": "DPRD",
             "nombre": "Desarrollo del producto",
             "creditos": 2,
-            "preReq": [“PIND”,”LPIN”],
-            "coReq": [“LDPR”],
-"historialNotas": [],
+            "preReq": ["PIND","LPIN"],
+            "coReq": ["LDPR"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "LDPR",
+        },
+    	{
+            "nemonico": "LDPR",
             "nombre": "Laboratorio desarrollo del producto",
             "creditos": 1,
             "preReq": [],
-            "coReq": [“DPRD”],
-"historialNotas": [],
+            "coReq": ["DPRD"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "ACFI",
+        },
+	    {
+            "nemonico": "ACFI",
             "nombre": "Análisis contable y financiero",
             "creditos": 3,
-            "preReq": [“FUNE”],
+            "preReq": ["FUNE"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "OPDO",
+        },
+	    {
+            "nemonico": "OPDO",
             "nombre": "Optimización de operaciones",
             "creditos": 3,
-            "preReq": [“MMAT”],
+            "preReq": ["MMAT"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "ETTR",
+        },
+	    {
+            "nemonico": "ETTR",
             "nombre": "Estudio del trabajo",
             "creditos": 3,
-            "preReq": [“ESTI”,”LDPR”,”DPRD”],
+            "preReq": ["ESTI","LDPR","DPRD"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "GORG",
+        },
+	    {
+            "nemonico": "GORG",
             "nombre": "Gestión organizacional",
             "creditos": 3,
-            "preReq": [“IINI”],
+            "preReq": ["IINI"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "CMAN",
+        },
+	    {
+            "nemonico": "CMAN",
             "nombre": "Costos de manufactura",
             "creditos": 3,
-            "preReq": [“ACFI”],
+            "preReq": ["ACFI"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "MOES",
+        },
+	    {
+            "nemonico": "MOES",
             "nombre": "Modelos estocásticos",
             "creditos": 3,
-            "preReq": [“MMAT”],
+            "preReq": ["MMAT"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "PCPI",
+        },
+	    {
+            "nemonico": "PCPI",
             "nombre": "Planeación y control producción e inventarios",
             "creditos": 3,
-            "preReq": [“ETTR”,”MMAT”],
+            "preReq": ["ETTR","MMAT"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "DPIN",
+        },
+	    {
+            "nemonico": "DPIN",
             "nombre": "Diseño de plantas",
             "creditos": 3,
-            "preReq": [“TMDN”,”ELET”,”ETTR”],
+            "preReq": ["TMDN","ELET","ETTR"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "CLDD",
+        },
+	    {
+            "nemonico": "CLDD",
             "nombre": "Calidad",
             "creditos": 3,
-            "preReq": [“PIND”,”ESTI”],
-            "coReq": [“ETTR”],
-"historialNotas": [],
+            "preReq": ["PIND","ESTI"],
+            "coReq": ["ETTR"],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "GCHU",
+        },
+	    {
+            "nemonico": "GCHU",
             "nombre": "Gestión del capital humano",
             "creditos": 3,
-            "preReq": [“GORG”,”ESTI”],
+            "preReq": ["GORG","ESTI"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "FEPR",
+        },
+	    {
+            "nemonico": "FEPR",
             "nombre": "Formulación y evaluación de proyectos",
             "creditos": 3,
-            "preReq": [“ESTI”,”ACFI”,”GORG”],
+            "preReq": ["ESTI","ACFI","GORG"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "GCAB",
+        },
+	    {
+            "nemonico": "GCAB",
             "nombre": "Gestión de la cadena de abastecimiento",
             "creditos": 3,
-            "preReq": [“PCPI”],
+            "preReq": ["PCPI"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "PMLI",
+        },
+	    {
+            "nemonico": "PMLI",
             "nombre": "Producción más limpia",
             "creditos": 3,
-            "preReq": [“BIOL”,”CMAN”],
+            "preReq": ["BIOL","CMAN"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "CRIP",
+        },
+	    {
+            "nemonico": "CRIP",
             "nombre": "Colombia, realidad e instituciones políticas",
             "creditos": 3,
             "preReq": [],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-},
-	{
-    "nemonico": "NEGO",
+        },
+	    {
+            "nemonico": "NEGO",
             "nombre": "Negociación",
             "creditos": 3,
-            "preReq": [“FEPR”],
+            "preReq": ["FEPR"],
             "coReq": [],
-"historialNotas": [],
+            "historialNotas": [],
             "estado":"P"
-}]
+        }
+    ]
 }',152);
 
 INSERT INTO PlanDeEstudios VALUES (13,'Ingeniería de sistemas','{
@@ -1638,7 +1637,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingeniería de sistemas','{
             "nemonico": "TPRO",
             "nombre": "Teoría de la Programación",
             "creditos": 3,
-            "preReq": ["MDIS",”PIMO”],
+            "preReq": ["MDIS","PIMO"],
             "coReq": [],
             "estado":"P"   
         },
@@ -1694,7 +1693,7 @@ INSERT INTO PlanDeEstudios VALUES (13,'Ingeniería de sistemas','{
             "nemonico": "PDSW",
             "nombre": "Proceso de Desarrollo de Software",
             "creditos": 4,
-            "preReq": ["PIMO",”MBDA”],
+            "preReq": ["PIMO","MBDA"],
             "coReq": [],
             "estado":"P"   
         },
