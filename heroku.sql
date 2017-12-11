@@ -721,7 +721,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "nemonico": "ALLI",
             "nombre": "Algebra lineal",
             "creditos": 3,
-            "preReq": [],
+            "preReq": ["PREM","AGEO"],
             "coReq": [],
             "historialNotas": [36],
             "estado":"A"
@@ -747,7 +747,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
         {
             "nemonico": "IINI",
             "nombre": "Introducción a la ingeniería industrial",
-            "creditos": 4,
+            "creditos": 2,
             "preReq": [],
             "coReq": [],
             "historialNotas": [50],
@@ -782,7 +782,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
         },
 	    {
             "nemonico": "EGR2",
-            "nombre": "Expresión Gráfica 1",
+            "nombre": "Expresión Gráfica 2",
             "creditos": 3,
             "preReq": ["EGR1"],
             "coReq": [],
@@ -836,7 +836,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
         },
 	    {
             "nemonico": "FICO",
-            "nombre": "Física del electromagnetismo",
+            "nombre": "Física de calor, ondas y estructura atomica",
             "creditos": 4,
             "preReq": ["FIEM"],
             "coReq": [],
@@ -874,7 +874,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "nemonico": "ERGO",
             "nombre": "Ergonomia",
             "creditos": 2,
-            "preReq": [],
+            "preReq": ["HYSE"],
             "coReq": ["LCTR"],
             "historialNotas": [35],
             "estado":"A"
@@ -1074,6 +1074,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "creditos": 3,
             "preReq": [],
             "coReq": [],
+            "historialNotas": [],
             "estado":"P"
         },
     	{
@@ -1089,7 +1090,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nemonico": "ALLI",
             "nombre": "Algebra lineal",
             "creditos": 3,
-            "preReq": [],
+            "preReq": ["PREM","AGEO"],
             "coReq": [],
             "historialNotas": [],
             "estado":"P"
@@ -1115,7 +1116,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
  	    {
            "nemonico": "IINI",
             "nombre": "Introducción a la ingeniería industrial",
-            "creditos": 4,
+            "creditos": 2,
             "preReq": [],
             "coReq": [],
             "historialNotas": [],
@@ -1150,7 +1151,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
         },
     	{
             "nemonico": "EGR2",
-            "nombre": "Expresión Gráfica 1",
+            "nombre": "Expresión Gráfica 2",
             "creditos": 3,
             "preReq": ["EGR1"],
             "coReq": [],
@@ -1204,7 +1205,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
         },
     	{
             "nemonico": "FICO",
-            "nombre": "Física del electromagnetismo",
+            "nombre": "Física de calor, ondas y estructura atomica",
             "creditos": 4,
             "preReq": ["FIEM"],
             "coReq": [],
@@ -1242,7 +1243,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nemonico": "ERGO",
             "nombre": "Ergonomia",
             "creditos": 2,
-            "preReq": [],
+            "preReq": ["HYSE"],
             "coReq": ["LCTR"],
             "historialNotas": [],
             "estado":"P"
@@ -1491,7 +1492,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "estado":"P"
         }
     ]
-}',152);
+}',149);
 
 INSERT INTO PlanDeEstudios VALUES (13,'Ingeniería de sistemas','{
     "programa": "Ingeniería de sistemas",

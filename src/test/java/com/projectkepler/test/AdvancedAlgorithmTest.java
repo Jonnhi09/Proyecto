@@ -37,7 +37,6 @@ public class AdvancedAlgorithmTest {
     ImpactAnalizer a = new AdvancedAlgorithm() ;
     GraphRectificator gRec = new  GraphRectificatorImpl();
     
-    
     @Test
     public void CE1Test() throws ExcepcionServiciosCancelaciones{
         Gson g = new Gson();
@@ -62,6 +61,5 @@ public class AdvancedAlgorithmTest {
         Assert.assertEquals("No esta dando bien la proyeccion","[[CALD, FIMF], [CIED, FIEM]]" , a.getImpact(new String[]{"CALD","FIMF"},gRec.verify(s) , s,18)[1]);
 
     }
-    
     
 }

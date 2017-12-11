@@ -37,7 +37,6 @@ public class SimpleAlgorithmTest {
     private ServiciosCancelaciones sc= ServiciosCancelacionesFactory.getInstance().getTestingServiciosCancelaciones();
     private GraphRectificator gRec = new  GraphRectificatorImpl();
     
-    
     @Test
     public void TestCE1() throws ExcepcionServiciosCancelaciones {
         Gson g = new Gson();
