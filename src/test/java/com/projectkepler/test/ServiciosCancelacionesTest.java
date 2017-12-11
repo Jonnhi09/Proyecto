@@ -184,10 +184,9 @@ public class ServiciosCancelacionesTest {
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(solicitudes.size(),2);
-        assertEquals(solicitudes.get(0).getNumero(),2);
-        assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"CALD");
-        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
+        assertEquals(solicitudes.get(0).getNumero(),1);
+        assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"FFIS");
+        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Física");
     }
     
     @Test
@@ -398,5 +397,14 @@ public class ServiciosCancelacionesTest {
             e.getMessage();
         }
         assertEquals(materias.size(),0);
+    }
+    
+    @Test
+    public void actualizarEstadoSolicitud() throws ExcepcionServiciosCancelaciones{
+        try{
+            servicios.actualizarEstadoSolicitud(2, "Aceptada");
+        }catch (ExcepcionServiciosCancelaciones e){
+            e.getMessage();
+        }
     }
 } 

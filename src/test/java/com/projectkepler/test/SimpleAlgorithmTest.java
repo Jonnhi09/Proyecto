@@ -42,7 +42,7 @@ public class SimpleAlgorithmTest {
     public void TestCE1() throws ExcepcionServiciosCancelaciones {
         Gson g = new Gson();
         Syllabus s = g.fromJson(sc.consultarPlanDeEstudioByIdEstudiante(173183), Syllabus.class);
-        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("FIMF", gRec.verify(s), s,18)[0] , "Si cancela FIMF le quedan: 12 de 28 creditos por ver");
+        Assert.assertEquals("No esta cancelando las dos materias",a.getImpact("FIMF", gRec.verify(s), s,18)[0] , "Si cancela FIMF le quedan: 16 de 28 creditos por ver");
     
     }
 

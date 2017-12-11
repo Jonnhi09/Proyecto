@@ -195,7 +195,7 @@ INSERT INTO Estudiante VALUES (79328, 'Juan David Giraldo Mancilla', '[
             "coReq": [],
             "historialNotas": [],
             "tercios": [41],
-            "estado":"V"
+            "estado":"P"
         }
 ]',13, 1, 'juan.giraldo-m@mail.escuelaing.edu.co', 231831,428131,'Ingenieria de sistemas','yolanda@gmail.com'); 
 INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
@@ -227,7 +227,7 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
             "coReq": [],
             "historialNotas": [],
             "tercios": [34],
-            "estado":"V"
+            "estado":"P"
         },
         {
             "nemonico": "FFIS",
@@ -245,9 +245,9 @@ INSERT INTO Estudiante VALUES (173183, 'Pepito perez montenegro', '[
             "creditos": 4,
             "preReq": ["FFIS"],
             "coReq": ["CALD"],
-            "historialNotas": [],
+            "historialNotas": [-1],
             "tercios": [20],
-            "estado":"C"
+            "estado":"P"
         }
 ]', 13, 2, 'pepito.perez@mail.escuelaing.edu.co', 231831,428131,'Ingenieria de sistemas', 'maria@gmail.com');
 INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
@@ -313,10 +313,9 @@ INSERT INTO Asignatura VALUES ('FIMF','Física Mecánica y de Fluidos');
 INSERT INTO Asignatura VALUES ('FIEM','Física del Electromagnetismo');
 
 -- Poblar Solicitud--
-INSERT INTO Solicitud VALUES (1,'2017-10-26 10:23:54','Me consume mucho tiempo y estoy descuidando las otras materias',
-                            'Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Tramitada',null,true,79328,false,'FFIS');
+INSERT INTO Solicitud VALUES (1,'2017-10-26 10:23:54','Me consume mucho tiempo y estoy descuidando las otras materias','Considero que si se debe aceptar la cancelacion, debido a la justificacion del estudiante','Tramitada',null,true,79328,false,'FFIS');
 INSERT INTO Solicitud VALUES (2,'2017-10-04 17:40:34','Tengo muy bajita la nota y no me quiero arriesgar a perderla',null,'No tramitada',null,true,173183,true,'CALD');
-INSERT INTO Solicitud VALUES (3,'2017-10-29 13:24:24','No le entiendo al profesor','El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','aceptada',true,true,173183,true,'FIMF'); 
+INSERT INTO Solicitud VALUES (3,'2017-10-29 13:24:24','No le entiendo al profesor','El estudiante no le entiende al profesor, por ende va mal en la materia y ya es imposible recuperar la materia','Aceptada',true,true,173183,true,'FIMF'); 
 
 -- Poblar PlanDeEstudios
 INSERT INTO PlanDeEstudios VALUES (13,'Ingenieria de sistemas','{

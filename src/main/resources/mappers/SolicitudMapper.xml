@@ -59,7 +59,9 @@
     </insert>
     
     <update id="updateComentariosSolicitud"> 
-        UPDATE Solicitud SET comentarios = #{comentarios}
+        UPDATE Solicitud SET 
+            comentarios = #{comentarios},
+            avalConsejero = true
         WHERE numero=#{numero};
     </update>    
     
@@ -98,7 +100,7 @@
             asi.nemonico,
             asi.nombre
         FROM Estudiante as e LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.Asignatura_nemonico
-        WHERE e.codigo=#{codigo} AND s.estado='aceptada'
+        WHERE e.codigo=#{codigo} AND s.estado='Aceptada'
     </select>
     
     <select parameterType="map" id="consultRequestsByCoordinator" resultMap="SolicitudResult" >

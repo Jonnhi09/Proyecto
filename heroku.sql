@@ -330,7 +330,7 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
             "creditos": 3,
             "preReq": ["CIED"],
             "coReq": [],
-            "historialNotas": [],
+            "historialNotas": [-1],
             "estado":"P"   
         },
         {
@@ -658,7 +658,7 @@ INSERT INTO Estudiante VALUES (2109734, 'Daniela Gonzalez Ramirez', '[
             "preReq": ["POOB","MBDA"],
             "coReq": [],
             "historialNotas": [],
-            "estado":"V"   
+            "estado":"P"   
         }
 ]',13, 7, 'daniela.gonzalez-ra@mail.escuelaing.edu.co', 231831,428131,'Ingeniería de sistemas','judith@gmail.com'); 
 
@@ -868,7 +868,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "preReq": ["ALLI","CALD"],
             "coReq": [],
             "historialNotas": [-1],
-            "estado":"V"
+            "estado":"P"
         },
 	    {
             "nemonico": "ERGO",

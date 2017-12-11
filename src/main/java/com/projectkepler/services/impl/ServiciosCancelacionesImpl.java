@@ -477,9 +477,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
             LOG.debug("Se realiza la actualizacion del estado de la solicitud en SolicitudDAO");
             solicitud.updateStateRequest(numero,estado);
             if (estado.equals("Rechazada")){
-                actualizarEstadoAsignaturasPorEstudiante(numero,consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'V');
+                actualizarEstadoAsignaturasPorEstudiante(consultarEstudiantePorSolicitud(numero).getCodigo(),consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'V');
             }else if (estado.equals("Aceptada")){
-                actualizarEstadoAsignaturasPorEstudiante(numero,consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'C');
+                actualizarEstadoAsignaturasPorEstudiante(consultarEstudiantePorSolicitud(numero).getCodigo(),consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'C');
             }
         }catch (PersistenceException e){
             LOG.error("No se pudo actualizar el estado de la solicitud "+numero,e);
@@ -664,7 +664,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public void actualizarEstadoAsignaturasPorEstudiante(int codigo,String nemonico,char estado) throws ExcepcionServiciosCancelaciones{
         LOG.info("Actualiza el estado de la asignatura "+nemonico+" del estudiante "+codigo);
-        try{         
+        try{   
             Gson g = new Gson();
             List<CourseStudent> asignaturas = new ArrayList<>();
             Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
@@ -684,6 +684,7 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
                     }
                 }
             }
+            
             Gson p = new GsonBuilder().setPrettyPrinting().create();
             String materiasActualizadas= p.toJson(asignaturas);
             LOG.debug("Se realiza la actualizacion del estado de la asignatura en EstudianteDAO");
