@@ -184,7 +184,7 @@ public class ServiciosCancelacionesTest {
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(solicitudes.size(),3);
+        assertEquals(solicitudes.size(),2);
         assertEquals(solicitudes.get(0).getNumero(),2);
         assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"CALD");
         assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Cálculo Diferencial");

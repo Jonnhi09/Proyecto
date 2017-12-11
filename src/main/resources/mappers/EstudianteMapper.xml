@@ -47,7 +47,7 @@
             asi.nemonico as Asignatura_nemonico,
             asi.nombre as Asignatura_nombre
         FROM Estudiante as e JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo LEFT JOIN Solicitud as s on e.codigo=s.Estudiante_codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
-        WHERE c.correo=#{correo}
+        WHERE c.correo=#{correo} AND s.estado='Tramitada' OR s.estado='No tramitada'
         ORDER BY s.estado,s.fecha
     </select>
     
