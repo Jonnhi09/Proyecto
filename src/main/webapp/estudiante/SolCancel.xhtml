@@ -26,22 +26,31 @@
                 <p:selectManyCheckbox id="matcheck" value="#{solCancelBean.materiasSelect}" layout="grid" columns="2" converter="CourseStudentConverter" disabled="#{solCancelBean.panelVisibility}">
                     <f:selectItems value="#{solCancelBean.materias}" var="materia" itemLabel="#{materia.nemonico}" itemValue="#{materia}" />
                 </p:selectManyCheckbox>
-                <p:outputLabel value="No tiene ninguna solicitud en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() lt 1}"/>
-                <p:outputLabel value="Asignaturas con solicitudes de canceclación en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() gt 1}"/>
-                <p:outputLabel value="Asignatura con solicitud de canceclación en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() eq 1}"/>
-                <ui:repeat value="#{solCancelBean.materiasCanceladas}" var="m" rendered="#{solCancelBean.materiasCanceladas.size() gt 0}">
+                <h:panelGroup id="labelSolCancel">
+                    <p:outputLabel value="No tiene ninguna solicitud en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() lt 1}"/>
+                    <p:outputLabel value="Asignaturas con solicitudes de cancelación en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() gt 1}"/>
+                    <p:outputLabel value="Asignatura con solicitud de cancelación en proceso" style=" font-size:x-large" rendered="#{solCancelBean.materiasCanceladas.size() eq 1}"/>
+                </h:panelGroup>
+                <h:panelGroup id="matSolCancel">
+                    <ui:repeat value="#{solCancelBean.materiasCanceladas}" var="m" rendered="#{solCancelBean.materiasCanceladas.size() gt 0}">
                         <br/>#{m.nemonico} - #{m.nombre} 
-                </ui:repeat>
+                    </ui:repeat>
+                </h:panelGroup>
             </h:panelGrid>
             <br/>
             <br/>
             <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis matselect matcheck"/>
+                <p:commandButton id="ButtonAnalisis" value="Analizar cancelación" actionListener="#{solCancelBean.analisis()}" update="panelAnalisis matselect matcheck matSolCancel labelSolCancel"/>
                 <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
                 <h:panelGroup id = "matselect">
                     <p:outputLabel value="Asignaturas seleccionadas:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() gt 1 and solCancelBean.panelVisibility}"/>
                     <p:outputLabel value="Asignatura seleccionada:" style="font-size:x-large" rendered="#{solCancelBean.materiasSelect.size() eq 1 and solCancelBean.panelVisibility}"/>
-                    <ui:repeat value="#{solCancelBean.materiasSelect}" var="m" rendered="#{solCancelBean.panelVisibility}">
+                    <ui:repeat value="#{solCancelBean.materiasCheck}" var="m" rendered="#{solCancelBean.panelVisibility}">
+                        <br/>#{m.nemonico} - #{m.nombre} 
+                    </ui:repeat>
+                    <p:outputLabel value="Asignaturas seleccionadas por Corequisito:" style="font-size:x-large" rendered="#{solCancelBean.materiasCheckCorequisitos.size() gt 1 and solCancelBean.panelVisibility}"/>
+                    <p:outputLabel value="Asignatura seleccionada por Corequisito:" style="font-size:x-large" rendered="#{solCancelBean.materiasCheckCorequisitos.size() eq 1 and solCancelBean.panelVisibility}"/>
+                    <ui:repeat value="#{solCancelBean.materiasCheckCorequisitos}" var="m" rendered="#{solCancelBean.panelVisibility}">
                         <br/>#{m.nemonico} - #{m.nombre} 
                     </ui:repeat>
                 </h:panelGroup>
@@ -55,14 +64,19 @@
                             <p:outputLabel value="#{solCancelBean.impacto}"/>
                         </p:tab>
                         <p:tab title="Proyección">
-                            <p:outputLabel value="#{solCancelBean.proyeccion}" />
+                            <p:outputLabel value="Proyección para los próximos semestres:"/>
+                            <br/><br/>
+                            <ui:repeat value="#{solCancelBean.proyeccion}" varStatus="loop" var="">
+                                <p:outputLabel value="Proyección para semestre #{loop.index + 1}: #{solCancelBean.proyeccion.get(loop.index).toString().replace('[','').replace(']','')}"/>
+                                <br/>
+                            </ui:repeat>
                         </p:tab>
                     </p:tabView>
                     <br/>
                     <br/>
                     <br/>
                     <h:panelGrid columns="2" style="width: 100%;text-align: center">
-                        <p:commandButton value="Anular operación" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis matselect matcheck"/>
+                        <p:commandButton value="Anular operación" actionListener="#{solCancelBean.makePanelInvisible()}" update="panelAnalisis matselect matcheck matSolCancel labelSolCancel"/>
                         <p:commandButton value="Proceder con solicitud" onclick="PF('dialogJustificacion').show();"/>
                     </h:panelGrid>
                     

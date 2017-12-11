@@ -50,10 +50,12 @@ public class SolCancelBean implements Serializable{
     private boolean panelVisibility;
     private String[] justificaciones;
     private String impacto;
-    private String proyeccion;
+    private ArrayList<ArrayList<String>> proyeccion;
     private String usuario;
     private ConsejeroAcademico consejero;
     private List<CourseStudent> materiasCanceladas;
+    private List<CourseStudent> materiasCheck;
+    private List<CourseStudent> materiasCheckCorequisitos;
     
     @PostConstruct
     private void init(){
@@ -73,6 +75,8 @@ public class SolCancelBean implements Serializable{
      */
     public SolCancelBean() {
         this.panelVisibility = false;
+        this.materiasCheck = new ArrayList<>();
+        this.materiasCheckCorequisitos = new ArrayList<>();
     }
     
     public void makePanelVisible(){
@@ -81,6 +85,8 @@ public class SolCancelBean implements Serializable{
     
     public void makePanelInvisible(){
         setPanelVisibility(false);
+        materiasCheck = new ArrayList<>();
+        materiasCheckCorequisitos = new ArrayList<>();
     }
     
     public void analisis(){
@@ -89,6 +95,8 @@ public class SolCancelBean implements Serializable{
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_ERROR, "Debe seleccionar una materia para realizar el análisis", null)); 
                 makePanelInvisible();
             }else{
+                materiasCheck.addAll(materiasSelect);
+                materiasCheckCorequisitos.addAll(servicios.consultarCorequisitosPorMaterias(estudiante.getCodigo(), materiasCheck));
                 materiasSelect.addAll(servicios.consultarCorequisitosPorMaterias(estudiante.getCodigo(), materiasSelect));
                 justificaciones = new String[materiasSelect.size()];
                 String[] nemonicos = new String[materiasSelect.size()];
@@ -96,7 +104,7 @@ public class SolCancelBean implements Serializable{
                     nemonicos[i]=materiasSelect.get(i).getNemonico();
                 }
                 impacto = servicios.consultarImpactoByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
-                //proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
+                proyeccion = servicios.consultarProyeccionByEstudianteAsignatura(estudiante.getCodigo(), nemonicos);
                 makePanelVisible();
             }
         } catch (ExcepcionServiciosCancelaciones ex) {
@@ -121,17 +129,14 @@ public class SolCancelBean implements Serializable{
                 FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Su solicitud ha sido enviada", null));
                 justificaciones = new String[0];
             }
-        }catch (ExcepcionServiciosCancelaciones ex) {
-            FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
-        } catch (MessagingException ex) {
-            Logger.getLogger(SolCancelBean.class.getName()).log(Level.SEVERE, null, ex);
+        }catch (ExcepcionServiciosCancelaciones | MessagingException ex) {
             FacesContext.getCurrentInstance().addMessage("dialogMessages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
         }
     }
     
     public void enviarCorreo() throws MessagingException{
   
-        Email email = new SimpleEmail("noreplay@escuelaing.edu.co",consejero.getCorreo(),"Cancelación " + estudiante.getNombre() + ": " + sMaterias(),"Buen día " + consejero.getNombre() + ",\n\nEste es un mensaje automático para informar sobre una nueva cancelación adicionada en el sistema" + "\n\nEstudiante: " + estudiante.getNombre() + "\nMateria/s: " + sMaterias() + "\n\nPor favor no responda este mensaje.");
+        Email email = new SimpleEmail("noreplay@escuelaing.edu.co",consejero.getCorreo(),"Cancelación " + estudiante.getNombre() + ": " + sMaterias(),"Buen día " + consejero.getNombre() + ",\n\nEste es un mensaje automático para informar sobre una nueva cancelación adicionada en el sistema" + "\n\nEstudiante: " + estudiante.getNombre() + "\nMateria/s: " + sMaterias() + "\n\nPara más información por favor ingrese al siguiene link https://proyecto-pdsw.herokuapp.com/ \n\nPor favor no responda este mensaje.");
         EmailSender sender = new SimpleEmailSender(new EmailConfiguration());
         sender.send(email);
     }
@@ -152,7 +157,7 @@ public class SolCancelBean implements Serializable{
         }
         return true;
     }
-
+    
     public String[] getJustificaciones() {
         return justificaciones;
     }
@@ -201,11 +206,11 @@ public class SolCancelBean implements Serializable{
         this.impacto = impacto;
     }
 
-    public String getProyeccion() {
+    public ArrayList<ArrayList<String>> getProyeccion() {
         return proyeccion;
     }
 
-    public void setProyeccion(String proyeccion) {
+    public void setProyeccion(ArrayList<ArrayList<String>> proyeccion) {
         this.proyeccion = proyeccion;
     }
 
@@ -247,6 +252,22 @@ public class SolCancelBean implements Serializable{
 
     public void setMateriasCanceladas(List<CourseStudent> materiasCanceladas) {
         this.materiasCanceladas = materiasCanceladas;
+    }
+
+    public List<CourseStudent> getMateriasCheck() {
+        return materiasCheck;
+    }
+
+    public void setMateriasCheck(List<CourseStudent> materiasCheck) {
+        this.materiasCheck = materiasCheck;
+    }
+
+    public List<CourseStudent> getMateriasCheckCorequisitos() {
+        return materiasCheckCorequisitos;
+    }
+
+    public void setMateriasCheckCorequisitos(List<CourseStudent> materiasCheckCorequisitos) {
+        this.materiasCheckCorequisitos = materiasCheckCorequisitos;
     }
     
 }
