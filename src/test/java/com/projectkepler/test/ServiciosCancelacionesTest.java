@@ -348,14 +348,16 @@ public class ServiciosCancelacionesTest {
     public void actualizarEstadoMateriaTest() throws ExcepcionServiciosCancelaciones{
         CourseStudent[] materia=null;
         try{
-            servicios.actualizarEstadoAsignaturasPorEstudiante(2121465, "CALD", 'P');            
+            servicios.actualizarEstadoAsignaturasPorEstudiante(2121465, "CALD", 'C'); 
             materia=servicios.obtenerSyllabusEstudiante(2121465).get(0).getCourses();
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
         assertEquals(materia.length,7);
         assertEquals(materia[2].getNemonico(),"CALD");
-        assertEquals(materia[2].getEstado(),'P');  
+        assertEquals(materia[2].getEstado(),'V'); 
+        assertEquals(materia[2].getHistorialNotas().length,2);
+        assertEquals(materia[2].getHistorialNotas()[materia[2].getHistorialNotas().length-1],-1);
     }
     
     @Test

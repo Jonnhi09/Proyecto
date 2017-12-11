@@ -331,7 +331,7 @@ INSERT INTO Estudiante VALUES (2121465, 'Diana Sanchez', '[
             "preReq": ["CIED"],
             "coReq": [],
             "historialNotas": [],
-            "estado":"V"   
+            "estado":"C"   
         },
         {
             "nemonico": "ARQC",

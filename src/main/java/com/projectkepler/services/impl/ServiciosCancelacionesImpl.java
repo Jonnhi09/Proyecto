@@ -476,6 +476,11 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         try{
             LOG.debug("Se realiza la actualizacion del estado de la solicitud en SolicitudDAO");
             solicitud.updateStateRequest(numero,estado);
+            if (estado.equals("Rechazada")){
+                actualizarEstadoAsignaturasPorEstudiante(numero,consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'V');
+            }else if (estado.equals("Aceptada")){
+                actualizarEstadoAsignaturasPorEstudiante(numero,consultarSolicitudPorNumero(numero).getAsignatura().getNemonico(),'C');
+            }
         }catch (PersistenceException e){
             LOG.error("No se pudo actualizar el estado de la solicitud "+numero,e);
             throw new ExcepcionServiciosCancelaciones("No se pudo actualizar el estado de la solicitud "+numero);
@@ -659,14 +664,24 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     @Override
     public void actualizarEstadoAsignaturasPorEstudiante(int codigo,String nemonico,char estado) throws ExcepcionServiciosCancelaciones{
         LOG.info("Actualiza el estado de la asignatura "+nemonico+" del estudiante "+codigo);
-        try{
+        try{         
             Gson g = new Gson();
             List<CourseStudent> asignaturas = new ArrayList<>();
             Type materias = new TypeToken<List<CourseStudent>>(){}.getType(); 
             asignaturas=g.fromJson(consultarEstudianteById(codigo).getAsignaturas(), materias);
             for (CourseStudent c:asignaturas){
                 if (c.getNemonico().equals(nemonico)){
-                    c.setEstado(estado);
+                    if (estado=='C'){
+                        int[] notas=c.getHistorialNotas();
+                        int[] notasNuevas= new int[notas.length+1];
+                        for(int i=0;i<notas.length;i++){
+                            notasNuevas[i]=notas[i];
+                        }
+                        notasNuevas[notas.length]=-1;
+                        c.setHistorialNotas(notasNuevas);  
+                    }else {
+                        c.setEstado(estado);
+                    }
                 }
             }
             Gson p = new GsonBuilder().setPrettyPrinting().create();
