@@ -48,6 +48,7 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     }
 
     private int solveYears(HashMap<String, ArrayList<String>> graph, int total) {
+        //System.err.println(graph);
         if (total <= 0 || graph.isEmpty()) {
             return 0;
         } else {
