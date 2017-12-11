@@ -733,6 +733,10 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         List<CourseStudent> materiasCorre=new ArrayList<>();
         List<String> nemonicoCorre=new ArrayList<>();
         List<String> nemonicos=new ArrayList<>();
+        List<String> nemonicosConSolicitud=new ArrayList<>();
+        for (CourseStudent co:consultarAsignaturasConSolicitudPorEstudiante(codigo)){
+            nemonicosConSolicitud.add(co.getNemonico());
+        }
         for (CourseStudent c:materias){
             nemonicos.add(c.getNemonico());
             List<CourseStudent> tieneCorrequisitos=new ArrayList<>();
@@ -744,6 +748,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         }
         for (int i=0;i<materiasCorre.size();i++){
             if ((nemonicos.contains(materiasCorre.get(i).getNemonico()))){
+                materiasCorre.remove(materiasCorre.get(i));
+            }
+            if (nemonicosConSolicitud.size()>0 && nemonicosConSolicitud.contains(materiasCorre.get(i).getNemonico())){
                 materiasCorre.remove(materiasCorre.get(i));
             }
         }
