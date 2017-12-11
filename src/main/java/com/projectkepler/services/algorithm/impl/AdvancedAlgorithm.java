@@ -11,6 +11,7 @@ import com.projectkepler.services.entities.CourseStudent;
 import com.projectkepler.services.entities.Syllabus;
 import java.util.*;
 import com.projectkepler.services.algorithm.ImpactAnalizer;
+import java.util.function.ObjDoubleConsumer;
 
 /**
  *
@@ -48,19 +49,23 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     }
 
     private int solveYears(HashMap<String, ArrayList<String>> graph, int total) {
-        //System.err.println(graph);
-        if (total <= 0 || graph.isEmpty()) {
+        if (graph.isEmpty()) {
+            proyection = new ArrayList<>();
             return 0;
         } else {
             ArrayList<String> matOk = getMatsOk(graph);
             ArrayList<ArrayList<String>> config = getAllConfigs(matOk);
+            //System.err.println("graph-"+graph);
+            //System.err.println("matOk-"+matOk);
             int mini = Integer.MAX_VALUE;
             ArrayList<String> theBest = null;
             for (ArrayList<String> c : config) {
+                System.err.println(mini+" "+graph);
                 int res = 1 + solveYears(diff(graph, c), total - sumCreds(c));
                 if (mini > res) {
                     mini = res;
                     theBest = (ArrayList<String>) c.clone();
+                    System.err.println(res+" "+c);
                 }
             }
             proyection.add(theBest);
@@ -136,6 +141,10 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     private ArrayList<ArrayList<String>> getAllConfigs(ArrayList<String> matOk) {
         int r = matOk.size();
         res1 = new ArrayList<>();
+        if (sumCreds(matOk)<=maxCre){
+            res1.add(matOk);
+            return res1;
+        }
         while (res1.isEmpty()) {
             combinationUtil(matOk, matOk.size(), r, 0, new ArrayList<String>(), 0);
             r--;
@@ -164,7 +173,8 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     }
 
     private HashMap<String, ArrayList<String>> diff(HashMap<String, ArrayList<String>> graph, ArrayList<String> string) {
-        HashMap<String, ArrayList<String>> res = (HashMap<String, ArrayList<String>>) graph.clone();
+        HashMap<String, ArrayList<String>> res = (HashMap<String, ArrayList<String>>) copyHashMap(graph);
+        //System.err.println(graph+" - "+ string);
         for (String s : string) {
             res.remove(s);
         }
@@ -215,5 +225,23 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
     public ArrayList<ArrayList<String>> getProyeccion(){
         return proyection;
     }
+    
+    public HashMap<String, ArrayList<String>> copyHashMap(HashMap<String, ArrayList<String>> a){
+        HashMap<String, ArrayList<String>>  res = new HashMap<>();
+        for(String s: a.keySet())
+            res.put(s, copyArrayList(a.get(s)));
+    
+        return res;
+    }
+
+    private ArrayList<String> copyArrayList(ArrayList<String> get) {
+        ArrayList<String> res = new ArrayList<>();
+        for(String s : get)
+            res.add(s);
+        return res;
+    }
+    
+    
+    
 
 }
