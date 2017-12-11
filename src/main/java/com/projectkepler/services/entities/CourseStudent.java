@@ -11,7 +11,6 @@ package com.projectkepler.services.entities;
  */
 public class CourseStudent {
     private String nombre;
-    private int codigoEstudiante;
     private int creditos ;
     private String[] preReq;
     private String[] coReq;
@@ -25,14 +24,6 @@ public class CourseStudent {
 
     public String getNombre() {
         return nombre;
-    }
-    
-    public int getCodigoEstudiante() {
-        return codigoEstudiante;
-    }
-
-    public void setCodigoEstudiante(int codigoEstudiante) {
-        this.codigoEstudiante = codigoEstudiante;
     }
 
     public int getCreditos() {
