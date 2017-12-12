@@ -19,25 +19,25 @@ consejeros-->
         <title>Solicitudes De Cancelacion</title>
     </h:head>
     
-    <h:body style="background-image:url(../resources/Fondo.jpg);background-size: auto"  >
-        <center>
-            <image src="../resources/logo.jpg" width="250"/>
-        </center>
-        <h:form style="margin: 2% 10%">
-            <h:panelGrid columns="1" style="text-align: right; width: 100%">
-                <h:outputLink value="/logout">logout</h:outputLink>
-            </h:panelGrid>
-            <h:panelGrid columns="1" style="width: 100%;text-align: center;background-color:transparent">
-                <!--<h:outputLabel value="Consejero #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;"/>-->
-                <h:outputLabel value="Solicitudes De Cancelacion" style=" font-size:x-large;font-weight:bold;color:white;"/>
-            </h:panelGrid>
-            <p:scrollPanel mode="native" style="width:100%;height:40%">
-                <p:dataTable var="i" value="#{detalleSolicitud.allCancelaciones}" style="text-align: center; background-color: red;" scrollable="true" scrollHeight="150">
+    <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover">
+        <h:form>
+            <h:panelGrid columns="1" style="margin: 2% auto;background-color: rgba(0,0,0,0.7);border-radius: 12px; border-spacing: 15px 10px; width: 80%; height: 100%">
+                <h:panelGrid columns="1" style="text-align: right; width: 100%">
+                    <h:outputLink value="/logout" style="color: white">logout</h:outputLink>
+                </h:panelGrid>
+                <h:panelGrid columns="1" style="width: 100%;text-align: center;background-color:transparent">
+                    <h:outputLabel value="Coordinador: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
+                    <br/>
+                    <h:outputLabel value="Solicitudes De Cancelación" style=" font-size:x-large;font-weight:bold;color:white;"/>
+                </h:panelGrid>
+                <p:dataTable var="i" value="#{detalleSolicitud.allCancelaciones}" style="text-align: center;" scrollable="true" scrollHeight="350">
                     <f:facet name="header">
                         Cancelaciones
                     </f:facet>
                     <p:column headerText="Fecha solicitud">
-                        <p:outputLabel value="#{i.fecha}" />
+                        <p:outputLabel value="#{i.fecha}"> 
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </p:outputLabel>
                     </p:column>
                     <p:column headerText="Código solicitante">
                         <p:outputLabel value="#{detalleSolicitud.estudianteIdSolicitud(i.numero).getCodigo()}" />
@@ -49,16 +49,12 @@ consejeros-->
                         <p:outputLabel value="#{detalleSolicitud.getEstadoSolicitud(i)}" />
                     </p:column>
                     <p:column headerText="Accion">
-                        <p:commandButton rendered="#{i.estado != 'Aceptada' and i.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(i)=='Tramitada'}" value="Aceptar"  style="background:green;">
-                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudAceptada(i)}"/>
-                        </p:commandButton>
-                        <p:commandButton rendered="#{i.estado != 'Aceptada' and i.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(i)=='Tramitada'}" value="Rechazar" style="background:red;">
-                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(i)}"/>
+                        <p:commandButton  value="Consultar" style="background:blue;" action="#{detalleSolicitud.accionVista()}" >
+                            <f:actionListener binding="#{detalleSolicitud.setSolSelect(i,true)}"/>
                         </p:commandButton>  
                     </p:column>
                 </p:dataTable>
-            </p:scrollPanel>
-                
+            </h:panelGrid>   
         </h:form>
     </h:body>
 </html>

@@ -14,21 +14,18 @@ import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.email.*;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.mail.MessagingException;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -40,9 +37,6 @@ public class DetalleSolicitudBean{
     
 
     public DetalleSolicitudBean() {
-        this.fecha = new Date();
-        this.codigo = 2103110;
-        this.estudiante = "Diego Borrero";
     }
     
     @ManagedProperty(value="#{loginBean}")
@@ -51,14 +45,14 @@ public class DetalleSolicitudBean{
     public String usuario;
     public int codigo;
     public String estudiante;
-    Estudiante student;
-    String consejero;
-    List<Solicitud> cancelaciones;
-    String impacto;
-    ArrayList<ArrayList<String>> proyeccion;
-    String justificacion;
-    String materia;
-    Acudiente acudiente;
+    private Estudiante student;
+    private String consejero;
+    private List<Solicitud> cancelaciones;
+    private String impacto;
+    private ArrayList<ArrayList<String>> proyeccion;
+    private String justificacion;
+    private String materia;
+    private Acudiente acudiente;
     private Solicitud solSelect;
 
 
@@ -68,7 +62,9 @@ public class DetalleSolicitudBean{
     private void initDate(){
         setUsuario(getShiroLoginBean().getUsername());
         try{
-            cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");
+            if(getShiroLoginBean().getSubject().hasRole("consejero")){
+                cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");  
+            }
             consejero = usuario.replace("."," ");
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,6 +124,7 @@ public class DetalleSolicitudBean{
     }
     
     public String listadoCancelaciones(){
+        RequestContext.getCurrentInstance().update("Solicitudes");
         return "ListadoSolCancel.xhtml";
     }
     
@@ -136,7 +133,7 @@ public class DetalleSolicitudBean{
     }
     
     public List<Solicitud> getAllCancelaciones() throws ExcepcionServiciosCancelaciones{
-        return servicios.consultarSolicitudes();
+        return servicios.consultarSolicitudesPorCoordinador(usuario+"@escuelaing.edu.co");
     }
     public String getEstadoSolicitud(Solicitud s){
         
@@ -147,6 +144,10 @@ public class DetalleSolicitudBean{
             a+="Acuendinte";
         if(a.equals("Falta Aval de: "))
             a="Tramitada";
+        if(s.getEstado().equals("Aceptada"))
+            a="Aceptada";
+        else if (s.getEstado().equals("Rechazada"))
+            a="Rechazada";
         return a;
     }
 
@@ -154,11 +155,24 @@ public class DetalleSolicitudBean{
         this.cancelaciones = cancelaciones;
     }
     
-    public void CambiarestadoSolicitudAceptada(Solicitud s) throws ExcepcionServiciosCancelaciones{
-        servicios.actualizarEstadoSolicitud(s.getNumero(), "Aceptada");
+    public void cambiarestadoSolicitudAceptada(Solicitud s){
+        try{
+            servicios.actualizarEstadoSolicitud(s.getNumero(), "Aceptada");
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha realizado la tramitacion correspondiente", null));
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+        }
+        
+        
     }
-    public void CambiarestadoSolicitudRechazada(Solicitud s) throws ExcepcionServiciosCancelaciones{
-        servicios.actualizarEstadoSolicitud(s.getNumero(), "Rechazada");
+    public void cambiarestadoSolicitudRechazada(Solicitud s){
+        try{
+            servicios.actualizarEstadoSolicitud(s.getNumero(), "Rechazada");
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha realizado la tramitacion correspondiente", null));
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+        }
+        
     }
     
     public Estudiante estudianteIdSolicitud(int numero){

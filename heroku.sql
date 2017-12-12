@@ -658,7 +658,7 @@ INSERT INTO Estudiante VALUES (2109734, 'Daniela Gonzalez Ramirez', '[
             "preReq": ["POOB","MBDA"],
             "coReq": [],
             "historialNotas": [],
-            "estado":"P"   
+            "estado":"V"   
         }
 ]',13, 7, 'daniela.gonzalez-ra@mail.escuelaing.edu.co', 231831,428131,'Ingeniería de sistemas','judith@gmail.com'); 
 
@@ -857,7 +857,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "nombre": "Laboratorio de materiales",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["MTRL"],
+            "coReq": [],
             "historialNotas": [],
             "estado":"V"
         },
@@ -884,7 +884,7 @@ INSERT INTO Estudiante VALUES (2245696, 'Daniel Medina Lozano', '[
             "nombre": "Laboratorio de condiciones de trabajo",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["ERGO"],
+            "coReq": [],
             "historialNotas": [31],
             "estado":"A"
         },
@@ -1226,7 +1226,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nombre": "Laboratorio de materiales",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["MTRL"],
+            "coReq": [],
             "historialNotas": [],
             "estado":"P"
         },
@@ -1253,7 +1253,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nombre": "Laboratorio de condiciones de trabajo",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["ERGO"],
+            "coReq": [],
             "historialNotas": [],
             "estado":"P"
         },
@@ -1289,7 +1289,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nombre": "Laboratorio de procesos industriales",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["PIND"],
+            "coReq": [],
             "historialNotas": [],
             "estado":"P"
         },
@@ -1334,7 +1334,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nombre": "Laboratorio de electrotecnia",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["ELET"],
+            "coReq": [],
             "historialNotas": [],
             "estado":"P"
         },
@@ -1352,7 +1352,7 @@ INSERT INTO PlanDeEstudios VALUES (7,'Ingeniería industrial','{
             "nombre": "Laboratorio desarrollo del producto",
             "creditos": 1,
             "preReq": [],
-            "coReq": ["DPRD"],
+            "coReq": [],
             "historialNotas": [],
             "estado":"P"
         },

@@ -71,17 +71,6 @@ public class EstudianteDAOMyBatis implements EstudianteDAO{
     }
     
     @Override
-    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
-        List<Solicitud> solicitudes;
-        try{
-            solicitudes=estudiante.consultRequest(consejero);
-        }catch (Exception e){
-            throw new PersistenceException("Error al consultar las solicitudes para el consejero "+consejero,e);
-        }
-        return solicitudes;
-    }
-    
-    @Override
     public Estudiante consultStudentByRequest(int numero) throws PersistenceException{
         Estudiante student;
         try{

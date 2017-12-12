@@ -8,88 +8,90 @@
     <h:head>
         <title>Ajuste de Parametros</title>
     </h:head>
-    <h:body >
-        <h:form style="margin: 2% 10%" id="formAjuste">
-            <h:panelGrid columns="1" style="text-align: right; width: 100%">
-                <h:outputLink value="/logout">logout</h:outputLink>
-            </h:panelGrid>
-            
-            <br/>
-            <br/>
-            
-            <h:panelGrid id="panelCreditos" columns="3" style="width: 60%">
-                <p:outputLabel value="Créditos máximos por semestre: "/>
-                <p:inputText value="#{ajusteparametros.creditosSemestre}"/>
-                <p:commandButton value="Actualizar créditos máximos" actionListener="#{ajusteparametros.guardarCreditos()}"/>
-                <p:outputLabel value="Créditos máximos por semestre actuales: #{ajusteparametros.creditosSemestreActuales}"/>
-            </h:panelGrid>
-            <p:messages for="creditosMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
-            
-            <br/>
-            <br/>
-            
-            <p:separator/>
-            
-            <h:panelGrid columns="2" style="width: 40%">
-                <p:outputLabel value="Programa: "/>
-                <p:selectOneMenu id="programas" value="#{ajusteparametros.programaSeleccionado}" style="width:220px">
-                    <f:selectItem itemLabel="Programa" itemValue="Programa" />
-                    <f:selectItems value="#{ajusteparametros.programas}" var="programa" itemValue="#{programa.nombre}" itemLabel="#{programa.nombre}"/>
-                    <p:ajax listener="#{ajusteparametros.seleccionPrograma()}" update="panelCreditos planesdeestudios tableAsign"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
-            
-            <h:panelGrid columns="2" style="width: 30%">
-                <p:outputLabel value="Plan de estudios: "/>
-                <p:selectOneMenu id="planesdeestudios" value="#{ajusteparametros.planDeEstudiosSeleccionado}" disabled="#{ajusteparametros.planDisabled}" style="width:200px">
-                    <f:selectItem itemLabel="Plan de estudios" itemValue="-1" />
-                    <f:selectItems value="#{ajusteparametros.planesDeEstudios}" var="plan" itemValue="#{plan}"/> 
-                    <p:ajax listener="#{ajusteparametros.seleccionPlanDeEstudios()}" update="tableAsign"/>
-                </p:selectOneMenu>
-            </h:panelGrid>
-            <p:messages for="programaMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
-            
-            <br/>
-            <br/>
-            
-            <h:panelGroup id="tableAsign" >
-                <p:dataTable var="asignatura" value="#{ajusteparametros.syllabus.courses}" rendered="#{ajusteparametros.renderTable}">
-                    <f:facet name="header">
-                        Asignaturas del plan de estudios
-                    </f:facet>
-
-                    <p:column headerText="Nombre">
-                        <p:outputLabel value="#{asignatura.nombre}" />
-                    </p:column>
-
-                    <p:column headerText="Nemónico">
-                        <p:outputLabel value="#{asignatura.nemonico}" />
-                    </p:column>
-
-                    <p:column headerText="Créditos">
-                        <p:outputLabel value="#{asignatura.creditos}" />
-                    </p:column>
-
-                    <p:column headerText="Prerequisitos">
-                        <ui:repeat value="#{asignatura.preReq}" var="s">
-                            #{s}
-                        </ui:repeat>
-                    </p:column>
-
-                    <p:column headerText="Corequisitos">
-                        <ui:repeat value="#{asignatura.coReq}" var="s">
-                            #{s}
-                        </ui:repeat>
-                    </p:column>
-                </p:dataTable>
-                
-                <br/>
-                <br/>
-                
-                <h:panelGrid columns="1" style="width: 100%;text-align: center" rendered="#{ajusteparametros.renderTable}">
-                    <p:commandButton value="Cancelar" actionListener="#{ajusteparametros.setRenderTable(false)}" update="tableAsign"/>
+    <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover">
+        <h:form id="formAjuste">
+            <h:panelGrid columns="1" style="margin: 2% auto;background-color: rgba(0,0,0,0.7);border-radius: 12px; border-spacing: 15px 10px; width: 80%; height: 100%">
+                <h:panelGrid columns="1" style="text-align: right; width: 100%">
+                    <h:outputLink value="/logout" style="color: white">logout</h:outputLink>
                 </h:panelGrid>
-            </h:panelGroup>
+
+                <br/>
+                <br/>
+
+                <h:panelGrid id="panelCreditos" columns="3" style="width: 60%;color: white">
+                    <p:outputLabel value="Créditos máximos por semestre: "/>
+                    <p:inputText value="#{ajusteparametros.creditosSemestre}"/>
+                    <p:commandButton value="Actualizar créditos máximos" actionListener="#{ajusteparametros.guardarCreditos()}"/>
+                    <p:outputLabel value="Créditos máximos por semestre actuales: #{ajusteparametros.creditosSemestreActuales}"/>
+                </h:panelGrid>
+                <p:messages for="creditosMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+
+                <br/>
+                <br/>
+
+                <p:separator style="border-color: white"/>
+
+                <h:panelGrid columns="2" style="width: 40%;color: white">
+                    <p:outputLabel value="Programa: "/>
+                    <p:selectOneMenu id="programas" value="#{ajusteparametros.programaSeleccionado}" style="width:220px">
+                        <f:selectItem itemLabel="Programa" itemValue="Programa" />
+                        <f:selectItems value="#{ajusteparametros.programas}" var="programa" itemValue="#{programa.nombre}" itemLabel="#{programa.nombre}"/>
+                        <p:ajax listener="#{ajusteparametros.seleccionPrograma()}" update="panelCreditos planesdeestudios tableAsign"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+
+                <h:panelGrid columns="2" style="width: 30%;color: white">
+                    <p:outputLabel value="Plan de estudios: "/>
+                    <p:selectOneMenu id="planesdeestudios" value="#{ajusteparametros.planDeEstudiosSeleccionado}" disabled="#{ajusteparametros.planDisabled}" style="width:200px">
+                        <f:selectItem itemLabel="Plan de estudios" itemValue="-1" />
+                        <f:selectItems value="#{ajusteparametros.planesDeEstudios}" var="plan" itemValue="#{plan}"/> 
+                        <p:ajax listener="#{ajusteparametros.seleccionPlanDeEstudios()}" update="tableAsign"/>
+                    </p:selectOneMenu>
+                </h:panelGrid>
+                <p:messages for="programaMessages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+
+                <br/>
+                <br/>
+
+                <h:panelGroup id="tableAsign" >
+                    <p:dataTable var="asignatura" value="#{ajusteparametros.syllabus.courses}" rendered="#{ajusteparametros.renderTable}">
+                        <f:facet name="header">
+                            Asignaturas del plan de estudios
+                        </f:facet>
+
+                        <p:column headerText="Nombre">
+                            <p:outputLabel value="#{asignatura.nombre}" />
+                        </p:column>
+
+                        <p:column headerText="Nemónico">
+                            <p:outputLabel value="#{asignatura.nemonico}" />
+                        </p:column>
+
+                        <p:column headerText="Créditos">
+                            <p:outputLabel value="#{asignatura.creditos}" />
+                        </p:column>
+
+                        <p:column headerText="Prerequisitos">
+                            <ui:repeat value="#{asignatura.preReq}" var="s">
+                                #{s}
+                            </ui:repeat>
+                        </p:column>
+
+                        <p:column headerText="Corequisitos">
+                            <ui:repeat value="#{asignatura.coReq}" var="s">
+                                #{s}
+                            </ui:repeat>
+                        </p:column>
+                    </p:dataTable>
+
+                    <br/>
+                    <br/>
+
+                    <h:panelGrid columns="1" style="width: 100%;text-align: center" rendered="#{ajusteparametros.renderTable}">
+                        <p:commandButton value="Cancelar" actionListener="#{ajusteparametros.setRenderTable(false)}" update="tableAsign"/>
+                    </h:panelGrid>
+                </h:panelGroup>
+            </h:panelGrid>
         </h:form>   
     </h:body>
 </html>

@@ -118,12 +118,23 @@ public class SolicitudDAOMyBatis implements SolicitudDAO{
     }
     
     @Override
-    public List<Solicitud> consultRequestsByCoordinator(int codigo) throws PersistenceException{
+    public List<Solicitud> consultRequest(String consejero) throws PersistenceException{
+        List<Solicitud> solicitudes;
+        try{
+            solicitudes=solicitud.consultRequest(consejero);
+        }catch (Exception e){
+            throw new PersistenceException("Error al consultar las solicitudes para el consejero "+consejero,e);
+        }
+        return solicitudes;
+    }
+    
+    @Override
+    public List<Solicitud> consultRequestsByCoordinator(String correo) throws PersistenceException{
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
-            solicitudes=solicitud.consultRequestsByCoordinator(codigo);
+            solicitudes=solicitud.consultRequestsByCoordinator(correo);
         }catch (Exception e){
-            throw new PersistenceException("Erro al consultar las solicitudes de cancelacion para el coordinador "+codigo,e);
+            throw new PersistenceException("Erro al consultar las solicitudes de cancelacion para el coordinador "+correo,e);
         }
         return solicitudes;
     }

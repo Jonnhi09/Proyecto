@@ -12,35 +12,40 @@ ajax="false" onclick="window.opener=null;window.open('','_self');window.close();
     <h:head>
         <title>Informacion sobre cancelaciones</title>
     </h:head>
-    <h:body style="background-image:url(../resources/Fondo.jpg);background-size: auto">
-        <h:form style="margin: 2% 10%">
-            <center>
-            <h1>Solicitudes de: #{infoCancel.alumno.getNombre()}</h1>
-            <h1>Carne: #{infoCancel.codigo}</h1>
-            <h3>Acontinuacion se presentan las solicitudes de cancelacion con su respectivo impacto(Consecuencias de la cancelacion) junto con un comentario del respectivo consejero academico del estudiante</h3>
-            </center>
-            <p:dataTable id="IAcudiente" var="solicitud" value="#{infoCancel.solInfo}">
-            
-                <p:column headerText="Materia">
-                    <h:outputText value="#{solicitud.asignatura.getNombre()}" />
-                </p:column>
-                <p:column headerText="Impacto">
-                    <h:outputText value="#{infoCancel.impacto}" />
-                </p:column>
-                <p:column headerText="Justificacion">
-                    <h:outputText value="#{solicitud.justificacion}" />
-                </p:column>
-                <p:column headerText="Comentario Consejero">
-                    <h:outputText value="#{solicitud.comentarios}" />
-                </p:column>
-            </p:dataTable>
-            <h:panelGrid columns="1" style="width: 100%;text-align: center">
-                <h:outputText value="He liedo la informacion pertinente a la cancelacion y estoy de acuerdo con esta." style="color: whitesmoke" />
-                <p:selectBooleanCheckbox value="#{infoCancel.solInfo.acuseRecibo}" />
-                <p:commandButton value="Aceptar"  action="#{infoCancel.actualizarAcuse()}" onclick="PF('mess').show();"/>
-                <p:dialog header="Modal Dialog" widgetVar="mess" modal="true" height="70">
-                        <h:outputText value="Registro Exitoso." />
-                </p:dialog> 
+    <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover">
+        <h:form>
+            <h:panelGrid columns="1" style="margin: 2% auto;background-color: rgba(0,0,0,0.7);border-radius: 12px; border-spacing: 15px 10px; width: 80%; height: 100%">
+                <h:panelGrid columns="1" style="color: white">
+                    <p:outputLabel value="Solicitudes de: #{infoCancel.alumno.getNombre()}" style="font-size:x-large;"/>
+                    <p:outputLabel value="Carné: #{infoCancel.codigo}" style="font-size:x-large;"/>
+                    <br/><br/>
+                    <p:outputLabel value="A continuación se presentan las solicitudes de cancelación con su respectivo impacto (Consecuencias de la cancelación) junto con un comentario del respectivo consejero académico del estudiante" style="font-size: large"/>
+                </h:panelGrid>
+                <br/>
+                <p:dataTable id="IAcudiente" var="solicitud" value="#{infoCancel.solInfo}">
+                    <p:column headerText="Materia">
+                        <h:outputText value="#{solicitud.asignatura.getNombre()}"/>
+                    </p:column>
+                    <p:column headerText="Impacto">
+                        <h:outputText value="#{infoCancel.impacto}" />
+                    </p:column>
+                    <p:column headerText="Justificacion">
+                        <h:outputText value="#{solicitud.justificacion}" />
+                    </p:column>
+                    <p:column headerText="Comentario Consejero">
+                        <h:outputText value="#{solicitud.comentarios}" />
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <h:panelGrid columns="1" style="width: 60%">
+                    <p:selectBooleanCheckbox value="#{infoCancel.solInfo.acuseRecibo}" itemLabel="He leído la información pertinente a la cancelación y estoy de acuerdo con ésta." style="color: white"/>
+                </h:panelGrid>
+                <h:panelGrid columns="1" style="width: 100%;text-align: center">
+                    <p:commandButton value="Aceptar"  action="#{infoCancel.actualizarAcuse()}" onclick="PF('mess').show();"/>
+                    <p:dialog header="Modal Dialog" widgetVar="mess" modal="true" height="70">
+                            <h:outputText value="Registro Exitoso." />
+                    </p:dialog> 
+                </h:panelGrid>
             </h:panelGrid>
         </h:form>
     </h:body>

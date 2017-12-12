@@ -14,12 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.projectkepler.services.ServiciosCancelaciones;
 import com.projectkepler.services.ServiciosCancelacionesFactory;
 import com.projectkepler.services.entities.Solicitud;
-import java.security.MessageDigest;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 /**
  *

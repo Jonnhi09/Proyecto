@@ -184,9 +184,9 @@ public class ServiciosCancelacionesTest {
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }
-        assertEquals(solicitudes.get(0).getNumero(),1);
-        assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"FFIS");
-        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Fundamentos de Física");
+        assertEquals(solicitudes.get(0).getNumero(),2);
+        assertEquals(solicitudes.get(0).getAsignatura().getNemonico(),"CALD");
+        assertEquals(solicitudes.get(0).getAsignatura().getNombre(),"Cálculo Diferencial");
     }
     
     @Test
@@ -302,7 +302,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test 
-    public void consultarConsjeroPorEstudianteTest(){
+    public void consultarConsejeroPorEstudianteTest(){
         ConsejeroAcademico consejero=null;
         try{
             consejero=servicios.consultarConsejeroPorEstudiante(79328);
@@ -377,7 +377,7 @@ public class ServiciosCancelacionesTest {
     public void consultarSolicitudesPorCoordinadorTest() throws ExcepcionServiciosCancelaciones{
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
-            solicitudes=servicios.consultarSolicitudesPorCoordinador(428131);
+            solicitudes=servicios.consultarSolicitudesPorCoordinador("oswaldo.navetty@escuelaing.edu.co");
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }

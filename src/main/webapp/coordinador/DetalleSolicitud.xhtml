@@ -12,9 +12,9 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-    
+
     <h:head>
-        <title>Solicitud De Cancelacion De Aconsejados</title>
+        <title>Solicitud De Cancelacion</title>
     </h:head>
     <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover" >
         <h:form id="Listado">
@@ -23,9 +23,9 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                     <h:outputLink value="/logout" style="color:white">logout</h:outputLink>
                 </h:panelGrid>
                 <h:panelGrid  columns="1" style="color:white" width="100%">
-                    <h:outputText value="Consejero: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
+                    <h:outputLabel value="Coordinador: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
                     <br/>
-                    <h:outputText value="Solicitud De Cancelacion De Aconsejado:" style="font-weight:bold;font-size:x-large;"/>
+                    <h:outputLabel value="Solicitud De Cancelacion De: " style="font-weight:bold;font-size:x-large;"/>
                     <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="font-size:x-large;"/>
                     <h:panelGrid columns="2" >
                         <h:outputText value="Fecha:" style="font-size:x-large;"/>
@@ -34,7 +34,13 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                         </h:outputText>
                     </h:panelGrid>
                     <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="font-size:x-large;"/>
-                    
+                    <h:outputText value="Estado de la solicitud: " style="font-size:x-large;"/>
+                    <p:commandButton rendered="#{detalleSolicitud.solSelect.avalConsejero}" value="Consejero"  style="background:#00691E;"/>
+                    <p:commandButton rendered="#{!detalleSolicitud.solSelect.avalConsejero}" value="Consejero"  />
+                    <p:commandButton rendered="#{detalleSolicitud.solSelect.necesitaAcuseRecibo and detalleSolicitud.solSelect.acuseRecibo}" value="Acudiente"  style="background:#00691E;"/>
+                    <p:commandButton rendered="#{detalleSolicitud.solSelect.necesitaAcuseRecibo and !detalleSolicitud.solSelect.acuseRecibo}" value="Acudiente"  />
+
+
                 </h:panelGrid>
                 <h:panelGrid columns="1" width="100%" style="text-align: center;color:white;font-size:x-large;font-weight:bold">
                     <h:outputText value="Cancelaciones solicitadas y justificadas"/>
@@ -66,27 +72,30 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                             </ui:repeat>
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Comentarios" rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}">
+                    <p:tab title="Comentarios" >
                         <h:panelGrid columns="1" cellpadding="10">
-                            <p:inputTextarea rows="5" cols="100" counter="display" maxlength="100" counterTemplate="{0} characters remaining." autoResize="false" value="#{detalleSolicitud.solSelect.comentarios}"/>
+                            <h:outputText  rendered="#{!detalleSolicitud.solSelect.avalConsejero}" value="No se registran comentarios."/>
+                            <h:outputText   rendered="#{detalleSolicitud.solSelect.avalConsejero}" value="#{detalleSolicitud.solSelect.comentarios}"/>
                             <h:outputText id="display" />
                             <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
-                            <h:outputText value="This is a Modal Dialog." />
+                                <h:outputText value="This is a Modal Dialog." />
                             </p:dialog>   
-                        </h:panelGrid>
-                    </p:tab>
-                    <p:tab title="Comentarios" rendered="#{detalleSolicitud.solSelect.estado == 'Tramitada'}">
-                        <h:panelGrid columns="1" cellpadding="10">
-                            <h:outputText value="#{detalleSolicitud.solSelect.comentarios}" />   
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
                 <h:panelGrid columns="1" width="100%" style="text-align: center">
-                    <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.atualizarEstadoJustificacion()}"  rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}" update="informacion" >
-                        <p:resetInput target="informacion" />
-                    </p:commandButton>
-                    <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
                     <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
+                    <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+                    <h:panelGroup id="PanelBotones" >
+                        <h:panelGrid  columns="2" rendered="#{detalleSolicitud.solSelect.estado != 'Aceptada' and detalleSolicitud.solSelect.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(detalleSolicitud.solSelect)=='Tramitada'}" >
+                            <p:commandButton  value="Aceptar"  style="background:#00691E;" update="PanelBotones">
+                                <f:actionListener binding="#{detalleSolicitud.cambiarestadoSolicitudAceptada(detalleSolicitud.solSelect)}"/>
+                            </p:commandButton>
+                            <p:commandButton  value="Rechazar" update="PanelBotones">
+                                <f:actionListener binding="#{detalleSolicitud.cambiarestadoSolicitudRechazada(detalleSolicitud.solSelect)}"/>
+                            </p:commandButton>  
+                        </h:panelGrid>
+                    </h:panelGroup>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
