@@ -25,6 +25,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -36,9 +37,6 @@ public class DetalleSolicitudBean{
     
 
     public DetalleSolicitudBean() {
-        this.fecha = new Date();
-        this.codigo = 2103110;
-        this.estudiante = "Diego Borrero";
     }
     
     @ManagedProperty(value="#{loginBean}")
@@ -64,7 +62,9 @@ public class DetalleSolicitudBean{
     private void initDate(){
         setUsuario(getShiroLoginBean().getUsername());
         try{
-            cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");
+            if(getShiroLoginBean().getSubject().hasRole("consejero")){
+                cancelaciones = servicios.consultarSolicitudesDeCancelaciones(usuario+"@escuelaing.edu.co");  
+            }
             consejero = usuario.replace("."," ");
         }catch (ExcepcionServiciosCancelaciones ex) {
             Logger.getLogger(DetalleSolicitudBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -124,6 +124,7 @@ public class DetalleSolicitudBean{
     }
     
     public String listadoCancelaciones(){
+        RequestContext.getCurrentInstance().update("Solicitudes");
         return "ListadoSolCancel.xhtml";
     }
     
@@ -132,7 +133,7 @@ public class DetalleSolicitudBean{
     }
     
     public List<Solicitud> getAllCancelaciones() throws ExcepcionServiciosCancelaciones{
-        return servicios.consultarSolicitudes();
+        return servicios.consultarSolicitudesPorCoordinador(usuario+"@escuelaing.edu.co");
     }
     public String getEstadoSolicitud(Solicitud s){
         
@@ -154,11 +155,24 @@ public class DetalleSolicitudBean{
         this.cancelaciones = cancelaciones;
     }
     
-    public void CambiarestadoSolicitudAceptada(Solicitud s) throws ExcepcionServiciosCancelaciones{
-        servicios.actualizarEstadoSolicitud(s.getNumero(), "Aceptada");
+    public void cambiarestadoSolicitudAceptada(Solicitud s){
+        try{
+            servicios.actualizarEstadoSolicitud(s.getNumero(), "Aceptada");
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha realizado la tramitacion correspondiente", null));
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+        }
+        
+        
     }
-    public void CambiarestadoSolicitudRechazada(Solicitud s) throws ExcepcionServiciosCancelaciones{
-        servicios.actualizarEstadoSolicitud(s.getNumero(), "Rechazada");
+    public void cambiarestadoSolicitudRechazada(Solicitud s){
+        try{
+            servicios.actualizarEstadoSolicitud(s.getNumero(), "Rechazada");
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Se ha realizado la tramitacion correspondiente", null));
+        }catch (ExcepcionServiciosCancelaciones ex) {
+            FacesContext.getCurrentInstance().addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getLocalizedMessage(), null));
+        }
+        
     }
     
     public Estudiante estudianteIdSolicitud(int numero){

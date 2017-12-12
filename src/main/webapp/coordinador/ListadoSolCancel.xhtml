@@ -35,7 +35,9 @@ consejeros-->
                         Cancelaciones
                     </f:facet>
                     <p:column headerText="Fecha solicitud">
-                        <p:outputLabel value="#{i.fecha}" />
+                        <p:outputLabel value="#{i.fecha}"> 
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </p:outputLabel>
                     </p:column>
                     <p:column headerText="Código solicitante">
                         <p:outputLabel value="#{detalleSolicitud.estudianteIdSolicitud(i.numero).getCodigo()}" />

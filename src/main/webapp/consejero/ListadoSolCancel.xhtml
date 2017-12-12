@@ -20,7 +20,7 @@ consejeros-->
     </h:head>
     
     <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover" >
-        <h:form>
+        <h:form id="Solicitudes">
             <h:panelGrid columns="1" style="margin: 2% auto;background-color: rgba(0,0,0,0.7);border-radius: 12px; border-spacing: 15px 10px; width: 80%; height: 100%">
                 <h:panelGrid columns="1" style="text-align: right; width: 100%">
                     <h:outputLink value="/logout" style="color: white">logout</h:outputLink>
@@ -35,7 +35,9 @@ consejeros-->
                         Cancelaciones
                     </f:facet>
                     <p:column headerText="Fecha solicitud">
-                        <p:outputLabel value="#{i.fecha}" />
+                        <p:outputLabel value="#{i.fecha}"> 
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </p:outputLabel>
                     </p:column>
                     <p:column headerText="Código solicitante">
                         <p:outputLabel value="#{detalleSolicitud.estudianteIdSolicitud(i.numero).getCodigo()}" />

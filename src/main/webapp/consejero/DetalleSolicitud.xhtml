@@ -23,11 +23,16 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                     <h:outputLink value="/logout" style="color:white">logout</h:outputLink>
                 </h:panelGrid>
                 <h:panelGrid  columns="1" style="color:white" width="100%">
-                    <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
+                    <h:outputText value="Consejero: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
                     <br/>
-                    <h:outputLabel value="Solicitud De Cancelacion De Aconsejado:" style="font-weight:bold;font-size:x-large;"/>
+                    <h:outputText value="Solicitud De Cancelacion De Aconsejado:" style="font-weight:bold;font-size:x-large;"/>
                     <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="font-size:x-large;"/>
-                    <h:outputText value="Fecha: #{detalleSolicitud.solSelect.fecha}" style="font-size:x-large;"/>
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="Fecha:" style="font-size:x-large;"/>
+                        <h:outputText value="#{detalleSolicitud.solSelect.fecha}" style="font-size:x-large;">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </h:panelGrid>
                     <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="font-size:x-large;"/>
                     
                 </h:panelGrid>

@@ -27,7 +27,12 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                     <br/>
                     <h:outputLabel value="Solicitud De Cancelacion De: " style="font-weight:bold;font-size:x-large;"/>
                     <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="font-size:x-large;"/>
-                    <h:outputText value="Fecha: #{detalleSolicitud.solSelect.fecha}" style="font-size:x-large;"/>
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="Fecha:" style="font-size:x-large;"/>
+                        <h:outputText value="#{detalleSolicitud.solSelect.fecha}" style="font-size:x-large;">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                        </h:outputText>
+                    </h:panelGrid>
                     <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="font-size:x-large;"/>
                     <h:outputText value="Estado de la solicitud: " style="font-size:x-large;"/>
                     <p:commandButton rendered="#{detalleSolicitud.solSelect.avalConsejero}" value="Consejero"  style="background:#00691E;"/>
@@ -79,22 +84,20 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                     </p:tab>
                 </p:tabView>
                 <h:panelGrid columns="1" width="100%" style="text-align: center">
-                    <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.atualizarEstadoJustificacion()}"  rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}" update="informacion" >
-                        <p:resetInput target="informacion" />
-                    </p:commandButton>
-                    <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
                     <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
-                    <h:panelGrid columns="2">
-                        <p:commandButton rendered="#{detalleSolicitud.solSelect.estado != 'Aceptada' and detalleSolicitud.solSelect.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(detalleSolicitud.solSelect)=='Tramitada'}" value="Aceptar"  style="background:#00691E;">
-                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudAceptada(detalleSolicitud.solSelect)}"/>
-                        </p:commandButton>
-                        <p:commandButton rendered="#{detalleSolicitud.solSelect.estado != 'Aceptada' and detalleSolicitud.solSelect.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(detalleSolicitud.solSelect)=='Tramitada'}" value="Rechazar">
-                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(detalleSolicitud.solSelect)}"/>
-                        </p:commandButton>  
-                    </h:panelGrid>
+                    <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+                    <h:panelGroup id="PanelBotones" >
+                        <h:panelGrid  columns="2" rendered="#{detalleSolicitud.solSelect.estado != 'Aceptada' and detalleSolicitud.solSelect.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(detalleSolicitud.solSelect)=='Tramitada'}" >
+                            <p:commandButton  value="Aceptar"  style="background:#00691E;" update="PanelBotones">
+                                <f:actionListener binding="#{detalleSolicitud.cambiarestadoSolicitudAceptada(detalleSolicitud.solSelect)}"/>
+                            </p:commandButton>
+                            <p:commandButton  value="Rechazar" update="PanelBotones">
+                                <f:actionListener binding="#{detalleSolicitud.cambiarestadoSolicitudRechazada(detalleSolicitud.solSelect)}"/>
+                            </p:commandButton>  
+                        </h:panelGrid>
+                    </h:panelGroup>
                 </h:panelGrid>
             </h:panelGrid>
-
         </h:form>
     </h:body>
 </html>
