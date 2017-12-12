@@ -20,13 +20,13 @@ La plataforma de gestión para el acompañamiento académico de estudiantes, ha 
 La idea de esta funcion, es reducir el numero de cancelaciones en el semestre dando al usuario un mensaje con consecuencias como mostrandole al usuario en cuanto tiempo se gradua, etc .....
 ![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/impacto.png)
 tambien ofeecemos una opcion llamda proyeccion, ya que si el estudiante decide continuar con el proceso de cancelacion, tiene la opcion de ver cual seria su configuracion para graduarse lo mas rapido posible,.
-![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/proyeccion.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/Proyeccion.png)
 #### Comunicacion Consejero - Estudiante
 Con esta funcion tenemos el objetivo de mejorar y reducir el tiempo de respuesta entre el consejero y el estudiante, sin necesidad de citas.
-![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/Comunicacion.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/Comunicacion.png)
 #### Visto bueno acudiente 
 Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acudientes, se enviara un correo electronico al acudiente el cual tiene que abrir y aceptar la cancelacion, esto pasa si el estudiante esta cursando los primeros semestes o ya ha cancelado esa nateria en el pasado.
-![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/pagAcudiente.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/pagAcudiente.jpeg)
 ## Arquitectura y Diseño detallado:
 > *El producto se realiza con los lenguajes Java, SQL, XML y HTML, mediante el uso de un stack de tecnologias; Apache Shiru, Gson, PrimeFaces, Guice y Postgres SQL, donde su desarrollo y construcci�n son dirigidos por medio de capas. Estas capas son:*
 >
@@ -35,9 +35,9 @@ Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acu
  - Persistencia: Mantiene una base de datos, donde permite manipular los datos y enviarle la informaci�n que necesita la capa l�gica
 
 - **Modelo de Base de Datos:**
-![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/BaseDeDatos.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/BaseDeDatos.png)
 - **Modelo de Base de Datos:**
-![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/DiagramaDeClases.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/DiagramaDeClases.png)
 - **Aplicaci�n:**
 
 #### **Descripci�n del Proceso:**
