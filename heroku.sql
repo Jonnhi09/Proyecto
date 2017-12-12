@@ -658,7 +658,7 @@ INSERT INTO Estudiante VALUES (2109734, 'Daniela Gonzalez Ramirez', '[
             "preReq": ["POOB","MBDA"],
             "coReq": [],
             "historialNotas": [],
-            "estado":"P"   
+            "estado":"V"   
         }
 ]',13, 7, 'daniela.gonzalez-ra@mail.escuelaing.edu.co', 231831,428131,'Ingeniería de sistemas','judith@gmail.com'); 
 
