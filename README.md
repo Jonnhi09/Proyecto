@@ -78,7 +78,7 @@ https://proyecto-pdsw.herokuapp.com
 > Para este sprint tuvimos inconvenientes con la disponibilidad de tiempo por parte de todos los miembros del equipo por lo cual intentamos utilizar otra estrategia y fue asignarnos tareas de acuerdo a las destrezas de los integrantes (al igual que en el sprint anterior) pero de igual manera tambien acordar esas tareas por historias de uso para avanzar en todas las historias de uso a la par y que no quedase con inconsistencias el producto final.
 
 
-
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/pruebas.png)
 
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3a968b35790d4a0aa22b46c354dcc184)](https://www.codacy.com/app/Blackphantom96/Proyecto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Proyecto-PDSW/Proyecto&amp;utm_campaign=Badge_Grade)
