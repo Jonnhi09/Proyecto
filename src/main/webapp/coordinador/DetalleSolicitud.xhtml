@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+consejeros
+onclick="PF('mess').show();"
+rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Solicitud De Cancelacion</title>
+    </h:head>
+    <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover" >
+        <h:form id="Listado">
+            <h:panelGrid columns="1" style="margin: 2% auto;background-color: rgba(0,0,0,0.7);border-radius: 12px; border-spacing: 15px 10px; width: 80%; height: 100%">
+                <h:panelGrid columns="1" style="text-align: right; width: 100%">
+                    <h:outputLink value="/logout" style="color:white">logout</h:outputLink>
+                </h:panelGrid>
+                <h:panelGrid  columns="1" style="color:white" width="100%">
+                    <h:outputLabel value="Coordinador: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
+                    <br/>
+                    <h:outputLabel value="Solicitud De Cancelacion De: " style="font-weight:bold;font-size:x-large;"/>
+                    <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="font-size:x-large;"/>
+                    <h:outputText value="Fecha: #{detalleSolicitud.solSelect.fecha}" style="font-size:x-large;"/>
+                    <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="font-size:x-large;"/>
+                    <h:outputText value="Estado de la solicitud: " style="font-size:x-large;"/>
+                    <p:commandButton rendered="#{detalleSolicitud.solSelect.avalConsejero}" value="Consejero"  style="background:#00691E;"/>
+                    <p:commandButton rendered="#{!detalleSolicitud.solSelect.avalConsejero}" value="Consejero"  />
+                    <p:commandButton rendered="#{detalleSolicitud.solSelect.necesitaAcuseRecibo and detalleSolicitud.solSelect.acuseRecibo}" value="Acudiente"  style="background:#00691E;"/>
+                    <p:commandButton rendered="#{detalleSolicitud.solSelect.necesitaAcuseRecibo and !detalleSolicitud.solSelect.acuseRecibo}" value="Acudiente"  />
+
+
+                </h:panelGrid>
+                <h:panelGrid columns="1" width="100%" style="text-align: center;color:white;font-size:x-large;font-weight:bold">
+                    <h:outputText value="Cancelaciones solicitadas y justificadas"/>
+                </h:panelGrid>
+                <p:dataTable var="infostud" value="" style="text-align: center">
+                    <p:column headerText="Cancelacion Solicitada">
+                        <h:outputText value="#{detalleSolicitud.materia}" />
+                    </p:column>
+                    <p:column headerText="Justificacion">
+                        <h:outputText value="#{detalleSolicitud.justificacion}" />
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <h:panelGrid columns="1" width="100%" style="text-align: center;color:white;font-size:x-large;font-weight:bold">
+                    <h:outputText value="Impacto y proyeccion calculados"/>
+                </h:panelGrid>
+                <p:tabView id="informacion">
+                    <p:tab title="Impacto">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <h:outputText
+                                value="#{detalleSolicitud.impacto}" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Proyecion">
+                        <h:panelGrid columns="1" style="text-align:left">
+                            <ui:repeat value="#{detalleSolicitud.proyeccion}" varStatus="loop" var="">
+                                <p:outputLabel value="Proyección para semestre #{loop.index + 1}: #{detalleSolicitud.proyeccion.get(loop.index).toString().replace('[','').replace(']','').replace(' ','')}"/>
+                                <br/>
+                            </ui:repeat>
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Comentarios" >
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <h:outputText  rendered="#{!detalleSolicitud.solSelect.avalConsejero}" value="No se registran comentarios."/>
+                            <h:outputText   rendered="#{detalleSolicitud.solSelect.avalConsejero}" value="#{detalleSolicitud.solSelect.comentarios}"/>
+                            <h:outputText id="display" />
+                            <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
+                                <h:outputText value="This is a Modal Dialog." />
+                            </p:dialog>   
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+                <h:panelGrid columns="1" width="100%" style="text-align: center">
+                    <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.atualizarEstadoJustificacion()}"  rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}" update="informacion" >
+                        <p:resetInput target="informacion" />
+                    </p:commandButton>
+                    <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
+                    <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
