@@ -14,21 +14,17 @@ import com.projectkepler.services.entities.Estudiante;
 import com.projectkepler.services.entities.Solicitud;
 import com.projectkepler.services.entities.Acudiente;
 import com.projectkepler.services.email.*;
-import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.mail.MessagingException;
 
 /**
  *
@@ -51,14 +47,14 @@ public class DetalleSolicitudBean{
     public String usuario;
     public int codigo;
     public String estudiante;
-    Estudiante student;
-    String consejero;
-    List<Solicitud> cancelaciones;
-    String impacto;
-    ArrayList<ArrayList<String>> proyeccion;
-    String justificacion;
-    String materia;
-    Acudiente acudiente;
+    private Estudiante student;
+    private String consejero;
+    private List<Solicitud> cancelaciones;
+    private String impacto;
+    private ArrayList<ArrayList<String>> proyeccion;
+    private String justificacion;
+    private String materia;
+    private Acudiente acudiente;
     private Solicitud solSelect;
 
 

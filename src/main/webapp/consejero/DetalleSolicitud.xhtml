@@ -16,31 +16,36 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
     <h:head>
         <title>Solicitud De Cancelacion De Aconsejados</title>
     </h:head>
-    <h:body>
-        <h:panelGrid columns="1" style="text-align: right; width: 100%">
-            <h:outputLink value="/logout">logout</h:outputLink>
-        </h:panelGrid>
-
-        <h:form style="margin:2% 10%" id="Listado">
-            <h:panelGrid  columns="1" cellpadding="10" style="text-align:center" width="100%">
-                
-                <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style="font-weight:bold;color:white;"/>
-                <h:outputLabel value="Solicitud De Cancelacion De Aconsejados" style="font-weight:bold;color:white;"/>
-                <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="color: white;"/>
-                <h:outputText value="Fecha: #{detalleSolicitud.fecha}" style="color: white;"/>
-                <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="color: white;"/>
-                <h:outputText value="Cancelaciones solicitadas y justificadas" style="color: white;"/>
-
-                <p:dataTable var="infostud" value="">
+    <h:body style="background: url(../resources/Fondo.jpg) no-repeat center center fixed;-webkit-background-size: cover; -moz-background-size: cover; background-size: cover" >
+        <h:form id="Listado">
+            <h:panelGrid columns="1" style="margin: 2% auto;background-color: rgba(0,0,0,0.7);border-radius: 12px; border-spacing: 15px 10px; width: 80%; height: 100%">
+                <h:panelGrid columns="1" style="text-align: right; width: 100%">
+                    <h:outputLink value="/logout" style="color:white">logout</h:outputLink>
+                </h:panelGrid>
+                <h:panelGrid  columns="1" style="color:white" width="100%">
+                    <h:outputLabel value="Consejero: #{detalleSolicitud.consejero}" style=" font-size:x-large;font-weight:bold;color:white;text-transform: capitalize"/>
+                    <br/>
+                    <h:outputLabel value="Solicitud De Cancelacion De Aconsejado:" style="font-weight:bold;font-size:x-large;"/>
+                    <h:outputText value="Nombre: #{detalleSolicitud.estudiante}" style="font-size:x-large;"/>
+                    <h:outputText value="Fecha: #{detalleSolicitud.solSelect.fecha}" style="font-size:x-large;"/>
+                    <h:outputText value="Codigo: #{detalleSolicitud.codigo}" style="font-size:x-large;"/>
+                    
+                </h:panelGrid>
+                <h:panelGrid columns="1" width="100%" style="text-align: center;color:white;font-size:x-large;font-weight:bold">
+                    <h:outputText value="Cancelaciones solicitadas y justificadas"/>
+                </h:panelGrid>
+                <p:dataTable var="infostud" value="" style="text-align: center">
                     <p:column headerText="Cancelacion Solicitada">
                         <h:outputText value="#{detalleSolicitud.materia}" />
                     </p:column>
-
                     <p:column headerText="Justificacion">
                         <h:outputText value="#{detalleSolicitud.justificacion}" />
                     </p:column>
                 </p:dataTable>
-                <h:outputText value="Impacto y proyeccion calculados" style="color: white;"/>
+                <br/>
+                <h:panelGrid columns="1" width="100%" style="text-align: center;color:white;font-size:x-large;font-weight:bold">
+                    <h:outputText value="Impacto y proyeccion calculados"/>
+                </h:panelGrid>
                 <p:tabView id="informacion">
                     <p:tab title="Impacto">
                         <h:panelGrid columns="1" cellpadding="10">
@@ -71,14 +76,14 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>
-                <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.atualizarEstadoJustificacion()}"  update="informacion" >
-                    <p:resetInput target="informacion" />
-                    
+                <h:panelGrid columns="1" width="100%" style="text-align: center">
+                    <p:commandButton value="Registrar resultados consejeria" action="#{detalleSolicitud.atualizarEstadoJustificacion()}"  rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}" update="informacion" >
+                        <p:resetInput target="informacion" />
+                    </p:commandButton>
                     <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
-                </p:commandButton>
-                <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
-             </h:panelGrid>
+                    <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
+                </h:panelGrid>
+            </h:panelGrid>
         </h:form>
-        
     </h:body>
 </html>
