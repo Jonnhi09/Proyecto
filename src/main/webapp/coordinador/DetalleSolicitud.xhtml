@@ -84,8 +84,17 @@ rendered="#{detalleSolicitud.solSelect.estado == 'No tramitada'}"-->
                     </p:commandButton>
                     <p:messages for="messages" autoUpdate="true" closable="true" style="width: 40%;margin: 0 auto"/>
                     <p:commandButton value="Volver" action="#{detalleSolicitud.listadoCancelaciones()}" update="Listado"/> 
+                    <h:panelGrid columns="2">
+                        <p:commandButton rendered="#{detalleSolicitud.solSelect.estado != 'Aceptada' and detalleSolicitud.solSelect.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(detalleSolicitud.solSelect)=='Tramitada'}" value="Aceptar"  style="background:#00691E;">
+                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudAceptada(detalleSolicitud.solSelect)}"/>
+                        </p:commandButton>
+                        <p:commandButton rendered="#{detalleSolicitud.solSelect.estado != 'Aceptada' and detalleSolicitud.solSelect.estado != 'Rechazada' and detalleSolicitud.getEstadoSolicitud(detalleSolicitud.solSelect)=='Tramitada'}" value="Rechazar">
+                            <f:actionListener binding="#{detalleSolicitud.CambiarestadoSolicitudRechazada(detalleSolicitud.solSelect)}"/>
+                        </p:commandButton>  
+                    </h:panelGrid>
                 </h:panelGrid>
             </h:panelGrid>
+
         </h:form>
     </h:body>
 </html>
