@@ -270,11 +270,11 @@ public interface ServiciosCancelaciones {
     
     /**
      * Consulta las solicitudes para un coordinador dado su identificador 
-     * @param codigo es el identificador del coordinador
+     * @param correo es el correo del coordinador
      * @return Una lista de solicitudes 
      * @throws ExcepcionServiciosCancelaciones Si el coordinador no tiene solicitudes, o si se presenta otro problema en las capas inferiores.
      */
-    public List<Solicitud> consultarSolicitudesPorCoordinador(int codigo) throws ExcepcionServiciosCancelaciones;
+    public List<Solicitud> consultarSolicitudesPorCoordinador(String correo) throws ExcepcionServiciosCancelaciones;
     
     /**
      * Consulta las materias de un estudiante que tienen como corequisito una materia dada

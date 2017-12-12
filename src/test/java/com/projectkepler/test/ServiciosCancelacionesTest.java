@@ -302,7 +302,7 @@ public class ServiciosCancelacionesTest {
     }
     
     @Test 
-    public void consultarConsjeroPorEstudianteTest(){
+    public void consultarConsejeroPorEstudianteTest(){
         ConsejeroAcademico consejero=null;
         try{
             consejero=servicios.consultarConsejeroPorEstudiante(79328);
@@ -377,7 +377,7 @@ public class ServiciosCancelacionesTest {
     public void consultarSolicitudesPorCoordinadorTest() throws ExcepcionServiciosCancelaciones{
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
-            solicitudes=servicios.consultarSolicitudesPorCoordinador(428131);
+            solicitudes=servicios.consultarSolicitudesPorCoordinador("oswaldo.navetty@escuelaing.edu.co");
         }catch (ExcepcionServiciosCancelaciones e){
             e.getMessage();
         }

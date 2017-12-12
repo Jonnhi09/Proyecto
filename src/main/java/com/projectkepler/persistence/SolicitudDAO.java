@@ -24,5 +24,6 @@ public interface SolicitudDAO {
     public void actualizarAcuseSolicitud(int numero,boolean acuse)throws PersistenceException;
     public Solicitud consultarSolicitud(int numero) throws PersistenceException;
     public List<CourseStudent> consultCanceledSubjectsByStudent(int codigo) throws PersistenceException;
-    public List<Solicitud> consultRequestsByCoordinator(int codigo) throws PersistenceException;
+    public List<Solicitud> consultRequest(String consejero) throws PersistenceException;
+    public List<Solicitud> consultRequestsByCoordinator(String correo) throws PersistenceException;
 }

@@ -414,9 +414,9 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
         LOG.info("Consulta las solicitudes de cancelaciones a partir del correo del consejero "+consejero);
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
-            LOG.debug("Se realiza la consulta de las solicitudes de cancelacion a partir del consejero en EstudianteDAO");
-            solicitudes=estudiante.consultRequest(consejero);
-            if (solicitudes==null){
+            LOG.debug("Se realiza la consulta de las solicitudes de cancelacion a partir del consejero en SolicitudDAO");
+            solicitudes=solicitud.consultRequest(consejero);
+            if (solicitudes.isEmpty()){
                 throw new ExcepcionServiciosCancelaciones("El consejero no tiene solicitudes");
             }
         }catch (PersistenceException e){
@@ -725,18 +725,18 @@ public class ServiciosCancelacionesImpl implements ServiciosCancelaciones{
     
     
     @Override
-    public List<Solicitud> consultarSolicitudesPorCoordinador(int codigo) throws ExcepcionServiciosCancelaciones{
-        LOG.info("Consulta las solicitudes del coordinador con codigo "+codigo);
+    public List<Solicitud> consultarSolicitudesPorCoordinador(String correo) throws ExcepcionServiciosCancelaciones{
+        LOG.info("Consulta las solicitudes del coordinador con correo "+correo);
         List<Solicitud> solicitudes=new ArrayList<>();
         try{
             LOG.debug("Se realiza la consulta de las solicitudes del coordinador en SolicitudDAO");
-            solicitudes=solicitud.consultRequestsByCoordinator(codigo);
+            solicitudes=solicitud.consultRequestsByCoordinator(correo);
             if (solicitudes.isEmpty()){
                 throw new ExcepcionServiciosCancelaciones("El coordinador no tiene ninguna solicitud para revisar");
             }
         }catch (PersistenceException e){
-            LOG.error("No se pudo consultar las solicitudes para el coordinador con codigo "+codigo,e);
-            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes para el coordinador con codigo "+codigo);
+            LOG.error("No se pudo consultar las solicitudes para el coordinador con correo "+correo,e);
+            throw new ExcepcionServiciosCancelaciones("No se pudo consultar las solicitudes para el coordinador con correo "+correo);
         }catch (Exception e){
             LOG.error("Error inesperado al consultar las solicitudes de un coordinador",e);
             throw new ExcepcionServiciosCancelaciones("Error inesperado al consultar las solicitudes de un coordinador");

@@ -103,6 +103,26 @@
         WHERE e.codigo=#{codigo} AND s.estado='Aceptada'
     </select>
     
+    <select parameterType="map" id="consultRequest" resultMap="SolicitudResult">
+        select 
+            s.numero,
+            s.fecha,
+            s.justificacion,
+            s.comentarios,
+            s.estado,
+            s.acuseRecibo,
+            s.avalConsejero,
+            s.necesitaAcuseRecibo,
+            s.asignatura_nemonico,
+        
+            asi.nemonico as Asignatura_nemonico,
+            asi.nombre as Asignatura_nombre
+        
+        FROM (Estudiante as e LEFT JOIN ConsejeroAcademico as c on c.codigo=e.ConsejeroAcademico_codigo) JOIN Solicitud as s on s.Estudiante_codigo=e.codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
+        WHERE c.correo=#{correo}
+        ORDER BY (s.estado!='No tramitada',s.estado!='Tramitada',s.estado!='Aceptada',s.estado!='Rechazada'),s.fecha
+    </select>
+    
     <select parameterType="map" id="consultRequestsByCoordinator" resultMap="SolicitudResult" >
         select 
             s.numero,
@@ -119,7 +139,8 @@
             asi.nombre as Asignatura_nombre
         
         FROM Estudiante as e LEFT JOIN CoordinadorCancelaciones as c on c.codigo=e.CoordinadorCancelaciones_codigo JOIN Solicitud as s on s.Estudiante_codigo=e.codigo LEFT JOIN Asignatura as asi on asi.nemonico=s.asignatura_nemonico
-        WHERE c.codigo=#{codigo}
+        WHERE c.correo=#{correo}
+        ORDER BY (s.estado!='Tramitada',s.estado!='No tramitada',s.estado!='Aceptada',s.estado!='Rechazada'),s.fecha
     </select>
         
     <resultMap type="Solicitud" id="SolicitudResult" >
