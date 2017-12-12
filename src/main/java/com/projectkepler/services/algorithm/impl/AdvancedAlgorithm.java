@@ -21,7 +21,7 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
 
     private ArrayList<ArrayList<String>> proyection;
     private Syllabus syllabus;
-    public int maxCre;
+    public int maxCre,mats;
     SimpleAlgorithm algo = new SimpleAlgorithm();
     @Override
     public String[] getImpact(String course, HashMap<String, ArrayList<String>> graph, Syllabus planS,int maxCredits) {
@@ -42,6 +42,7 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
         maxCre=maxCredits;
         Gson g = new Gson();
         syllabus = planS;
+        mats=makeActualGraph(syllabus, courses).size();
         int x = solveYears(makeActualGraph(syllabus, courses), syllabus.getTotalCredits());
         Collections.reverse(proyection);
         String creditosPorVer = algo.getImpact(courses,graph,planS,maxCredits)[0];
@@ -66,9 +67,11 @@ public class AdvancedAlgorithm implements ImpactAnalizer {
                     mini = res;
                     theBest = (ArrayList<String>) c.clone();
                     //System.err.println(res+" "+c);
+                    proyection.add(c);
                 }
+                return mini;
             }
-            proyection.add(theBest);
+            //proyection.add(theBest);
             return mini;
         }
 

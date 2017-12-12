@@ -18,15 +18,15 @@ La plataforma de gestión para el acompañamiento académico de estudiantes, ha 
 ## Funcionalidades
 #### Analisis de Cancelacion:
 La idea de esta funcion, es reducir el numero de cancelaciones en el semestre dando al usuario un mensaje con consecuencias como mostrandole al usuario en cuanto tiempo se gradua, etc .....
-![alt text](https://github.com/Proyecto-PDSW/Proyecto/raw/master/images/impact.jpeg.png "Analis")
+![](img/impacto.PNG)
 tambien ofeecemos una opcion llamda proyeccion, ya que si el estudiante decide continuar con el proceso de cancelacion, tiene la opcion de ver cual seria su configuracion para graduarse lo mas rapido posible,.
-![alt text](https://github.com/Proyecto-PDSW/Proyecto/raw/master/images/proyeccion.jpeg.png "Analis")
+![](img/proyeccion.PNG)
 #### Comunicacion Consejero - Estudiante
 Con esta funcion tenemos el objetivo de mejorar y reducir el tiempo de respuesta entre el consejero y el estudiante, sin necesidad de citas.
-![alt text](https://github.com/Proyecto-PDSW/Proyecto/raw/master/images/consejero.jpeg.png "Consejero")
+![](img/Comunicacion.PNG)
 #### Visto bueno acudiente 
 Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acudientes, se enviara un correo electronico al acudiente el cual tiene que abrir y aceptar la cancelacion, esto pasa si el estudiante esta cursando los primeros semestes o ya ha cancelado esa nateria en el pasado.
-![alt text](https://github.com/Proyecto-PDSW/Proyecto/raw/master/images/Acudiente.jpeg.png "Acudiente")
+![](img/pagAcudiente.PNG)
 ## Arquitectura y Diseño detallado:
 > *El producto se realiza con los lenguajes Java, SQL, XML y HTML, mediante el uso de un stack de tecnologias; Apache Shiru, Gson, PrimeFaces, Guice y Postgres SQL, donde su desarrollo y construcci�n son dirigidos por medio de capas. Estas capas son:*
 >
@@ -35,9 +35,9 @@ Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acu
  - Persistencia: Mantiene una base de datos, donde permite manipular los datos y enviarle la informaci�n que necesita la capa l�gica
 
 - **Modelo de Base de Datos:**
-![](BaseDeDatos.PNG)
+![](img/BaseDeDatos.PNG)
 - **Modelo de Base de Datos:**
-![](DiagramaDeClases.PNG)
+![](img/DiagramaDeClases.PNG)
 - **Aplicaci�n:**
 
 #### **Descripci�n del Proceso:**

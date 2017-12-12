@@ -143,6 +143,10 @@ public class DetalleSolicitudBean{
             a+="Acuendinte";
         if(a.equals("Falta Aval de: "))
             a="Tramitada";
+        if(s.getEstado().equals("Aceptada"))
+            a="Aceptada";
+        else if (s.getEstado().equals("Rechazada"))
+            a="Rechazada";
         return a;
     }
 
