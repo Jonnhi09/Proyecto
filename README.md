@@ -18,15 +18,15 @@ La plataforma de gestión para el acompañamiento académico de estudiantes, ha 
 ## Funcionalidades
 #### Analisis de Cancelacion:
 La idea de esta funcion, es reducir el numero de cancelaciones en el semestre dando al usuario un mensaje con consecuencias como mostrandole al usuario en cuanto tiempo se gradua, etc .....
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/impacto.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/impacto.png)
 tambien ofeecemos una opcion llamda proyeccion, ya que si el estudiante decide continuar con el proceso de cancelacion, tiene la opcion de ver cual seria su configuracion para graduarse lo mas rapido posible,.
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/proyeccion.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/proyeccion.PNG)
 #### Comunicacion Consejero - Estudiante
 Con esta funcion tenemos el objetivo de mejorar y reducir el tiempo de respuesta entre el consejero y el estudiante, sin necesidad de citas.
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/Comunicacion.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/Comunicacion.PNG)
 #### Visto bueno acudiente 
 Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acudientes, se enviara un correo electronico al acudiente el cual tiene que abrir y aceptar la cancelacion, esto pasa si el estudiante esta cursando los primeros semestes o ya ha cancelado esa nateria en el pasado.
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/pagAcudiente.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/pagAcudiente.PNG)
 ## Arquitectura y Diseño detallado:
 > *El producto se realiza con los lenguajes Java, SQL, XML y HTML, mediante el uso de un stack de tecnologias; Apache Shiru, Gson, PrimeFaces, Guice y Postgres SQL, donde su desarrollo y construcci�n son dirigidos por medio de capas. Estas capas son:*
 >
@@ -35,9 +35,9 @@ Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acu
  - Persistencia: Mantiene una base de datos, donde permite manipular los datos y enviarle la informaci�n que necesita la capa l�gica
 
 - **Modelo de Base de Datos:**
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/BaseDeDatos.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/BaseDeDatos.PNG)
 - **Modelo de Base de Datos:**
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/DiagramaDeClases.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/DiagramaDeClases.PNG)
 - **Aplicaci�n:**
 
 #### **Descripci�n del Proceso:**
@@ -48,33 +48,33 @@ Ya que muchos estudiantes cancelan varias materias sin consentimiento de sus acu
 - **Sprint 1:**
 > - **Sprint-Backlog:**
 
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/sprint1-backlog.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/sprint1-backlog.PNG)
 
 > - **Sprint-Burdown Chart:**
 
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/sprint1-burdownchart.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/sprint1-burdownchart.PNG)
 
 > Para este Sprint presentamos algunos inconvenientes en cuanto a coordinaci�n y asignaci�n de las tareas por lo que para fechas cercanas al Review  decidimos intentar solucionar esos inconvenientes con exceso de tareas asignadas para cada integrante de acuerdo a las tareas que se iban finalizando pero que realmente provoc� mayor descoordinaci�n para el producto del review.
 
 - **Sprint 2:**
 > - **Sprint-Backlog:**
 
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/sprint2-backlog.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/sprint2-backlog.PNG)
 
 > - **Sprint-Burdown Chart:**
 
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/sprint2-burdownchart.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/sprint2-burdownchart.PNG)
 
 > Para este Sprint por la experiencia que obtuvimos en el anterior decidimos realizar un planning bastante m�s elaborado de acuerdo a las mejores destrezas que ten�a cada integrante entonces se le asignaba cierto tipo de tareas, de est� forma aumentar�amos la calidad del trabajo de cada integrante y de lo que al final se convertir�a en un producto viable al momento del review.
 
 - **Sprint 3:**
 > - **Sprint-Backlog:**
 
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/sprint3-backlog.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/sprint3-backlog.PNG)
 
 > - **Sprint-Burdown Chart:**
 
-![](https://github.com/Proyecto-PDSW/Proyecto/tree/master/img/sprint3-burdownchart.PNG)
+![](https://github.com/Proyecto-PDSW/Proyecto/blob/master/img/sprint3-burdownchart.PNG)
 
 > Para este sprint tuvimos inconvenientes con la disponibilidad de tiempo por parte de todos los miembros del equipo por lo cual intentamos utilizar otra estrategia y fue asignarnos tareas de acuerdo a las destrezas de los integrantes (al igual que en el sprint anterior) pero de igual manera tambien acordar esas tareas por historias de uso para avanzar en todas las historias de uso a la par y que no quedase con inconsistencias el producto final.
 
